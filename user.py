@@ -1,8 +1,8 @@
 class User:
     highestUID = 0
-    def createLeague(self,leagueName, startBalance,numberOfDays,restrcitions):
+    def createLeague(self,leagueName, startBalance,numberOfDays,restrictions):
         # add constructor for create League
-        #League(leagueName,
+        # League(leagueName,startBalance,numberOfDays,restrictions)
     def joinLeague(self, leagueName,startBalance,numberOfDays):
         #add code to join league
 
@@ -13,3 +13,4 @@ class User:
         self.total_points = None
         self.mostRecentAchievements = None
         self.player_Achievements = None
+
