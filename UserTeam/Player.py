@@ -18,30 +18,32 @@ class Player:
             print("The player does not have enough money")
             return -1
         else:
-    # TODO add the stock information into the field of holding
-        return 0
+            # TODO add the stock information into the field of holding
+            return 0
 
     def marketSell(self, stockTicker, unitPrice, amount):
+        return
 
     # TODO if the player does not hold enough shares
-
 
     def limitBuy(self, stockTicker, amount, limitPrice):
         if amount * limitPrice < self.fund:
             print("The player does not have enough money")
             return -1
         else:
-        # TODO add the stock information into the field of holding
-        return 0
+            # TODO add the stock information into the field of holding
+            return 0
 
     def limitSell(self, stockTicker, amount, limitPrice):
+        return
 
     # TODO
 
     def shortBuy(self, stockTicker, amount, price):
+        return
 
     # TODO
 
     def shortSell(self, stockTicker, amount, price):
-
+        return
     # TODO
