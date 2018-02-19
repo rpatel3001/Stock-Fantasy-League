@@ -3,7 +3,17 @@
 '''
 
 
-# For one stock, the stock info is stored in the following class
+'''
+    This is a fake method that I need to get from Rajan
+'''
+def getPrice(stockTicker):
+    return
+
+
+
+'''
+    For one stock, the stock info is stored in the following class
+'''
 class stockInfo:
     def __init__(self, stockTicker, shares):
         self.stockTicker = stockTicker
@@ -11,67 +21,109 @@ class stockInfo:
 
     # Return how many shares of a stock this person is holding
     def getShares(self):
-        return self.holdings
+        return self.shares
+
+    def getStockTicker(self):
+        return self.stockTicker
 
 
+
+
+'''
+    This object contains an array of "stockInfo" and is initialized as an empty list
+'''
 class StockHolding:
     def __init__(self):
         # holds is an array of stocks a player is holding right now
         self.holds = []
 
-    def buyStock(self, stockTicker, shares):
-        # TODO add more conditions
-        self.holds.append(stockInfo(stockTicker, shares))
+    # When the program restarts again, we might need to pull data from the database
+    def pullHoldingDate(self, listOfHoldedStocks):
+        self.holds = listOfHoldedStocks
 
-    def sellStock(self, stockTicker, shares):
-        holds = self.holds
-        for i in holds:
-            if i.stockTicker == stockTicker:
-                # TODO add more conditions
-                return 0
-            else:
-                print("The player does not own the stock selected.")
-                return -1
+    def findStock(self, stockTicker):
+        if len(self.holds) == 0:
+            return -1
+
+        for i in range(len(self.holds)):
+            if self.holds.getStockTicker == stockTicker:
+                return i
+
+        return -1
 
 
+'''
+   This class represents the actual player object which later will have the options of buying and selling
+'''
 class Player:
-    def __init__(self, holding, fund=5000):
-        self.holding = holding
-        self.fund = fund
+    def __init__(self, holding, fund=5000, PID):
+        self.holding = StockHolding()
+        # TODO We want to call pullHoldingDate() after the data base is ready
+        self.balance = fund
+        self.pID = PID
 
     def getHolding(self):
         return self.holding
 
-    def marketBuy(self, sotckTicker, unitPrice, amount):
-        if amount * unitPrice < self.fund:
+    def getBalance(self):
+        return self.balance
+
+
+
+    def marketBuy(self, stockTicker, amount):
+        if amount * getPrice(stockTicker) < self.getBalance():
             print("The player does not have enough money")
-            return -1
+            return False
+        else:
+            index = self.holding.findStock(stockTicker)
+            if index == -1:
+                self.holding.append()
+
+
+            # TODO add the stock information into the field of holding
+            return True
+
+
+
+    def marketSell(self, stockTicker, amount):
+
+
+
+
+        if amount * getPrice(stockTicker) < self.getBalance():
+            print("The player does not have enough stock shares")
+            return False
         else:
             # TODO add the stock information into the field of holding
-            return 0
-
-    def marketSell(self, stockTicker, unitPrice, amount):
-        return
+            return True
 
     # TODO if the player does not hold enough shares
 
-    def limitBuy(self, stockTicker, amount, limitPrice):
-        if amount * limitPrice < self.fund:
+
+
+    def limitBuy(self, stockTicker, amount):
+        if amount * getPrice(stockTicker) < self.getBalance():
             print("The player does not have enough money")
             return -1
         else:
             # TODO add the stock information into the field of holding
             return 0
+
+
 
     def limitSell(self, stockTicker, amount, limitPrice):
         return
 
     # TODO
 
+
+
     def shortBuy(self, stockTicker, amount, price):
         return
 
     # TODO
+
+
 
     def shortSell(self, stockTicker, amount, price):
         return
