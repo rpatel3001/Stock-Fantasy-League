@@ -23,51 +23,51 @@ class stockInfo:
     def getShares(self):
         return self.shares
 
+    def upDateShares(self, amount):
+        self.shares += amount
+
     def getStockTicker(self):
         return self.stockTicker
-
-
-
-
-'''
-    This object contains an array of "stockInfo" and is initialized as an empty list
-'''
-class StockHolding:
-    def __init__(self):
-        # holds is an array of stocks a player is holding right now
-        self.holds = []
-
-    # When the program restarts again, we might need to pull data from the database
-    def pullHoldingDate(self, listOfHoldedStocks):
-        self.holds = listOfHoldedStocks
-
-    def findStock(self, stockTicker):
-        if len(self.holds) == 0:
-            return -1
-
-        for i in range(len(self.holds)):
-            if self.holds.getStockTicker == stockTicker:
-                return i
-
-        return -1
 
 
 '''
    This class represents the actual player object which later will have the options of buying and selling
 '''
 class Player:
-    def __init__(self, holding, fund=5000, PID):
-        self.holding = StockHolding()
+    def __init__(self, PID, fund=5000):
+
+        # holdings is an array of object --> stockInfo
+        self.holdings = []
+
         # TODO We want to call pullHoldingDate() after the data base is ready
+
         self.balance = fund
+
         self.pID = PID
 
+    # Return a list of stocks that have been held
     def getHolding(self):
-        return self.holding
+        return self.holdings
 
+    # Return current balance without counting the stock values
     def getBalance(self):
         return self.balance
 
+    # When the program restarts again, we might need to pull data from the database
+    def pullDate(self,  PID):
+
+        #TODO
+        return
+
+        # Return the index of a stock in the list
+    def findStock(self, stockTicker):
+        if len(self.holdings) == 0:
+            return -1
+
+        for i in range(len(self.holdings)):
+            if self.holdings[i].getStockTicker() == stockTicker:
+                return i
+            return -1
 
 
     def marketBuy(self, stockTicker, amount):
@@ -75,29 +75,32 @@ class Player:
             print("The player does not have enough money")
             return False
         else:
-            index = self.holding.findStock(stockTicker)
+            index = self.findStock(stockTicker)
             if index == -1:
-                self.holding.append()
+                self.holdings.append(stockInfo(stockTicker, amount))
+            else:
+                temp = self.holdings[index]
+                temp.updateShares(amount)
 
-
-            # TODO add the stock information into the field of holding
+            # Update the balance
+            self.balance -= amount * getPrice(stockTicker)
             return True
 
 
 
     def marketSell(self, stockTicker, amount):
-
-
-
-
-        if amount * getPrice(stockTicker) < self.getBalance():
-            print("The player does not have enough stock shares")
-            return False
+        index = self.findStock(stockTicker)
+        if index == -1:
+            print("The player does not have this stock.")
+        elif amount > self.holdings[index]:
+            print("The player does not have enough shares of this stock.")
         else:
-            # TODO add the stock information into the field of holding
+            temp = self.holdings[index]
+            temp.updateShares(amount * -1)
+            # Update the balance
+            self.balance += amount * getPrice(stockTicker)
             return True
-
-    # TODO if the player does not hold enough shares
+        return False
 
 
 
