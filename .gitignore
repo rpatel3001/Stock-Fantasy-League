@@ -2,3 +2,4 @@ apikey.txt
 serviceaccountdetails.json
 
 .idea/
+__pycache__
