@@ -1,5 +1,6 @@
 from flask import Flask
 import pyrebase
+import StockData
 
 app = Flask(__name__)
 
@@ -19,7 +20,7 @@ db = firebase.database()
 @app.route('/')
 def getstock():
 	user = db.child("users").child("u1").get().val()
-	return user['firstname'] + " has picked " + user['stock']
+	return user['firstname'] + " has picked " + user['stock'] + " which costs $" + StockData.getCurrentPrice(user['stock'])
 
 @app.route('/<string:user>/<string:stock>')
 def setstock(user, stock):
