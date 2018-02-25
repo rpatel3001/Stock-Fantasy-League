@@ -1,5 +1,4 @@
-"""
-Main server appplication for the fantasy platform.
+"""Main server appplication for the fantasy platform.
 
 Provides routing for dynamic parts of the site, and links front-end API calls
 to back-end database transactions.
@@ -27,23 +26,43 @@ db = firebase.database()
 
 @app.route('/')
 def get_stock():
-	"""
-	Landing page.
+	"""Landing page.
 
 	Shows stored stock and it's current price.
+
+	Args:
+		none
+
+	Raises:
+		none
+
+	Returns:
+		string : text to be displayed as a website
 	"""
 
     user = db.child("users").child("u1").get().val()
-    return user['firstname'] + " has picked " + user['stock'] \
-        + " which costs $" + StockData.getCurrentPrice(user['stock'])
+    try:
+	    return user['firstname'] + " has picked " + user['stock'] \
+    	    + " which costs $" + StockData.getCurrentPrice(user['stock'])
+    except:
+    	return "stored stock symbol " + user['stock'] + " was not found"
 
 
 @app.route('/<string:user>/<string:stock>')
 def set_stock(user, stock):
+	"""Updates stored stock.
+
+	Args:
+		user (string) : The name of the user to update
+		stock (string) : The new stock symbol to track
+
+	Raises:
+		none
+
+	Returns:
+		string : text to be displayed to the user as a web page
 	"""
-	Updates stored stock.
-	"""
-	
+
     users = db.child("users").get()
     for u in users.each():
         if u.val()['firstname'] == user:
