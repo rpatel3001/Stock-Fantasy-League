@@ -4,70 +4,69 @@ Provides routing for dynamic parts of the site, and links front-end API calls
 to back-end database transactions.
 """
 
-import StockData
 from flask import Flask
 import pyrebase
+import StockData
 
 app = Flask(__name__)
 
-apikeyfile = open('apikey.txt', 'r')
-apikey = apikeyfile.readline()
-fbconfig = {
-    "apiKey": apikey,
+API_KEY_FILE = open('apikey.txt', 'r')
+API_KEY = API_KEY_FILE.readline()
+API_KEY_FILE.close()
+FB_CONFIG = {
+    "apiKey": API_KEY,
     "authDomain": "stock-fantasy-league.firebaseapp.com",
     "databaseURL": "https://stock-fantasy-league.firebaseio.com",
     "storageBucket": "stock-fantasy-league.appspot.com",
     "serviceAccount": "serviceaccountdetails.json"
 }
-firebase = pyrebase.initialize_app(fbconfig)
+firebase = pyrebase.initialize_app(FB_CONFIG)
 auth = firebase.auth()
 db = firebase.database()
 
 
 @app.route('/')
 def get_stock():
-	"""Landing page.
+    """Landing page.
 
-	Shows stored stock and it's current price.
+    Shows stored stock and it's current price.
 
-	Args:
-		none
+    Args:
+        none
 
-	Raises:
-		none
+    Raises:
+        none
 
-	Returns:
-		string : text to be displayed as a website
-	"""
-
+    Returns:
+        string : text to be displayed as a website
+    """
     user = db.child("users").child("u1").get().val()
     try:
-	    return user['firstname'] + " has picked " + user['stock'] \
-    	    + " which costs $" + StockData.getCurrentPrice(user['stock'])
-    except:
-    	return "stored stock symbol " + user['stock'] + " was not found"
+        return user['firstname'] + " has picked " + user['stock'] \
+            + " which costs $" + StockData.get_current_price(user['stock'])
+    except ValueError:
+        return "stored stock symbol " + user['stock'] + " was not found"
 
 
 @app.route('/<string:user>/<string:stock>')
 def set_stock(user, stock):
-	"""Updates stored stock.
+    """Update stored stock.
 
-	Args:
-		user (string) : The name of the user to update
-		stock (string) : The new stock symbol to track
+    Args:
+        user (string) : The name of the user to update
+        stock (string) : The new stock symbol to track
 
-	Raises:
-		none
+    Raises:
+        none
 
-	Returns:
-		string : text to be displayed to the user as a web page
-	"""
-
+    Returns:
+        string : text to be displayed to the user as a web page
+    """
     users = db.child("users").get()
-    for u in users.each():
-        if u.val()['firstname'] == user:
-            db.child("users").child(u.key()).update({"stock": stock})
-            return "updated " + u.val()['firstname'] + "'s stock to " + stock
+    for user_entry in users.each():
+        if user_entry.val()['firstname'] == user:
+            db.child("users").child(user_entry.key()).update({"stock": stock})
+            return user_entry.val()['firstname'] + "'s new stock is " + stock
 
     return "user not found"
 
