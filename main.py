@@ -6,7 +6,7 @@ to back-end database transactions.
 
 from flask import Flask
 import pyrebase
-import StockData
+import stock_data
 
 app = Flask(__name__)
 
@@ -43,7 +43,7 @@ def get_stock():
     user = db.child("users").child("u1").get().val()
     try:
         return user['firstname'] + " has picked " + user['stock'] \
-            + " which costs $" + StockData.get_current_price(user['stock'])
+            + " which costs $" + stock_data.get_current_price(user['stock'])
     except ValueError:
         return "stored stock symbol " + user['stock'] + " was not found"
 
