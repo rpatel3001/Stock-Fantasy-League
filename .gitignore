@@ -1,3 +1,4 @@
+.env
 apikey.txt
 serviceaccountdetails.json
 Pipfile.lock
