@@ -15,6 +15,9 @@ app = Flask(__name__)
 
 API_KEY = os.environ["API_KEY"]
 FB_SERVICE_ACCOUNT_DETAILS = os.environ["FB_SERVICE_ACCOUNT_DETAILS"]
+FB_SERVICE_ACCOUNT_DETAILS_FILE = open("serviceaccountdetails.json", 'w')
+FB_SERVICE_ACCOUNT_DETAILS_FILE.write(FB_SERVICE_ACCOUNT_DETAILS)
+FB_SERVICE_ACCOUNT_DETAILS_FILE.close()
 FB_CONFIG = {
     "apiKey": API_KEY,
     "authDomain": "stock-fantasy-league.firebaseapp.com",
