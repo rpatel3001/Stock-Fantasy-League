@@ -4,9 +4,12 @@ Provides routing for dynamic parts of the site, and links front-end API calls
 to back-end database transactions.
 """
 
+from urllib.parse import urlparse
 from flask import Flask
 import pyrebase
+import psycopg2
 import stock_data
+import os
 
 app = Flask(__name__)
 
@@ -22,7 +25,21 @@ FB_CONFIG = {
 }
 firebase = pyrebase.initialize_app(FB_CONFIG)
 auth = firebase.auth()
-db = firebase.database()
+
+# init postgresql table
+if os.environ.get('HEROKU'):
+    urlparse.uses_netloc.append("postgres")
+    url = urlparse(os.environ["DATABASE_URL"])
+    conn = psycopg2.connect(
+        database=url.path[1:],
+        user=url.username,
+        password=url.password,
+        host=url.hostname,
+        port=url.port
+    )
+else:
+    pass
+db = 1
 
 
 @app.route('/')
@@ -40,6 +57,7 @@ def get_stock():
     Returns:
         string : text to be displayed as a website
     """
+    return "hello"
     user = db.child("users").child("u1").get().val()
     try:
         return user['firstname'] + " has picked " + user['stock'] \

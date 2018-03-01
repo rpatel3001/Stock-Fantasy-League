@@ -1,5 +1,6 @@
 apikey.txt
 serviceaccountdetails.json
+Pipfile.lock
 
 .idea/
 __pycache__
