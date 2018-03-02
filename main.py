@@ -13,21 +13,26 @@ import psycopg2
 import psycopg2.extras
 import stock_data
 
+
+def debug(str):
+    """Debug printing for Heroku."""
+    print("==============================================", file=sys.stderr)
+    print(str, file=sys.stderr)
+    print("==============================================", file=sys.stderr)
+
+
 app = Flask(__name__)
 
 # init postgresql table
-if os.environ.get('HEROKU'):
-    url = urlparse(os.environ["DATABASE_URL"])
-    db = psycopg2.connect(
-        database=url.path[1:],
-        user=url.username,
-        password=url.password,
-        host=url.hostname,
-        port=url.port,
-        cursor_factory=psycopg2.extras.DictCursor
-    )
-else:
-    print('not in heroku')
+url = urlparse(os.environ["DATABASE_URL"])
+db = psycopg2.connect(
+    database=url.path[1:],
+    user=url.username,
+    password=url.password,
+    host=url.hostname,
+    port=url.port,
+    cursor_factory=psycopg2.extras.DictCursor
+)
 
 # grab the firebase api key
 API_KEY = os.environ["API_KEY"]
@@ -48,13 +53,6 @@ FB_CONFIG = {
 # initialize firebase services
 firebase = pyrebase.initialize_app(FB_CONFIG)
 auth = firebase.auth()
-
-
-def debug(str):
-    """Debug printing for Heroku."""
-    print("==============================================", file=sys.stderr)
-    print(str, file=sys.stderr)
-    print("==============================================", file=sys.stderr)
 
 
 @app.route('/')
