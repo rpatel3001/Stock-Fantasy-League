@@ -5,15 +5,34 @@ to back-end database transactions.
 """
 
 from urllib.parse import urlparse
+import os
+import sys
 from flask import Flask
 import pyrebase
 import psycopg2
+import psycopg2.extras
 import stock_data
-import os
 
 app = Flask(__name__)
 
+# init postgresql table
+if os.environ.get('HEROKU'):
+    url = urlparse(os.environ["DATABASE_URL"])
+    db = psycopg2.connect(
+        database=url.path[1:],
+        user=url.username,
+        password=url.password,
+        host=url.hostname,
+        port=url.port,
+        cursor_factory=psycopg2.extras.DictCursor
+    )
+else:
+    print('not in heroku')
+
+# grab the firebase api key
 API_KEY = os.environ["API_KEY"]
+
+# grab the service account details and write them to a temporary file
 FB_SERVICE_ACCOUNT_DETAILS = os.environ["FB_SERVICE_ACCOUNT_DETAILS"]
 FB_SERVICE_ACCOUNT_DETAILS_FILE = open("serviceaccountdetails.json", 'w')
 FB_SERVICE_ACCOUNT_DETAILS_FILE.write(FB_SERVICE_ACCOUNT_DETAILS)
@@ -25,23 +44,15 @@ FB_CONFIG = {
     "storageBucket": "stock-fantasy-league.appspot.com",
     "serviceAccount": "serviceaccountdetails.json"
 }
+
+# initialize firebase services
 firebase = pyrebase.initialize_app(FB_CONFIG)
 auth = firebase.auth()
 
-# init postgresql table
-if os.environ.get('HEROKU'):
-    urlparse.uses_netloc.append("postgres")
-    url = urlparse(os.environ["DATABASE_URL"])
-    conn = psycopg2.connect(
-        database=url.path[1:],
-        user=url.username,
-        password=url.password,
-        host=url.hostname,
-        port=url.port
-    )
-else:
-    pass
-db = 1
+
+def debug(str):
+    """Debug printing for Heroku."""
+    print(str, file=sys.stderr)
 
 
 @app.route('/')
@@ -59,13 +70,15 @@ def get_stock():
     Returns:
         string : text to be displayed as a website
     """
-    return "hello"
-    user = db.child("users").child("u1").get().val()
+    db_conn = db.cursor()
+    db_conn.execute("SELECT * FROM testdb WHERE name LIKE %s;", ('rajan',))
+    user = db_conn.fetchone()
+    db.commit()
     try:
-        return user['firstname'] + " has picked " + user['stock'] \
-            + " which costs $" + stock_data.get_current_price(user['stock'])
+        return user['name'] + " has picked " + user['sym'] \
+            + " which costs $" + stock_data.get_current_price(user['sym'])
     except ValueError:
-        return "stored stock symbol " + user['stock'] + " was not found"
+        return "stored stock symbol " + user['sym'] + " was not found"
 
 
 @app.route('/<string:user>/<string:stock>')
@@ -82,13 +95,14 @@ def set_stock(user, stock):
     Returns:
         string : text to be displayed to the user as a web page
     """
-    users = db.child("users").get()
-    for user_entry in users.each():
-        if user_entry.val()['firstname'] == user:
-            db.child("users").child(user_entry.key()).update({"stock": stock})
-            return user_entry.val()['firstname'] + "'s new stock is " + stock
-
-    return "user not found"
+    db_conn = db.cursor()
+    db_conn.execute("UPDATE testdb SET sym = %s WHERE name = %s", (stock, user))
+    success = db_conn.rowcount == 1
+    db.commit()
+    if success:
+        return user + "'s new stock is " + stock
+    else:
+        return "user not found"
 
 
 if __name__ == "__main__":
