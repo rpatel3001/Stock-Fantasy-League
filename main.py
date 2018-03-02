@@ -52,7 +52,9 @@ auth = firebase.auth()
 
 def debug(str):
     """Debug printing for Heroku."""
+    print("==============================================", file=sys.stderr)
     print(str, file=sys.stderr)
+    print("==============================================", file=sys.stderr)
 
 
 @app.route('/')
@@ -74,6 +76,7 @@ def get_stock():
     db_conn.execute("SELECT * FROM testdb WHERE name LIKE %s;", ('rajan',))
     user = db_conn.fetchone()
     db.commit()
+    db_conn.close()
     try:
         return user['name'] + " has picked " + user['sym'] \
             + " which costs $" + stock_data.get_current_price(user['sym'])
@@ -99,6 +102,7 @@ def set_stock(user, stock):
     db_conn.execute("UPDATE testdb SET sym = %s WHERE name = %s", (stock, user))
     success = db_conn.rowcount == 1
     db.commit()
+    db_conn.close()
     if success:
         return user + "'s new stock is " + stock
     else:
