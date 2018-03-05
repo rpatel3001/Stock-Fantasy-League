@@ -12,6 +12,7 @@ pyrebase = "*"
 flask = "*"
 gunicorn = "*"
 "psycopg2-binary" = "*"
+flask-restful = "*"
 
 
 [dev-packages]

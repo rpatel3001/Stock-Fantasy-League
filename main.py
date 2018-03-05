@@ -9,6 +9,7 @@ from functools import wraps
 import os
 import sys
 from flask import Flask
+from flask_restful import reqparse, abort, Resource, Api
 import pyrebase
 import psycopg2
 import psycopg2.extras
@@ -22,7 +23,13 @@ def debug(msg):
     print("==============================================", file=sys.stderr)
 
 
+def success(msg):
+    """Return a success code."""
+    return {"message": msg}, 200
+
+
 app = Flask(__name__)
+api = Api(app)
 
 # init postgresql table
 url = urlparse(os.environ["DATABASE_URL"])
@@ -67,52 +74,66 @@ def with_db(func):
     return wrapper
 
 
-@app.route('/')
-@with_db
-def get_stock(cur):
-    """Landing page.
+class UserStock(Resource):
+    """Define routes for the test program."""
 
-    Shows stored stock and it's current price.
+    @staticmethod
+    @with_db
+    def get(cur, user_name):
+        """Landing page.
 
-    Args:
-        none
+        Shows stored stock and it's current price.
 
-    Raises:
-        none
+        Args:
+            none
 
-    Returns:
-        string : text to be displayed as a website
-    """
-    cur.execute("SELECT * FROM testdb WHERE name LIKE %s;", ('rajan',))
-    user = cur.fetchone()
-    try:
-        return user['name'] + " has picked " + user['sym'] \
-            + " which costs $" + stock_data.get_current_price(user['sym'])
-    except ValueError:
-        return "stored stock symbol " + user['sym'] + " was not found"
+        Raises:
+            none
+
+        Returns:
+            string : text to be displayed as a website
+        """
+        cur.execute("SELECT * FROM testdb WHERE name LIKE %s;", (user_name,))
+        user = cur.fetchone()
+        if user is None:
+            abort(404, message="User {} not found.".format(user_name))
+        try:
+            return {user['sym']: stock_data.get_current_price(user['sym'])}
+        except ValueError:
+            abort(404, message="Symbol {} not found.".format(user['sym']))
+
+    @staticmethod
+    @with_db
+    def patch(cur, user_name):
+        """Update stored stock.
+
+        Args:
+            user (string) : The name of the user to update
+            stock (string) : The new stock symbol to track
+
+        Raises:
+            none
+
+        Returns:
+            string : text to be displayed to the user as a web page
+        """
+        parser = reqparse.RequestParser()
+        parser.add_argument('stock_sym')
+        args = parser.parse_args()
+        sym = args['stock_sym']
+        try:
+            stock_data.get_current_price(sym)
+        except ValueError:
+            abort(404, message="Symbol {} not found".format(sym))
+
+        cur.execute("UPDATE testdb SET sym = %s WHERE name = %s",
+                    (sym, user_name))
+        if cur.rowcount == 1:
+            return success("{}'s stock updated to {}".format(user_name, sym))
+        abort(404, message="User {} not found.".format(user_name))
 
 
-@app.route('/<string:user>/<string:stock>')
-@with_db
-def set_stock(cur, user, stock):
-    """Update stored stock.
-
-    Args:
-        user (string) : The name of the user to update
-        stock (string) : The new stock symbol to track
-
-    Raises:
-        none
-
-    Returns:
-        string : text to be displayed to the user as a web page
-    """
-    cur.execute("UPDATE testdb SET sym = %s WHERE name = %s", (stock, user))
-    success = cur.rowcount == 1
-    if success:
-        return user + "'s new stock is " + stock
-    return "user not found"
-
+api.add_resource(UserStock, '/<string:user_name>')
 
 if __name__ == "__main__":
     app.run(debug=True)
