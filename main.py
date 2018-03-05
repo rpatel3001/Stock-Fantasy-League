@@ -5,6 +5,7 @@ to back-end database transactions.
 """
 
 from urllib.parse import urlparse
+from functools import wraps
 import os
 import sys
 from flask import Flask
@@ -14,10 +15,10 @@ import psycopg2.extras
 import stock_data
 
 
-def debug(str):
+def debug(msg):
     """Debug printing for Heroku."""
     print("==============================================", file=sys.stderr)
-    print(str, file=sys.stderr)
+    print(msg, file=sys.stderr)
     print("==============================================", file=sys.stderr)
 
 
@@ -25,7 +26,7 @@ app = Flask(__name__)
 
 # init postgresql table
 url = urlparse(os.environ["DATABASE_URL"])
-db = psycopg2.connect(
+db_conn = psycopg2.connect(
     database=url.path[1:],
     user=url.username,
     password=url.password,
@@ -55,8 +56,20 @@ firebase = pyrebase.initialize_app(FB_CONFIG)
 auth = firebase.auth()
 
 
+def with_db(func):
+    """Create a decorator to wrap functions which access the database."""
+    @wraps(func)
+    def wrapper(*a, **kw):
+        """Using 'with' blocks commits transactions when the function exits."""
+        with db_conn:
+            with db_conn.cursor() as cur:
+                return func(cur, *a, **kw)
+    return wrapper
+
+
 @app.route('/')
-def get_stock():
+@with_db
+def get_stock(cur):
     """Landing page.
 
     Shows stored stock and it's current price.
@@ -70,11 +83,8 @@ def get_stock():
     Returns:
         string : text to be displayed as a website
     """
-    db_conn = db.cursor()
-    db_conn.execute("SELECT * FROM testdb WHERE name LIKE %s;", ('rajan',))
-    user = db_conn.fetchone()
-    db.commit()
-    db_conn.close()
+    cur.execute("SELECT * FROM testdb WHERE name LIKE %s;", ('rajan',))
+    user = cur.fetchone()
     try:
         return user['name'] + " has picked " + user['sym'] \
             + " which costs $" + stock_data.get_current_price(user['sym'])
@@ -83,7 +93,8 @@ def get_stock():
 
 
 @app.route('/<string:user>/<string:stock>')
-def set_stock(user, stock):
+@with_db
+def set_stock(cur, user, stock):
     """Update stored stock.
 
     Args:
@@ -96,15 +107,11 @@ def set_stock(user, stock):
     Returns:
         string : text to be displayed to the user as a web page
     """
-    db_conn = db.cursor()
-    db_conn.execute("UPDATE testdb SET sym = %s WHERE name = %s", (stock, user))
-    success = db_conn.rowcount == 1
-    db.commit()
-    db_conn.close()
+    cur.execute("UPDATE testdb SET sym = %s WHERE name = %s", (stock, user))
+    success = cur.rowcount == 1
     if success:
         return user + "'s new stock is " + stock
-    else:
-        return "user not found"
+    return "user not found"
 
 
 if __name__ == "__main__":
