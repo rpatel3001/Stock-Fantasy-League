@@ -7,31 +7,18 @@ to back-end database transactions.
 from urllib.parse import urlparse
 from functools import wraps
 import os
-import sys
 from flask import Flask
-from flask_restful import reqparse, abort, Resource, Api
+from flask_restful import Api
 import pyrebase
 import psycopg2
 import psycopg2.extras
-import stock_data
-
-
-def debug(msg):
-    """Debug printing for Heroku."""
-    print("==============================================", file=sys.stderr)
-    print(msg, file=sys.stderr)
-    print("==============================================", file=sys.stderr)
-
-
-def success(msg):
-    """Return a success code."""
-    return {"message": msg}, 200
+from testapp import UserStock
 
 
 app = Flask(__name__)
 api = Api(app)
 
-# init postgresql table
+# init postgresql connection
 url = urlparse(os.environ["DATABASE_URL"])
 db_conn = psycopg2.connect(
     database=url.path[1:],
@@ -70,70 +57,22 @@ def with_db(func):
         """Using 'with' blocks commits transactions when the function exits."""
         with db_conn:
             with db_conn.cursor() as cur:
+                print(cur)
+                print(a)
+                print(kw)
                 return func(cur, *a, **kw)
     return wrapper
 
 
-class UserStock(Resource):
-    """Define routes for the test program."""
-
-    @staticmethod
-    @with_db
-    def get(cur, user_name):
-        """Landing page.
-
-        Shows stored stock and it's current price.
-
-        Args:
-            none
-
-        Raises:
-            none
-
-        Returns:
-            string : text to be displayed as a website
-        """
-        cur.execute("SELECT * FROM testdb WHERE name LIKE %s;", (user_name,))
-        user = cur.fetchone()
-        if user is None:
-            abort(404, message="User {} not found.".format(user_name))
-        try:
-            return {user['sym']: stock_data.get_current_price(user['sym'])}
-        except ValueError:
-            abort(404, message="Symbol {} not found.".format(user['sym']))
-
-    @staticmethod
-    @with_db
-    def patch(cur, user_name):
-        """Update stored stock.
-
-        Args:
-            user (string) : The name of the user to update
-            stock (string) : The new stock symbol to track
-
-        Raises:
-            none
-
-        Returns:
-            string : text to be displayed to the user as a web page
-        """
-        parser = reqparse.RequestParser()
-        parser.add_argument('stock_sym')
-        args = parser.parse_args()
-        sym = args['stock_sym']
-        try:
-            stock_data.get_current_price(sym)
-        except ValueError:
-            abort(404, message="Symbol {} not found".format(sym))
-
-        cur.execute("UPDATE testdb SET sym = %s WHERE name = %s",
-                    (sym, user_name))
-        if cur.rowcount == 1:
-            return success("{}'s stock updated to {}".format(user_name, sym))
-        abort(404, message="User {} not found.".format(user_name))
+def class_with_db(cls):
+    """Apply the 'with_db' decorator to all the functions in a class."""
+    for attr in cls.__dict__:
+        if callable(getattr(cls, attr)):
+            setattr(cls, attr, staticmethod(with_db(getattr(cls, attr))))
+    return cls
 
 
-api.add_resource(UserStock, '/<string:user_name>')
+api.add_resource(class_with_db(UserStock), '/<string:user_name>')
 
 if __name__ == "__main__":
     app.run(debug=True)
