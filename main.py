@@ -9,7 +9,6 @@ from functools import wraps
 import os
 from flask import Flask
 from flask_restful import Api
-import pyrebase
 import psycopg2
 import psycopg2.extras
 from testapp import UserStock
@@ -28,26 +27,6 @@ db_conn = psycopg2.connect(
     port=url.port,
     cursor_factory=psycopg2.extras.DictCursor
 )
-
-# grab the firebase api key
-API_KEY = os.environ["API_KEY"]
-
-# grab the service account details and write them to a temporary file
-FB_SERVICE_ACCOUNT_DETAILS = os.environ["FB_SERVICE_ACCOUNT_DETAILS"]
-FB_SERVICE_ACCOUNT_DETAILS_FILE = open("serviceaccountdetails.json", 'w')
-FB_SERVICE_ACCOUNT_DETAILS_FILE.write(FB_SERVICE_ACCOUNT_DETAILS)
-FB_SERVICE_ACCOUNT_DETAILS_FILE.close()
-FB_CONFIG = {
-    "apiKey": API_KEY,
-    "authDomain": "stock-fantasy-league.firebaseapp.com",
-    "databaseURL": "https://stock-fantasy-league.firebaseio.com",
-    "storageBucket": "stock-fantasy-league.appspot.com",
-    "serviceAccount": "serviceaccountdetails.json"
-}
-
-# initialize firebase services
-firebase = pyrebase.initialize_app(FB_CONFIG)
-auth = firebase.auth()
 
 
 def with_db(func):
