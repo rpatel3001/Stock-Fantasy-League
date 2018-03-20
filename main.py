@@ -11,7 +11,7 @@ from flask import Flask
 from flask_restful import Api
 import psycopg2
 import psycopg2.extras
-from testapp import UserStock
+from testdir.testapp import UserStock
 
 
 app = Flask(__name__)
@@ -36,9 +36,6 @@ def with_db(func):
         """Using 'with' blocks commits transactions when the function exits."""
         with db_conn:
             with db_conn.cursor() as cur:
-                print(cur)
-                print(a)
-                print(kw)
                 return func(cur, *a, **kw)
     return wrapper
 
