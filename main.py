@@ -12,7 +12,7 @@ from flask_restful import Api
 import psycopg2
 import psycopg2.extras
 from testapp import UserStock
-
+from UserTeam.Users import Users
 
 app = Flask(__name__)
 api = Api(app)
@@ -51,7 +51,7 @@ def class_with_db(cls):
     return cls
 
 
-api.add_resource(class_with_db(UserStock), '/<string:user_name>')
+api.add_resource(class_with_db(Users), '/api/user')
 
 if __name__ == "__main__":
     app.run(debug=True)
