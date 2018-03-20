@@ -1,7 +1,7 @@
 """Define routes for test program."""
 
 from flask_restful import reqparse, abort, Resource
-import stock_data
+from stock_data import stock_data
 
 
 class UserStock(Resource):
