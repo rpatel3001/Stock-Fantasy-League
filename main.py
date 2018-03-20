@@ -12,6 +12,10 @@ from flask_restful import Api
 import psycopg2
 import psycopg2.extras
 from UserTeam.Users import Users
+from UserTeam.User import User
+from UserTeam.Players import Players
+from LeagueTeam.Leagues import Leagues
+from LeagueTeam.League import League
 from testdir.testapp import UserStock
 
 app = Flask(__name__)
@@ -49,6 +53,11 @@ def class_with_db(cls):
 
 
 api.add_resource(class_with_db(Users), '/api/user')
+api.add_resource(class_with_db(Users), '/api/user/<int:UID>') #deleting a UID, getting a single UID, modifying a single UID
+api.add_resource(class_with_db(Users), '/api/user/<int:UID>/players') #getting the list of PID's associated with a UID, or modify(patch) when deleting a PID from UID
+api.add_resource(class_with_db(Users), '/api/league') #creating a league, listing leagues
+api.add_resource(class_with_db(Users), '/api/league/<int: LID>') #deleting a league, getting a single league, modifying a single league
+
 
 if __name__ == "__main__":
     app.run(debug=True)

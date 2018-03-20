@@ -1,6 +1,6 @@
 from flask_restful import reqparse, abort, Resource
 
-class LeagueHome(Resource):
+class Leagues(Resource):
 
     @staticmethod
     def get(cur, LID):
