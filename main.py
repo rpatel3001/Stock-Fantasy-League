@@ -53,10 +53,10 @@ def class_with_db(cls):
 
 
 api.add_resource(class_with_db(Users), '/api/user')
-api.add_resource(class_with_db(Users), '/api/user/<int:UID>') #deleting a UID, getting a single UID, modifying a single UID
-api.add_resource(class_with_db(Users), '/api/user/<int:UID>/players') #getting the list of PID's associated with a UID, or modify(patch) when deleting a PID from UID
-api.add_resource(class_with_db(Users), '/api/league') #creating a league, listing leagues
-api.add_resource(class_with_db(Users), '/api/league/<int: LID>') #deleting a league, getting a single league, modifying a single league
+api.add_resource(class_with_db(User), '/api/user/<int:UID>') #deleting a UID, getting a single UID, modifying a single UID
+api.add_resource(class_with_db(Players), '/api/user/<int:UID>/players') #getting the list of PID's associated with a UID, or modify(patch) when deleting a PID from UID
+api.add_resource(class_with_db(Leagues), '/api/league') #creating a league, listing leagues
+api.add_resource(class_with_db(League), '/api/league/<int: LID>') #deleting a league, getting a single league, modifying a single league
 
 
 if __name__ == "__main__":
