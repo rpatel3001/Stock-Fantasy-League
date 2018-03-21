@@ -7,7 +7,7 @@ to back-end database transactions.
 from urllib.parse import urlparse
 from functools import wraps
 import os
-from flask import Flask
+from flask import Flask, render_template
 from flask_restful import Api
 import psycopg2
 import psycopg2.extras
@@ -15,7 +15,7 @@ from user import Users, User
 from player import Players, Player
 from league import Leagues, League
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='')
 api = Api(app)
 
 # init postgresql connection
@@ -49,9 +49,17 @@ def class_with_db(cls):
     return cls
 
 
+@app.route('/')
+def serve_index():
+    """Serve index.html to the root URL."""
+    return app.send_static_file('index.html')
+
+
+# add API endpoints
 api.add_resource(class_with_db(Users.Users), '/api/user')
 api.add_resource(class_with_db(User.User), '/api/user/<int:UID>')
-api.add_resource(class_with_db(Players.Players), '/api/user/<int:UID>/players')
+api.add_resource(class_with_db(Players.Players), '/api/user/<int:UID>/player')
+api.add_resource(class_with_db(Player.Player), '/api/user/<int:UID>/player/<int:PID>')
 api.add_resource(class_with_db(Leagues.Leagues), '/api/league')
 api.add_resource(class_with_db(League.League), '/api/league/<int:LID>')
 

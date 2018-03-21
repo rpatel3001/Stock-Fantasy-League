@@ -1,3 +1,26 @@
+from flask_restful import reqparse, abort, Resource
+
+
+class Player(Resource):
+    pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"""
+
+
 '''
     TODO I don't think we need limitBuy and limitSell
 '''
@@ -131,3 +154,6 @@ class Player:
     def shortSell(self, stockTicker, amount, price):
         return
     # TODO
+
+
+"""
