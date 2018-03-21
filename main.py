@@ -11,12 +11,9 @@ from flask import Flask
 from flask_restful import Api
 import psycopg2
 import psycopg2.extras
-from UserTeam.Users import Users
-from UserTeam.User import User
-from UserTeam.Players import Players
-from LeagueTeam.Leagues import Leagues
-from LeagueTeam.League import League
-from testdir.testapp import UserStock
+from user import Users, User
+from player import Players, Player
+from league import Leagues, League
 
 app = Flask(__name__)
 api = Api(app)
@@ -29,7 +26,7 @@ db_conn = psycopg2.connect(
     password=url.password,
     host=url.hostname,
     port=url.port,
-    cursor_factory=psycopg2.extras.DictCursor
+    cursor_factory=psycopg2.extras.RealDictCursor
 )
 
 
@@ -52,11 +49,11 @@ def class_with_db(cls):
     return cls
 
 
-api.add_resource(class_with_db(Users), '/api/user')
-api.add_resource(class_with_db(User), '/api/user/<int:UID>') #deleting a UID, getting a single UID, modifying a single UID
-api.add_resource(class_with_db(Players), '/api/user/<int:UID>/players') #getting the list of PID's associated with a UID, or modify(patch) when deleting a PID from UID
-api.add_resource(class_with_db(Leagues), '/api/league') #creating a league, listing leagues
-api.add_resource(class_with_db(League), '/api/league/<int: LID>') #deleting a league, getting a single league, modifying a single league
+api.add_resource(class_with_db(Users.Users), '/api/user')
+api.add_resource(class_with_db(User.User), '/api/user/<int:UID>')
+api.add_resource(class_with_db(Players.Players), '/api/user/<int:UID>/players')
+api.add_resource(class_with_db(Leagues.Leagues), '/api/league')
+api.add_resource(class_with_db(League.League), '/api/league/<int:LID>')
 
 
 if __name__ == "__main__":
