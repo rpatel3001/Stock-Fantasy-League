@@ -5,7 +5,7 @@ class Users(Resource):
 
     @staticmethod
     def get(cur):
-        cur.execute("select * from userprefs FOR JSON AUTO;")
+        cur.execute("select * from userprefs;")
         return cur.fetchall()
 
 
