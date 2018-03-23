@@ -5,7 +5,7 @@ class Users(Resource):
 
     @staticmethod
     def get(cur):
-        cur.execute("select * from userprefs;")
+        cur.execute("select * from userprefs FOR JSON AUTO;")
         return cur.fetchall()
 
 
@@ -18,6 +18,6 @@ class Users(Resource):
         parser.add_argument('password')
         args = parser.parse_args()
 
-        cur.execute("insert into userprefs (email, username, password) VALUES (%s,%s,%s) FOR JSON AUTO;", (args['email'], args['username'], args['password']))
+        cur.execute("insert into userprefs (email, username, password) VALUES (%s,%s,%s);", (args['email'], args['username'], args['password']))
         cur.execute("select UID from userprefs where email like %s;", (args['email'],))
         return cur.fetchone()
