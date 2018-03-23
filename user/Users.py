@@ -3,13 +3,13 @@ from flask_restful import reqparse, abort, Resource
 
 class Users(Resource):
 
-    @staticmethod
+    @staticmethod   #shows all users in database
     def get(cur):
         cur.execute("select * from userprefs;")
         return cur.fetchall()
 
 
-    @staticmethod
+    @staticmethod   #used to create account
     def post(cur):
         parser = reqparse.RequestParser()
 

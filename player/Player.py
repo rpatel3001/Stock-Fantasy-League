@@ -7,17 +7,6 @@ class Player(Resource):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 """
 
 
