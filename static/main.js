@@ -63,10 +63,10 @@ stk.controller('LeagueController', function($scope){
 });
 
         stk.controller('NavbarController',['$scope','googleUser', function($scope){
-            $scope.$on(login){
+            $scope.$on('login'){
             var user_profile = googleUser.getBasicProfile();
             $scope.username = user_profile.getName();
             $scope.imageurl = user_profile.getImageUrl();
-            }
+            };
 	$scope.navItems = {links:[{name:'Leagues',href:'/test'},{name:'Players',href:'./l'}],search:true,login:false};
 }]);
