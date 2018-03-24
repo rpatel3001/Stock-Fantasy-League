@@ -2,14 +2,8 @@ var stk = angular.module('Stock Fantasy League', []);
 
 stk.controller('LoginController', ['$scope', function ($scope) {
     $scope.showLogIn = false;
-    $scope.message = 'Please Login:';
-    $scope.signOut = function () {
-        console.log("sign out cool");
-        var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut.then(function () {
-            console.log('userSignedOut');
-        });
-    }
+    $scope.message = 'Sign In';
+    //x button
 }]);
 
 stk.controller('LeagueController', function ($scope) {

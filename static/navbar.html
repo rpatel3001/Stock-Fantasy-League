@@ -1,4 +1,4 @@
-<nav class="navbar sticky-top navbar-expand-sm navbar-dark bg-dark" ng-controller="NavbarController">
+<nav class="navbar sticky-top navbar-expand-sm navbar-dark bg-dark" id="mainNavbar" ng-controller="NavbarController">
     <a class="navbar-brand" href="#">Stock Fantasy League</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -10,8 +10,8 @@
             </li>
         </ul>
     </div>
-    <button class="btn btn-outline-primary" href="#" onclick="wantSignIn();">Sign In</button>
-    <li class="nav-item dropdown" id="signedInDropdown" ng-show="signedIn == true">
+    <button class="btn btn-outline-primary" href="#" onclick="wantSignIn();" ng-show="signedIn == false">Sign In</button>
+    <li class="nav-item dropdown" ng-show="signedIn == true">
         <a class="navbar-brand dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
     <img class="rounded-circle" ng-src="{{imageurl}}" width="40" height="40" alt="">
                 <span>{{username}}</span>
