@@ -85,6 +85,12 @@ stk.controller('LeagueController', function($scope){
     };
 });
         stk.controller('NavbarController',['$scope', function($scope){
+                    $scope.signOut = function(){
+            console.log("sign out cool");
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut.then(function(){
+                console.log('userSignedOut');
+            });
             $scope.$on('login',function(events,args){
                 var user_profile = googleUser.getBasicProfile();
                 $scope.username = user_profile.getName();
