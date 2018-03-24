@@ -11,7 +11,7 @@ class User(Resource):
         # parser.add_argument('leagueName')
         # parser.add_argument('description')
         args = parser.parse_args()
-        cur.execute("INSERT INTO leagues (startBal, owneruid) VALUES(%s, %s)", (args['startBal'], UID))
+        cur.execute("INSERT INTO leagues (uid,startBal,owneruid) VALUES(%s, %s, %s)", (UID, args['startBal'], UID))
         # cur.execute("INSERT INTO leagues (uid, pid, startbal, duration, leaguename, description) VALUES(%s, %s, %s, DATE, %s, %s)", (UID, args['pid'], args['startBalance'], args['duration'], args['leagueName'], args['description']))
         cur.execute("SELECT lid FROM leagues where owneruid=%s;", [UID])
 
