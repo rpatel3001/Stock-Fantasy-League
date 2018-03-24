@@ -1,0 +1,41 @@
+<div ng-controller="PlayerController">
+    <ul>
+    <li>{{ player.league.leagueName }}</li>
+        <li>{{ player.league.description }}</li>
+    </ul>
+    <!--Search-->
+    <ul>
+        Player Stats
+        <li>
+        Ranking: 
+            {{ player.ranking }}
+        </li>
+        <li>
+        Holdings Value: {{ player.holdingsValue }}
+        </li>
+        <li>
+        
+        </li>
+    </ul>
+    <title>All Holdings</title>
+<input type="text" ng-model="stockSelect">
+    <table class="table">
+        <tr>
+        <td>Stock Ticker</td>
+        <td>Stock Name</td>
+        <td># of Shares</td>
+        <td>Stock Value</td>
+            <td>Buy</td>
+            <td>Sell</td>
+        </tr>
+        
+        <tr scope="row" ng-repeat="stock in player.holdings| filter : stockSelect">
+            <td>{{stock.stockTicker}}</td>
+            <td>{{ stock.name }}</td>
+        <td>{{stock.numberShares}}</td>
+        <td>{{(stock.numberShares * stock.sharePrice) | currency}}</td>
+        <td>buy_button</td>
+        <td>sell_button</td>
+        </tr>
+    </table>
+</div>
