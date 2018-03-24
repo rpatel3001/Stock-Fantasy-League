@@ -8,8 +8,15 @@ stk.controller('LoginController', ['$scope',function($scope){
               console.log(response);
             }
           }
+        $scope.signOut = function(){
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut.then(function(){
+                console.log('userSignedOut')
+            });
         }
-      ])
+        }
+                                   
+      ]);/*
       .directive('googleSignInButton', function() {
         return {
           scope: {
@@ -23,7 +30,7 @@ stk.controller('LoginController', ['$scope',function($scope){
             gapi.signin2.render(div.id, scope.options()); //render a google button, first argument is an id, second options
           }
         };
-      });
+      });*/
 
 stk.controller('LeagueController', function($scope){
 	$scope.league = {
@@ -82,7 +89,6 @@ stk.controller('LeagueController', function($scope){
 
     };
 });
-
         stk.controller('NavbarController',['$scope', function($scope){
             $scope.$on('login',function(events,args){
                 var user_profile = googleUser.getBasicProfile();
