@@ -84,6 +84,8 @@ stk.controller('PlayerController', function ($scope, $http) {
 });
 stk.controller('NavbarController', ['$scope', function ($scope) {
     $scope.signedIn = false;
+    $scope.username = '';
+    $scope.imageurl = '';
     $scope.navItems = {
         links: [{
             name: 'Leagues',
@@ -92,7 +94,5 @@ stk.controller('NavbarController', ['$scope', function ($scope) {
             name: 'Players',
             href: './l'
         }],
-        search: true,
-        login: false
     };
 }]);

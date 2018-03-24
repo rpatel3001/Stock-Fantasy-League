@@ -5,12 +5,15 @@
   </button>
     <div class="collapse navbar-collapse mr-auto" id="navbarNav">
         <ul class="navbar-nav mr-auto">
+            <li class="nav-item active" ng-show="signedIn == true">
+                <a class="nav-link" ng-href="./user/{{UID}}">{{username}}</a>
+            </li>
             <li class="nav-item active" ng-repeat="navItem in navItems.links">
                 <a class="nav-link" ng-href="{{navItem.href}}">{{navItem.name}}</a>
             </li>
         </ul>
     </div>
-    <button class="btn btn-outline-primary" href="#" onclick="wantSignIn();" ng-show="signedIn == false">Sign In</button>
+    <button class="btn btn-outline-primary my-2 my-sm-0" href="#" onclick="wantSignIn();" ng-show="signedIn == false">Sign In</button>
     <li class="nav-item dropdown" ng-show="signedIn == true">
         <a class="navbar-brand dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
     <img class="rounded-circle" ng-src="{{imageurl}}" width="40" height="40" alt="">
