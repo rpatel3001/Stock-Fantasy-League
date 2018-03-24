@@ -1,7 +1,7 @@
 var signedIn = false;
 function onSignIn(googleUser) {
   var profile = googleUser.getBasicProfile();
-          var scope = angular.element($("#signedInDropDown")).scope();
+          var scope = angular.element($("#signedInDropdown")).scope();
     signedIn =true;
     scope.$apply(function(){
         scope.signedIn = true;
