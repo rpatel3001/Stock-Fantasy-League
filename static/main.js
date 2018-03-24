@@ -91,6 +91,7 @@ stk.controller('LeagueController', function($scope){
             auth2.signOut.then(function(){
                 console.log('userSignedOut');
             });
+                    }
             $scope.$on('login',function(events,args){
                 var user_profile = googleUser.getBasicProfile();
                 $scope.username = user_profile.getName();
