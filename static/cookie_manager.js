@@ -8,7 +8,7 @@ function onSignIn(googleUser) {
     });
     var scope2 = angular.element($("#loginView")).scope();
     scope2.$apply(function () {
-        scope2.showLoginIn = false;
+        scope2.showLogIn = false;
     });
     console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
     console.log('Name: ' + profile.getName());
@@ -32,6 +32,6 @@ function signOut() {
 function wantSignIn() {
     var scope = angular.element($("#logInView")).scope();
     scope.$apply(function () {
-        scope.showLoginIn = true;
+        scope.showLogIn = true;
     });
 }
