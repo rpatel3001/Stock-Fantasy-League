@@ -32,7 +32,7 @@ var initClient = function() {
 /**
  * Handle successful sign-ins.
  */
-var onSuccess = function(user,$rootscope) {
+var onSuccess = function(user) {
     console.log('Signed in as ' + user.getBasicProfile().getName());
  };
 
