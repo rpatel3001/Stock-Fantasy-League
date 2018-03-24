@@ -19,5 +19,5 @@ class Users(Resource):
         args = parser.parse_args()
 
         cur.execute("insert into userprefs (email, username, password) VALUES (%s,%s,%s);", (args['email'], args['username'], args['password']))
-        cur.execute("select UID from userprefs where email like %s;", (args['email'],))
+        cur.execute("SELECT UID from userprefs where email like %s;", (args['email'],))
         return cur.fetchone()
