@@ -62,17 +62,11 @@ stk.controller('LeagueController', function($scope){
     };
 });
 
-function onSignIn(googleUser){
-    return googleUser.getBasicProfile();
-}
-
-stk.factory('onSignIn',["googleUser",function(googleUser){
-    return new onSignIn(googleUser);
-}]);
-
-        stk.controller('NavbarController',['$scope','googleUser', function($scope,googleUser){
+        stk.controller('NavbarController',['$scope','googleUser', function($scope){
+            $scope.$on(login){
             var user_profile = googleUser.getBasicProfile();
             $scope.username = user_profile.getName();
             $scope.imageurl = user_profile.getImageUrl();
+            }
 	$scope.navItems = {links:[{name:'Leagues',href:'/test'},{name:'Players',href:'./l'}],search:true,login:false};
 }]);
