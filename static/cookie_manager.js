@@ -1,8 +1,6 @@
-var signedIn = false;
 function onSignIn(googleUser) {
   var profile = googleUser.getBasicProfile();
           var scope = angular.element($("#signedInDropdown")).scope();
-    signedIn =true;
     scope.$apply(function(){
         scope.signedIn = true;
         scope.username = profile.getName();
@@ -17,8 +15,9 @@ function onSignIn(googleUser) {
     var auth2 = gapi.auth2.getAuthInstance();
       var scope = angular.element($("#signedInDropdown")).scope();
     auth2.signOut().then(function () {
-        signedIn = false;
             scope.$apply(function(){
+                        scope.username = '';
+        scope.imageurl = '';
         scope.signedIn = false;
     });
       console.log('User signed out.');
