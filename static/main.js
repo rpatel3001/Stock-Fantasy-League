@@ -72,6 +72,7 @@ stk.factory('onSignIn',["googleUser",function(googleUser){
 
         stk.controller('NavbarController', function($scope,onSignIn){
             $scope.user_profile = onSignIn;
+            alert(onSignIn);
             $scope.username = onSignIn.getName();
             $scope.imageurl = onSignIn.getImageUrl();
 	$scope.navItems = {links:[{name:'Leagues',href:'/test'},{name:'Players',href:'./l'}],search:true,login:false};
