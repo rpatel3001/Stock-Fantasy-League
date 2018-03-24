@@ -30,7 +30,7 @@ function signOut() {
 }
 
 function wantSignIn() {
-    var scope = angular.element($("#loginView")).scope();
+    var scope = angular.element($("#logInView")).scope();
     scope.$apply(function () {
         scope.showLoginIn = true;
     });
