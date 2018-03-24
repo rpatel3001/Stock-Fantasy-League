@@ -70,10 +70,9 @@ stk.factory('onSignIn',["googleUser",function(googleUser){
     return new onSignIn(googleUser);
 }]);
 
-        stk.controller('NavbarController', function($scope,onSignIn){
-            $scope.user_profile = onSignIn;
-            alert(onSignIn);
-            $scope.username = onSignIn.getName();
-            $scope.imageurl = onSignIn.getImageUrl();
+        stk.controller('NavbarController',['$scope','googleUser', function($scope,googleUser){
+            var user_profile = googleUser.getBasicProfile();
+            $scope.username = user_profile.getName();
+            $scope.imageurl = user_profile.getImageUrl();
 	$scope.navItems = {links:[{name:'Leagues',href:'/test'},{name:'Players',href:'./l'}],search:true,login:false};
-});
+}]);
