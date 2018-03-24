@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="Stock Fantasy League">
+<html ng-app="Stock Fantasy League" lang="en">
 <head>
     <meta name="google-signin-scope" content="profile email">
     <meta name="google-signin-client_id" content="667783900886-6p5fn2lrhu0q265ibuuufmk3t95ack93.apps.googleusercontent.com">
@@ -19,6 +19,7 @@
 <div class="container-fluid">
     <div ng-include="'navbar.html'"></div>
     <div ng-include="'login.html'"></div>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
     </div>
 </body>
 </html>
