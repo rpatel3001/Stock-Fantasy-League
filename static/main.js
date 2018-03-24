@@ -1,6 +1,7 @@
 var stk = angular.module('Stock Fantasy League',[]);
 
 stk.controller('LoginController', ['$scope',function($scope){
+    $scope.showLogIn = false;
 	$scope.message = 'Please Login:';
         $scope.signOut = function(){
             console.log("sign out cool");
@@ -85,11 +86,5 @@ stk.controller('LeagueController', function($scope){
     };
 });
         stk.controller('NavbarController',['$scope', function($scope){
-            $scope.signOut = signOut;
-            $scope.$on('login',function(events,args){
-                var user_profile = googleUser.getBasicProfile();
-                $scope.username = user_profile.getName();
-                $scope.imageurl = user_profile.getImageUrl();
-            });
 	$scope.navItems = {links:[{name:'Leagues',href:'/test'},{name:'Players',href:'./l'}],search:true,login:false};
 }]);

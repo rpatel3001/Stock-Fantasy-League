@@ -23,3 +23,9 @@ function onSignIn(googleUser) {
       console.log('User signed out.');
     });
   }
+function wantSignIn(){
+    angular.element($("#loginView")).scope();
+    scope.$apply(function(){
+        scope.showLoginIn = true;
+    })
+}
