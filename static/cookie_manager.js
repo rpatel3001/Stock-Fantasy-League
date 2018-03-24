@@ -15,7 +15,7 @@ function onSignIn(googleUser) {
 }
   function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
-      var scope = angular.element($("#signedInDropDown")).scope();
+      var scope = angular.element($("#signedInDropdown")).scope();
     auth2.signOut().then(function () {
         signedIn = false;
             scope.$apply(function(){
