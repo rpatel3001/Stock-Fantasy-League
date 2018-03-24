@@ -86,7 +86,7 @@ stk.controller('LeagueController', function($scope){
 });
         stk.controller('NavbarController',['$scope', function($scope){
             $scope.signedIn = true;
-                    $scope.signOut = signOut;
+                    $scope.signOut = signOut($scope);
             $scope.$on('login',function(events,args){
                 var user_profile = googleUser.getBasicProfile();
                 $scope.username = user_profile.getName();
