@@ -2,12 +2,6 @@ var stk = angular.module('Stock Fantasy League',[]);
 
 stk.controller('LoginController', ['$scope',function($scope){
 	$scope.message = 'Please Login:';
-          //for more options visit https://developers.google.com/identity/sign-in/web/reference#gapisignin2renderwzxhzdk114idwzxhzdk115_wzxhzdk116optionswzxhzdk117
-          $scope.options = {
-            'onsuccess': function(response) {
-              console.log(response);
-            }
-          }
         $scope.signOut = function(){
             console.log("sign out cool");
             var auth2 = gapi.auth2.getAuthInstance();
