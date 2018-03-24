@@ -54,24 +54,6 @@ stk.controller('UserController', function ($scope, $http) {
         "description": 'test',
         joinDate: '12/27/16'
     }; // change pids and lids to leagues and users
-    /* ;{
-        userName: "ozi",
-        description: "Oz Bejerano says Hi",
-        joinDate: 734110,
-        numberLeagues: 1001,
-        totalHoldings: 21321,
-        leagues : [
-        {leagueName: "Oz",
-    userHoldings:"I'm Oz",
-    holdings: 10982.67},
-             {leagueName: "Oz2",
-    description:"I'm Oz",
-    userHoldings: 109328.67},
-             {leagueName: "Oz",
-    description:"I'm 3Oz",
-    userHoldings: 1032398.67}
-        ]
-    };*/
 });
 
 stk.controller('PlayerController', function ($scope, $http) {

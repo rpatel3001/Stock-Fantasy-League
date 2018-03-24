@@ -25,9 +25,9 @@ function signOut() {
     });
 }
 
-function wantSignIn() {
+/*function wantSignIn() {
     var scope = angular.element($("#loginView")).scope();
     scope.$apply(function () {
         scope.showLoginIn = true;
     });
-}
+}*/
