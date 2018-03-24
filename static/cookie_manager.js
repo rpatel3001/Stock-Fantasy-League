@@ -6,7 +6,7 @@ function onSignIn(googleUser) {
         scope.username = profile.getName();
         scope.imageurl = profile.getImageUrl();
     });
-    var scope2 = angular.element($("#loginView")).scope();
+    var scope2 = angular.element($("#logInView")).scope();
     scope2.$apply(function () {
         scope2.showLogIn = false;
     });
