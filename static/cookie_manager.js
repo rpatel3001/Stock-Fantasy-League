@@ -27,5 +27,5 @@ function wantSignIn(){
     angular.element($("#loginView")).scope();
     scope.$apply(function(){
         scope.showLoginIn = true;
-    })
+    });
 }
