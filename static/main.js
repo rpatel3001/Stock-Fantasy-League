@@ -9,9 +9,10 @@ stk.controller('LoginController', ['$scope',function($scope){
             }
           }
         $scope.signOut = function(){
+            console.log("sign out cool");
             var auth2 = gapi.auth2.getAuthInstance();
             auth2.signOut.then(function(){
-                console.log('userSignedOut')
+                console.log('userSignedOut');
             });
         }
         }
