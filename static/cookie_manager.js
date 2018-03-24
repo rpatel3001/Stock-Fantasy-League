@@ -24,7 +24,11 @@ function onSignIn(googleUser) {
     });
   }
 function wantSignIn(){
+<<<<<<< HEAD
     angular.element($("#loginView")).scope();
+=======
+    var scope = angular.element($("#loginView")).scope();
+>>>>>>> 5a4f964c7f55d6a385a1c799dcb4f0e759147f4c
     scope.$apply(function(){
         scope.showLoginIn = true;
     });
