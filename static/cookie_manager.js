@@ -1,5 +1,3 @@
-var auth2; // The Sign-In object.
-var googleUser; // The current user.
 var r_scope = $rootscope;
 
 if (auth2.isSignedIn.get()) {
