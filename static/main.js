@@ -1,8 +1,29 @@
 var stk = angular.module('Stock Fantasy League',[]);
 
-stk.controller('LoginController', function($scope){
+stk.controller('LoginController', ['$scope',function($scope){
 	$scope.message = 'Please Login:';
-});
+          //for more options visit https://developers.google.com/identity/sign-in/web/reference#gapisignin2renderwzxhzdk114idwzxhzdk115_wzxhzdk116optionswzxhzdk117
+          $scope.options = {
+            'onsuccess': function(response) {
+              console.log(response);
+            }
+          }
+        }
+      ])
+      .directive('googleSignInButton', function() {
+        return {
+          scope: {
+            buttonId: '@',
+            options: '&'
+          },
+          template: '<div></div>',
+          link: function(scope, element, attrs) {
+            var div = element.find('div')[0];
+            div.id = attrs.buttonId;
+            gapi.signin2.render(div.id, scope.options()); //render a google button, first argument is an id, second options
+          }
+        };
+      });
 
 stk.controller('LeagueController', function($scope){
 	$scope.league = {
