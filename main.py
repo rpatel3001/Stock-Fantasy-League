@@ -59,7 +59,7 @@ def serve_index():
 api.add_resource(class_with_db(Users.Users), '/api/user')
 api.add_resource(class_with_db(User.User), '/api/user/<int:UID>')
 api.add_resource(class_with_db(Players.Players), '/api/user/<int:UID>/player')
-api.add_resource(class_with_db(Player.Player), '/api/user/<int:UID>/player/<int:PID>')
+api.add_resource(class_with_db(Players.Player), '/api/user/<int:UID>/player/<int:PID>')
 api.add_resource(class_with_db(Leagues.Leagues), '/api/league')
 api.add_resource(class_with_db(League.League), '/api/league/<int:LID>')
 
