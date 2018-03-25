@@ -1,10 +1,14 @@
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
-    var scope = angular.element($("#signedInDropdown")).scope();
+    var scope = angular.element($("#mainNavbar")).scope();
     scope.$apply(function () {
         scope.signedIn = true;
         scope.username = profile.getName();
         scope.imageurl = profile.getImageUrl();
+    });
+    var scope2 = angular.element($("#logInView")).scope();
+    scope2.$apply(function () {
+        scope2.showLogIn = false;
     });
     console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
     console.log('Name: ' + profile.getName());
@@ -14,7 +18,7 @@ function onSignIn(googleUser) {
 
 function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
-    var scope = angular.element($("#signedInDropdown")).scope();
+    var scope = angular.element($("#mainNavbar")).scope();
     auth2.signOut().then(function () {
         scope.$apply(function () {
             scope.username = '';
@@ -26,8 +30,8 @@ function signOut() {
 }
 
 function wantSignIn() {
-    var scope = angular.element($("#loginView")).scope();
+    var scope = angular.element($("#logInView")).scope();
     scope.$apply(function () {
-        scope.showLoginIn = true;
+        scope.showLogIn = true;
     });
 }

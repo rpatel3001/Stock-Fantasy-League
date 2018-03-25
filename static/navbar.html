@@ -1,4 +1,4 @@
-<nav class="navbar sticky-top navbar-expand-sm navbar-dark bg-dark" ng-controller="NavbarController">
+<nav class="navbar sticky-top navbar-expand-sm navbar-dark bg-dark" id="mainNavbar" ng-controller="NavbarController">
     <a class="navbar-brand" href="#">Stock Fantasy League</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -26,12 +26,7 @@
             <a class="dropdown-item" onclick="signOut();" href="#">Log Out</a>
         </div>
     </li>
-    <form class="form-inline my-2 my-sm-0">
+    <form class="form-inline">
         <input class="form-control" type="search" placeholder="Search" />
     </form>
 </nav>
-<div id="loginView" ng-controller="LoginController" ng-show="showLogIn == true">
-    <h2>Sign In</h2>
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-</div>
-<div class="g-signin2" data-onsuccess="onSignIn"></div>
