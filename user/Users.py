@@ -15,9 +15,24 @@ class Users(Resource):
 
         parser.add_argument('email')
         parser.add_argument('username')
-        parser.add_argument('password')
+        parser.add_argument('imageURL')
+        parser.add_argument('token')
         args = parser.parse_args()
+        cur.execute("SELECT uid FROM userprefs WHERE token = %s;", (args['token']))
+        exists = cur.fetchone()
 
-        cur.execute("insert into userprefs (email, username, password) VALUES (%s,%s,%s);", (args['email'], args['username'], args['password']))
-        cur.execute("SELECT UID from userprefs where email like %s;", (args['email'],))
+        if exists == None:
+            cur.execute("INSERT INTO userprefs (email, username, imageURL, token) VALUES (%s,%s,%s,%s);", (args['email'], args['username'], args['imageURL'], args['token']))
+            cur.execute("SELECT uid FROM userprefs WHERE token = %s;", args['token'])
+            return cur.fetchone()
+            pass
+
+        cur.execute("SELECT uid from userprefs WHERE token = %s;", (args['token']))
         return cur.fetchone()
+
+
+
+
+        # is account, log in - give old UID
+        # isnt account  - create account, and give new UID
+        # bad, return -1
