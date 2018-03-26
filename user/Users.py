@@ -23,7 +23,7 @@ class Users(Resource):
 
         if exists == None:
             cur.execute("INSERT INTO userprefs (email, username, imageURL, token) VALUES (%s,%s,%s,%s);", (args['email'], args['username'], args['imageURL'], args['token']))
-            cur.execute("SELECT uid FROM userprefs WHERE token = %s;", args['token'])
+            cur.execute("SELECT uid FROM userprefs WHERE token = %s;", (args['token']))
             return cur.fetchone()
             pass
 
