@@ -39,10 +39,10 @@ function onSignIn(googleUser) {
     xhr.onload = function () {
         console.log('Signed in as: ' + xhr.responseText);
     };
-    xhr.send('email=' + profile.getEmail() + '&username=' +
-        profile.getName() + '&imageurl=' +
-        profile.getImageUrl() + '&token=' +
-        id_token);
+    xhr.send('email="' + profile.getEmail() + '"&username="' +
+        profile.getName() + '"&imageurl="' +
+        profile.getImageUrl() + '"&token="' +
+        id_token + '"');
     console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
     console.log('Name: ' + profile.getName());
     console.log('Image URL: ' + profile.getImageUrl());
