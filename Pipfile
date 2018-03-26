@@ -12,6 +12,7 @@ Flask = "*"
 gunicorn = "*"
 "psycopg2-binary" = "*"
 Flask-RESTful = "*"
+google-auth = "*"
 
 
 [dev-packages]
