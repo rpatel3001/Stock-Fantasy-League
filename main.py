@@ -11,6 +11,9 @@ from flask import Flask, render_template
 from flask_restful import Api
 import psycopg2
 import psycopg2.extras
+from google.oauth2 import id_token
+from google.auth.transport import requests
+
 from user import Users, User
 from player import Players, Player
 from league import Leagues, League
@@ -61,7 +64,22 @@ def serve_users():
 def serve_leagues():
     """Serve index.html to the root URL."""
     return app.send_static_file('leagues.html')
-
+#@app.route('/login',methods=['POST'])
+'''def login():
+    if request.method == 'POST':
+        token = request.googleAuthToken
+        try:
+            idinfo = id_token.verify_oauth2_token(token, requests.Request()):
+                #verify google token with database
+            if (uid = function_name(idinfo['aud'],)<0 not in """check id in database""":
+                raise ValueError('Could not verify audience.')
+            if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
+                raise ValueError('Wrong issuer.')
+            userid = idinfo['sub']
+        except ValueError:
+            # Invalid token
+            pass
+'''
 # add API endpoints
 api.add_resource(class_with_db(Users.Users), '/api/user')
 api.add_resource(class_with_db(User.User), '/api/user/<int:UID>')
