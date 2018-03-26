@@ -1,3 +1,6 @@
+var uid = -1;
+//$http = angular.injector(["ng"]).get("$http");
+
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
     var id_token = googleUser.getAuthResponse().id_token;
@@ -11,9 +14,28 @@ function onSignIn(googleUser) {
     scope2.$apply(function () {
         scope2.showLogIn = false;
     });
+
+    /*var req = {
+        method: 'POST',
+        url: 'http://stock-fantasy-league.herokuapp.com/api/user',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: {
+            email: profile.getEmail(),
+            username: profile.getName(),
+            imageurl: profile.getImageUrl(),
+            token: id_token
+        }
+    }
+    $http(req).then(function loginSuccess(response) {
+        uid = response.data.uid;
+    }, function loginFailure(response) {
+        console.log('Failing to log in!');
+    });*/
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'http://stock-fantasy-league.herokuapp.com/api/user');
-    // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = function () {
         console.log('Signed in as: ' + xhr.responseText);
     };
