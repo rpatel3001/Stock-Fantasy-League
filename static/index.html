@@ -11,23 +11,26 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script src="http://stock-fantasy-league.herokuapp.com/cookie_manager.js"></script>
-    <script src="http://stock-fantasy-league.herokuapp.com/main.js"></script>
+    <script src="stock-fantasy-league.herokuapp.com/cookie_manager.js"></script>
+    <script src="stock-fantasy-league.herokuapp.com/main.js"></script>
+    <script src="cookie_manager.js"></script>
+    <script src="main.js"></script>
     <title>{{title}}</title>
     <style>
         #outline {
             margin: 0;
             padding: 0;
         }
-
     </style>
     <!--Home page-->
 </head>
 
 <body>
     <div class="container-fluid" id="outline">
-        <div ng-include="'http://stock-fantasy-league.herokuapp.com/navbar.html'"></div>
-        <div ng-include="'http://stock-fantasy-league.herokuapp.com/homepage_parts.html'"></div>
+        <!--<div ng-include="'stock-fantasy-league.herokuapp.com/navbar.html'"></div>
+        <div ng-include="'stock-fantasy-league.herokuapp.com/homepage_parts.html'"></div>-->
+        <div ng-include="'navbar.html'"></div>
+        <div ng-include="'homepage_parts.html'"></div>
         <div id="logInView" ng-controller="LoginController" ng-show="showLogIn == true">
             <h2>Sign In</h2>
             <div class="g-signin2" data-onsuccess="onSignIn"></div>

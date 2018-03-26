@@ -1,5 +1,6 @@
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
+    var id_token = googleUser.getAuthResponse().id_token;
     var scope = angular.element($("#mainNavbar")).scope();
     scope.$apply(function () {
         scope.signedIn = true;
@@ -10,6 +11,16 @@ function onSignIn(googleUser) {
     scope2.$apply(function () {
         scope2.showLogIn = false;
     });
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'https://yourbackend.example.com/tokensignin');
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onload = function () {
+        console.log('Signed in as: ' + xhr.responseText);
+    };
+    xhr.send('email=' + profile.getEmail() + '&username='
+        profile.getName() + '&imageurl='
+        profile.getImageUrl() + '&token=' +
+        var id_token);
     console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
     console.log('Name: ' + profile.getName());
     console.log('Image URL: ' + profile.getImageUrl());
