@@ -6,7 +6,7 @@ stk.controller('LoginController', ['$scope', function ($scope) {
     //x button
 }]);
 
-stk.controller('LeagueController', function ($scope) {
+stk.controller('LeagueController', function ($scope, $http) {
     $scope.league = {
         leagueName: "Test",
         leagueCreator: "Oz Bejerano",
@@ -32,9 +32,9 @@ stk.controller('LeagueController', function ($scope) {
     };
 });
 stk.controller('UserController', function ($scope, $http) {
-    $http.get('http://stock-fantasy-league.herokuapp.com/api/user').then(function (response) {
+    /*$http.get('http://stock-fantasy-league.herokuapp.com/api/user').then(function (response) {
         $scope.user = response.data;
-    });
+    });*/
     $scope.user = {
         "uid": 1,
         "lids": [1, 2314, 234],
@@ -88,11 +88,11 @@ stk.controller('NavbarController', ['$scope', function ($scope) {
     $scope.imageurl = '';
     $scope.navItems = {
         links: [{
-            name: 'Leagues',
-            href: '/test'
+            name: 'Users',
+            href: './users/'
         }, {
-            name: 'Players',
-            href: './l'
+            name: 'Leagues',
+            href: './leagues/'
         }],
     };
 }]);

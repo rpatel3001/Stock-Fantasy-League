@@ -14,13 +14,19 @@
     <script src="cookie_manager.js"></script>
     <script src="main.js"></script>
     <title>{{title}}</title>
+    <style>
+        #outline {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
     <!--Home page-->
 </head>
 
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid" id="outline">
         <div ng-include="'navbar.html'"></div>
-        <div ng-include="'homepage.html'"></div>
+        <div ng-include="'homepage_parts.html'"></div>
         <div id="logInView" ng-controller="LoginController" ng-show="showLogIn == true">
             <h2>Sign In</h2>
             <div class="g-signin2" data-onsuccess="onSignIn"></div>
