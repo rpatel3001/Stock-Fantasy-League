@@ -4,12 +4,48 @@ This includes price data for various time periods at various intervals
 for stocks, ETFs, and cryptocurrencies.
 """
 
-from requests import get
+from requests import get as send_get
+from flask import request
+from flask_restful import abort, Resource
 
 _AV_URL = "https://www.alphavantage.co/query"
 
 
-def get_current_price(sym):
+class StockData(Resource):
+    """Class that deals with the AlphaVantage API."""
+
+    @staticmethod
+    def get(cur):
+        """Get the current price of each security in a list.
+
+        Args:
+            syms (string[]) : A list of symbols whose prices to report.
+
+        Raises:
+            ValueError : If any input symbol is not a valid symbol for a recognized
+            security. Will also be raised when the AlphaVantage API is down.
+
+        Returns:
+            dict : A dictionary which maps the input symbols to their current price
+        """
+        cmd = request.args.get('cmd')
+        tickers = [x.upper() for x in request.args.getlist('sym')]
+        if len(tickers) == 0:
+            abort(404, message="No tickers provided.")
+
+        tickers = tickers[0].split(',')
+
+        if cmd == "getStockData":
+            return get_stock_data(cur, tickers)
+        elif cmd == "getPriceHistory":
+            return get_price_history(tickers[0])
+        elif cmd == "getTechnicalIndicator":
+            return get_technical_indicator(tickers)
+        else:
+            abort(404, message="Command " + cmd + " not supported.")
+
+
+def get_stock_data(cur, tickers):
     """Get the current price of a security.
 
     Args:
@@ -23,39 +59,19 @@ def get_current_price(sym):
         float : The price of the security represented by `sym`.
     """
     args = {"function": "BATCH_STOCK_QUOTES",
-            "symbols": [sym.upper()],
-            "apikey": "DEDSQFY460FDRASD"}
-    data_json = get(_AV_URL, params=args).json()
-    if list(data_json.keys())[0] == 'Error Message':
-        raise ValueError(data_json['Error Message'])
-    else:
-        data = list(data_json['Stock Quotes'])[0]
-        return data['2. price']
-
-
-def get_current_prices(tickers):
-    """Get the current price of each security in a list.
-
-    Args:
-        syms (string[]) : A list of symbols whose prices to report.
-
-    Raises:
-        ValueError : If any input symbol is not a valid symbol for a recognized
-        security. Will also be raised when the AlphaVantage API is down.
-
-    Returns:
-        dict : A dictionary which maps the input symbols to their current price
-    """
-    tickers = [x.upper() for x in tickers]
-    args = {"function": "BATCH_STOCK_QUOTES",
             "symbols": ','.join(tickers),
             "apikey": "DEDSQFY460FDRASD"}
-    data_json = get(_AV_URL, params=args).json()
+    data_json = send_get(_AV_URL, params=args).json()
     if list(data_json.keys())[0] == 'Error Message':
-        raise ValueError(data_json['Error Message'])
-    else:
-        data = list(data_json['Stock Quotes'])
-        return dict(zip(tickers, [x['2. price'] for x in data]))
+        abort(404, message=data_json['Error Message'])
+    response = []
+    for s in data_json["Stock Quotes"]:
+        sym = s["1. symbol"]
+        cur.execute("SELECT name FROM stockdata WHERE symbol LIKE %s", (sym,))
+        response.append({'sym': sym,
+                         'price': s["2. price"],
+                         'name': cur.fetchone()["name"]})
+    return response
 
 
 def get_price_history(sym, length, resolution):
@@ -79,7 +95,7 @@ def get_price_history(sym, length, resolution):
         dict : A dictionary of date strings to dictionaries containing open,
             high, low, and close prices as well as total volume for the period.
     """
-    pass
+    return "Endpoint not implemented."
 
 
 def get_technical_indicator(sym, indicator, resolution, window, price_type):
@@ -88,7 +104,7 @@ def get_technical_indicator(sym, indicator, resolution, window, price_type):
     Args:
         sym (string) : The symbol for the security whose indicator to return.
         indicator (string) : Which indicator to use. The full list is too long
-            to include,	use the AlphaVantage API reference at
+            to include, use the AlphaVantage API reference at
             https://www.alphavantage.co/documentation/
         resolution (string) : The time between datapoints.
         window (string) : The time window used in the calculation of the
@@ -105,4 +121,4 @@ def get_technical_indicator(sym, indicator, resolution, window, price_type):
         dict : A dictionary of date strings to a dictionary mapping `indicator`
             to the indicator's value at the time indicated by the date string.
     """
-    pass
+    return "Endpoint not implemented."
