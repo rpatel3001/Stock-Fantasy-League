@@ -18,16 +18,20 @@ class Users(Resource):
         parser.add_argument('imageURL')
         parser.add_argument('token')
         args = parser.parse_args()
-        cur.execute("SELECT uid FROM userprefs WHERE token = %s;", (args['token']))
+        logintoken = args['token']
+        print(logintoken)
+        cur.execute("SELECT uid FROM userprefs WHERE token LIKE %s;", (logintoken,))
+
+
         exists = cur.fetchone()
 
         if exists == None:
-            cur.execute("INSERT INTO userprefs (email, username, imageURL, token) VALUES (%s,%s,%s,%s);", (args['email'], args['username'], args['imageURL'], args['token']))
-            cur.execute("SELECT uid FROM userprefs WHERE token = %s;", (args['token']))
+            cur.execute("INSERT INTO userprefs (email, username, imageURL, token) VALUES (%s,%s,%s,%s);", (args['email'], args['username'], args['imageURL'], logintoken))
+            cur.execute("SELECT uid FROM userprefs WHERE token LIKE %s;", (logintoken,))
             return cur.fetchone()
             pass
 
-        cur.execute("SELECT uid from userprefs WHERE token = %s;", (args['token']))
+        cur.execute("SELECT uid from userprefs WHERE token LIKE %s;", (logintoken,))
         return cur.fetchone()
 
 
