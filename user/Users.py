@@ -18,8 +18,9 @@ class Users(Resource):
         parser.add_argument('imageURL')
         parser.add_argument('token')
         args = parser.parse_args()
-        logintoken = args['token']
-        print(logintoken)
+        token = args['token']
+        idinfo = id_token.verify_oauth2_token(token, requests.Request())
+        logintoken = idinfo['aud']
         cur.execute("SELECT uid FROM userprefs WHERE token LIKE %s;", (logintoken,))
 
 
