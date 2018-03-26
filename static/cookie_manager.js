@@ -12,8 +12,8 @@ function onSignIn(googleUser) {
         scope2.showLogIn = false;
     });
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'https://stock-fantasy-league.herokuapp.com/api/user');
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.open('POST', 'http://stock-fantasy-league.herokuapp.com/api/user');
+    // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = function () {
         console.log('Signed in as: ' + xhr.responseText);
     };
