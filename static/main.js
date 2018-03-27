@@ -163,25 +163,6 @@ stk.controller('PageManagerController', ['$scope', '$rootScope', '$location', fu
         $location.path("/");
     });*/
 }]);
-tk.controller('DashboardController', function ($scope, $http) {
-    /*$http.get('http://stock-fantasy-league.herokuapp.com/api/user').then(function (response) {
-        $scope.user = response.data;
-    });*/
-    $scope.user = {
-        "uid": 1,
-        "lids": [1, 2314, 234],
-        "pid": null,
-        "friends": null,
-        "email": "x@x.com",
-        "messages": null,
-        "notifications": null,
-        "username": "brian",
-        "password": "pass",
-        "description": 'test',
-        joinDate: '12/27/16'
-    }; // change pids and lids to leagues and users
-});
-
 stk.controller('UserInfoController', function ($scope, $http) {
     var req = {
         method: 'GET',
@@ -193,5 +174,5 @@ stk.controller('UserInfoController', function ($scope, $http) {
     }, function loginFailure(response) {
         console.log('Failing getting user info!');
     });
-    $scope.users = data.users;
+    $scope.users = $scope.data.users;
 });
