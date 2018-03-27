@@ -21,12 +21,12 @@ function onSignIn(googleUser) {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        data: {
+        data: $.param({
             email: profile.getEmail(),
             username: profile.getName(),
             imageurl: profile.getImageUrl(),
             token: id_token
-        }
+        })
     }
     $http(req).then(function loginSuccess(response) {
         uid = response.data.uid;
