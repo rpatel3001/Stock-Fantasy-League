@@ -39,7 +39,7 @@ class Users(Resource):
             cur.execute("SELECT uid FROM userprefs WHERE token LIKE %s;", (logintoken,))
             userUID = cur.fetchone()
             
-            if 'loginstatus' not in session and session['loginstatus'] != logintoken:
+            if session.get('loginstatus') != None and session['loginstatus'] != logintoken:
                 session["loginstatus"] = logintoken
             
             return userUID
@@ -48,7 +48,7 @@ class Users(Resource):
         cur.execute("SELECT uid from userprefs WHERE token LIKE %s;", (logintoken,))
         newUserUID = cur.fetchone()
 
-        if 'loginstatus' not in session and session['loginstatus'] != logintoken:
-            session['loginstatus'] = logintoken
+        if session.get('loginstatus') != None and session['loginstatus'] != logintoken:
+            session["loginstatus"] = logintoken
 
         return newUserUID
