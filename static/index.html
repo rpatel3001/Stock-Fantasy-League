@@ -27,20 +27,20 @@
         <!--<div ng-include="'navbar.html'"></div>-->
         <!-- NAVBAR START -->
         <nav class="navbar sticky-top navbar-expand-sm navbar-dark bg-dark" id="mainNavbar" ng-controller="NavbarController">
-            <a class="navbar-brand py-md-2" click="$emit('ViewHomePage')">
-                <img 
-         src="https://stock-fantasy-league.herokuapp.com/img/homepage_icon.png" width="30" height="30"/>
-                Stock Fantasy League</a>
+            <a class="navbar-brand py-md-2" click="$emit('ViewHomePage')" href="#">
+                <img src="https://stock-fantasy-league.herokuapp.com/img/homepage_icon.png" width="30" height="30"/>
+                Stock Fantasy League
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
             <div class="collapse navbar-collapse mr-auto" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active py-md-2" ng-show="signedIn == true">
-                        <a class="nav-link capitalize" ng-click="$emit('ViewDashboard ')">{{username}}</a>
+                        <a class="nav-link capitalize" ng-click="$emit('ViewDashboard')" href="#">{{username}}</a>
                     </li>
                     <li class="nav-item active py-md-2" ng-repeat="navItem in navItems.links">
-                        <a class="nav-link" ng-click="$emit('{{navItem.command}} ')">{{navItem.name}}</a>
+                        <a class="nav-link" ng-click="$emit('{{navItem.command}}')" href="#">{{navItem.name}}</a>
                     </li>
                 </ul>
                 <!--</div>-->

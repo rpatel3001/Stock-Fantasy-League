@@ -92,7 +92,7 @@ stk.controller('NavbarController', ['$scope', function ($scope) {
             command: 'ViewUsers'
         }, {
             name: 'Leagues',
-            href: 'ViewLeagues'
+            command: 'ViewLeagues'
         }],
     };
 }]);
