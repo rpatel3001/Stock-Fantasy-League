@@ -7,6 +7,7 @@ for stocks, ETFs, and cryptocurrencies.
 from requests import get as send_get
 from flask import request
 from flask_restful import abort, Resource
+import json
 
 _AV_URL = "https://www.alphavantage.co/query"
 
@@ -71,7 +72,7 @@ def get_stock_data(cur, tickers):
         response.append({'sym': sym,
                          'price': s["2. price"],
                          'name': cur.fetchone()["name"]})
-    return "{'data':" + str(response) + "}"
+    return json.dumps({"stockdata": response})
 
 
 def get_price_history(sym, length, resolution):
