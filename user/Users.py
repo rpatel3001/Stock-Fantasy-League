@@ -1,5 +1,5 @@
 from flask_restful import reqparse, abort, Resource
-from flask import Flask
+from flask import Flask, session
 from google.oauth2 import id_token
 from google.auth.transport import requests
 
@@ -33,11 +33,18 @@ class Users(Resource):
 
         exists = cur.fetchone()
 
-        if exists == None:
+        if exists == None:  #when account does not exist
             cur.execute("INSERT INTO userprefs (email, username, imageurl, token) VALUES (%s,%s,%s,%s);", (args['email'], args['username'], args['imageurl'], logintoken))
             cur.execute("SELECT uid FROM userprefs WHERE token LIKE %s;", (logintoken,))
-            return cur.fetchone()
+            userUID = cur.fetchone()
+            session["loginstatus"] = logintoken
+            session["uid"] = userUID['uid']
+            return userUID
             pass
 
+        #when account exists in DB
         cur.execute("SELECT uid from userprefs WHERE token LIKE %s;", (logintoken,))
-        return cur.fetchone()
+        newUserUID = cur.fetchone()
+        session["loginstatus"] = logintoken
+        session["uid"] = newUserUID['uid']
+        return newUserUID
