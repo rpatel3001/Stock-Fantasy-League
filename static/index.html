@@ -63,11 +63,11 @@
         <input class="form-control" type="search" placeholder="Search" />
     </form>-->
         </nav>
-
         <!--NAVBAR END -->
-        <div ng-repeat="page in activepage">
-            <div ng-if="page.visible" ng-include="'{{page.link}} '"></div>
-        </div>
+        <div ng-if="activepage.homepage.visible" ng-include="'{{activepage.homepage.link}} '"></div>
+        <div ng-if="activepage.leagues.visible" ng-include="'{{activepage.leagues.link}} '"></div>
+        <div ng-if="activepage.users.visible" ng-include="'{{activepage.users.link}} '"></div>
+        <div ng-if="activepage.dashboard.visible" ng-include="'{{activepage.dashboard.link}}'"></div>
         <!--<div id="logInView" ng-controller="LoginController" ng-show="showLogIn == true">
             <h2>Sign In</h2>
             <div ng-showclass="g-signin2" data-onsuccess="onSignIn"></div>

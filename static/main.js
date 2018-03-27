@@ -99,7 +99,7 @@ stk.controller('NavbarController', ['$scope', function ($scope) {
 
 stk.controller('PageManagerController', ['$scope', '$rootScope', '$location', function ($scope, $rootScope, $location) {
     $scope.title = "Stock Fanatasy League";
-    $scope.activePage = {
+    $scope.activepage = {
         homepage: {
             link: 'homepage_parts.html',
             visible: true
