@@ -24,7 +24,7 @@ function onSignIn(googleUser) {
     });
     var scope = angular.element($("#mainNavbar")).scope();
     scope.$apply(function () {
-        $scope.uid = uid;
+        scope.uid = uid;
         scope.signedIn = true;
         scope.username = profile.getName();
         scope.imageurl = profile.getImageUrl();
@@ -57,7 +57,9 @@ function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
     var scope = angular.element($("#mainNavbar")).scope();
     auth2.signOut().then(function () {
+        uid = -1;
         scope.$apply(function () {
+            scope.uid = -1;
             scope.username = '';
             scope.imageurl = '';
             scope.signedIn = false;
