@@ -1,5 +1,5 @@
 from flask_restful import reqparse, abort, Resource
-from flask import flask
+from flask import Flask
 from google.oauth2 import id_token
 from google.auth.transport import requests
 
