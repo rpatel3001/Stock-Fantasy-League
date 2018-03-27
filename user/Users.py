@@ -17,7 +17,7 @@ class Users(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument('email')
         parser.add_argument('username')
-        parser.add_argument('imageURL')
+        parser.add_argument('imageurl')
         parser.add_argument('token')
         args = parser.parse_args()
 
