@@ -97,7 +97,7 @@ stk.controller('NavbarController', ['$scope', function ($scope) {
     };
 }]);
 
-stk.controller('PageManagerController', ['$scope', function ($scope) {
+stk.controller('PageManagerController', ['$scope', '$rootScope', function ($scope, $rootScope) {
     $scope.title = "Stock Fanatasy League";
     $scope.activePage = {
         homepage: {
@@ -113,17 +113,17 @@ stk.controller('PageManagerController', ['$scope', function ($scope) {
             visible: false
         }
     };
-    $scope.on('ViewUsers', function viewUsers() {
+    $rootScope.on('ViewUsers', function viewUsers() {
         $scope.activePage.homepage.visible = false;
         $scope.activePage.users.visible = true;
         $scope.activePage.leagues.visible = false;
     });
-    $scope.on('ViewLeagues', function viewUsers() {
+    $rootScope.on('ViewLeagues', function viewUsers() {
         $scope.activePage.homepage.visible = false;
         $scope.activePage.users.visible = false;
         $scope.activePage.leagues.visible = true;
     });
-    $scope.on('ViewHomePage', function viewUsers() {
+    $rootScope.on('ViewHomePage', function viewUsers() {
         $scope.activePage.homepage.visible = true;
         $scope.activePage.users.visible = false;
         $scope.activePage.leagues.visible = false;
