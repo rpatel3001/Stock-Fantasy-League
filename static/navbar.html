@@ -12,7 +12,7 @@
     <div class="collapse navbar-collapse mr-auto" id="navbarNav">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active" ng-show="signedIn == true">
-                <a class="nav-link" ng-href="./user/{{UID}}">{{username}}</a>
+                <a class="nav-link" ng-href="#!dashboard">{{username}}</a>
             </li>
             <li class="nav-item active" ng-repeat="navItem in navItems.links">
                 <a class="nav-link" ng-href="{{navItem.href}}">{{navItem.name}}</a>

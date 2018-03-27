@@ -1,13 +1,13 @@
 var stk = angular.module('Stock Fantasy League', ["ngRoute"]);
 stk.config(function ($routeProvider) {
     $routeProvider.when("/", {
-        template: "homepage_parts.html"
+        template: "'homepage_parts.html'"
     }).when("/users", {
-        template: "user_parts.html"
+        template: "'user_parts.html'"
     }).when("/leagues", {
-        template: "league_parts.html"
+        template: "'league_parts.html'"
     }).when("/dashboard", {
-        template: "dashboard_parts.html"
+        template: "'dashboard_parts.html'"
     });
 });
 stk.controller('LoginController', ['$scope', function ($scope) {
@@ -100,11 +100,11 @@ stk.controller('NavbarController', ['$scope', function ($scope) {
         links: [{
             name: 'Users',
             command: 'ViewUsers',
-            href: '/users'
+            href: '#!users'
         }, {
             name: 'Leagues',
             command: 'ViewLeagues',
-            href: '/leagues'
+            href: '#!leagues'
         }]
     };
 }]);
