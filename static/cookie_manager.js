@@ -1,5 +1,5 @@
 var uid = -1;
-//$http = angular.injector(["ng"]).get("$http");
+$http = angular.injector(["ng"]).get("$http");
 
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
