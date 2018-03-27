@@ -117,28 +117,28 @@ stk.controller('PageManagerController', ['$scope', '$rootScope', '$location', fu
             visible: false
         }
     };
-    $rootScope.$on('ViewUsers', function viewUsers() {
+    $scope.$on('ViewUsers', function viewUsers() {
         $scope.activePage.homepage.visible = false;
         $scope.activePage.users.visible = true;
         $scope.activePage.leagues.visible = false;
         $scope.activePage.dashboard.visible = false;
         $location.path("/users");
     });
-    $rootScope.$on('ViewDashboard', function viewUsers() {
+    $scope.$on('ViewDashboard', function viewDashboard() {
         $scope.activePage.homepage.visible = false;
         $scope.activePage.dashboard.visible = true;
         $scope.activePage.users.visible = true;
         $scope.activePage.leagues.visible = false;
         $location.path("/dashboard");
     });
-    $rootScope.$on('ViewLeagues', function viewUsers() {
+    $scope.$on('ViewLeagues', function viewLeagues() {
         $scope.activePage.homepage.visible = false;
         $scope.activePage.users.visible = false;
         $scope.activePage.leagues.visible = true;
         $scope.activePage.dashboard.visible = false;
         $location.path("/leagues");
     });
-    $rootScope.$on('ViewHomePage', function viewUsers() {
+    $scope.$on('ViewHomePage', function viewHomePage() {
         $scope.activePage.homepage.visible = true;
         $scope.activePage.users.visible = false;
         $scope.activePage.leagues.visible = false;
