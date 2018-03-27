@@ -1,4 +1,7 @@
 from flask_restful import reqparse, abort, Resource
+from flask import Flask, session, make_response, request
+from google.oauth2 import id_token
+from google.auth.transport import requests
 
 
 class Users(Resource):
@@ -12,27 +15,40 @@ class Users(Resource):
     @staticmethod   #used to create account
     def post(cur):
         parser = reqparse.RequestParser()
-
         parser.add_argument('email')
         parser.add_argument('username')
-        parser.add_argument('imageURL')
+        parser.add_argument('imageurl')
         parser.add_argument('token')
         args = parser.parse_args()
-        cur.execute("SELECT uid FROM userprefs WHERE token = %s;", (args['token']))
+
+        # args = request.get_json()
+        # need to parse json string from quotation marks
+
+
+        token = args['token']
+        idinfo = id_token.verify_oauth2_token(token, requests.Request())
+        logintoken = idinfo['aud']
+
+        cur.execute("SELECT uid FROM userprefs WHERE token LIKE %s;", (logintoken,))
+
+
         exists = cur.fetchone()
 
-        if exists == None:
-            cur.execute("INSERT INTO userprefs (email, username, imageURL, token) VALUES (%s,%s,%s,%s);", (args['email'], args['username'], args['imageURL'], args['token']))
-            cur.execute("SELECT uid FROM userprefs WHERE token = %s;", args['token'])
-            return cur.fetchone()
-            pass
+        if exists == None:  #when account does not exist
+            cur.execute("INSERT INTO userprefs (email, username, imageurl, token) VALUES (%s,%s,%s,%s);", (args['email'], args['username'], args['imageurl'], logintoken))
+            cur.execute("SELECT uid FROM userprefs WHERE token LIKE %s;", (logintoken,))
+            userUID = cur.fetchone()
+            
+            if session.get('loginstatus') == None or session['loginstatus'] != logintoken:
+                session["loginstatus"] = logintoken
+            
+            return userUID
 
-        cur.execute("SELECT uid from userprefs WHERE token = %s;", (args['token']))
-        return cur.fetchone()
+        #when account exists in DB
+        cur.execute("SELECT uid from userprefs WHERE token LIKE %s;", (logintoken,))
+        newUserUID = cur.fetchone()
 
+        if session.get('loginstatus') == None or session['loginstatus'] != logintoken:
+            session["loginstatus"] = logintoken
 
-
-
-        # is account, log in - give old UID
-        # isnt account  - create account, and give new UID
-        # bad, return -1
+        return newUserUID

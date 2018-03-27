@@ -7,7 +7,7 @@ to back-end database transactions.
 from urllib.parse import urlparse
 from functools import wraps
 import os
-from flask import Flask, render_template
+from flask import Flask
 from flask_restful import Api
 import psycopg2
 import psycopg2.extras
@@ -15,8 +15,9 @@ from google.oauth2 import id_token
 from google.auth.transport import requests
 
 from user import Users, User
-from player import Players, Player
-from league import Leagues, League
+from player import Players
+from league import Leagues, League, getPlayerInfo
+from StockData import StockData
 
 app = Flask(__name__, static_url_path='')
 api = Api(app)
@@ -56,10 +57,14 @@ def class_with_db(cls):
 def serve_index():
     """Serve index.html to the root URL."""
     return app.send_static_file('index.html')
+
+
 @app.route('/users/')
 def serve_users():
     """Serve users.html to the /users/ URL."""
     return app.send_static_file('users.html')
+
+
 @app.route('/leagues/')
 def serve_leagues():
     """Serve index.html to the root URL."""
@@ -68,11 +73,19 @@ def serve_leagues():
 # add API endpoints
 api.add_resource(class_with_db(Users.Users), '/api/user')
 api.add_resource(class_with_db(User.User), '/api/user/<int:UID>')
+
 api.add_resource(class_with_db(Players.Players), '/api/user/<int:UID>/player')
 api.add_resource(class_with_db(Players.Player), '/api/user/<int:UID>/player/<int:PID>')
+
 api.add_resource(class_with_db(Leagues.Leagues), '/api/league')
 api.add_resource(class_with_db(League.League), '/api/league/<int:LID>')
+api.add_resource(class_with_db(getPlayerInfo.getPlayerInfo), '/api/league/<int:LID>/player/<int:UID>')
 
+api.add_resource(class_with_db(StockData.StockData), '/api/stock_data')
+
+app.secret_key='abc123'
+#need to change to something more secure
 
 if __name__ == "__main__":
     app.run(debug=True)
+

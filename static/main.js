@@ -1,5 +1,21 @@
-var stk = angular.module('Stock Fantasy League', []);
-
+var stk = angular.module('Stock Fantasy League', ["ngRoute"]);
+stk.config(function ($routeProvider) {
+    $routeProvider.when("/", {
+        templateUrl: "homepage_parts.html"
+    }).when("/users", {
+        templateUrl: 'user_list.html',
+        controller: 'UserListController',
+    }).when("/user/:uid", {
+        templateUrl: 'user_info.html',
+        controller: 'UserInfoController'
+    }).when("/leagues", {
+        templateUrl: 'league_parts.html',
+        controller: 'LeagueController'
+    }).when("/dashboard", {
+        templateUrl: 'dashboard_parts.html',
+        controller: 'DashboardController'
+    });
+});
 stk.controller('LoginController', ['$scope', function ($scope) {
     $scope.showLogIn = false;
     $scope.message = 'Sign In';
@@ -31,7 +47,7 @@ stk.controller('LeagueController', function ($scope, $http) {
         ]
     };
 });
-stk.controller('UserController', function ($scope, $http) {
+stk.controller('DashboardController', function ($scope, $http) {
     /*$http.get('http://stock-fantasy-league.herokuapp.com/api/user').then(function (response) {
         $scope.user = response.data;
     });*/
@@ -89,10 +105,75 @@ stk.controller('NavbarController', ['$scope', function ($scope) {
     $scope.navItems = {
         links: [{
             name: 'Users',
-            href: './users/'
+            command: 'ViewUsers',
+            href: '#!users'
         }, {
             name: 'Leagues',
-            href: './leagues/'
-        }],
+            command: 'ViewLeagues',
+            href: '#!leagues'
+        }]
     };
 }]);
+
+stk.controller('PageManagerController', ['$scope', '$rootScope', '$location', function ($scope, $rootScope, $location) {
+    $scope.title = "Stock Fanatasy League";
+    /*$scope.activepage = {
+        homepage: {
+            link: 'homepage_parts.html',
+            visible: true
+        },
+        leagues: {
+            link: 'league_parts.html',
+            visible: false
+        },
+        users: {
+            link: 'user_parts.html',
+            visible: false
+        },
+        dashboard: {
+            link: 'dashboard_parts.html',
+            visible: false
+        }
+    };*/
+    /*$scope.$on('ViewUsers', function viewUsers() {
+        $scope.activePage.homepage.visible = false;
+        $scope.activePage.users.visible = true;
+        $scope.activePage.leagues.visible = false;
+        $scope.activePage.dashboard.visible = false;
+        $location.path("/users");
+    });
+    $scope.$on('ViewDashboard', function viewDashboard() {
+        $scope.activePage.homepage.visible = false;
+        $scope.activePage.dashboard.visible = true;
+        $scope.activePage.users.visible = true;
+        $scope.activePage.leagues.visible = false;
+        $location.path("/dashboard");
+    });
+    $scope.$on('ViewLeagues', function viewLeagues() {
+        $scope.activePage.homepage.visible = false;
+        $scope.activePage.users.visible = false;
+        $scope.activePage.leagues.visible = true;
+        $scope.activePage.dashboard.visible = false;
+        $location.path("/leagues");
+    });
+    $scope.$on('ViewHomePage', function viewHomePage() {
+        $scope.activePage.homepage.visible = true;
+        $scope.activePage.users.visible = false;
+        $scope.activePage.leagues.visible = false;
+        $scope.activePage.dashboard.visible = false;
+        $location.path("/");
+    });*/
+}]);
+stk.controller('UserListController', function ($scope, $http) {
+    var req = {
+        method: 'GET',
+        url: 'http://stock-fantasy-league.herokuapp.com/api/user'
+    };
+    $scope.data = null;
+    $http(req).then(function loginSuccess(response) {
+        $scope.data = "{users:" + response.data + "}";
+    }, function loginFailure(response) {
+        console.log('Failing getting user info!');
+    });
+    $scope.users = $scope.data.users;
+});
