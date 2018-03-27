@@ -1,5 +1,15 @@
-var stk = angular.module('Stock Fantasy League', []);
-
+var stk = angular.module('Stock Fantasy League', ["ngRoute"]);
+stk.config(function ($routeProvider) {
+    $routeProvider.when("/", {
+        template: "homepage_parts.html"
+    }).when("/users", {
+        template: "user_parts.html"
+    }).when("/leagues", {
+        template: "league_parts.html"
+    }).when("/dashboard", {
+        template: "dashboard_parts.html"
+    });
+});
 stk.controller('LoginController', ['$scope', function ($scope) {
     $scope.showLogIn = false;
     $scope.message = 'Sign In';
@@ -89,17 +99,19 @@ stk.controller('NavbarController', ['$scope', function ($scope) {
     $scope.navItems = {
         links: [{
             name: 'Users',
-            command: 'ViewUsers'
+            command: 'ViewUsers',
+            href: '/users'
         }, {
             name: 'Leagues',
-            command: 'ViewLeagues'
-        }],
+            command: 'ViewLeagues',
+            href: '/leagues'
+        }]
     };
 }]);
 
 stk.controller('PageManagerController', ['$scope', '$rootScope', '$location', function ($scope, $rootScope, $location) {
     $scope.title = "Stock Fanatasy League";
-    $scope.activepage = {
+    /*$scope.activepage = {
         homepage: {
             link: 'homepage_parts.html',
             visible: true
@@ -116,8 +128,8 @@ stk.controller('PageManagerController', ['$scope', '$rootScope', '$location', fu
             link: 'dashboard_parts.html',
             visible: false
         }
-    };
-    $scope.$on('ViewUsers', function viewUsers() {
+    };*/
+    /*$scope.$on('ViewUsers', function viewUsers() {
         $scope.activePage.homepage.visible = false;
         $scope.activePage.users.visible = true;
         $scope.activePage.leagues.visible = false;
@@ -144,5 +156,5 @@ stk.controller('PageManagerController', ['$scope', '$rootScope', '$location', fu
         $scope.activePage.leagues.visible = false;
         $scope.activePage.dashboard.visible = false;
         $location.path("/");
-    });
+    });*/
 }]);
