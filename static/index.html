@@ -37,10 +37,10 @@
             <div class="collapse navbar-collapse mr-auto" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active py-md-2" ng-show="signedIn == true">
-                        <a class="nav-link capitalize" ng-href="./user/{{uid}}">{{username}}</a>
+                        <a class="nav-link capitalize" ng-click="$emit('ViewDashboard ')">{{username}}</a>
                     </li>
                     <li class="nav-item active py-md-2" ng-repeat="navItem in navItems.links">
-                        <a class="nav-link" ng-click="$emit('{{navItem.command}}')">{{navItem.name}}</a>
+                        <a class="nav-link" ng-click="$emit('{{navItem.command}} ')">{{navItem.name}}</a>
                     </li>
                 </ul>
                 <!--</div>-->
@@ -66,7 +66,7 @@
 
         <!--NAVBAR END -->
         <div ng-repeat="page in activepage">
-            <div ng-if="page.visible" ng-include="'{{page.link}}'"></div>
+            <div ng-if="page.visible" ng-include="'{{page.link}} '"></div>
         </div>
         <!--<div id="logInView" ng-controller="LoginController" ng-show="showLogIn == true">
             <h2>Sign In</h2>
