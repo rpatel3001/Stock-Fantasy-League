@@ -89,10 +89,43 @@ stk.controller('NavbarController', ['$scope', function ($scope) {
     $scope.navItems = {
         links: [{
             name: 'Users',
-            href: './users/'
+            command: 'ViewUsers'
         }, {
             name: 'Leagues',
-            href: './leagues/'
+            href: 'ViewLeagues'
         }],
     };
+}]);
+
+stk.controller('PageManagerController', ['$scope', function ($scope) {
+    $scope.title = "Stock Fanatasy League";
+    $scope.activePage = {
+        homepage: {
+            link: 'homepage_parts.html',
+            visible: true
+        },
+        leagues: {
+            link: 'league_parts.html',
+            visible: false
+        },
+        users: {
+            link: 'user_parts.html',
+            visible: false
+        }
+    };
+    $scope.on('ViewUsers', function viewUsers() {
+        $scope.activePage.homepage.visible = false;
+        $scope.activePage.users.visible = true;
+        $scope.activePage.leagues.visible = false;
+    });
+    $scope.on('ViewLeagues', function viewUsers() {
+        $scope.activePage.homepage.visible = false;
+        $scope.activePage.users.visible = false;
+        $scope.activePage.leagues.visible = true;
+    });
+    $scope.on('ViewHomePage', function viewUsers() {
+        $scope.activePage.homepage.visible = true;
+        $scope.activePage.users.visible = false;
+        $scope.activePage.leagues.visible = false;
+    });
 }]);

@@ -19,15 +19,15 @@ function onSignIn(googleUser) {
     }
     $http(req).then(function loginSuccess(response) {
         uid = response.data.uid;
+        var scope = angular.element($("#mainNavbar")).scope();
+        scope.$apply(function () {
+            scope.uid = uid;
+            scope.signedIn = true;
+            scope.username = profile.getName();
+            scope.imageurl = profile.getImageUrl();
+        });
     }, function loginFailure(response) {
         console.log('Failing to log in!');
-    });
-    var scope = angular.element($("#mainNavbar")).scope();
-    scope.$apply(function () {
-        scope.uid = uid;
-        scope.signedIn = true;
-        scope.username = profile.getName();
-        scope.imageurl = profile.getImageUrl();
     });
     /*var scope2 = angular.element($("#logInView")).scope();
     scope2.$apply(function () {
@@ -47,10 +47,10 @@ function onSignIn(googleUser) {
         profile.getName() + '"&imageurl="' +
         profile.getImageUrl() + '"&token="' +
         id_token + '"');*/
-    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    /*console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
     console.log('Name: ' + profile.getName());
     console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.*/
 }
 
 function signOut() {
