@@ -15,7 +15,7 @@ function onSignIn(googleUser) {
         scope2.showLogIn = false;
     });
 
-    /*var req = {
+    var req = {
         method: 'POST',
         url: 'http://stock-fantasy-league.herokuapp.com/api/user',
         headers: {
@@ -32,8 +32,8 @@ function onSignIn(googleUser) {
         uid = response.data.uid;
     }, function loginFailure(response) {
         console.log('Failing to log in!');
-    });*/
-    var xhr = new XMLHttpRequest();
+    });
+    /*var xhr = new XMLHttpRequest();
     xhr.open('POST', 'http://stock-fantasy-league.herokuapp.com/api/user');
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = function () {
