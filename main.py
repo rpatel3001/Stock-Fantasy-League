@@ -83,6 +83,8 @@ api.add_resource(class_with_db(getPlayerInfo.getPlayerInfo), '/api/league/<int:L
 
 api.add_resource(class_with_db(StockData.StockData), '/api/stock_data')
 
+app.secret_key='abc123'
 
 if __name__ == "__main__":
     app.run(debug=True)
+
