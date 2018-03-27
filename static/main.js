@@ -97,7 +97,7 @@ stk.controller('NavbarController', ['$scope', function ($scope) {
     };
 }]);
 
-stk.controller('PageManagerController', ['$scope', '$rootScope', function ($scope, $rootScope) {
+stk.controller('PageManagerController', ['$scope', '$rootScope', '$location', function ($scope, $rootScope, $location) {
     $scope.title = "Stock Fanatasy League";
     $scope.activePage = {
         homepage: {
@@ -116,30 +116,33 @@ stk.controller('PageManagerController', ['$scope', '$rootScope', function ($scop
             link: 'dashboard_parts.html',
             visible: false
         }
-    }
     };
     $rootScope.$on('ViewUsers', function viewUsers() {
-    $scope.activePage.homepage.visible = false;
-    $scope.activePage.users.visible = true;
-    $scope.activePage.leagues.visible = false;
-    $scope.activePage.dashboard.visible = false;
-});
+        $scope.activePage.homepage.visible = false;
+        $scope.activePage.users.visible = true;
+        $scope.activePage.leagues.visible = false;
+        $scope.activePage.dashboard.visible = false;
+        $location.path("/users");
+    });
     $rootScope.$on('ViewDashboard', function viewUsers() {
-    $scope.activePage.homepage.visible = false;
-    $scope.activePage.dashboard.visible = true;
-    $scope.activePage.users.visible = true;
-    $scope.activePage.leagues.visible = false;
-});
+        $scope.activePage.homepage.visible = false;
+        $scope.activePage.dashboard.visible = true;
+        $scope.activePage.users.visible = true;
+        $scope.activePage.leagues.visible = false;
+        $location.path("/dashboard");
+    });
     $rootScope.$on('ViewLeagues', function viewUsers() {
-    $scope.activePage.homepage.visible = false;
-    $scope.activePage.users.visible = false;
-    $scope.activePage.leagues.visible = true;
-    $scope.activePage.dashboard.visible = false;
-});
+        $scope.activePage.homepage.visible = false;
+        $scope.activePage.users.visible = false;
+        $scope.activePage.leagues.visible = true;
+        $scope.activePage.dashboard.visible = false;
+        $location.path("/leagues");
+    });
     $rootScope.$on('ViewHomePage', function viewUsers() {
-    $scope.activePage.homepage.visible = true;
-    $scope.activePage.users.visible = false;
-    $scope.activePage.leagues.visible = false;
-    $scope.activePage.dashboard.visible = false;
-});
+        $scope.activePage.homepage.visible = true;
+        $scope.activePage.users.visible = false;
+        $scope.activePage.leagues.visible = false;
+        $scope.activePage.dashboard.visible = false;
+        $location.path("/");
+    });
 }]);
