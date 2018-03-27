@@ -21,7 +21,7 @@ class Users(Resource):
         # parser.add_argument('token')
         # args = parser.parse_args()
 
-        args = request.getjson()
+        args = request.get_json()
 
 
         token = args['token']
