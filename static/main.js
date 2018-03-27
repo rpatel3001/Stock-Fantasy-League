@@ -3,7 +3,8 @@ stk.config(function ($routeProvider) {
     $routeProvider.when("/", {
         templateUrl: "homepage_parts.html"
     }).when("/users", {
-        templateUrl: 'user_list.html'
+        templateUrl: 'user_list.html',
+        controller: 'UserListController',
     }).when("/user/:uid", {
         templateUrl: 'user_info.html',
         controller: 'UserInfoController'
@@ -163,7 +164,7 @@ stk.controller('PageManagerController', ['$scope', '$rootScope', '$location', fu
         $location.path("/");
     });*/
 }]);
-stk.controller('UserInfoController', function ($scope, $http) {
+stk.controller('UserListController', function ($scope, $http) {
     var req = {
         method: 'GET',
         url: 'http://stock-fantasy-league.herokuapp.com/api/user'
