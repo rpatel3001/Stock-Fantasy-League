@@ -38,8 +38,8 @@ class Users(Resource):
             cur.execute("INSERT INTO userprefs (email, username, imageurl, token) VALUES (%s,%s,%s,%s);", (args['email'], args['username'], args['imageurl'], logintoken))
             cur.execute("SELECT uid FROM userprefs WHERE token LIKE %s;", (logintoken,))
             userUID = cur.fetchone()
-            if "loginstatus" in session and session["loginstatus"] == logintoken:
-            else:
+            
+            if "loginstatus" not in session and session["loginstatus"] != logintoken:
                 session["loginstatus"] = logintoken
             
             return userUID
@@ -47,9 +47,8 @@ class Users(Resource):
         #when account exists in DB
         cur.execute("SELECT uid from userprefs WHERE token LIKE %s;", (logintoken,))
         newUserUID = cur.fetchone()
-            if 'loginstatus' in session and session["loginstatus"] == logintoken:
-                #do nothing
-                pass
-            else:
-                session["loginstatus"] = logintoken
+
+        if "loginstatus" not in session and session["loginstatus"] != logintoken:
+            session["loginstatus"] = logintoken
+
         return newUserUID
