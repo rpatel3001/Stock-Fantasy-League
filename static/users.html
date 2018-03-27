@@ -11,8 +11,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script src="stock-fantasy-league.herokuapp.com//cookie_manager.js"></script>
-    <script src="stock-fantasy-league.herokuapp.com//main.js"></script>
+    <script src="stock-fantasy-league.herokuapp.com/cookie_manager.js"></script>
+    <script src="stock-fantasy-league.herokuapp.com/main.js"></script>
     <script src="cookie_manager.js"></script>
     <script src="main.js"></script>
     <title>{{title}}</title>
@@ -21,14 +21,53 @@
 
 <body>
     <div class="container-fluid">
-        <div ng-include="'navbar.html'"></div>
+        <!-- NAVBAR START -->
+        <nav class="navbar sticky-top navbar-expand-sm navbar-dark bg-dark" id="mainNavbar" ng-controller="NavbarController">
+            <a class="navbar-brand py-md-2" href="/">
+                <img 
+         src="https://stock-fantasy-league.herokuapp.com/img/homepage_icon.png" width="30" height="30"/>
+                Stock Fantasy League</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+            <div class="collapse navbar-collapse mr-auto" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active py-md-2" ng-show="signedIn == true">
+                        <a class="nav-link capitalize" ng-href="./user/{{uid}}">{{username}}</a>
+                    </li>
+                    <li class="nav-item active py-md-2" ng-repeat="navItem in navItems.links">
+                        <a class="nav-link" ng-href="{{navItem.href}}">{{navItem.name}}</a>
+                    </li>
+                </ul>
+                <!--</div>-->
+                <!--<button class="btn btn-outline-primary my-2 my-sm-0" href="#" onclick="wantSignIn();" ng-show="signedIn == false">Sign In</button>-->
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                <li class="nav-item dropdown" ng-show="signedIn == true">
+                    <a class="navbar-brand dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+    <img class="rounded-circle" ng-src="{{imageurl}}" width="40" height="40" alt="">
+                <span>{{username}}</span>
+  </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <a class="dropdown-item" href="#">Notification Preferences</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" onclick="signOut();" href="#">Log Out</a>
+                    </div>
+                </li>
+            </div>
+            <!--<form class="form-inline">
+        <input class="form-control" type="search" placeholder="Search" />
+    </form>-->
+        </nav>
+
+        <!--NAVBAR END -->
         <div ng-include="'user_parts.html'"></div>
         <!--        <div ng-include="'https://stock-fantasy-league.herokuapp.com/navbar.html'"></div>
-        <div ng-include="'https://stock-fantasy-league.herokuapp.com/user_parts.html'"></div>-->
+        <div ng-include="'https://stock-fantasy-league.herokuapp.com/user_parts.html'"></div>
         <div id="logInView" ng-controller="LoginController" ng-show="showLogIn == true">
             <h2>Sign In</h2>
             <div class="g-signin2" data-onsuccess="onSignIn"></div>
-        </div>
+        </div>-->
     </div>
 </body>
 
