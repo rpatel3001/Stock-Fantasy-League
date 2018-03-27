@@ -3,7 +3,10 @@ stk.config(function ($routeProvider) {
     $routeProvider.when("/", {
         templateUrl: "homepage_parts.html"
     }).when("/users", {
-        templateUrl: 'user_parts.html'
+        templateUrl: 'user_list.html'
+    }).when("/user/:uid", {
+        templateUrl: 'user_info.html',
+        controller: 'UserInfoController'
     }).when("/leagues", {
         templateUrl: 'league_parts.html',
         controller: 'LeagueController'
@@ -160,3 +163,35 @@ stk.controller('PageManagerController', ['$scope', '$rootScope', '$location', fu
         $location.path("/");
     });*/
 }]);
+tk.controller('DashboardController', function ($scope, $http) {
+    /*$http.get('http://stock-fantasy-league.herokuapp.com/api/user').then(function (response) {
+        $scope.user = response.data;
+    });*/
+    $scope.user = {
+        "uid": 1,
+        "lids": [1, 2314, 234],
+        "pid": null,
+        "friends": null,
+        "email": "x@x.com",
+        "messages": null,
+        "notifications": null,
+        "username": "brian",
+        "password": "pass",
+        "description": 'test',
+        joinDate: '12/27/16'
+    }; // change pids and lids to leagues and users
+});
+
+stk.controller('UserInfoController', function ($scope, $http) {
+    var req = {
+        method: 'GET',
+        url: 'http://stock-fantasy-league.herokuapp.com/api/user'
+    };
+    $scope.data = null;
+    $http(req).then(function loginSuccess(response) {
+        $scope.data = "{users:" + response.data + "}";
+    }, function loginFailure(response) {
+        console.log('Failing getting user info!');
+    });
+    $scope.users = data.users;
+});

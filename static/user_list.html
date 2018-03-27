@@ -1,0 +1,11 @@
+<!-- List of all the users-->
+<div ng-controller="UserListController">
+    <div ng-repeat="user in users">
+        <ul>
+            <ol>{{user.username}}</ol>
+            <ol> <img ng-src="{{user.imageurl}}">
+            </ol>
+            <ol>{{user.description}}</ol>
+        </ul>
+
+    </div>
