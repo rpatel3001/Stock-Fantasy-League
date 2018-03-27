@@ -66,9 +66,9 @@ function signOut() {
     });
 }
 
-function wantSignIn() {
+/*function wantSignIn() {
     var scope = angular.element($("#logInView")).scope();
     scope.$apply(function () {
         scope.showLogIn = true;
     });
-}
+}*/
