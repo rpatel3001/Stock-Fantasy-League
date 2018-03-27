@@ -34,10 +34,3 @@ class Users(Resource):
 
         cur.execute("SELECT uid from userprefs WHERE token LIKE %s;", (logintoken,))
         return cur.fetchone()
-
-
-
-
-        # is account, log in - give old UID
-        # isnt account  - create account, and give new UID
-        # bad, return -1
