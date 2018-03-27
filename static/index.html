@@ -68,6 +68,8 @@
         <div ng-if="activepage.leagues.visible" ng-include="'{{activepage.leagues.link}} '"></div>
         <div ng-if="activepage.users.visible" ng-include="'{{activepage.users.link}} '"></div>
         <div ng-if="activepage.dashboard.visible" ng-include="'{{activepage.dashboard.link}}'"></div>
+        <div ng-include="'footer.html'"></div>
+
         <!--<div id="logInView" ng-controller="LoginController" ng-show="showLogIn == true">
             <h2>Sign In</h2>
             <div ng-showclass="g-signin2" data-onsuccess="onSignIn"></div>
