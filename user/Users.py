@@ -39,12 +39,10 @@ class Users(Resource):
             cur.execute("SELECT uid FROM userprefs WHERE token LIKE %s;", (logintoken,))
             userUID = cur.fetchone()
             if "loginstatus" in session and session["loginstatus"] == logintoken:
-                #do nothing
-                pass
             else:
                 session["loginstatus"] = logintoken
+            
             return userUID
-            pass
 
         #when account exists in DB
         cur.execute("SELECT uid from userprefs WHERE token LIKE %s;", (logintoken,))
