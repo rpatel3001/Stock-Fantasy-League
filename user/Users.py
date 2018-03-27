@@ -1,5 +1,5 @@
 from flask_restful import reqparse, abort, Resource
-from flask import Flask, session
+from flask import Flask, session, make_response, request
 from google.oauth2 import id_token
 from google.auth.transport import requests
 
@@ -28,6 +28,7 @@ class Users(Resource):
         token = args['token']
         idinfo = id_token.verify_oauth2_token(token, requests.Request())
         logintoken = idinfo['aud']
+
         cur.execute("SELECT uid FROM userprefs WHERE token LIKE %s;", (logintoken,))
 
 
@@ -37,14 +38,20 @@ class Users(Resource):
             cur.execute("INSERT INTO userprefs (email, username, imageurl, token) VALUES (%s,%s,%s,%s);", (args['email'], args['username'], args['imageurl'], logintoken))
             cur.execute("SELECT uid FROM userprefs WHERE token LIKE %s;", (logintoken,))
             userUID = cur.fetchone()
-            session["loginstatus"] = logintoken
-            session["uid"] = userUID['uid']
+            if "loginstatus" in session and session["loginstatus"] == logintoken:
+                #do nothing
+                pass
+            else:
+                session["loginstatus"] = logintoken
             return userUID
             pass
 
         #when account exists in DB
         cur.execute("SELECT uid from userprefs WHERE token LIKE %s;", (logintoken,))
         newUserUID = cur.fetchone()
-        session["loginstatus"] = logintoken
-        session["uid"] = newUserUID['uid']
+            if 'loginstatus' in session and session["loginstatus"] == logintoken:
+                #do nothing
+                pass
+            else:
+                session["loginstatus"] = logintoken
         return newUserUID
