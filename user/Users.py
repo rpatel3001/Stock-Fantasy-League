@@ -14,14 +14,15 @@ class Users(Resource):
 
     @staticmethod   #used to create account
     def post(cur):
-        # parser = reqparse.RequestParser()
-        # parser.add_argument('email')
-        # parser.add_argument('username')
-        # parser.add_argument('imageURL')
-        # parser.add_argument('token')
-        # args = parser.parse_args()
+        parser = reqparse.RequestParser()
+        parser.add_argument('email')
+        parser.add_argument('username')
+        parser.add_argument('imageURL')
+        parser.add_argument('token')
+        args = parser.parse_args()
 
-        args = request.get_json()
+        # args = request.get_json()
+        # need to parse json string from quotation marks
 
 
         token = args['token']
