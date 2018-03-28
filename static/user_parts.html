@@ -19,6 +19,9 @@
 
         </li>
     </ul>
+
+    <div ng-include="'create_league.html'" ng-if="signedinuid == uid"></div>
+
     <title>Leagues</title>
     <card ng-repeat="league in user.leagues">
         <li>{{league.leagueName}}</li>

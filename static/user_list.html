@@ -1,13 +1,16 @@
 <!-- List of all the users-->
 <div ng-controller="UserListController">
     <div ng-repeat="user in data.Users">
-        <ul>
-            <li> <img ng-src="{{user.imageurl}}">
-            </li>
-            <li>{{user.username}}</li>
-            <li> <img ng-src="{{user.imageurl}}">
-            </li>
-            <li ng-hide="user.description == null">{{user.description}}</li>
-        </ul>
+        <a ng-href="#!/user/{{user.uid}}">
+            <ul>
+                <li> <img ng-src="{{user.imageurl}}">
+                </li>
+                <li>{{user.username}}</li>
+                <li> <img ng-src="{{user.imageurl}}">
+                </li>
+                <li ng-hide="user.description == null">{{user.description}}</li>
+
+            </ul>
+        </a>
 
     </div>

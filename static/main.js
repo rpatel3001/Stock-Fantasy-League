@@ -47,6 +47,11 @@ stk.controller('LeagueController', ['$scope', '$http', '$routeParams', function 
 }]);
 stk.controller('UserController', ['$scope', '$http', '$routeParams', function ($scope, $http, $routeParams) {
     $scope.uid = $routeParams.uid;
+    $scope.signedinuid = uid;
+    $scope.startBal = null;
+    $scope.duration = null;
+    $scope.leaguename = null;
+    $scope.description = null;
     var req = {
         method: 'GET',
         url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.uid
@@ -54,30 +59,51 @@ stk.controller('UserController', ['$scope', '$http', '$routeParams', function ($
     $scope.data = null;
     $http(req).then(function (response) {
         $scope.user = response.data; //unwrapped json
-        $scope.createLeague();
     }, function (response) {
         console.log('Failing getting league info!');
     });
     $scope.createLeague = function () {
-        var req = {
-            method: 'POST',
-            url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.uid,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-            data: $.param({
-                startBal: 10000,
-                duration: Date.now(),
-                leagueName: "angulartestLeague1",
-                description: "test"
-            })
+        if ($scope.signedinuid == $scope.uid) {
+            var req = {
+                method: 'POST',
+                url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.uid,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data: $.param({
+                    startBal: $scope.startBal,
+                    duration: new Date($scope.duration).getTime(),
+                    leagueName: $scope.leaguename,
+                    description: $scope.description
+                })
+            };
+            $http(req).then(function (response) {
+                console.log(response.data); //unwrapped json
+            }, function (response) {
+                console.log('Failing getting league info!');
+            });
         };
+    };
+    $scope.getUserLeagues = function () {
+        $scope.uid = $routeParams.uid;
+        $scope.signedinuid = uid;
+        $scope.startBal = null;
+        $scope.duration = null;
+        $scope.leaguename = null;
+        $scope.description = null;
+        var req = {
+            method: 'GET',
+            url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.uid url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.uid,
+            data:
+
+        };
+        $scope.data = null;
         $http(req).then(function (response) {
-            console.log(response.data); //unwrapped json
+            $scope.user = response.data; //unwrapped json
         }, function (response) {
             console.log('Failing getting league info!');
         });
-    };
+    }
 }]);
 stk.controller('DashboardController', function ($scope, $http) {
     /*$http.get('http://stock-fantasy-league.herokuapp.com/api/user').then(function (response) {
