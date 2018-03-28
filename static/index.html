@@ -50,10 +50,11 @@
                 <!--<button class="btn btn-outline-primary my-2 my-sm-0" href="#" onclick="wantSignIn();" ng-show="signedIn == false">Sign In</button>-->
                 <div class="g-signin2" data-onsuccess="onSignIn" ng-show="signedIn == false"></div>
                 <li class="nav-item dropdown" ng-show="signedIn == true">
-                    <a class="navbar-brand dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
-    <img class="rounded-circle" ng-src="{{imageurl}}" width="40" height="40" alt="">
-                <span>{{username}}</span>
-  </a>
+                    <a class="navbar-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+                        <!--MAYBE nav brand-->
+                        <img class="rounded-circle" ng-src="{{imageurl}}" width="40" height="40" alt="">
+                        <span>{{username}}</span>
+                    </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#">Settings</a>
                         <a class="dropdown-item" href="#">Notification Preferences</a>

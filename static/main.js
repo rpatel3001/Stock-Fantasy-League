@@ -18,6 +18,10 @@ stk.config(function ($routeProvider, $locationProvider) {
         templateUrl: 'league_parts.html'
         /*,
                 controller: 'LeagueController'*/
+    }).when("/league/:lid/player/:pid", {
+        templateUrl: 'player_parts.html'
+        /*,
+                controller: 'LeagueController'*/
     }).when("/dashboard", {
         templateUrl: 'dashboard_parts.html'
         /*,
@@ -84,26 +88,21 @@ stk.controller('UserController', ['$scope', '$http', '$routeParams', function ($
             });
         };
     };
-    /*$scope.getUserLeagues = function () {
+    $scope.getUserLeagues = function () {
         $scope.uid = $routeParams.uid;
-        $scope.signedinuid = uid;
-        $scope.startBal = null;
-        $scope.duration = null;
-        $scope.leaguename = null;
-        $scope.description = null;
         var req = {
             method: 'GET',
-            url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.uid url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.uid,
-            data:
-
+            url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.uid,
+            data: $.params({
+                lids: $scope.uid
+            })
         };
-        $scope.data = null;
         $http(req).then(function (response) {
             $scope.user = response.data; //unwrapped json
         }, function (response) {
             console.log('Failing getting league info!');
         });
-    }*/
+    };
 }]);
 stk.controller('DashboardController', function ($scope, $http) {
     /*$http.get('http://stock-fantasy-league.herokuapp.com/api/user').then(function (response) {
@@ -124,7 +123,11 @@ stk.controller('DashboardController', function ($scope, $http) {
     }; // change pids and lids to leagues and users
 });
 
-stk.controller('PlayerController', function ($scope, $http) {
+stk.controller('PlayerController', function ($scope, $http, $routeParams) {
+    $scope.lid = $routeParams.lid;
+    $scope.pid = $routeParams.pid;
+    
+
     $scope.player = {
         league: {
             leagueName: 'test',
