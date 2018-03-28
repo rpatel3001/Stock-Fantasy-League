@@ -122,11 +122,11 @@ stk.controller('NavbarController', ['$scope', function ($scope) {
         links: [{
             name: 'Users',
             command: 'ViewUsers',
-            href: '#!user'
+            href: '#!/user'
         }, {
             name: 'Leagues',
             command: 'ViewLeagues',
-            href: '#!league'
+            href: '#!/league'
         }]
     };
 }]);

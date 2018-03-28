@@ -58,18 +58,6 @@ def serve_index():
     """Serve index.html to the root URL."""
     return app.send_static_file('index.html')
 
-
-@app.route('/users/')
-def serve_users():
-    """Serve users.html to the /users/ URL."""
-    return app.send_static_file('users.html')
-
-
-@app.route('/leagues/')
-def serve_leagues():
-    """Serve index.html to the root URL."""
-    return app.send_static_file('leagues.html')
-
 # add API endpoints
 api.add_resource(class_with_db(Users.Users), '/api/user')
 api.add_resource(class_with_db(User.User), '/api/user/<int:UID>')
