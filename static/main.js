@@ -26,7 +26,7 @@ stk.controller('LoginController', ['$scope', function ($scope) {
     //x button
 }]);
 
-stk.controller('LeagueController', function ($scope, $http) {
+stk.controller('LeagueController', function ($scope, $http, $routeParams) {
     $scope.lid = $routeParams.lid;
     var req = {
         method: 'GET',
