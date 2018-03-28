@@ -68,7 +68,7 @@ api.add_resource(class_with_db(Players.Player), '/api/user/<int:UID>/player/<int
 
 api.add_resource(class_with_db(Leagues.Leagues), '/api/league') #GET: get all leagues information
 api.add_resource(class_with_db(League.League), '/api/league/<int:LID>') #GET: get league information for ONE LID
-api.add_resource(class_with_db(getPlayerInfo.getPlayerInfoByUID), '/api/league/<int:LID>/user/<int:UID>')  #GET: get player info given UID and LID
+api.add_resource(class_with_db(getPlayerInfoByUID.getPlayerInfoByUID), '/api/league/<int:LID>/user/<int:UID>')  #GET: get player info given UID and LID
 api.add_resource(class_with_db(getPlayerInfo.getPlayerInfoPID), '/api/player/<int:PID>')
 
 api.add_resource(class_with_db(StockData.StockData), '/api/stock_data')
