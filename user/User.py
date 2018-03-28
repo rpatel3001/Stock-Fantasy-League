@@ -4,13 +4,12 @@ from flask_restful import reqparse, abort, Resource
 class User(Resource):
 
     @staticmethod   #method to create a league
-    def post(cur, UID):
-   
+    def post(cur, UID): 
         parser = reqparse.RequestParser()
-        parser.add_argument('startBal')
-        parser.add_argument('duration')
-        parser.add_argument('leagueName')
-        parser.add_argument('description')
+        parser.add_argument('startBal',location='args')
+        parser.add_argument('duration',location='args')
+        parser.add_argument('leagueName',location='args')
+        parser.add_argument('description',location='args')
         args = parser.parse_args()
         return args
         pass
