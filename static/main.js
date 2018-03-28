@@ -12,8 +12,9 @@ stk.config(function ($routeProvider, $locationProvider) {
         templateUrl: 'league_list.html',
         controller: 'LeagueListController'
     }).when("/league/:lid", {
-        templateUrl: 'league_parts.html',
-        controller: 'LeagueController'
+        templateUrl: 'league_parts.html'
+        /*,
+                controller: 'LeagueController'*/
     }).when("/dashboard", {
         templateUrl: 'dashboard_parts.html',
         controller: 'DashboardController'
