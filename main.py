@@ -17,7 +17,7 @@ from google.auth.transport import requests
 from user import Users, User
 from player import Players
 from league import Leagues, League, getPlayerInfo
-from StockData import StockData
+from stock_data import StockData
 
 app = Flask(__name__, static_url_path='')
 api = Api(app)

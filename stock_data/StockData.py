@@ -72,7 +72,7 @@ def get_stock_data(cur, tickers):
         response.append({'sym': sym,
                          'price': s["2. price"],
                          'name': cur.fetchone()["name"]})
-    return json.dumps({"stockdata": response})
+    return {"stockdata": response}
 
 
 def get_price_history(sym, length, resolution):
