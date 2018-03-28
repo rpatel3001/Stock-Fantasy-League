@@ -6,4 +6,4 @@ class League(Resource):
     def get(cur, LID):
 
         cur.execute("SELECT uid, pid, startbal, leaguename, description, owneruid, ownerpid, type FROM leagues WHERE lid = %s;", [LID])
-        league = cur.fetchone()
+        league = json.dumps(cur.fetchone())
