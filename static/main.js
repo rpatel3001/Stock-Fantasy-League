@@ -18,7 +18,7 @@ stk.config(function ($routeProvider, $locationProvider) {
         templateUrl: 'dashboard_parts.html',
         controller: 'DashboardController'
     });
-    $locationProvider.html5Mode(true);
+    //$locationProvider.html5Mode(true);
 });
 stk.controller('LoginController', ['$scope', function ($scope) {
     $scope.showLogIn = false;
