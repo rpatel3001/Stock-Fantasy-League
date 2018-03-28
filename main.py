@@ -16,7 +16,7 @@ from google.auth.transport import requests
 
 from user import Users, User, joinLeague
 from player import Players, getPlayerInfoPID
-from league import Leagues, League, getPlayerInfo
+from league import Leagues, League, getPlayerInfoByUID
 from stock_data import StockData
 
 app = Flask(__name__, static_url_path='')
@@ -69,7 +69,7 @@ api.add_resource(class_with_db(Players.Player), '/api/user/<int:UID>/player/<int
 api.add_resource(class_with_db(Leagues.Leagues), '/api/league') #GET: get all leagues information
 api.add_resource(class_with_db(League.League), '/api/league/<int:LID>') #GET: get league information for ONE LID
 api.add_resource(class_with_db(getPlayerInfoByUID.getPlayerInfoByUID), '/api/league/<int:LID>/user/<int:UID>')  #GET: get player info given UID and LID
-api.add_resource(class_with_db(getPlayerInfo.getPlayerInfoPID), '/api/player/<int:PID>')
+api.add_resource(class_with_db(getPlayerInfoPID.getPlayerInfoPID), '/api/player/<int:PID>')
 
 api.add_resource(class_with_db(StockData.StockData), '/api/stock_data')
 

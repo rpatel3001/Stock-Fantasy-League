@@ -1,6 +1,6 @@
 from flask_restful import reqparse, abort, Resource
 
-class getPlayerInfo(Resource):
+class getPlayerInfoPID(Resource):
 	@staticmethod
 	def get(cur, PID):
 		cur.execute("SELECT * from players WHERE pid = %s;", [PID])
