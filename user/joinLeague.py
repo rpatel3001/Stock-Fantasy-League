@@ -2,7 +2,7 @@ from flask_restful import reqparse, abort, Resource
 
 class joinLeague(Resource):
 
-    @staticmethod
+    @staticmethod   #method to join a league
     def post(cur, UID):
 
         parser = reqparse.RequestParser()
