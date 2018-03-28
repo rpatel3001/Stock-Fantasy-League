@@ -8,10 +8,10 @@ stk.config(function ($routeProvider, $locationProvider) {
     }).when("/user/:uid", {
         templateUrl: 'user_info.html',
         controller: 'UserInfoController'
-    }).when("/league/:lid", {
+    }).when("/league", {
         templateUrl: 'league_list.html',
         controller: 'LeagueListController'
-    }).when("/league", {
+    }).when("/league/:lid", {
         templateUrl: 'league_parts.html',
         controller: 'LeagueController'
     }).when("/dashboard", {
@@ -26,7 +26,7 @@ stk.controller('LoginController', ['$scope', function ($scope) {
     //x button
 }]);
 
-stk.controller('LeagueController', function ($scope, $http, $routeParams) {
+stk.controller('LeagueController', ['$scope', '$http', '$routeParams', function ($scope, $http, $routeParams) {
     $scope.lid = $routeParams.lid;
     var req = {
         method: 'GET',
@@ -62,7 +62,7 @@ stk.controller('LeagueController', function ($scope, $http, $routeParams) {
             }
         ]
     };*/
-});
+}]);
 stk.controller('DashboardController', function ($scope, $http) {
     /*$http.get('http://stock-fantasy-league.herokuapp.com/api/user').then(function (response) {
         $scope.user = response.data;
