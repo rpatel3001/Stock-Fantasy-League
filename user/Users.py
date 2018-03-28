@@ -2,6 +2,7 @@ from flask_restful import reqparse, abort, Resource
 from flask import Flask, session, make_response, request
 from google.oauth2 import id_token
 from google.auth.transport import requests
+import json
 
 
 class Users(Resource):
@@ -9,8 +10,7 @@ class Users(Resource):
     @staticmethod   #shows all users in database
     def get(cur):
         cur.execute("select * from userprefs;")
-        return cur.fetchall()
-
+        return json.dumps({"Users": cur.fetchall()})
 
     @staticmethod   #used to create account
     def post(cur):
