@@ -171,11 +171,10 @@ stk.controller('UserListController', function ($scope, $http) {
     };
     $scope.data = null;
     $http(req).then(function loginSuccess(response) {
-        $scope.data = "{users:" + response.data + "}";
+        $scope.data = response.data;
     }, function loginFailure(response) {
         console.log('Failing getting user info!');
     });
-    $scope.users = $scope.data.users;
 });
 stk.controller('LeagueListController', function ($scope, $http) {
     var req = {
