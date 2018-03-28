@@ -11,9 +11,6 @@ class User(Resource):
         parser.add_argument('leagueName',location='args')
         parser.add_argument('description',location='args')
         args = parser.parse_args()
-        return args
-        pass
-    '''
         cur.execute("INSERT INTO players (uid) VALUES (%s);", [UID])   #creates a player in the database with the creaters UID
         cur.execute("SELECT pid from players where uid=%s;", [UID])  #used to return PID to add into the leagues database
         createdPID = cur.fetchall() #sets equal to dictionary of PIDs
@@ -25,7 +22,7 @@ class User(Resource):
         cur.execute("UPDATE userprefs SET pid = pid || %s WHERE uid = %s;", (createdPID[-1]['pid'], UID))
         return createdLID
         pass
-        '''
+    
     @staticmethod   #method to get info for user (changed for AJAX messages)
     def get(cur, UID):
         cur.execute("SELECT uid, lid, pid, friends, email, messages, notifications, username, imageurl,description FROM userprefs WHERE uid = %s;", [UID])
