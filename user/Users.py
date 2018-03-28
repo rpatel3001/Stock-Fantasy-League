@@ -50,5 +50,5 @@ class Users(Resource):
 
         if session.get('loginstatus') == None or session['loginstatus'] != logintoken:
             session["loginstatus"] = logintoken
-
+        print(logintoken);
         return newUserUID
