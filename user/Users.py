@@ -9,8 +9,7 @@ class Users(Resource):
     @staticmethod   #shows all users in database
     def get(cur):
         cur.execute("select * from userprefs;")
-        return cur.fetchall()
-
+        return json.dumps({"Users": cur.fetchall()})
 
     @staticmethod   #used to create account
     def post(cur):
