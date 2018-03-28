@@ -184,9 +184,8 @@ stk.controller('LeagueListController', function ($scope, $http) {
     };
     $scope.data = null;
     $http(req).then(function loginSuccess(response) {
-        $scope.data = response.data;
+        $scope.data = JSON.parse(response.data);
     }, function loginFailure(response) {
         console.log('Failing getting user info!');
     });
-    $scope.leagues = $scope.data;
 });
