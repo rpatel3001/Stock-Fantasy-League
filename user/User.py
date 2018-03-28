@@ -5,6 +5,9 @@ class User(Resource):
 
     @staticmethod   #method to create a league
     def post(cur, UID):
+        return 10
+        pass
+    '''    
         parser = reqparse.RequestParser()
         parser.add_argument('startBal')
         parser.add_argument('duration')
@@ -23,7 +26,7 @@ class User(Resource):
         cur.execute("UPDATE userprefs SET pid = pid || %s WHERE uid = %s;", (createdPID[-1]['pid'], UID))
         return createdLID
         pass
-
+        '''
     @staticmethod   #method to get info for user (changed for AJAX messages)
     def get(cur, UID):
         cur.execute("SELECT uid, lid, pid, friends, email, messages, notifications, username, imageurl,description FROM userprefs WHERE uid = %s;", [UID])
