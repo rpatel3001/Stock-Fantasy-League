@@ -38,7 +38,7 @@ stk.controller('LeagueController', ['$scope', '$http', '$routeParams', function 
     }, function loginFailure(response) {
         console.log('Failing getting user info!');
     });
-    $scope.league = data.Leagues[0];
+    $scope.league = $scope.data.Leagues[0];
     /*$scope.league = {
         leagueName: "Test",
         leagueCreator: "Oz Bejerano",
