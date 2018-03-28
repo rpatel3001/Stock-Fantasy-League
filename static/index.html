@@ -1,79 +1,83 @@
 <!DOCTYPE html>
 <html ng-app="Stock Fantasy League" lang="en" ng-controller="PageManagerController">
-   <head>
-      <meta charset="utf-8">
-      <base href="/">
-      <meta name="google-signin-scope" content="profile email">
-      <meta name="google-signin-client_id" content="667783900886-6p5fn2lrhu0q265ibuuufmk3t95ack93.apps.googleusercontent.com">
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
-      <script src="https://apis.google.com/js/platform.js" async defer></script>
-      <script src="stock-fantasy-league.herokuapp.com/cookie_manager.js"></script>
-      <script src="stock-fantasy-league.herokuapp.com/main.js"></script>
-      <script src="cookie_manager.js"></script>
-      <script src="main.js"></script>
-      <link rel="stylesheet" type="text/css" href="css/main.css">
-      <title>{{title}}</title>
-      <!--Home page-->
-   </head>
-   <body>
-      <div class="container-fluid" id="outline">
-         <!--<div ng-include="'stock-fantasy-league.herokuapp.com/navbar.html'"></div>
-            <div ng-include="'stock-fantasy-league.herokuapp.com/homepage_parts.html'"></div>-->
-         <!--<div ng-include="'navbar.html'"></div>-->
-         <!-- NAVBAR START -->
-         <nav class="navbar sticky-top navbar-expand-sm navbar-dark bg-dark" id="mainNavbar" ng-controller="NavbarController">
+
+<head>
+    <meta charset="utf-8">
+    <base href="/">
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="667783900886-6p5fn2lrhu0q265ibuuufmk3t95ack93.apps.googleusercontent.com">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="stock-fantasy-league.herokuapp.com/cookie_manager.js"></script>
+    <script src="stock-fantasy-league.herokuapp.com/main.js"></script>
+    <script src="cookie_manager.js"></script>
+    <script src="main.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <title>{{title}}</title>
+    <!--Home page-->
+</head>
+
+<body>
+    <div class="container-fluid" id="outline">
+        <!--<div ng-include="'stock-fantasy-league.herokuapp.com/navbar.html'"></div>
+        <div ng-include="'stock-fantasy-league.herokuapp.com/homepage_parts.html'"></div>-->
+        <!--<div ng-include="'navbar.html'"></div>-->
+        <!-- NAVBAR START -->
+        <nav class="navbar sticky-top navbar-expand-sm navbar-dark bg-dark" id="mainNavbar" ng-controller="NavbarController">
             <a class="navbar-brand py-md-2" ng-href="#!/">
-            <img src="https://stock-fantasy-league.herokuapp.com/img/homepage_icon.png" width="30" height="30"/>
-            Stock Fantasy League
+                <img src="https://stock-fantasy-league.herokuapp.com/img/homepage_icon.png" width="30" height="30"/>
+                Stock Fantasy League
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
+    <span class="navbar-toggler-icon"></span>
+  </button>
             <div class="collapse navbar-collapse mr-auto" id="navbarNav">
-               <ul class="navbar-nav mr-auto">
-                  <li class="nav-item active py-md-2" ng-show="signedIn == true">
-                     <a class="nav-link capitalize" ng-href="#!/dashboard">{{username}}</a>
-                  </li>
-                  <li class="nav-item active py-md-2" ng-repeat="navItem in navItems.links">
-                     <a class="nav-link" ng-href="{{navItem.href}}">{{navItem.name}}</a>
-                  </li>
-               </ul>
-               <!--</div>-->
-               <!--<button class="btn btn-outline-primary my-2 my-sm-0" href="#" onclick="wantSignIn();" ng-show="signedIn == false">Sign In</button>-->
-               <div class="g-signin2" data-onsuccess="onSignIn" ng-show="signedIn == false"></div>
-               <li class="nav-item dropdown" ng-show="signedIn == true">
-                  <a class="navbar-brand dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
-                  <img class="rounded-circle" ng-src="{{imageurl}}" width="40" height="40" alt="">
-                  <span>{{username}}</span>
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                     <a class="dropdown-item" href="#">Settings</a>
-                     <a class="dropdown-item" href="#">Notification Preferences</a>
-                     <div class="dropdown-divider"></div>
-                     <a class="dropdown-item" onclick="signOut();" href="#">Log Out</a>
-                  </div>
-               </li>
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active py-md-2" ng-show="signedIn == true">
+                        <a class="nav-link capitalize" ng-href="#!/dashboard">{{username}}</a>
+                    </li>
+                    <li class="nav-item active py-md-2" ng-repeat="navItem in navItems.links">
+                        <a class="nav-link" ng-href="{{navItem.href}}">{{navItem.name}}</a>
+                    </li>
+                </ul>
+                <!--</div>-->
+                <!--<button class="btn btn-outline-primary my-2 my-sm-0" href="#" onclick="wantSignIn();" ng-show="signedIn == false">Sign In</button>-->
+                <div class="g-signin2" data-onsuccess="onSignIn" ng-show="signedIn == false"></div>
+                <li class="nav-item dropdown" ng-show="signedIn == true">
+                    <a class="navbar-brand dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+    <img class="rounded-circle" ng-src="{{imageurl}}" width="40" height="40" alt="">
+                <span>{{username}}</span>
+  </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <a class="dropdown-item" href="#">Notification Preferences</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" onclick="signOut();" href="#">Log Out</a>
+                    </div>
+                </li>
             </div>
             <!--<form class="form-inline">
-               <input class="form-control" type="search" placeholder="Search" />
-               </form>-->
-         </nav>
-         <!--NAVBAR END -->
-         <div class="ng-view"></div>
-         <!--<div ng-if="activepage.homepage.visible" ng-include="'{{activepage.homepage.link}} '"></div>
-            <div ng-if="activepage.leagues.visible" ng-include="'{{activepage.leagues.link}} '"></div>
-            <div ng-if="activepage.users.visible" ng-include="'{{activepage.users.link}} '"></div>
-            <!--<div id="logInView" ng-controller="LoginController" ng-show="showLogIn == true">
-                <h2>Sign In</h2>
-                <div ng-showclass="g-signin2" data-onsuccess="onSignIn"></div>
-            </div>-->
-         <div ng-include="'footer.html'"></div>
-      </div>
-   </body>
+        <input class="form-control" type="search" placeholder="Search" />
+    </form>-->
+        </nav>
+        <!--NAVBAR END -->
+        <div class="ng-view"></div>
+        <!--<div ng-if="activepage.homepage.visible" ng-include="'{{activepage.homepage.link}} '"></div>
+        <div ng-if="activepage.leagues.visible" ng-include="'{{activepage.leagues.link}} '"></div>
+<div ng-if="activepage.users.visible" ng-include="'{{activepage.users.link}} '"></div>
+        <!--<div id="logInView" ng-controller="LoginController" ng-show="showLogIn == true">
+            <h2>Sign In</h2>
+            <div ng-showclass="g-signin2" data-onsuccess="onSignIn"></div>
+        </div>-->
+        <div ng-include="'footer.html'"></div>
+    </div>
+
+</body>
+
 </html>
