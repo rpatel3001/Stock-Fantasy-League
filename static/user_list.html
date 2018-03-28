@@ -2,10 +2,10 @@
 <div ng-controller="UserListController">
     <div ng-repeat="user in data.Users">
         <ul>
-            <ol>{{user.username}}</ol>
-            <ol> <img ng-src="{{user.imageurl}}">
-            </ol>
-            <ol>{{user.description}}</ol>
+            <li>{{user.username}}</li>
+            <li> <img ng-src="{{user.imageurl}}">
+            </li>
+            <li ng-hide="user.description == null">{{user.description}}</li>
         </ul>
 
     </div>

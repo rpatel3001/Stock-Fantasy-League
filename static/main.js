@@ -3,21 +3,25 @@ stk.config(function ($routeProvider, $locationProvider) {
     $routeProvider.when("/", {
         templateUrl: "homepage_parts.html"
     }).when("/user", {
-        templateUrl: 'user_list.html',
-        controller: 'UserListController',
+        templateUrl: 'user_list.html'
+        /*,
+                controller: 'UserListController'*/
     }).when("/user/:uid", {
-        templateUrl: 'user_info.html',
-        controller: 'UserInfoController'
+        templateUrl: 'user_parts.html'
+        /*,
+                controller: 'UserInfoController'*/
     }).when("/league", {
-        templateUrl: 'league_list.html',
-        controller: 'LeagueListController'
+        templateUrl: 'league_list.html'
+        /*,
+                controller: 'LeagueListController'*/
     }).when("/league/:lid", {
         templateUrl: 'league_parts.html'
         /*,
                 controller: 'LeagueController'*/
     }).when("/dashboard", {
-        templateUrl: 'dashboard_parts.html',
-        controller: 'DashboardController'
+        templateUrl: 'dashboard_parts.html'
+        /*,
+                controller: 'DashboardController'*/
     });
     //$locationProvider.html5Mode(true);
 });
@@ -123,11 +127,11 @@ stk.controller('NavbarController', ['$scope', function ($scope) {
         links: [{
             name: 'Users',
             command: 'ViewUsers',
-            href: '/user'
+            href: '#!/user'
         }, {
             name: 'Leagues',
             command: 'ViewLeagues',
-            href: '/league'
+            href: '#!/league'
         }]
     };
 }]);

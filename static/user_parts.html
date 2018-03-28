@@ -1,1 +1,27 @@
-<!-- List of all the users-->
+<div ng-controller="UserController">
+    <!-- This is info about a user-->
+    <ul>
+        <li>{{ user.username }}</li>
+        <li ng-hide="user.description == null">{{user.description}}</li>
+        <li>{{ user.joinDate}}</li>
+    </ul>
+    <ul>
+        User Stats
+        <li>
+            Number of Leagues: {{ user.lids.length }}
+        </li>
+        <li>
+            Total Holdings: {{ user.totalHoldings }}
+        </li>
+        <li>
+
+        </li>
+    </ul>
+    <title>Leagues</title>
+    <card ng-repeat="league in user.leagues">
+        <li>{{league.leagueName}}</li>
+        <li>{{league.description}}</li>
+        <li>{{league.userHoldings}}</li>
+        <!--may need to change-->
+    </card>
+</div>
