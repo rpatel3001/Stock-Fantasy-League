@@ -59,17 +59,17 @@ def serve_index():
     return app.send_static_file('index.html')
 
 # add API endpoints
-api.add_resource(class_with_db(Users.Users), '/api/user')
-api.add_resource(class_with_db(User.User), '/api/user/<int:UID>')
-api.add_resource(class_with_db(joinLeague.joinLeague), '/api/user/<int:UID>/joinLeague')
+api.add_resource(class_with_db(Users.Users), '/api/user')   #GET: show all users || POST: create account
+api.add_resource(class_with_db(User.User), '/api/user/<int:UID>')   #GET: user info given UID || POST: create a league
+api.add_resource(class_with_db(joinLeague.joinLeague), '/api/user/<int:UID>/joinLeague')    #POST: join a league
 
 
-api.add_resource(class_with_db(Players.Players), '/api/user/<int:UID>/player')
-api.add_resource(class_with_db(Players.Player), '/api/user/<int:UID>/player/<int:PID>')
+api.add_resource(class_with_db(Players.Players), '/api/user/<int:UID>/player')  #GET: get list of PIDs given UID
+api.add_resource(class_with_db(Players.Player), '/api/user/<int:UID>/player/<int:PID>') #UPDATE: when player leaves/is removed from league (looks unfinished?)
 
-api.add_resource(class_with_db(Leagues.Leagues), '/api/league')
-api.add_resource(class_with_db(League.League), '/api/league/<int:LID>')
-api.add_resource(class_with_db(getPlayerInfo.getPlayerInfo), '/api/league/<int:LID>/player/<int:UID>')
+api.add_resource(class_with_db(Leagues.Leagues), '/api/league') #GET: get all leagues information
+api.add_resource(class_with_db(League.League), '/api/league/<int:LID>') #GET: get league information for ONE LID
+api.add_resource(class_with_db(getPlayerInfo.getPlayerInfo), '/api/league/<int:LID>/player/<int:UID>')  #GET: get player info given UID and LID
 
 api.add_resource(class_with_db(StockData.StockData), '/api/stock_data')
 

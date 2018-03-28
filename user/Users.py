@@ -27,7 +27,7 @@ class Users(Resource):
 
         token = args['token']
         idinfo = id_token.verify_oauth2_token(token, requests.Request())
-        logintoken = idinfo['sub']
+        logintoken = idinfo['sub']  #aud is for website, sub is for the unique token
 
         cur.execute("SELECT uid FROM userprefs WHERE token LIKE %s;", (logintoken,))
 
