@@ -30,7 +30,7 @@
         <!--<div ng-include="'navbar.html'"></div>-->
         <!-- NAVBAR START -->
         <nav class="navbar sticky-top navbar-expand-sm navbar-dark bg-dark" id="mainNavbar" ng-controller="NavbarController">
-            <a class="navbar-brand py-md-2" ng-href="#!/">
+            <a class="navbar-brand py-md-2" ng-href="/">
                 <img src="https://stock-fantasy-league.herokuapp.com/img/homepage_icon.png" width="30" height="30"/>
                 Stock Fantasy League
             </a>
@@ -40,7 +40,7 @@
             <div class="collapse navbar-collapse mr-auto" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active py-md-2" ng-show="signedIn == true">
-                        <a class="nav-link capitalize" ng-href="#!/dashboard">{{username}}</a>
+                        <a class="nav-link capitalize" ng-href="/dashboard">{{username}}</a>
                     </li>
                     <li class="nav-item active py-md-2" ng-repeat="navItem in navItems.links">
                         <a class="nav-link" ng-href="{{navItem.href}}">{{navItem.name}}</a>
