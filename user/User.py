@@ -5,16 +5,16 @@ class User(Resource):
 
     @staticmethod   #method to create a league
     def post(cur, UID):
-        return 10
-        pass
-    '''    
+   
         parser = reqparse.RequestParser()
         parser.add_argument('startBal')
         parser.add_argument('duration')
-        parser.add_argument('leagueName', type=str)
+        parser.add_argument('leagueName')
         parser.add_argument('description')
         args = parser.parse_args()
-
+        return args
+        pass
+    '''
         cur.execute("INSERT INTO players (uid) VALUES (%s);", [UID])   #creates a player in the database with the creaters UID
         cur.execute("SELECT pid from players where uid=%s;", [UID])  #used to return PID to add into the leagues database
         createdPID = cur.fetchall() #sets equal to dictionary of PIDs
