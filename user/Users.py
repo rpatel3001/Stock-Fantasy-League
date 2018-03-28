@@ -27,7 +27,7 @@ class Users(Resource):
 
         token = args['token']
         idinfo = id_token.verify_oauth2_token(token, requests.Request())
-        logintoken = idinfo['aud']
+        logintoken = idinfo['sub']
 
         cur.execute("SELECT uid FROM userprefs WHERE token LIKE %s;", (logintoken,))
 
@@ -50,5 +50,4 @@ class Users(Resource):
 
         if session.get('loginstatus') == None or session['loginstatus'] != logintoken:
             session["loginstatus"] = logintoken
-        print(logintoken);
         return newUserUID
