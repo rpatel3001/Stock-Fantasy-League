@@ -40,33 +40,23 @@ stk.controller('LeagueController', ['$scope', '$http', '$routeParams', function 
     $scope.data = null;
     $http(req).then(function loginSuccess(response) {
         $scope.data = JSON.parse(response.data);
-        $scope.league = $scope.data.Leagues[0];
+        $scope.league = $scope.data.Leagues[0]; //wrpped json
     }, function loginFailure(response) {
         console.log('Failing getting league info!');
     });
-    /*$scope.league = {
-        leagueName: "Test",
-        leagueCreator: "Oz Bejerano",
-        numberMembers: 10,
-        marketCap: 1973824.76,
-        players: [
-            {
-                username: "Oz",
-                description: "I'm Oz",
-                holdings: 10982.67
-            },
-            {
-                username: "Oz2",
-                description: "I'm Oz",
-                holdings: 109328.67
-            },
-            {
-                username: "Oz",
-                description: "I'm 3Oz",
-                holdings: 1032398.67
-            }
-        ]
-    };*/
+}]);
+stk.controller('UserController', ['$scope', '$http', '$routeParams', function ($scope, $http, $routeParams) {
+    $scope.lid = $routeParams.lid;
+    var req = {
+        method: 'GET',
+        url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.lid
+    };
+    $scope.data = null;
+    $http(req).then(function loginSuccess(response) {
+        $scope.user = JSON.parse(response.data); //unwrapped json
+    }, function loginFailure(response) {
+        console.log('Failing getting league info!');
+    });
 }]);
 stk.controller('DashboardController', function ($scope, $http) {
     /*$http.get('http://stock-fantasy-league.herokuapp.com/api/user').then(function (response) {
