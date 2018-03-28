@@ -38,10 +38,10 @@ stk.controller('LeagueController', ['$scope', '$http', '$routeParams', function 
         url: 'http://stock-fantasy-league.herokuapp.com/api/league/' + $scope.lid
     };
     $scope.data = null;
-    $http(req).then(function loginSuccess(response) {
+    $http(req).then(function (response) {
         $scope.data = JSON.parse(response.data);
         $scope.league = $scope.data.Leagues[0]; //wrpped json
-    }, function loginFailure(response) {
+    }, function (response) {
         console.log('Failing getting league info!');
     });
 }]);
@@ -52,16 +52,19 @@ stk.controller('UserController', ['$scope', '$http', '$routeParams', function ($
         url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.uid
     };
     $scope.data = null;
-    $http(req).then(function loginSuccess(response) {
+    $http(req).then(function (response) {
         $scope.user = response.data; //unwrapped json
         $scope.createLeague();
-    }, function loginFailure(response) {
+    }, function (response) {
         console.log('Failing getting league info!');
     });
     $scope.createLeague = function () {
         var req = {
             method: 'POST',
             url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.uid,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
             data: $.param({
                 startBal: 10000,
                 duration: Date.now(),
@@ -69,9 +72,9 @@ stk.controller('UserController', ['$scope', '$http', '$routeParams', function ($
                 description: "test"
             })
         };
-        $http(req).then(function loginSuccess(response) {
+        $http(req).then(function (response) {
             console.log(response.data); //unwrapped json
-        }, function loginFailure(response) {
+        }, function (response) {
             console.log('Failing getting league info!');
         });
     };
