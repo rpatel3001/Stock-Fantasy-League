@@ -2,8 +2,10 @@
     <!-- This is info about a user-->
     <ul>
         <li>{{ user.username }}</li>
+        <li> <img ng-src="{{user.imageurl}}">
+        </li>
         <li ng-hide="user.description == null">{{user.description}}</li>
-        <li>{{ user.joinDate}}</li>
+        <li ng-hide="user.joinDate == null">{{ user.joinDate}}</li>
     </ul>
     <ul>
         User Stats

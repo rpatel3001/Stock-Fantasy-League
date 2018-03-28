@@ -54,9 +54,27 @@ stk.controller('UserController', ['$scope', '$http', '$routeParams', function ($
     $scope.data = null;
     $http(req).then(function loginSuccess(response) {
         $scope.user = response.data; //unwrapped json
+        $scope.createLeague();
     }, function loginFailure(response) {
         console.log('Failing getting league info!');
     });
+    $scope.createLeague = function () {
+        var req = {
+            method: 'POST',
+            url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.uid,
+            data: $.param({
+                startBal: 10000,
+                duration: Date.now(),
+                leagueName: "angulartestLeague1",
+                description: "test"
+            })
+        };
+        $http(req).then(function loginSuccess(response) {
+            console.log(response.data); //unwrapped json
+        }, function loginFailure(response) {
+            console.log('Failing getting league info!');
+        });
+    };
 }]);
 stk.controller('DashboardController', function ($scope, $http) {
     /*$http.get('http://stock-fantasy-league.herokuapp.com/api/user').then(function (response) {
