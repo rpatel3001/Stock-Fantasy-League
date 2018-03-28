@@ -14,7 +14,7 @@ import psycopg2.extras
 from google.oauth2 import id_token
 from google.auth.transport import requests
 
-from user import Users, User
+from user import Users, User, joinLeague
 from player import Players
 from league import Leagues, League, getPlayerInfo
 from stock_data import StockData
@@ -61,6 +61,8 @@ def serve_index():
 # add API endpoints
 api.add_resource(class_with_db(Users.Users), '/api/user')
 api.add_resource(class_with_db(User.User), '/api/user/<int:UID>')
+api.add_resource(class_with_db(joinLeague.joinLeague), '/api/user/<int:UID>/joinLeague')
+
 
 api.add_resource(class_with_db(Players.Players), '/api/user/<int:UID>/player')
 api.add_resource(class_with_db(Players.Player), '/api/user/<int:UID>/player/<int:PID>')
