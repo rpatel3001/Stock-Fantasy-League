@@ -26,6 +26,6 @@ class User(Resource):
 
     @staticmethod   #method to get info for user (changed for AJAX messages)
     def get(cur, UID):
-        cur.execute("SELECT lid, pid, email, username FROM userprefs WHERE uid = %s;", [UID])
+        cur.execute("SELECT uid, lid, pid, friends, email, messages, notifications, username, imageurl,description FROM userprefs WHERE uid = %s;", [UID])
         return cur.fetchone();
         pass

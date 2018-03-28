@@ -46,14 +46,14 @@ stk.controller('LeagueController', ['$scope', '$http', '$routeParams', function 
     });
 }]);
 stk.controller('UserController', ['$scope', '$http', '$routeParams', function ($scope, $http, $routeParams) {
-    $scope.lid = $routeParams.lid;
+    $scope.uid = $routeParams.uid;
     var req = {
         method: 'GET',
-        url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.lid
+        url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.uid
     };
     $scope.data = null;
     $http(req).then(function loginSuccess(response) {
-        $scope.user = JSON.parse(response.data); //unwrapped json
+        $scope.user = response.data; //unwrapped json
     }, function loginFailure(response) {
         console.log('Failing getting league info!');
     });

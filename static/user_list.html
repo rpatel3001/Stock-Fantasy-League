@@ -2,6 +2,8 @@
 <div ng-controller="UserListController">
     <div ng-repeat="user in data.Users">
         <ul>
+            <li> <img ng-src="{{user.imageurl}}">
+            </li>
             <li>{{user.username}}</li>
             <li> <img ng-src="{{user.imageurl}}">
             </li>
