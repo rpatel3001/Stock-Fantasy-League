@@ -35,10 +35,10 @@ stk.controller('LeagueController', ['$scope', '$http', '$routeParams', function 
     $scope.data = null;
     $http(req).then(function loginSuccess(response) {
         $scope.data = JSON.parse(response.data);
+        $scope.league = $scope.data.Leagues[0];
     }, function loginFailure(response) {
-        console.log('Failing getting user info!');
+        console.log('Failing getting league info!');
     });
-    $scope.league = $scope.data.Leagues[0];
     /*$scope.league = {
         leagueName: "Test",
         leagueCreator: "Oz Bejerano",
@@ -143,7 +143,7 @@ stk.controller('UserListController', function ($scope, $http) {
     $http(req).then(function loginSuccess(response) {
         $scope.data = JSON.parse(response.data);
     }, function loginFailure(response) {
-        console.log('Failing getting user info!');
+        console.log('Failing getting users info!');
     });
 });
 stk.controller('LeagueListController', function ($scope, $http) {
@@ -155,6 +155,6 @@ stk.controller('LeagueListController', function ($scope, $http) {
     $http(req).then(function loginSuccess(response) {
         $scope.data = JSON.parse(response.data);
     }, function loginFailure(response) {
-        console.log('Failing getting user info!');
+        console.log('Failing getting leagues info!');
     });
 });
