@@ -1,0 +1,11 @@
+<!-- List of all the users-->
+<div ng-controller="LeagueListController">
+    <div ng-repeat="league in Leagues">
+        <ul>
+            <ol>{{league.leaguename}}</ol>
+            <ol> <img ng-src="{{user.imageurl}}">
+            </ol>
+            <ol>{{user.description}}</ol>
+        </ul>
+
+    </div>

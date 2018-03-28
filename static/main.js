@@ -9,8 +9,8 @@ stk.config(function ($routeProvider) {
         templateUrl: 'user_info.html',
         controller: 'UserInfoController'
     }).when("/leagues", {
-        templateUrl: 'league_parts.html',
-        controller: 'LeagueController'
+        templateUrl: 'league_list.html',
+        controller: 'LeagueListController'
     }).when("/dashboard", {
         templateUrl: 'dashboard_parts.html',
         controller: 'DashboardController'
@@ -176,4 +176,17 @@ stk.controller('UserListController', function ($scope, $http) {
         console.log('Failing getting user info!');
     });
     $scope.users = $scope.data.users;
+});
+stk.controller('LeagueListController', function ($scope, $http) {
+    var req = {
+        method: 'GET',
+        url: 'http://stock-fantasy-league.herokuapp.com/api/league'
+    };
+    $scope.data = null;
+    $http(req).then(function loginSuccess(response) {
+        $scope.data = response.data;
+    }, function loginFailure(response) {
+        console.log('Failing getting user info!');
+    });
+    $scope.leagues = $scope.data;
 });
