@@ -1,20 +1,18 @@
-    <div ng-controller="LeagueController">
+<div ng-controller="LeagueController">
     <ul>
-    <li>{{ league.leagueName }}</li>
-        <li>{{ league.leagueCreator }}</li>
-        <li></li>
+        <li>{{ league.leagueName }}</li>
+        <li>{{ league.description }}</li>
     </ul>
     <ul>
         League Stats
         <li>
-        Number of Memebers: 
-            {{ league.numberMembers }}
+            Number of Memebers: {{ league.uid.length }}
         </li>
         <li>
-        Total Market Cap: {{ league.marketCap }}
+            Total Market Cap: {{ league.marketCap }}
         </li>
         <li>
-        
+
         </li>
     </ul>
     <title>League Members</title>
