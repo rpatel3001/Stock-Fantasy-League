@@ -64,7 +64,7 @@ class updateUserInfo(Resource):
 		# 	pass
 
 
-		return jsonstring
+		return "jsonstring"
 
 		pass
 		

@@ -11,7 +11,7 @@ class updatePlayerInfo(Resource):
 		newInfo = json.loads(args['update'])
 		print(newinfo)
 
-		return newInfo
+		return "newInfo"
 
 
 		pass
