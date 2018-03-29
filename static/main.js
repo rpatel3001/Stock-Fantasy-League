@@ -256,14 +256,14 @@ stk.controller('LeagueListController', function ($scope, $http, $rootScope, $loc
         url: 'http://stock-fantasy-league.herokuapp.com/api/league'
     };
     $scope.data = null;
-    $http(req).then(function loginSuccess(response) {
+    $http(reqLeagues).then(function loginSuccess(response) {
         $scope.data = JSON.parse(response.data);
     }, function loginFailure(response) {
         console.log('Failing getting leagues info!');
     });
     $scope.joinLeague = function (selected_lid) {
         if (uid > 0) {
-            var req = {
+            var reqJoinLeague = {
                 method: 'POST',
                 url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + uid + '/joinLeague',
                 headers: {
@@ -273,9 +273,9 @@ stk.controller('LeagueListController', function ($scope, $http, $rootScope, $loc
                     lid: selected_lid
                 })
             };
-            $http(req).then(function (response) {
+            $http(reqJoinLeague).then(function (response) {
                 //need to update this to change button and reload leagues
-                $http(req).then(function loginSuccess(response) {
+                $http(reqLeagues).then(function loginSuccess(response) {
                     $scope.data = JSON.parse(response.data);
                 }, function loginFailure(response) {
                     console.log('Failing getting leagues info!');
