@@ -28,9 +28,6 @@
 
 <body>
     <div class="container-fluid" id="outline">
-        <!--<div ng-include="'stock-fantasy-league.herokuapp.com/navbar.html'"></div>
-        <div ng-include="'stock-fantasy-league.herokuapp.com/homepage_parts.html'"></div>-->
-        <!--<div ng-include="'navbar.html'"></div>-->
         <!-- NAVBAR START -->
         <nav class="navbar sticky-top navbar-expand-sm navbar-dark bg-dark" id="mainNavbar" ng-controller="NavbarController">
             <a class="navbar-brand py-md-2" ng-href="#!/">
@@ -38,8 +35,8 @@
                 Stock Fantasy League
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse mr-auto" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active py-md-2" ng-show="signedIn == true">
@@ -54,8 +51,8 @@
                 <div class="g-signin2" data-onsuccess="onSignIn" ng-show="signedIn == false"></div>
                 <li class="nav-item dropdown" ng-show="signedIn == true">
                     <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="rounded-circle" ng-src="{{imageurl}}" width="40" height="40" alt="">
-                        <span>{{username}}</span>
+                        <!--<img class="rounded-circle" ng-src="{{imageurl}}" width="40" height="40" alt="">
+                        <span>{{username}}</span>-->
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#">Settings</a>
