@@ -1,0 +1,19 @@
+<form id="createLeague" ng-controller="UserController">
+    <div class="form-group">
+        <label for="LeagueNameInput">League Name</label>
+        <input type="text" class="form-control form-control-lg" id="LeagueNameInput" ng-model="leaguename">
+    </div>
+    <div class="form-group">
+        <label for="StartBalanceInput">StartBalance</label>
+        <input type="number" class="form-control" id="StartBalanceInput" ng-model="startBal">
+    </div>
+    <div class="form-group">
+        <label for="DurationInput">End Date</label>
+        <input type="date" class="form-control" id="DurationInput" ng-model="duration">
+    </div>
+    <div class="form-group">
+        <label for="DescriptionTextArea">Description</label>
+        <textarea class="form-control" id="DescriptionTextArea" rows="2" ng-model="description"></textarea>
+    </div>
+    <button class="btn btn-primary" type="submit" ng-click="createLeague();">Create League</button>
+</form>

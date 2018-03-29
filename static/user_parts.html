@@ -2,26 +2,33 @@
     <!-- This is info about a user-->
     <ul>
         <li>{{ user.username }}</li>
+        <li> <img ng-src="{{user.imageurl}}">
+        </li>
         <li ng-hide="user.description == null">{{user.description}}</li>
-        <li>{{ user.joinDate}}</li>
+        <li ng-hide="user.joinDate == null">{{ user.joinDate}}</li>
     </ul>
     <ul>
         User Stats
         <li>
-            Number of Leagues: {{ user.lids.length }}
+            Number of Leagues: {{ user.lid.length | number }}
         </li>
         <li>
-            Total Holdings: {{ user.totalHoldings }}
+            <!--Turn into table-->
+            Achievements: {{ user.achievements }}
         </li>
         <li>
 
         </li>
     </ul>
-    <title>Leagues</title>
-    <card ng-repeat="league in user.leagues">
-        <li>{{league.leagueName}}</li>
+    <!--ng-if="signedinuid == uid"-->
+    <div ng-include="'create_league.html'" ng-if="signedinuid == uid"></div>
+
+    <h2>{{'Leagues '+ user.username +' is in:'}}</h2>
+    <div ng-include="'league_list.html'"></div>
+    <ul ng-repeat="league in user.leagues">
+        <li>{{league.leaguename}}</li>
         <li>{{league.description}}</li>
         <li>{{league.userHoldings}}</li>
         <!--may need to change-->
-    </card>
+    </ul>
 </div>

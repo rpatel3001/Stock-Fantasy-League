@@ -6,7 +6,7 @@ class Players(Resource):
     # Getting a list of PIDS from an associated UID, utilizing the userprefs table
     @staticmethod
     def get(cur, UID):
-        cur.execute("select PID from userprefs where UID like %s;", (args['UID'],))
+        cur.execute("SELECT PID FROM userprefs WHERE UID LIKE %s;", (args['UID'],))
         return cur.fetchall()
 
 

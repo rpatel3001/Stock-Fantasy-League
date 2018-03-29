@@ -1,13 +1,55 @@
 <!-- List of all the users-->
 <div ng-controller="UserListController">
-    <div ng-repeat="user in data.Users">
-        <ul>
-            <li> <img ng-src="{{user.imageurl}}">
-            </li>
-            <li>{{user.username}}</li>
-            <li> <img ng-src="{{user.imageurl}}">
-            </li>
-            <li ng-hide="user.description == null">{{user.description}}</li>
-        </ul>
+    <nav class="navbar navbar-light bg-light justify-content-between">
+        <a class="navbar-brand">Users</a>
+        <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search Users" aria-label="Search" ng-model="UserSelect.username">
+        </form>
+    </nav>
+    <!-- <div ng-repeat="user in data.Users">
+        <a ng-href="#!/user/{{user.uid}}">
+            <!--<ul>
+                <li>{{user.username}}</li>
+                <li> <img ng-src="{{user.imageurl}}">
+                </li>
+                <li ng-hide="user.description == null">{{user.description}}</li>
 
+            </ul>-->
+    <!--<div class="team-boxed">
+        <div class="container">
+            <div ng-repeat="row in organizedData">
+                <div class="row people">
+                    <div ng-repeat="user in row">
+                        <div class="col-md-6 col-lg-3">
+                            <div class="item">
+                                <a ng-href="#!/user/{{user.uid}}">
+                                    <div class="box">
+                                        <img class="rounded-circle" ng-src="{{user.imageurl}}">
+                                        <h3 class="name">{{user.username}}</h3>
+                                        <p class="title">Description</p>
+                                        <p class="description">{{user.description}}</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+</div>-->
+    <div ng-repeat="row in organizedData | filter: UserSelect">
+        <div class="card-deck row">
+            <div class="card col-sm-4 mw-75" ng-repeat="user in row | filter: UserSelect">
+                <img class="card-img-top rounded-circle" ng-src="{{user.imageurl}}" alt="Card image cap">
+                <div class="card-body">
+                    <a ng-href="#!/user/{{user.uid}}">
+                        <h5 class="card-title">{{user.username}}</h5>
+                    </a>
+                    <p class="card-text">{{user.description}}</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

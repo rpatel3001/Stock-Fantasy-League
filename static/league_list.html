@@ -1,9 +1,40 @@
 <!-- List of all the users-->
-<div ng-controller="LeagueListController">
-    <div ng-repeat="league in data.Leagues">
-        <ul>
-            <ol>{{league.leaguename}}</ol>
-            <ol>{{league.description}}</ol>
-        </ul>
+<!--<div ng-repeat="league in data.Leagues">-->
+<nav class="navbar navbar-light bg-light justify-content-between">
+    <a class="navbar-brand">{{navbarHeader}}</a>
+    <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search Leagues" aria-label="Search" ng-model="LeagueSelect.leaguename">
+    </form>
+</nav>
+<!--<form ng-if="!leaguesView" class="form-inline">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search Leagues" aria-label="Search" ng-model="LeagueSelect.leaguename">
+</form>-->
+<table class="table table-striped table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>League Name</th>
+            <th>Description</th>
+            <th>Number Of Players</th>
+            <th>Start Balance</th>
+            <th ng-if="uid>0">Join/View</th>
+        </tr>
+    </thead>
+    <tr ng-repeat="league in data.Leagues | filter: LeagueSelect">
+        <a ng-href="#!/league/{{league.lid}}">
+            <td><a ng-href="#!/league/{{league.lid}}">{{league.leaguename}}</a></td>
+            <td><a ng-href="#!/league/{{league.lid}}">{{(league.description | limitTo: 20) + (league.description.length > 20 ? '...': '')}}</a></td>
+            <td><a ng-href="#!/league/{{league.lid}}">{{league.pid.length | number}}</a></td>
+            <td><a ng-href="#!/league/{{league.lid}}">{{league.startbal | currency }}</a></td>
+            <td ng-if="uid>0 && league.uid.indexOf(uid) == -1"><button class="btn btn-primary" ng-click="joinLeague(league.lid);">Join</button></td>
+            <td ng-if="uid>0 && league.uid.indexOf(uid)>=0"><a class="btn btn-success" ng-href="#!/league/{{league.lid}}/player/{{league.pid[league.uid.indexOf(uid)]}}">View Player</a></td>
+            <!--also check if user is logged in -->
+        </a>
+    </tr>
+</table>
+<!--
 
-    </div>
+            <ul>
+                <ol>{{league.leaguename}}</ol>
+                <ol>{{league.description}}</ol>
+</ul>
+        </a>-->

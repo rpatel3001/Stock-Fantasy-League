@@ -1,0 +1,33 @@
+<form id="modifyHoldings" ng-controller="PlayerController">
+    {{selectedTicker}}
+
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-secondary" ng-model="type" value="mbuy">Market Buy</button>
+        <button type="button" class="btn btn-secondary" ng-model="type" value="msell">Limit Buy</button>
+    </div>
+    <!--<div class="btn-group" role="group" aria-label="Basic example">
+  <button type="button" class="btn btn-secondary">Limit Buy</button>
+  <button type="button" class="btn btn-secondary">Limit Sell</button>
+</div>-->
+    <div class="form-group">
+        <label for="StockTicker"></label>
+        <input type="text" readonly class="form-control-plaintext form-control-lg" id="StockTicker" ng-model="selectedTicker">
+    </div>
+    <div class="form-group">
+        <label for="Stock Ticker">League Name</label>
+        <input type="text" readonly class="form-control-plaintext form-control-lg" id="LeagueNameInput" ng-model="selectedTicker">
+    </div>
+    <div class="form-group">
+        <label for="Number">Number of Shares to Trade</label>
+        <input type="number" class="form-control" id="StartBalanceInput" ng-model="startBal">
+    </div>
+    <div class="form-group">
+        <label for="DurationInput">End Date</label>
+        <input type="date" class="form-control" id="DurationInput" ng-model="duration">
+    </div>
+    <div class="form-group">
+        <label for="DescriptionTextArea">Description</label>
+        <textarea class="form-control" id="DescriptionTextArea" rows="2" ng-model="description"></textarea>
+    </div>
+    <button class="btn btn-primary" type="submit" ng-click="createLeague();">Create League</button>
+</form>
