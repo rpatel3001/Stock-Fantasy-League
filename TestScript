@@ -1,0 +1,55 @@
+# Select all users from userprefs table #
+
+# WORKING #
+curl -X GET localhost:5000/api/user
+
+############################################################################################################
+
+# Gets "email, username, imageurl, token" from input and will check if this token that is         #
+# sent through is already in the table, this checks if this user has created an account already.  #
+# If the account is present it will create the account and add it to our database userprefs table #
+
+# WORKING #
+curl -X POST -d "email=sampleEmail@gmail.comcom&username=sampleUsername&imageurl=https://www.google.com/imgres?imgurl=https%3A%2F%2Fi.ytimg.com%2Fvi%2FSfLV8hD7zX4%2Fmaxresdefault.jpg&imgrefurl=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DSfLV8hD7zX4&docid=JkkgT0Wh9FO29M&tbnid=_vUAT67U1HGFHM%3A&vet=10ahUKEwin9teTvpLaAhVJmeAKHW6cCkYQMwjRASgAMAA..i&w=1280&h=720&bih=680&biw=1280&q=dog&ved=0ahUKEwin9teTvpLaAhVJmeAKHW6cCkYQMwjRASgAMAA&iact=mrc&uact=8&token=1&description=sampleDescription" localhost:5000/api/user
+
+############################################################################################################
+
+# Method to get info for user (changed for AJAX messages) #
+
+# WORKING #
+curl -X GET localhost:5000/api/user/1
+
+############################################################################################################
+
+# Method to pull stock data for a specified stock relative to input for 'sym' #
+# In this case we input goog for 'sym' to read the stock data for Google      #
+
+# WORKING #
+curl -X GET "localhost:5000/api/stock_data?cmd=getStockData&sym=goog"
+
+############################################################################################################
+
+# Updating a user through given JSON input for 'update' #
+# We need to parse in update still #
+
+# NOT WORKING #
+curl -X UPDATE localhost:5000/api/user/1/update
+
+############################################################################################################
+
+# Method for user to create league which updates all necessary tables. Taking in UID #
+# And the desired leaguename input by the user. This user's UID will be the owneruid #
+# The duration is until 01/01/2099                                                   #
+
+# WORKING #
+curl -X POST -d "startBal=10.000&duration=4070989760&leagueName=league1&description=unit test" localhost:5000/api/user/2
+
+############################################################################################################
+
+# Method to join a league given an LID, this function will  #
+# return all the pid's for the passed in uid                #
+
+# WORKING #
+curl -X POST -d "lid=1" localhost:5000/api/user/1/joinLeague
+
+############################################################################################################
