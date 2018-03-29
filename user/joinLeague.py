@@ -17,6 +17,16 @@ class joinLeague(Resource):
         cur.execute("UPDATE leagues SET uid = uid || %s WHERE lid = %s;", ([UID], args['lid'])) 
         cur.execute("UPDATE userprefs SET lid = lid || %s WHERE uid = %s;", ([int(args['lid'])], UID))
         cur.execute("UPDATE players SET lid = %s WHERE uid = %s;", ((args['lid']), UID))
+
+        """
+        Achievment Code:
         
+        cur.execute("SELECT ticker FROM userprefs WHERE uid = %s", [UID])
+        tickerVal = cur.fetchone();
+        
+        if tickerVal == 0
+            println("Achievement Unlocked:\n" + "Join a League!\n" + "Points Earned: 5")
+        """
+
         return createdPID
         pass

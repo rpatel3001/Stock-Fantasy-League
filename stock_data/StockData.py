@@ -7,7 +7,6 @@ for stocks, ETFs, and cryptocurrencies.
 from requests import get as send_get
 from flask import request
 from flask_restful import abort, Resource
-import json
 
 _AV_URL = "https://www.alphavantage.co/query"
 
