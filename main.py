@@ -16,7 +16,7 @@ from google.auth.transport import requests
 
 from user import Users, User, joinLeague, updateUserInfo
 from player import Players, getPlayerInfoPID
-from league import Leagues, League, getPlayerInfoByUID, getLeagueInfoFromArray
+from league import Leagues, League, getPlayerInfoByUID, getLeagueInfoFromArray, getALLPlayerInfoFromLID
 from stock_data import StockData, TopStocks, StockSearch
 
 
