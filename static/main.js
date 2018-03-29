@@ -193,6 +193,37 @@ stk.controller('NavbarController', ['$scope', function ($scope) {
             href: '#!/league'
         }]
     };
+
+    function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        var id_token = googleUser.getAuthResponse().id_token;
+        var req = {
+            method: 'POST',
+            url: 'http://stock-fantasy-league.herokuapp.com/api/user',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data: $.param({
+                email: profile.getEmail(),
+                username: profile.getName(),
+                imageurl: profile.getImageUrl(),
+                token: id_token
+            })
+        }
+        $http(req).then(function loginSuccess(response) {
+            $rootScope.uid = response.data.uid;
+            var scope = angular.element($("#mainNavbar")).scope();
+            scope.$apply(function () {
+                scope.uid = uid;
+                scope.signedIn = true;
+                scope.username = profile.getName();
+                scope.imageurl = profile.getImageUrl();
+            });
+        }, function loginFailure(response) {
+            console.log('Failing to log in!');
+        });
+    }
+    window.onSignIn = onSignIn;
 }]);
 
 stk.controller('PageManagerController', ['$scope', '$rootScope', '$location', function ($scope, $rootScope, $location) {
