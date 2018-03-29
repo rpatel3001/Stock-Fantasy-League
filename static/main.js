@@ -206,6 +206,7 @@ stk.controller('UserListController', function ($scope, $http) {
     });
 });
 stk.controller('LeagueListController', function ($scope, $http) {
+    $scope.uid = uid; //need to make an official watch in another controller
     var req = {
         method: 'GET',
         url: 'http://stock-fantasy-league.herokuapp.com/api/league'
@@ -216,4 +217,23 @@ stk.controller('LeagueListController', function ($scope, $http) {
     }, function loginFailure(response) {
         console.log('Failing getting leagues info!');
     });
+    $scope.joinLeague = function (selected_lid) {
+        if (uid >0) {
+            var req = {
+                method: 'POST',
+                url: 'http://stock-fantasy-league.herokuapp.com/api/user/<int:UID>/joinLeague',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                params: {
+                    lid: selected_lid
+                }
+            };
+            $http(req).then(function (response) {
+                console.log(response.pid); //unwrapped json
+            }, function (response) {
+                console.log('Failing to join league!');
+            });
+        }
+    };
 });
