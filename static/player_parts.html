@@ -18,22 +18,21 @@
         </li>
     </ul>
     <title>All Holdings</title>
-    <input type="text" ng-model="stockSelect">
+    <input placeholder="Stock Ticker" type="text" ng-model="stockSelect.symbol">
+    <input placeholder="Stock Name" type="text" ng-model="stockSelect.name">
     <table class="table">
         <tr>
             <td>Stock Ticker</td>
             <td>Stock Name</td>
-            <td># of Shares</td>
-            <td>Stock Value</td>
+            <td>Stock Price</td>
             <td>Buy</td>
             <td>Sell</td>
         </tr>
 
-        <tr scope="row" ng-repeat="stock in player| filter : stockSelect">
-            <td>{{stock.stockTicker}}</td>
-            <td>{{ stock.name }}</td>
-            <td>{{stock.numberShares}}</td>
-            <td>{{(stock.numberShares * stock.sharePrice) | currency}}</td>
+        <tr scope="row" ng-repeat="stock in topStocks| filter : stockSelect">
+            <td>{{stock.symbol}}</td>
+            <td>{{stock.name}}</td>
+            <td>{{stock.price | currency}}</td>
             <td>buy_button</td>
             <td>sell_button</td>
         </tr>

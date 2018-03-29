@@ -1,3 +1,4 @@
+var uid = -1;
 var stk = angular.module('Stock Fantasy League', ["ngRoute"]);
 stk.config(function ($routeProvider, $locationProvider) {
     $routeProvider.when("/", {
@@ -157,6 +158,10 @@ stk.controller('PlayerController', function ($scope, $http, $routeParams) {
         method: 'GET',
         url: 'http://stock-fantasy-league.herokuapp.com/api/player/' + $scope.pid
     };
+    var reqStocks = {
+        method: 'GET',
+        url: 'http://stock-fantasy-league.herokuapp.com/api/stock_data/top/1000'
+    };
     $http(reqLeague).then(function (response) {
         $scope.league = JSON.parse(response.data).Leagues[0];
         //wrapped json
@@ -176,6 +181,9 @@ stk.controller('PlayerController', function ($scope, $http, $routeParams) {
                 };
             }
             //update sholding with server
+            $http(reqStocks).then(function (response) {
+                $scope.topStocks = response.data.stocks;
+            })
         }, function (response) {
             console.log('Failing getting league info!');
         });
@@ -302,3 +310,18 @@ var createGroupings = function (original, numCols) {
     }
     return rows;
 };
+
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    var scope = angular.element($("#mainNavbar")).scope();
+    auth2.signOut().then(function () {
+        uid = -1;
+        scope.$apply(function () {
+            scope.uid = -1;
+            scope.username = '';
+            scope.imageurl = '';
+            scope.signedIn = false;
+        });
+        console.log('User signed out.');
+    });
+}
