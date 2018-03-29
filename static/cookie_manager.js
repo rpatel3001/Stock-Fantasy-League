@@ -18,7 +18,7 @@ stk.controller('GoogleCtrl', function ($rootScope) {
             })
         }
         $http(req).then(function loginSuccess(response) {
-            $rootScope.uid = response.data.uid;
+            uid = response.data.uid;
             var scope = angular.element($("#mainNavbar")).scope();
             scope.$apply(function () {
                 scope.uid = uid;

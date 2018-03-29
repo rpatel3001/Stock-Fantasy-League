@@ -211,6 +211,7 @@ stk.controller('NavbarController', ['$scope', function ($scope) {
             })
         }
         $http(req).then(function loginSuccess(response) {
+            uid = response.data.uid;
             var scope = angular.element(document).scope();
             scope.$apply(function () {
                 scope.uid = uid;
