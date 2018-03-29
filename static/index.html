@@ -52,8 +52,8 @@
                 <!--</div>-->
                 <!--<button class="btn btn-outline-primary my-2 my-sm-0" href="#" onclick="wantSignIn();" ng-show="signedIn == false">Sign In</button>-->
                 <div class="g-signin2" data-onsuccess="onSignIn" ng-show="signedIn == false"></div>
-                <li class="nav-item dropdown" ng-show="signedIn == true">
-                    <a class="navbar-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+                <li class="nav-item dropdown" style="list-style-type: none" ng-show="signedIn == true">
+                    <a class="navbar-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <!--MAYBE nav brand-->
                         <img class="rounded-circle" ng-src="{{imageurl}}" width="40" height="40" alt="">
                         <span>{{username}}</span>
@@ -63,6 +63,17 @@
                         <a class="dropdown-item" href="#">Notification Preferences</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" onclick="signOut();" href="#">Log Out</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown
+        </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
                     </div>
                 </li>
             </div>
