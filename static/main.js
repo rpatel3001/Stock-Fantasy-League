@@ -143,41 +143,45 @@ stk.controller('DashboardController', function ($scope, $http) {
     }; // change pids and lids to leagues and users
 });
 
-stk.controller('PlayerController', function ($scope, $http, $route) {
+stk.controller('PlayerController', function ($scope, $http, $routeParams) {
     $scope.lid = $routeParams.lid;
     $scope.pid = $routeParams.pid;
-
-
-    $scope.player = {
-        league: {
-            leagueName: 'test',
-            description: 'test league',
-            img: 'url'
-        },
-        ranking: 10,
-        holdingsValue: 4321.65,
-        holdings: [
-            {
-                stockTicker: "AAPL",
-                name: "Apple, Inc.",
-                numberShares: 10,
-                sharePrice: 197.65
-            },
-            {
-                stockTicker: "GOOG",
-                name: "Alphabet, Inc.",
-                numberShares: 10,
-                sharePrice: 1097.65
-            }
-            , {
-                stockTicker: "AMZN",
-                name: "Amazon, Inc.",
-                numberShares: 10,
-                sharePrice: 1597.65
-            }
-            ]
-
+    $scope.player = null;
+    $scope.league = null;
+    var reqLeague = {
+        method: 'GET',
+        url: 'http://stock-fantasy-league.herokuapp.com/api/league/' + $scope.lid
     };
+    var reqPlayer = {
+        method: 'GET',
+        url: 'http://stock-fantasy-league.herokuapp.com/api/player/' + $scope.pid
+    };
+    $http(reqLeague).then(function (response) {
+        $scope.league = JSON.parse(response.data).Leagues[0];
+        //wrapped json
+        $http(reqPlayer).then(function (response) {
+            $scope.player = response.data[0];
+            if ($scope.player.holdings == null) {
+                $scope.player.holdings = {
+                    'holdings': []
+                }
+            }
+            if ($scope.player.availbalance == null) {
+                $scope.player.availbalance = $scope.league.startbal;
+            }
+            if ($scope.player.translog == null) {
+                $scope.player.translog = {
+                    'translog': []
+                };
+            }
+        }, function (response) {
+            console.log('Failing getting league info!');
+        });
+    }, function (response) {
+        console.log('Failing getting league info!');
+    });
+
+
 });
 stk.controller('NavbarController', ['$scope', function ($scope) {
     $scope.signedIn = false;
