@@ -16,22 +16,22 @@
             <th>Description</th>
             <th>Number Of Players</th>
             <th>Start Balance</th>
-            <th ng-if="$scope.uid>0">Join</th>
+            <th ng-if="$root.uid>0">Join</th>
         </tr>
     </thead>
     <tr ng-repeat="league in data.Leagues | filter: LeagueSelect">
         <a ng-href="#!/league/{{league.lid}}">
             <td><a ng-href="#!/league/{{league.lid}}">{{league.leaguename}}</a></td>
             <td><a ng-href="#!/league/{{league.lid}}">{{(league.description | limitTo: 20) + (league.description.length > 20 ? '...': '')}}</a></td>
-            <td><a ng-href="#!/league/{{league.lid}}">{{league.pid.length |number}}</a></td>
+            <td><a ng-href="#!/league/{{league.lid}}">{{league.pid.length | number}}</a></td>
             <td><a ng-href="#!/league/{{league.lid}}">{{league.startbal | currency }}</a></td>
-            <td ng-if="uid>0 && league.uid.indexOf(uid) == -1"><button class="btn" ng-click="joinLeague(league.lid);"> Join </button></td>
-            <td ng-if="uid>0 && league.uid.indexOf(uid)>0"><a class="btn" ng-href="#!/league/league.lid/player/league.pid[league.uid.indexOf(uid)]"> View Player </a></td>
+            <td ng-if="$root.uid>0 && league.uid.indexOf($root.uid) == -1"><button class="btn" ng-click="joinLeague(league.lid);"> Join </button></td>
+            <td ng-if="$root.uid>0 && league.uid.indexOf($root.uid)>0"><a class="btn" ng-href="#!/league/league.lid/player/league.pid[league.uid.indexOf(uid)]"> View Player </a></td>
             <!--also check if user is logged in -->
         </a>
     </tr>
 </table>
-<p>UID is {{$rootScope.uid}}</p>
+<p>UID is {{$root.uid}}</p>
 <!--
 
             <ul>

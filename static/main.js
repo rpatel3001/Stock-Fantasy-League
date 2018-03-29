@@ -1,5 +1,5 @@
 var stk = angular.module('Stock Fantasy League', ["ngRoute"]);
-stk.config(function ($routeProvider, $locationProvider) {
+stk.config(function ($routeProvider, $locationProvider, $rootScope) {
     $routeProvider.when("/", {
         templateUrl: "homepage_parts.html"
     }).when("/user", {
@@ -19,7 +19,7 @@ stk.config(function ($routeProvider, $locationProvider) {
                 controller: 'LeagueController'*/
     }).when("/league/:lid/player/:pid", {
         templateUrl: 'player_parts.html'
-        /*,
+/*,
                 controller: 'LeagueController'*/
     }).when("/about-us", {
         templateUrl: 'about_us.html'
@@ -32,6 +32,9 @@ stk.config(function ($routeProvider, $locationProvider) {
     });
     //$locationProvider.html5Mode(true);
 });
+stk.service('SharedData',function(){
+    
+})
 stk.controller('LoginController', ['$scope', function ($scope) {
     $scope.showLogIn = false;
     $scope.message = 'Sign In';
@@ -210,6 +213,7 @@ stk.controller('UserListController', function ($scope, $http) {
 });
 stk.controller('LeagueListController', function ($scope, $http, $rootScope) {
     $scope.leaguesView = true;
+    $scope.uid = $rootScope.uid; //need to make an official watch in another controller
     var req = {
         method: 'GET',
         url: 'http://stock-fantasy-league.herokuapp.com/api/league'
