@@ -17,7 +17,7 @@ from google.auth.transport import requests
 from user import Users, User
 from player import Players
 from league import Leagues, League, getPlayerInfo
-from stock_data import StockData
+from stock_data import StockData, TopStocks
 
 app = Flask(__name__, static_url_path='')
 api = Api(app)
@@ -70,6 +70,7 @@ api.add_resource(class_with_db(League.League), '/api/league/<int:LID>')
 api.add_resource(class_with_db(getPlayerInfo.getPlayerInfo), '/api/league/<int:LID>/player/<int:UID>')
 
 api.add_resource(class_with_db(StockData.StockData), '/api/stock_data')
+api.add_resource(class_with_db(TopStocks.TopStocks), '/api/stock_data/top/<int:num>')
 
 app.secret_key='abc123'
 #need to change to something more secure
