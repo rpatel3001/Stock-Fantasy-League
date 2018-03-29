@@ -48,8 +48,8 @@
                 </ul>
                 <!--</div>-->
                 <!--<button class="btn btn-outline-primary my-2 my-sm-0" href="#" onclick="wantSignIn();" ng-show="signedIn == false">Sign In</button>-->
-                <div class="g-signin2" data-onsuccess="onSignIn" ng-if="signedIn == false"></div>
-                <ul class="navbar-nav mr-auto" ng-if="signedIn == false">
+                <div class="g-signin2" data-onsuccess="onSignIn" ng-show="signedIn == false"></div>
+                <ul class="navbar-nav mr-auto" ng-show="signedIn == false">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img class="rounded-circle" ng-src="{{imageurl}}" width="40" height="40" alt="">
