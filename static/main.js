@@ -63,6 +63,7 @@ stk.controller('UserController', ['$scope', '$http', '$routeParams', function ($
     $scope.data = null;
     $http(req).then(function (response) {
         $scope.user = response.data; //unwrapped json
+        $scope.getUserLeagues();
     }, function (response) {
         console.log('Failing getting league info!');
     });
@@ -89,16 +90,18 @@ stk.controller('UserController', ['$scope', '$http', '$routeParams', function ($
         };
     };
     $scope.getUserLeagues = function () {
-        $scope.uid = $routeParams.uid;
         var req = {
             method: 'GET',
-            url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.uid,
-            data: $.params({
-                lids: $scope.uid
-            })
+            url: 'http://stock-fantasy-league.herokuapp.com/api/league/multiple',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            params: {
+                lidarray: $scope.user.lid.join(',')
+            }
         };
         $http(req).then(function (response) {
-            $scope.user = response.data; //unwrapped json
+            $scope.user.leagues = response.data; //unwrapped json
         }, function (response) {
             console.log('Failing getting league info!');
         });
@@ -123,10 +126,10 @@ stk.controller('DashboardController', function ($scope, $http) {
     }; // change pids and lids to leagues and users
 });
 
-stk.controller('PlayerController', function ($scope, $http, $routeParams) {
+stk.controller('PlayerController', function ($scope, $http, $route) {
     $scope.lid = $routeParams.lid;
     $scope.pid = $routeParams.pid;
-    
+
 
     $scope.player = {
         league: {

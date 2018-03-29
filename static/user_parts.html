@@ -19,14 +19,14 @@
 
         </li>
     </ul>
-
+    <!--ng-if="signedinuid == uid"-->
     <div ng-include="'create_league.html'" ng-if="signedinuid == uid"></div>
 
-    <title>Leagues</title>
-    <card ng-repeat="league in user.leagues">
-        <li>{{league.leagueName}}</li>
+    <h2>Leagues</h2>
+    <ul ng-repeat="league in user.leagues">
+        <li>{{league.leaguename}}</li>
         <li>{{league.description}}</li>
         <li>{{league.userHoldings}}</li>
         <!--may need to change-->
-    </card>
+    </ul>
 </div>
