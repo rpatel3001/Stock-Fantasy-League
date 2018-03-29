@@ -15,7 +15,7 @@ from google.oauth2 import id_token
 from google.auth.transport import requests
 
 from user import Users, User, joinLeague, updateUserInfo
-from player import Players, getPlayerInfoPID
+from player import Players, getPlayerInfoPID, updatePlayerInfo
 from league import Leagues, League, getPlayerInfoByUID, getLeagueInfoFromArray, getALLPlayerInfoFromLID
 from stock_data import StockData, TopStocks, StockSearch
 
@@ -66,8 +66,8 @@ api.add_resource(class_with_db(updateUserInfo.updateUserInfo), '/api/user/<int:U
 api.add_resource(class_with_db(joinLeague.joinLeague), '/api/user/<int:UID>/joinLeague')    #POST: join a league
 
 api.add_resource(class_with_db(Players.Players), '/api/user/<int:UID>/player')  #GET: get list of PIDs given UID
-
 api.add_resource(class_with_db(Players.Player), '/api/user/<int:UID>/player/<int:PID>') #UPDATE: when player leaves/is removed from league (looks unfinished?)
+api.add_resource(class_with_db(updatePlayerInfo.updatePlayerInfo), '/api/player/<int:PID>/update')
 api.add_resource(class_with_db(getPlayerInfoPID.getPlayerInfoPID), '/api/player/<int:PID>')
 
 api.add_resource(class_with_db(Leagues.Leagues), '/api/league') #GET: get all leagues information
