@@ -248,10 +248,10 @@ stk.controller('UserListController', function ($scope, $http) {
         console.log('Failing getting users info!');
     });
 });
-stk.controller('LeagueListController', function ($scope, $http, $rootScope) {
+stk.controller('LeagueListController', function ($scope, $http, $rootScope, $location) {
     $scope.leaguesView = true; //need to make an official watch in another controller
     $scope.navbarHeader = "Leagues";
-    var req = {
+    var reqLeagues = {
         method: 'GET',
         url: 'http://stock-fantasy-league.herokuapp.com/api/league'
     };
@@ -274,7 +274,14 @@ stk.controller('LeagueListController', function ($scope, $http, $rootScope) {
                 })
             };
             $http(req).then(function (response) {
-                console.log(response.pid); //unwrapped json
+                //need to update this to change button and reload leagues
+                $http(req).then(function loginSuccess(response) {
+                    $scope.data = JSON.parse(response.data);
+                }, function loginFailure(response) {
+                    console.log('Failing getting leagues info!');
+                });
+                $location.path("/league/" + selected_lid + "/player/" + response.data[response.data.length - 1])
+                //console.log(response.pid); //unwrapped json
             }, function (response) {
                 console.log('Failing to join league!');
             });
