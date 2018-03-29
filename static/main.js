@@ -208,9 +208,8 @@ stk.controller('UserListController', function ($scope, $http) {
         console.log('Failing getting users info!');
     });
 });
-stk.controller('LeagueListController', function ($scope, $http) {
+stk.controller('LeagueListController', function ($scope, $http, $rootScope) {
     $scope.leaguesView = true;
-    $scope.uid = uid; //need to make an official watch in another controller
     var req = {
         method: 'GET',
         url: 'http://stock-fantasy-league.herokuapp.com/api/league'

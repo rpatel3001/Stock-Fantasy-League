@@ -26,6 +26,11 @@ function onSignIn(googleUser) {
             scope.username = profile.getName();
             scope.imageurl = profile.getImageUrl();
         });
+        var $body = angular.element(document.body);
+        var $rootScope = $body.injector().get('$rootScope');
+        $rootScope.$apply(function () {
+            $rootScope.uid = uid;
+        });
     }, function loginFailure(response) {
         console.log('Failing to log in!');
     });
@@ -63,6 +68,11 @@ function signOut() {
             scope.username = '';
             scope.imageurl = '';
             scope.signedIn = false;
+        });
+        var $body = angular.element(document.body);
+        var $rootScope = $body.injector().get('$rootScope');
+        $rootScope.$apply(function () {
+            $rootScope.uid = -1;
         });
         console.log('User signed out.');
     });
