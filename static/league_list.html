@@ -1,14 +1,14 @@
 <!-- List of all the users-->
 <!--<div ng-repeat="league in data.Leagues">-->
-<nav ng-if="leaguesView" class="navbar navbar-light bg-light justify-content-between">
-    <a class="navbar-brand">Leagues</a>
+<nav class="navbar navbar-light bg-light justify-content-between">
+    <a class="navbar-brand">{{navbarHeader}}</a>
     <form class="form-inline">
         <input class="form-control mr-sm-2" type="search" placeholder="Search Leagues" aria-label="Search" ng-model="LeagueSelect.leaguename">
     </form>
 </nav>
-<form ng-if="!leaguesView" class="form-inline">
+<!--<form ng-if="!leaguesView" class="form-inline">
     <input class="form-control mr-sm-2" type="search" placeholder="Search Leagues" aria-label="Search" ng-model="LeagueSelect.leaguename">
-</form>
+</form>-->
 <table class="table table-striped">
     <thead class="thead-dark">
         <tr>
@@ -25,13 +25,12 @@
             <td><a ng-href="#!/league/{{league.lid}}">{{(league.description | limitTo: 20) + (league.description.length > 20 ? '...': '')}}</a></td>
             <td><a ng-href="#!/league/{{league.lid}}">{{league.pid.length | number}}</a></td>
             <td><a ng-href="#!/league/{{league.lid}}">{{league.startbal | currency }}</a></td>
-            <td><button ng-if="uid>0 && league.uid.indexOf(uid) == -1" class="btn" ng-click="joinLeague(league.lid);"> Join {{league.lid}} </button></td>
-            <td><a ng-if="uid>0 && league.uid.indexOf(uid)>0" class="btn" ng-href="#!/league/league.lid/player/league.pid[league.uid.indexOf(uid)]"> View Player {{league.lid}}</a></td>
+            <td><button ng-if="uid>0 && league.uid.indexOf(uid) == -1" class="btn btn-primary" ng-click="joinLeague(league.lid);"> Join {{league.lid}} </button></td>
+            <td><a ng-if="uid>0 && league.uid.indexOf(uid)>=0" class="btn btn-primary" ng-href="#!/league/{{league.lid}}/player/{{league.pid[league.uid.indexOf(uid)]}}"> View Player {{league.lid}}</a></td>
             <!--also check if user is logged in -->
         </a>
     </tr>
 </table>
-<p>UID is {{uid}}</p>
 <!--
 
             <ul>

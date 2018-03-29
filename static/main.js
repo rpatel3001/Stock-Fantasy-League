@@ -65,6 +65,7 @@ stk.controller('UserController', ['$scope', '$http', '$routeParams', function ($
     $scope.description = null;
     $scope.data = {};
     $scope.leaguesView = false;
+    $scope.navbarHeader = "Leagues";
     var req = {
         method: 'GET',
         url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.uid
@@ -249,6 +250,7 @@ stk.controller('UserListController', function ($scope, $http) {
 });
 stk.controller('LeagueListController', function ($scope, $http, $rootScope) {
     $scope.leaguesView = true; //need to make an official watch in another controller
+    $scope.navbarHeader = "Leagues";
     var req = {
         method: 'GET',
         url: 'http://stock-fantasy-league.herokuapp.com/api/league'
