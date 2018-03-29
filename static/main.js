@@ -48,7 +48,7 @@ stk.controller('LeagueController', ['$scope', '$http', '$routeParams', function 
     $scope.data = null;
     $http(req).then(function (response) {
         $scope.data = JSON.parse(response.data);
-        $scope.league = $scope.data.Leagues[0]; //wrpped json
+        $scope.league = $scope.data.Leagues[0]; //wrapped json
     }, function (response) {
         console.log('Failing getting league info!');
     });
@@ -225,9 +225,9 @@ stk.controller('LeagueListController', function ($scope, $http) {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                params: {
+                data: $.param({
                     lid: selected_lid
-                }
+                })
             };
             $http(req).then(function (response) {
                 console.log(response.pid); //unwrapped json
