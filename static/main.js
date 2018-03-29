@@ -221,7 +221,7 @@ stk.controller('LeagueListController', function ($scope, $http) {
         if (uid >0) {
             var req = {
                 method: 'POST',
-                url: 'http://stock-fantasy-league.herokuapp.com/api/user/<int:UID>/joinLeague',
+                url: 'http://stock-fantasy-league.herokuapp.com/api/user/'+uid+'/joinLeague',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
