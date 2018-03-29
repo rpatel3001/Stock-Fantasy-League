@@ -22,10 +22,14 @@ stk.config(function ($routeProvider, $locationProvider) {
         templateUrl: 'player_parts.html'
         /*,
                 controller: 'LeagueController'*/
-    }).when("/dashboard", {
-        templateUrl: 'dashboard_parts.html'
+    }).when("/about-us", {
+        templateUrl: 'about_us.html'
         /*,
                 controller: 'DashboardController'*/
+    }).when("/vip", {
+        templateUrl: 'vip.html'
+        /*,
+                controller: 'UserListController'*/
     });
     //$locationProvider.html5Mode(true);
 });
@@ -88,6 +92,7 @@ stk.controller('UserController', ['$scope', '$http', '$routeParams', function ($
                 $scope.duration = null;
                 $scope.leaguename = null;
                 $scope.description = null;
+                $scope.getUserLeagues();
             }, function (response) {
                 console.log('Failing getting league info!');
             });
