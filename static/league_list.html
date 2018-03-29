@@ -25,8 +25,8 @@
             <td><a ng-href="#!/league/{{league.lid}}">{{(league.description | limitTo: 20) + (league.description.length > 20 ? '...': '')}}</a></td>
             <td><a ng-href="#!/league/{{league.lid}}">{{league.pid.length | number}}</a></td>
             <td><a ng-href="#!/league/{{league.lid}}">{{league.startbal | currency }}</a></td>
-            <td ng-if="uid>0 && league.uid.indexOf(uid) == -1"><button class="btn" ng-click="joinLeague(league.lid);"> Join {{league.lid}} </button></td>
-            <td ng-if="uid>0 && league.uid.indexOf(uid)>0"><a class="btn" ng-href="#!/league/league.lid/player/league.pid[league.uid.indexOf(uid)]"> View Player {{league.lid}}</a></td>
+            <td><button ng-if="uid>0 && league.uid.indexOf(uid) == -1" class="btn" ng-click="joinLeague(league.lid);"> Join {{league.lid}} </button></td>
+            <td><a ng-if="uid>0 && league.uid.indexOf(uid)>0" class="btn" ng-href="#!/league/league.lid/player/league.pid[league.uid.indexOf(uid)]"> View Player {{league.lid}}</a></td>
             <!--also check if user is logged in -->
         </a>
     </tr>
