@@ -1,57 +1,59 @@
 var uid = -1;
 $http = angular.injector(["ng"]).get("$http");
-
-function onSignIn(googleUser) {
-    var profile = googleUser.getBasicProfile();
-    var id_token = googleUser.getAuthResponse().id_token;
-    var req = {
-        method: 'POST',
-        url: 'http://stock-fantasy-league.herokuapp.com/api/user',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        data: $.param({
-            email: profile.getEmail(),
-            username: profile.getName(),
-            imageurl: profile.getImageUrl(),
-            token: id_token
-        })
-    }
-    $http(req).then(function loginSuccess(response) {
-        uid = response.data.uid;
-        var scope = angular.element(document).scope();
-        scope.$apply(function () {
-            scope.uid = uid;
-            scope.signedIn = true;
-            scope.username = profile.getName();
-            scope.imageurl = profile.getImageUrl();
+stk.controller('GoogleCtrl', function ($rootScope) {
+    function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        var id_token = googleUser.getAuthResponse().id_token;
+        var req = {
+            method: 'POST',
+            url: 'http://stock-fantasy-league.herokuapp.com/api/user',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data: $.param({
+                email: profile.getEmail(),
+                username: profile.getName(),
+                imageurl: profile.getImageUrl(),
+                token: id_token
+            })
+        }
+        $http(req).then(function loginSuccess(response) {
+            $rootScope.uid = response.data.uid;
+            var scope = angular.element($("#mainNavbar")).scope();
+            scope.$apply(function () {
+                scope.uid = uid;
+                scope.signedIn = true;
+                scope.username = profile.getName();
+                scope.imageurl = profile.getImageUrl();
+            });
+        }, function loginFailure(response) {
+            console.log('Failing to log in!');
         });
-    }, function loginFailure(response) {
-        console.log('Failing to log in!');
-    });
-    /*var scope2 = angular.element($("#logInView")).scope();
-    scope2.$apply(function () {
-        scope2.showLogIn = false;
-    });*/
-    /*var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://stock-fantasy-league.herokuapp.com/api/user');
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onload = function () {
-        console.log('Signed in as: ' + xhr.responseText);
-    };
-    xhr.send('email=' + profile.getEmail() + '&username=' +
-        profile.getName() + '&imageurl=' +
-        profile.getImageUrl() + '&token=' +
-        id_token);
-    /*xhr.send('email="' + profile.getEmail() + '"&username="' +
-        profile.getName() + '"&imageurl="' +
-        profile.getImageUrl() + '"&token="' +
-        id_token + '"');*/
-    /*console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.*/
-}
+        /*var scope2 = angular.element($("#logInView")).scope();
+        scope2.$apply(function () {
+            scope2.showLogIn = false;
+        });*/
+        /*var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'http://stock-fantasy-league.herokuapp.com/api/user');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function () {
+            console.log('Signed in as: ' + xhr.responseText);
+        };
+        xhr.send('email=' + profile.getEmail() + '&username=' +
+            profile.getName() + '&imageurl=' +
+            profile.getImageUrl() + '&token=' +
+            id_token);
+        /*xhr.send('email="' + profile.getEmail() + '"&username="' +
+            profile.getName() + '"&imageurl="' +
+            profile.getImageUrl() + '"&token="' +
+            id_token + '"');*/
+        /*console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.*/
+    }
+    window.onSignIn = onSignIn;
+});
 
 function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
@@ -63,11 +65,6 @@ function signOut() {
             scope.username = '';
             scope.imageurl = '';
             scope.signedIn = false;
-        });
-        var $body = angular.element(document.body);
-        var $rootScope = $body.injector().get('$rootScope');
-        $rootScope.$apply(function () {
-            $rootScope.uid = -1;
         });
         console.log('User signed out.');
     });
