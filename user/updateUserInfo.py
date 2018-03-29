@@ -16,7 +16,7 @@ class updateUserInfo(Resource):
 		query = ''
 		temp = ''
 		for column in userColumns:
-			if column == 'messages' or column == 'notifications'
+			if column == 'messages' or column == 'notifications':
 				temp = str(column) + '=' + "'" +  json.dumps((newInfo[column])) + "'"
 				query += temp + ","
 				continue
