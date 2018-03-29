@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="/">
     <meta name="google-signin-scope" content="profile email">
     <meta name="google-signin-client_id" content="667783900886-6p5fn2lrhu0q265ibuuufmk3t95ack93.apps.googleusercontent.com">
@@ -20,6 +21,8 @@
     <script src="main.js"></script>
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <title>{{title}}</title>
+    <link rel="stylesheet" href="assets_aboutus/css/styles.css">
+    <link rel="stylesheet" href="assets_aboutus/css/Team-Boxed.css">
     <!--Home page-->
 </head>
 
@@ -68,7 +71,9 @@
     </form>-->
         </nav>
         <!--NAVBAR END -->
-        <div class="ng-view"></div>
+        <div class="container">
+            <div class="ng-view"></div>
+        </div>
         <!--<div ng-if="activepage.homepage.visible" ng-include="'{{activepage.homepage.link}} '"></div>
         <div ng-if="activepage.leagues.visible" ng-include="'{{activepage.leagues.link}} '"></div>
 <div ng-if="activepage.users.visible" ng-include="'{{activepage.users.link}} '"></div>

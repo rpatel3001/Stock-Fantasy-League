@@ -23,7 +23,8 @@
     <!--ng-if="signedinuid == uid"-->
     <div ng-include="'create_league.html'" ng-if="signedinuid == uid"></div>
 
-    <h2>Leagues</h2>
+    <h2>{{'Leagues '+ user.username +' is in:'}}</h2>
+    <div ng-include="'league_list.html'"></div>
     <ul ng-repeat="league in user.leagues">
         <li>{{league.leaguename}}</li>
         <li>{{league.description}}</li>

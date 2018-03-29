@@ -11,9 +11,8 @@ stk.config(function ($routeProvider, $locationProvider) {
         /*,
                 controller: 'UserInfoController'*/
     }).when("/league", {
-        templateUrl: 'league_list.html'
-        /*,
-                controller: 'LeagueListController'*/
+        templateUrl: 'league_list.html',
+        controller: 'LeagueListController'
     }).when("/league/:lid", {
         templateUrl: 'league_parts.html'
         /*,
@@ -60,11 +59,12 @@ stk.controller('UserController', ['$scope', '$http', '$routeParams', function ($
     $scope.duration = null;
     $scope.leaguename = null;
     $scope.description = null;
+    $scope.data = {};
+    $scope.leaguesView = false;
     var req = {
         method: 'GET',
         url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.uid
     };
-    $scope.data = null;
     $http(req).then(function (response) {
         $scope.user = response.data; //unwrapped json
         $scope.getUserLeagues();
@@ -111,7 +111,8 @@ stk.controller('UserController', ['$scope', '$http', '$routeParams', function ($
                 }
             };
             $http(req).then(function (response) {
-                $scope.user.leagues = response.data; //unwrapped json
+                $scope.data.Leagues = response.data;
+                $scope.user.leagues = response.data //unwrapped json
             }, function (response) {
                 console.log('Failing getting league info!');
             });
@@ -193,6 +194,7 @@ stk.controller('NavbarController', ['$scope', function ($scope) {
 stk.controller('PageManagerController', ['$scope', '$rootScope', '$location', function ($scope, $rootScope, $location) {
     $scope.title = "Stock Fanatasy League";
 }]);
+
 stk.controller('UserListController', function ($scope, $http) {
     var req = {
         method: 'GET',
@@ -201,11 +203,13 @@ stk.controller('UserListController', function ($scope, $http) {
     $scope.data = null;
     $http(req).then(function loginSuccess(response) {
         $scope.data = JSON.parse(response.data);
+        $scope.organizedData = createGroupings($scope.data.Users, 3);
     }, function loginFailure(response) {
         console.log('Failing getting users info!');
     });
 });
 stk.controller('LeagueListController', function ($scope, $http) {
+    $scope.leaguesView = true;
     $scope.uid = uid; //need to make an official watch in another controller
     var req = {
         method: 'GET',
@@ -218,10 +222,10 @@ stk.controller('LeagueListController', function ($scope, $http) {
         console.log('Failing getting leagues info!');
     });
     $scope.joinLeague = function (selected_lid) {
-        if (uid >0) {
+        if (uid > 0) {
             var req = {
                 method: 'POST',
-                url: 'http://stock-fantasy-league.herokuapp.com/api/user/'+uid+'/joinLeague',
+                url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + uid + '/joinLeague',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
@@ -237,3 +241,11 @@ stk.controller('LeagueListController', function ($scope, $http) {
         }
     };
 });
+
+var createGroupings = function (original, numCols) {
+    var rows = [];
+    for (i = 0; i < original.length; i += numCols) {
+        rows.push(original.slice(i, i + numCols));
+    }
+    return rows;
+};
