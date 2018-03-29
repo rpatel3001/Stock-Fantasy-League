@@ -84,27 +84,33 @@ stk.controller('UserController', ['$scope', '$http', '$routeParams', function ($
             };
             $http(req).then(function (response) {
                 console.log(response.data); //unwrapped json
+                $scope.startBal = null;
+                $scope.duration = null;
+                $scope.leaguename = null;
+                $scope.description = null;
             }, function (response) {
                 console.log('Failing getting league info!');
             });
         };
     };
     $scope.getUserLeagues = function () {
-        var req = {
-            method: 'GET',
-            url: 'http://stock-fantasy-league.herokuapp.com/api/league/multiple',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            params: {
-                lidarray: $scope.user.lid.join(',')
-            }
-        };
-        $http(req).then(function (response) {
-            $scope.user.leagues = response.data; //unwrapped json
-        }, function (response) {
-            console.log('Failing getting league info!');
-        });
+        if ($scope.user.lid != null) {
+            var req = {
+                method: 'GET',
+                url: 'http://stock-fantasy-league.herokuapp.com/api/league/multiple',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                params: {
+                    lidarray: $scope.user.lid.join(',')
+                }
+            };
+            $http(req).then(function (response) {
+                $scope.user.leagues = response.data; //unwrapped json
+            }, function (response) {
+                console.log('Failing getting league info!');
+            });
+        }
     };
 }]);
 stk.controller('DashboardController', function ($scope, $http) {

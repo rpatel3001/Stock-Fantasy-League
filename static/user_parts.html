@@ -10,10 +10,11 @@
     <ul>
         User Stats
         <li>
-            Number of Leagues: {{ user.lids.length }}
+            Number of Leagues: {{ user.lid.length | number }}
         </li>
         <li>
-            Total Holdings: {{ user.totalHoldings }}
+            <!--Turn into table-->
+            Achievements: {{ user.achievements }}
         </li>
         <li>
 
