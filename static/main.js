@@ -215,9 +215,13 @@ stk.controller('NavbarController', ['$scope', function ($scope) {
             var scope = angular.element(document).scope();
             scope.$apply(function () {
                 scope.uid = uid;
-                scope.signedIn = true;
-                scope.username = profile.getName();
-                scope.imageurl = profile.getImageUrl();
+            });
+            var scope2 = angular.element($("#mainNavbar")).scope();
+            scope2.$apply(function () {
+                scope2.uid = uid;
+                scope2.signedIn = true;
+                scope2.username = profile.getName();
+                scope2.imageurl = profile.getImageUrl();
             });
         }, function loginFailure(response) {
             console.log('Failing to log in!');
