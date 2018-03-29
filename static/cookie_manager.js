@@ -19,17 +19,12 @@ function onSignIn(googleUser) {
     }
     $http(req).then(function loginSuccess(response) {
         uid = response.data.uid;
-        var scope = angular.element($("#mainNavbar")).scope();
+        var scope = angular.element(document).scope();
         scope.$apply(function () {
             scope.uid = uid;
             scope.signedIn = true;
             scope.username = profile.getName();
             scope.imageurl = profile.getImageUrl();
-        });
-        var $body = angular.element(document.body);
-        var $rootScope = $body.injector().get('$rootScope');
-        $rootScope.$apply(function () {
-            $rootScope.uid = uid;
         });
     }, function loginFailure(response) {
         console.log('Failing to log in!');
