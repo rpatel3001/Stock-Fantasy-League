@@ -21,9 +21,8 @@ class User(Resource):
         cur.execute("UPDATE userprefs SET lid = lid || %s WHERE uid = %s;", (createdLID[-1]['lid'], UID))   #updates user table (add themselves into league)
         cur.execute("UPDATE userprefs SET pid = pid || %s WHERE uid = %s;", (createdPID[-1]['pid'], UID))
 
-        cur.execute("UPDATE leagues SET uid = uid || %s WHERE lid = %s;", UID, (createdLID[-1]['lid']))
+        cur.execute("UPDATE leagues SET uid = uid || %s WHERE lid = %s;", (UID, (createdLID[-1]['lid'])))
         cur.execute("UPDATE leagues SET pid = pid || %s WHERE lid = %s;", (createdPID[-1]['pid'], createdLID[-1]['lid']))
-
 
         return createdLID
         pass
