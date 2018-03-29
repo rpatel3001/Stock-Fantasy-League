@@ -280,7 +280,7 @@ stk.controller('LeagueListController', function ($scope, $http, $rootScope, $loc
                 }, function loginFailure(response) {
                     console.log('Failing getting leagues info!');
                 });
-                $location.path("/league/" + selected_lid + "/player/" + response.data[response.data.length - 1])
+                $location.path("/league/" + selected_lid + "/player/" + response.data[response.data.length - 1].pid)
                 //console.log(response.pid); //unwrapped json
             }, function (response) {
                 console.log('Failing to join league!');
