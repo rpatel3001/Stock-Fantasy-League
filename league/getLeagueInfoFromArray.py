@@ -7,6 +7,7 @@ class getLeagueInfoFromArray(Resource):
 		parser.add_argument('lidarray')
 		args = parser.parse_args()
 		listofarrays = args['lidarray']
+		print(listofarrays)
 		cur.execute("SELECT * FROM leagues WHERE lid IN %s;", (listofarrays))
 		return cur.fetchall()
 		pass
