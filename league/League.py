@@ -5,6 +5,6 @@ class League(Resource):
     #Getting league info from specified league
     def get(cur, LID):
 
-        cur.execute("SELECT uid, pid, startbal, leaguename, description, owneruid, ownerpid, type FROM leagues WHERE lid = %s;", [LID])
+        cur.execute("SELECT * FROM leagues WHERE lid = %s;", [LID])
         return json.dumps({"Leagues": cur.fetchall()})
         pass
