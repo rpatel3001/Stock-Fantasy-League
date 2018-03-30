@@ -132,7 +132,7 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
             });
         }
     };
-    $scope.updateUser = function () {
+    /*$scope.updateUser = function () {
         var reqUpdatePlayer = {
             method: 'POST',
             url: 'http://stock-fantasy-league.herokuapp.com/api/user/' +
@@ -149,7 +149,7 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
         }, function (response) {
             return null;
         });
-    };
+    };*/
 }]);
 stk.controller('DashboardController', function ($scope, $http) {
     /*$http.get('http://stock-fantasy-league.herokuapp.com/api/user').then(function (response) {
