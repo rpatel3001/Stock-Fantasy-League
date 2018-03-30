@@ -2,21 +2,22 @@
     <ul>
         <li>{{ league.leaguename }}</li>
         <li>{{ league.description }}</li>
+        <!-- <li>{{league.username}}</li>-->
+
     </ul>
     <ul>
         League Stats
         <li>
             Number of Memebers: {{ league.uid.length }}
         </li>
-        <li>
+        <!--<li>
             Total Market Cap: {{ league.marketCap }}
-        </li>
-        <li>
+        </li><li>
 
-        </li>
+        </li>-->
     </ul>
     <title>League Members</title>
-    <card ng-repeat="card in league.players">
+    <card ng-repeat="card in players">
         <li>{{card.username}}</li>
         <li>{{card.description}}</li>
         <li>{{card.holdings}}</li>

@@ -1,5 +1,5 @@
-var uid = -1;
-$http = angular.injector(["ng"]).get("$http");
+//var uid = -1;
+//$http = angular.injector(["ng"]).get("$http");
 /*stk.controller('GoogleCtrl', function ($rootScope) {
     function onSignIn(googleUser) {
         var profile = googleUser.getBasicProfile();
@@ -55,7 +55,7 @@ console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scop
     window.onSignIn = onSignIn;
 });*/
 
-function signOut() {
+/*function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
     var scope = angular.element($("#mainNavbar")).scope();
     auth2.signOut().then(function () {
@@ -68,7 +68,7 @@ function signOut() {
         });
         console.log('User signed out.');
     });
-}
+}*/
 
 /*function wantSignIn() {
     var scope = angular.element($("#logInView")).scope();

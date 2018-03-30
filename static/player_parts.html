@@ -2,23 +2,24 @@
     <ul>
         <li>League Name: {{ league.leaguename }}</li>
         <li>League Description: {{ league.description }}</li>
-        <li>League Starting Balance: {{ league.duration }}</li>
+        <li>League Starting Balance: {{ league.startbal }}</li>
     </ul>
     <!--Search-->
     <ul>
         Player Stats
         <li>
-            Ranking: {{ player.ranking }}
+            Ranking: {{ player.holdings.length }}
         </li>
+        <!-- need to update this-->
         <li>
             Available Balance: {{ player.availbalance }}
         </li>
-        <li>
-
-        </li>
     </ul>
-    <title>All Holdings</title>
-    <input type="text" ng-model="stockSelect">
+    <br>
+    <div ng-include="'modify_holding.html'"></div>
+    <h1>Current Player Holdings</h1>
+    <input placeholder="Stock Ticker" type="text" ng-model="stockSelect.symbol">
+    <input placeholder="Stock Name" type="text" ng-model="stockSelect.name">
     <table class="table">
         <tr>
             <td>Stock Ticker</td>
@@ -29,13 +30,29 @@
             <td>Sell</td>
         </tr>
 
-        <tr scope="row" ng-repeat="stock in player| filter : stockSelect">
-            <td>{{stock.stockTicker}}</td>
-            <td>{{ stock.name }}</td>
+        <tr scope="row" ng-repeat="stock in player.holdings| filter : stockSelect">
+            <td>{{stock.symbol}}</td>
+            <td>{{stock.name}}</td>
             <td>{{stock.numberShares}}</td>
-            <td>{{(stock.numberShares * stock.sharePrice) | currency}}</td>
-            <td>buy_button</td>
-            <td>sell_button</td>
+            <td>{{(stock.numberShares * stock.getprice(stock.symbol)) | currency}}</td>
+            <td><button class="btn btn-success" ng-click="openChangeHoldings(stock,'Buy')">Buy {{stock.symbol}}</button></td>
+            <td><button class="btn btn-danger" ng-click="openChangeHoldings(stock,'Sell')">Sell {{stock.symbol}}</button></td>
+        </tr>
+    </table>
+    <h1>Top Stocks Available</h1>
+    <table class="table">
+        <tr>
+            <td>Stock Ticker</td>
+            <td>Stock Name</td>
+            <td>Stock Price</td>
+            <td>Buy</td>
+        </tr>
+
+        <tr scope="row" ng-repeat="stock in topStocks| filter : stockSelect">
+            <td>{{stock.symbol}}</td>
+            <td>{{stock.name}}</td>
+            <td>{{stock.price | currency}}</td>
+            <td><button class="btn btn-success" ng-click="openChangeHoldings(stock,'Buy');">Buy {{stock.symbol}}</button></td>
         </tr>
     </table>
 </div>

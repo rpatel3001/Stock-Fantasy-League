@@ -9,7 +9,7 @@ class Users(Resource):
 
     @staticmethod   #shows all users in database
     def get(cur):
-        cur.execute("select * from userprefs;")
+        cur.execute("SELECT * FROM userprefs;")
         return json.dumps({"Users": cur.fetchall()})
 
     @staticmethod   #used to create account
@@ -21,16 +21,11 @@ class Users(Resource):
         parser.add_argument('token')
         args = parser.parse_args()
 
-        # args = request.get_json()
-        # need to parse json string from quotation marks
-
-
         token = args['token']
         idinfo = id_token.verify_oauth2_token(token, requests.Request())
         logintoken = idinfo['sub']  #aud is for website, sub is for the unique token
 
         cur.execute("SELECT uid FROM userprefs WHERE token LIKE %s;", (logintoken,))
-
 
         exists = cur.fetchone()
 

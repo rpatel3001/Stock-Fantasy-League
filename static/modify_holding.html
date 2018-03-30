@@ -1,33 +1,77 @@
-<form id="modifyHoldings" ng-controller="PlayerController">
-    {{selectedTicker}}
+<div class="modal" id="holdingsModal" tabindex="-1" role="dialog" aria-labelledby="holdingsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="holdingsModalLabel">{{transactionType}}: {{selectedTicker}} - {{selectedName}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-onclick=""><!--reset selection-->
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
 
-    <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-secondary" ng-model="type" value="mbuy">Market Buy</button>
-        <button type="button" class="btn btn-secondary" ng-model="type" value="msell">Limit Buy</button>
+                <div ng-if="transactionType == 'Buy'">
+                    <form id="modifyHoldings" ng-controller="PlayerController">
+                        <!--<div class="form-group">
+                            <input type="radio" ng-model="transactionType" value="Buy" checked="checked"> Buy
+                            <input type="radio" ng-model="transactionType" value="Sell"> Sell
+                        </div>-->
+                        <div class="form-group">
+                            <p> Your available balance is {{player.availbalance | currency}}.</p>
+                            <label for="StockTicker">Stock Ticker</label>
+                            <input type="text" readonly class="form-control-plaintext form-control-lg" id="StockTicker" ng-model="selectedTicker">
+                        </div>
+                        <div class="form-group">
+                            <label for="Stock Ticker">Stock Name</label>
+                            <input type="text" readonly class="form-control-plaintext form-control-lg" id="LeagueNameInput" ng-model="selectedName">
+                        </div>
+                        <div class="form-group">
+                            <label for="Stock Ticker">Current Stock Price</label> {{selectedStockPrice | currency}}
+                        </div>
+                        <div class="form-group">
+                            <label for="Number">Number of Shares to Buy</label>
+                            <input type="number" class="form-control" id="StartBalanceInput" ng-model="numSharesSelected">
+                            <p> Your available balance is {{player.availbalance | currency}} .</p>
+                            <p> Your transaction cost is {{numSharesSelected * selectedStockPrice | currency}}.</p>
+                            <p> Your remaining balance will be {{(player.availbalance - numSharesSelected*selectedStockPrice) | currency}}.</p>
+                        </div>
+                        <button class="btn btn-primary" type="submit" ng-click="modifyHoldings(selectedStock,transactionType,numSharesSelected,selectedStockPrice);">{{transactionType}} {{selectedTicker}}</button>
+                    </form>
+                </div>
+                <div ng-if="transactionType == 'Sell'">
+                    <form id="modifyHoldings" ng-controller="PlayerController">
+                        <h3>{{transactionType}}: {{selectedTicker}} - {{selectedName}}</h3>
+                        <!--<div class="form-group">
+                            <input type="radio" ng-model="transactionType" value="Buy" checked="checked"> Buy
+                            <input type="radio" ng-model="transactionType" value="Sell"> Sell
+                        </div>-->
+                        <div class="form-group">
+                            <p> You're available balance is {{player.availbalance | currency}}.</p>
+                            <label for="StockTicker">Stock Ticker</label>
+                            <input type="text" readonly class="form-control-plaintext form-control-lg" id="StockTicker" ng-model="selectedTicker">
+                        </div>
+                        <div class="form-group">
+                            <label for="Stock Ticker">Stock Name</label>
+                            <input type="text" readonly class="form-control-plaintext form-control-lg" id="LeagueNameInput" ng-model="selectedName">
+                        </div>
+                        <div class="form-group">
+                            <label for="Stock Ticker">Current Stock Price</label> {{selectedStockPrice | currency}}
+                        </div>
+                        <div class="form-group">
+                            <label ffor="Number">Number of Shares to Sell</label>
+                            <input type="number" class="form-control" id="StartBalanceInput" ng-model="numSharesSelected" ng-min="0">
+                            <p> Your available balance is {{player.availbalance | currency}}.</p>
+                            <p> Your sale income is {{numSharesSelected*selectedStockPrice | currency}}.</p>
+                            <p> Your total balance will be {{player.availbalance +numSharesSelected*selectedStockPrice | currency}}.</p>
+                        </div>
+                        <button class="btn btn-primary" type="submit" ng-click="modifyHoldings(selectedStock,transactionType,numSharesSelected,selectedStockPrice);">{{transactionType}} {{selectedTicker}}</button>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>-->
+                <button class="btn btn-primary" type="submit" ng-click="modifyHoldings(selectedStock,transactionType,numSharesSelected,selectedStockPrice);" data-dismiss="modal">{{transactionType}} {{selectedTicker}}</button>
+            </div>
+        </div>
     </div>
-    <!--<div class="btn-group" role="group" aria-label="Basic example">
-  <button type="button" class="btn btn-secondary">Limit Buy</button>
-  <button type="button" class="btn btn-secondary">Limit Sell</button>
-</div>-->
-    <div class="form-group">
-        <label for="StockTicker"></label>
-        <input type="text" readonly class="form-control-plaintext form-control-lg" id="StockTicker" ng-model="selectedTicker">
-    </div>
-    <div class="form-group">
-        <label for="Stock Ticker">League Name</label>
-        <input type="text" readonly class="form-control-plaintext form-control-lg" id="LeagueNameInput" ng-model="selectedTicker">
-    </div>
-    <div class="form-group">
-        <label for="Number">Number of Shares to Trade</label>
-        <input type="number" class="form-control" id="StartBalanceInput" ng-model="startBal">
-    </div>
-    <div class="form-group">
-        <label for="DurationInput">End Date</label>
-        <input type="date" class="form-control" id="DurationInput" ng-model="duration">
-    </div>
-    <div class="form-group">
-        <label for="DescriptionTextArea">Description</label>
-        <textarea class="form-control" id="DescriptionTextArea" rows="2" ng-model="description"></textarea>
-    </div>
-    <button class="btn btn-primary" type="submit" ng-click="createLeague();">Create League</button>
-</form>
+</div>

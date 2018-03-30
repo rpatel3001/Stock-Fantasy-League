@@ -5,7 +5,7 @@ class Leagues(Resource):
 
     @staticmethod  # getAllLeaguesInfo
     def get(cur):
-        cur.execute("SELECT lid,uid,pid,startbal,leaguename,description,owneruid,ownerpid,type FROM leagues;")
+        cur.execute("SELECT * FROM leagues;")
 
         #leagues = cur.fetchall()
         return json.dumps({"Leagues": cur.fetchall()})

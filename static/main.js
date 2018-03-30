@@ -1,3 +1,5 @@
+var uid = -1;
+$http = angular.injector(["ng"]).get("$http");
 var stk = angular.module('Stock Fantasy League', ["ngRoute"]);
 stk.config(function ($routeProvider, $locationProvider) {
     $routeProvider.when("/", {
@@ -27,57 +29,62 @@ stk.config(function ($routeProvider, $locationProvider) {
                 controller: 'DashboardController'*/
     }).when("/vip", {
         templateUrl: 'vip.html'
-        /*,
-                controller: 'UserListController'*/
+    }).when("/tutorial", {
+        templateUrl: 'tutorial.html'
+    }).when("/privacy", {
+        templateUrl: 'privacy.html'
+    }).when("/terms", {
+        templateUrl: 'terms.html'
     });
-    //$locationProvider.html5Mode(true);
 });
 /*stk.service('SharedData', function () {
 
 })*/
-
-stk.controller('LoginController', ['$scope', function ($scope) {
-    $scope.showLogIn = false;
-    $scope.message = 'Sign In';
-    //x button
-}]);
-
 stk.controller('LeagueController', ['$scope', '$http', '$routeParams', function ($scope, $http, $routeParams) {
     $scope.lid = $routeParams.lid;
     var req = {
         method: 'GET',
         url: 'http://stock-fantasy-league.herokuapp.com/api/league/' + $scope.lid
     };
+    var reqPlayers = {
+        method: 'GET',
+        url: '/api/league/' + $scope.lid + '/everything'
+    };
     $scope.data = null;
     $http(req).then(function (response) {
-        $scope.data = JSON.parse(response.data);
-        $scope.league = $scope.data.Leagues[0]; //wrapped json
+        $scope.league = JSON.parse(response.data).Leagues[0]; //wrapped json
+        $http(reqPlayers).then(function (response) {
+            $scope.players = response.data;
+        }, function (repsonse) {
+            console.log(response);
+        })
     }, function (response) {
         console.log('Failing getting league info!');
     });
 }]);
-stk.controller('UserController', ['$scope', '$http', '$routeParams', function ($scope, $http, $routeParams) {
-    $scope.uid = $routeParams.uid;
-    $scope.signedinuid = uid;
+stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams', '$route', function ($scope, $http, $rootScope, $routeParams, $route) {
+    $scope.paramuid = $routeParams.uid;
     $scope.startBal = null;
     $scope.duration = null;
     $scope.leaguename = null;
     $scope.description = null;
-    $scope.data = {};
     $scope.leaguesView = false;
     $scope.navbarHeader = "Leagues";
     var req = {
         method: 'GET',
-        url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.uid
+        url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.paramuid
     };
     $http(req).then(function (response) {
-        $scope.user = response.data; //unwrapped json
+        $scope.user = response.data;
+        //unwrappedjson
+        $scope.navbarHeader = "Leagues with " + $scope.user.username;
         $scope.getUserLeagues();
+        $scope.updateUser();
     }, function (response) {
         console.log('Failing getting league info!');
     });
     $scope.createLeague = function () {
-        if ($scope.signedinuid == $scope.uid) {
+        if ($scope.paramuid == $scope.uid) { // could use user.uid as well
             var req = {
                 method: 'POST',
                 url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.uid,
@@ -97,7 +104,8 @@ stk.controller('UserController', ['$scope', '$http', '$routeParams', function ($
                 $scope.duration = null;
                 $scope.leaguename = null;
                 $scope.description = null;
-                $scope.getUserLeagues();
+                $scope.user.lid.push(response.data[response.data.length - 1].lid);
+                $route.reload();
             }, function (response) {
                 console.log('Failing getting league info!');
             });
@@ -116,12 +124,30 @@ stk.controller('UserController', ['$scope', '$http', '$routeParams', function ($
                 }
             };
             $http(req).then(function (response) {
-                $scope.data.Leagues = response.data;
-                $scope.user.leagues = response.data //unwrapped json
+                $scope.leagues = response.data;
+                //$scope.user.leagues = response.data; //unwrapped json
             }, function (response) {
                 console.log('Failing getting league info!');
             });
         }
+    };
+    $scope.updateUser = function () {
+        var reqUpdatePlayer = {
+            method: 'POST',
+            url: 'http://stock-fantasy-league.herokuapp.com/api/user/' +
+                $scope.user.uid + '/update',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data: $.param({
+                'update': JSON.stringify($scope.user)
+            })
+        };
+        $http(reqUpdatePlayer).then(function (response) {
+            return response.data;
+        }, function (response) {
+            return null;
+        });
     };
 }]);
 stk.controller('DashboardController', function ($scope, $http) {
@@ -143,7 +169,7 @@ stk.controller('DashboardController', function ($scope, $http) {
     }; // change pids and lids to leagues and users
 });
 
-stk.controller('PlayerController', function ($scope, $http, $routeParams) {
+stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route', function ($scope, $http, $routeParams, $route) {
     $scope.lid = $routeParams.lid;
     $scope.pid = $routeParams.pid;
     $scope.player = null;
@@ -156,24 +182,30 @@ stk.controller('PlayerController', function ($scope, $http, $routeParams) {
         method: 'GET',
         url: 'http://stock-fantasy-league.herokuapp.com/api/player/' + $scope.pid
     };
+    var reqStocks = {
+        method: 'GET',
+        url: 'http://stock-fantasy-league.herokuapp.com/api/stock_data/top/1000'
+    };
     $http(reqLeague).then(function (response) {
         $scope.league = JSON.parse(response.data).Leagues[0];
         //wrapped json
         $http(reqPlayer).then(function (response) {
             $scope.player = response.data[0];
             if ($scope.player.holdings == null) {
-                $scope.player.holdings = {
-                    'holdings': []
-                }
+                $scope.player.holdings = []
             }
             if ($scope.player.availbalance == null) {
                 $scope.player.availbalance = $scope.league.startbal;
             }
             if ($scope.player.translog == null) {
-                $scope.player.translog = {
-                    'translog': []
-                };
+                $scope.player.translog = []
             }
+            //update sholding with server
+            //$scope.updatePlayer();
+
+            $http(reqStocks).then(function (response) {
+                $scope.topStocks = response.data.stocks;
+            })
         }, function (response) {
             console.log('Failing getting league info!');
         });
@@ -181,8 +213,77 @@ stk.controller('PlayerController', function ($scope, $http, $routeParams) {
         console.log('Failing getting league info!');
     });
 
+    $scope.updatePlayer = function () {
+        var reqUpdatePlayer = {
+            method: 'POST',
+            url: 'http://stock-fantasy-league.herokuapp.com/api/player/' +
+                $scope.pid + '/update',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data: $.param({
+                'update': JSON.stringify($scope.player)
+            })
+        };
+        $http(reqUpdatePlayer).then(function (response) {
 
-});
+        }, function (response) {
+
+        });
+    };
+    $scope.openChangeHoldings = function (stock, tType) {
+        $scope.transactionType = tType;
+        $scope.selectedStock = stock;
+        $scope.selectedTicker = stock.symbol;
+        $scope.selectedName = stock.name;
+        $scope.numSharesSelected = 0;
+        var reqPrice = {
+            type: 'GET',
+            url: 'http://stock-fantasy-league.herokuapp.com/api/stock_data',
+            params: {
+                'cmd': 'getStockData',
+                'sym': $scope.selectedTicker
+            }
+        };
+        $http(reqPrice).then(function (response) {
+            $scope.selectedTicker = stock.symbol;
+            $scope.selectedName = stock.name;
+            $scope.selectedStockPrice = response.data.stockdata[0].price;
+            $('#holdingsModal').modal('show');
+        }, function (response) {});
+    }
+    $scope.modifyHoldings = function (stock, transactionType, numShares, price) {
+        var index = $scope.player.holdings.findIndex(function (element) {
+            return element.symbol == stock.symbol;
+        });
+        if (index >= 0 && !transactionType.localeCompare('Buy')) {
+            if ($scope.player.availbalance < price * numShares) {
+                numShares = Math.floor($scope.player.availbalance / price)
+            }
+            $scope.player.holdings[index].numberShares += numShares;
+            $scope.player.availbalance -= price * numShares;
+        } else if (index >= 0 && !transactionType.localeCompare('Sell')) {
+            if ($scope.player.holdings[index].numberShares < numShares) {
+                numShares = $scope.player.holdings[index].numberShares;
+            }
+            $scope.player.holdings[index].numberShares -= numShares;
+            $scope.player.availbalance += price * numShares;
+        } else if (index == -1 && !transactionType.localeCompare('Buy')) {
+            if ($scope.player.availbalance < price * numShares) {
+                numShares = Math.floor($scope.player.availbalance / price)
+            }
+            $scope.player.holdings.push({
+                'symbol': stock.symbol,
+                'name': stock.name,
+                'numberShares': numShares
+            });
+            $scope.player.availbalance -= price * numShares;
+        }
+        $scope.updatePlayer();
+        $('#myModal').modal('hide');
+        $route.reload();
+    };
+}]);
 stk.controller('NavbarController', ['$scope', function ($scope) {
     $scope.signedIn = false;
     $scope.username = '';
@@ -196,6 +297,10 @@ stk.controller('NavbarController', ['$scope', function ($scope) {
             name: 'Leagues',
             command: 'ViewLeagues',
             href: '#!/league'
+        }, {
+            name: 'Tutorial',
+            command: 'ViewTutorial',
+            href: '#!/tutorial'
         }]
     };
 
@@ -261,12 +366,12 @@ stk.controller('LeagueListController', function ($scope, $http, $rootScope, $loc
     };
     $scope.data = null;
     $http(reqLeagues).then(function loginSuccess(response) {
-        $scope.data = JSON.parse(response.data);
+        $scope.leagues = JSON.parse(response.data).Leagues;
     }, function loginFailure(response) {
         console.log('Failing getting leagues info!');
     });
     $scope.joinLeague = function (selected_lid) {
-        if (uid > 0) {
+        if ($scope.uid > 0) {
             var reqJoinLeague = {
                 method: 'POST',
                 url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + uid + '/joinLeague',
@@ -280,7 +385,7 @@ stk.controller('LeagueListController', function ($scope, $http, $rootScope, $loc
             $http(reqJoinLeague).then(function (response) {
                 //need to update this to change button and reload leagues
                 $http(reqLeagues).then(function loginSuccess(response) {
-                    $scope.data = JSON.parse(response.data);
+                    $scope.leagues = JSON.parse(response.data).Leagues;
                 }, function loginFailure(response) {
                     console.log('Failing getting leagues info!');
                 });
@@ -300,3 +405,71 @@ var createGroupings = function (original, numCols) {
     }
     return rows;
 };
+
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    var scope = angular.element($("#mainNavbar")).scope();
+    auth2.signOut().then(function () {
+        uid = -1;
+        scope.$apply(function () {
+            scope.uid = -1;
+            scope.username = '';
+            scope.imageurl = '';
+            scope.signedIn = false;
+        });
+        console.log('User signed out.');
+    });
+}
+
+var updateUser = function (uid, user) {
+    var reqUpdatePlayer = {
+        method: 'POST',
+        url: 'http://stock-fantasy-league.herokuapp.com/api/user/' +
+            uid + '/update',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: $.param({
+            'update': JSON.stringify(uid)
+        })
+    };
+    $http(reqUpdatePlayer).then(function (response) {
+        return response.data;
+    }, function (response) {
+        return null;
+    });
+};
+
+var updatePlayer = function (pid, player) {
+    var reqUpdatePlayer = {
+        method: 'POST',
+        url: 'http://stock-fantasy-league.herokuapp.com/api/player/' +
+            pid + '/update',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: $.param({
+            'update': JSON.stringify(player)
+        })
+    };
+    $http(reqUpdatePlayer).then(function (response) {
+        return response.data;
+    }, function (response) {
+        return null;
+    });
+};
+/*function getPrice(symArr) {
+    var reqPrice = {
+        type: 'GET',
+        url: 'http://stock-fantasy-league.herokuapp.com/api/stock_data/',
+        params: {
+            'cmd': 'getStockData',
+            'sym': symArr
+        }
+    }
+    $http(reqPrice).then(function (response) {
+        return data.stockdata;
+    }, function () {
+        return null;
+    });
+}*/
