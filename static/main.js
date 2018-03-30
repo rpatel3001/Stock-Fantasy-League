@@ -246,7 +246,7 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
             }
         };
         new TradingView.widget({
-            "width": 350,
+            "width": 400,
             "height": 250,
             "symbol": $scope.selectedTicker,
             "interval": "D",
