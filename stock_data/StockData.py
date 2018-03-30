@@ -65,12 +65,15 @@ def get_stock_data(cur, tickers):
     if list(data_json.keys())[0] == 'Error Message':
         abort(404, message=data_json['Error Message'])
     response = []
-    for s in data_json["Stock Quotes"]:
-        sym = s["1. symbol"]
-        cur.execute("SELECT name FROM stockdata WHERE symbol LIKE %s", (sym,))
-        response.append({'sym': sym,
-                         'price': s["2. price"],
-                         'name': cur.fetchone()["name"]})
+    if "Stock Quotes" in data_json.keys():
+        for s in data_json["Stock Quotes"]:
+            sym = s["1. symbol"]
+            cur.execute("SELECT name FROM stockdata WHERE symbol LIKE %s", (sym,))
+            temp = cur.fetchone()
+            if temp:
+                response.append({'sym': sym,
+                                 'price': s["2. price"],
+                                 'name': temp["name"]})
     return {"stockdata": response}
 
 
