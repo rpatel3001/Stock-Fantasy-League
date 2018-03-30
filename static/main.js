@@ -281,6 +281,8 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
         }
         $scope.updatePlayer();
         $('#myModal').modal('hide');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
         $route.reload();
     };
 }]);
