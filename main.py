@@ -16,7 +16,7 @@ from google.auth.transport import requests
 
 from user import Users, User, joinLeague, updateUserInfo
 from player import Players, getPlayerInfoPID, updatePlayerInfo
-from league import Leagues, League, getPlayerInfoByUID, getLeagueInfoFromArray, getALLPlayerInfoFromLID
+from league import Leagues, League, getPlayerInfoByUID, getLeagueInfoFromArray, getALLPlayerInfoFromLID, getEverythingLeague
 from stock_data import StockData, TopStocks, StockSearch
 
 
@@ -75,6 +75,8 @@ api.add_resource(class_with_db(League.League), '/api/league/<int:LID>') #GET: ge
 api.add_resource(class_with_db(getLeagueInfoFromArray.getLeagueInfoFromArray), '/api/league/multiple')   #GET: get all leagues given array of LIDs
 api.add_resource(class_with_db(getPlayerInfoByUID.getPlayerInfoByUID), '/api/league/<int:LID>/user/<int:UID>')  #GET: get player info given UID and LID
 api.add_resource(class_with_db(getALLPlayerInfoFromLID.getALLPlayerInfoFromLID), '/api/league/<int:LID>/getplayers')
+api.add_resource(class_with_db(getEverythingLeague.getEverythingLeague), '/api/league/<int:LID>/everything')
+
 
 api.add_resource(class_with_db(StockData.StockData), '/api/stock_data')
 api.add_resource(class_with_db(TopStocks.TopStocks), '/api/stock_data/top/<int:num>')
