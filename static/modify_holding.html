@@ -34,7 +34,7 @@
                             <p> Your transaction cost is {{numSharesSelected * selectedStockPrice | currency}}.</p>
                             <p> Your remaining balance will be {{(player.availbalance - numSharesSelected*selectedStockPrice) | currency}}.</p>
                         </div>
-                        <button class="btn btn-primary" type="submit" ng-click="modifyHoldings(selectedStock,transactionType,numSharesSelected,selectedStockPrice);">{{transactionType}} {{selectedTicker}}</button>
+                        <button class="btn btn-primary" type="submit" ng-click="modifyHoldings(selectedStock,transactionType,numSharesSelected,selectedStockPrice);" data-dismiss="modal">{{transactionType}} {{selectedTicker}}</button>
                     </form>
                 </div>
                 <div ng-if="transactionType == 'Sell'">
@@ -63,7 +63,7 @@
                             <p> Your sale income is {{numSharesSelected*selectedStockPrice | currency}}.</p>
                             <p> Your total balance will be {{player.availbalance +numSharesSelected*selectedStockPrice | currency}}.</p>
                         </div>
-                        <button class="btn btn-primary" type="submit" ng-click="modifyHoldings(selectedStock,transactionType,numSharesSelected,selectedStockPrice);">{{transactionType}} {{selectedTicker}}</button>
+                        <button class="btn btn-primary" type="submit" ng-click="modifyHoldings(selectedStock,transactionType,numSharesSelected,selectedStockPrice);" data-dismiss="modal">{{transactionType}} {{selectedTicker}}</button>
                     </form>
                 </div>
             </div>
