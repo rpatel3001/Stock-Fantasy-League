@@ -19,7 +19,7 @@
             <th ng-if="uid>0">Join/View</th>
         </tr>
     </thead>
-    <tr ng-repeat="league in leagues track by lid| filter: LeagueSelect">
+    <tr ng-repeat="league in leagues| filter: LeagueSelect">
         <a ng-href="#!/league/{{league.lid}}">
             <td><a ng-href="#!/league/{{league.lid}}">{{league.leaguename}}</a></td>
             <td><a ng-href="#!/league/{{league.lid}}">{{(league.description | limitTo: 20) + (league.description.length > 20 ? '...': '')}}</a></td>
