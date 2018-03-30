@@ -1,5 +1,5 @@
 <div ng-controller="LeagueController">
-    <ul>
+    <ul style="list-style-type: none">
         <li>{{ league.leaguename }}</li>
         <li>{{ league.description }}</li>
         <!-- <li>{{league.username}}</li>-->
@@ -16,10 +16,8 @@
 
         </li>-->
     </ul>
-    <title>League Members</title>
+    <h3>League Members</h3>
     <card ng-repeat="card in players">
         <li>{{card.username}}</li>
-        <li>{{card.description}}</li>
-        <li>{{card.holdings}}</li>
     </card>
 </div>
