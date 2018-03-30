@@ -77,10 +77,8 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
     $http(req).then(function (response) {
         $scope.user = response.data;
         //unwrappedjson
-        $scope.user.description = "test description";
         $scope.navbarHeader = "Leagues with " + $scope.user.username;
         $scope.getUserLeagues();
-        $scope.user.description = "test yay";
         $scope.updateUser();
     }, function (response) {
         console.log('Failing getting league info!');
@@ -233,7 +231,8 @@ stk.controller('PlayerController', function ($scope, $http, $routeParams) {
 
         });
     };
-    $scope.openChangeHoldings = function (stock) {
+    $scope.openChangeHoldings = function (stock, tType) {
+        $scope.transactionType = tType;
         $scope.selectedStock = stock;
         $scope.selectedTicker = stock.symbol;
         $scope.selectedName = stock.name;
