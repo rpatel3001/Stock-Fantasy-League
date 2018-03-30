@@ -8,8 +8,6 @@ class updatePlayerInfo(Resource):
 		parser.add_argument('update')
 		args = parser.parse_args()
 		newInfo = json.loads(args['update'])
-		print(type(args['update']))
-		print(type(newInfo))
 		cur.execute("SELECT column_name FROM information_schema.columns WHERE table_name = 'players';")
 		playerColumns = cur.fetchall()
 		playerColumns = [x['column_name'] for x in playerColumns]

@@ -8,8 +8,6 @@ class updateUserInfo(Resource):
 		parser.add_argument('update')
 		args = parser.parse_args()
 		newInfo = json.loads(args['update'])
-		print(type(args['update']))
-		print(type(newInfo))
 		cur.execute("SELECT column_name FROM information_schema.columns WHERE table_name = 'userprefs';")
 		userColumns = cur.fetchall()
 		userColumns = [x['column_name'] for x in userColumns]
