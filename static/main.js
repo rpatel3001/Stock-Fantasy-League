@@ -29,10 +29,13 @@ stk.config(function ($routeProvider, $locationProvider) {
                 controller: 'DashboardController'*/
     }).when("/vip", {
         templateUrl: 'vip.html'
-        /*,
-                controller: 'UserListController'*/
+    }).when("/tutorial", {
+        templateUrl: 'tutorial.html'
+    }).when("/privacy", {
+        templateUrl: 'privacy.html'
+    }).when("/terms", {
+        templateUrl: 'terms.html'
     });
-    //$locationProvider.html5Mode(true);
 });
 /*stk.service('SharedData', function () {
 
@@ -43,10 +46,16 @@ stk.controller('LeagueController', ['$scope', '$http', '$routeParams', function 
         method: 'GET',
         url: 'http://stock-fantasy-league.herokuapp.com/api/league/' + $scope.lid
     };
+    var reqPlayers = {
+        method: 'GET',
+        url: '/api/league/' + $scope.lid + '/getplayers'
+    };
     $scope.data = null;
     $http(req).then(function (response) {
-        $scope.data = JSON.parse(response.data);
-        $scope.league = $scope.data.Leagues[0]; //wrapped json
+        $scope.league = JSON.parse(response.data).Leagues[0]; //wrapped json
+        //$http(reqPlayers).then(function (response) {
+        //NEED TO FINISH AFTER LOUIS DOES OUTER JOIN
+        //})
     }, function (response) {
         console.log('Failing getting league info!');
     });
