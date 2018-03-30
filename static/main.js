@@ -37,13 +37,6 @@ stk.config(function ($routeProvider, $locationProvider) {
 /*stk.service('SharedData', function () {
 
 })*/
-
-stk.controller('LoginController', ['$scope', function ($scope) {
-    $scope.showLogIn = false;
-    $scope.message = 'Sign In';
-    //x button
-}]);
-
 stk.controller('LeagueController', ['$scope', '$http', '$routeParams', function ($scope, $http, $routeParams) {
     $scope.lid = $routeParams.lid;
     var req = {
@@ -74,8 +67,10 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
     };
     $http(req).then(function (response) {
         $scope.user = response.data; //unwrapped json
+        $scope.user.description = "test description";
         $scope.navbarHeader = "Leagues with " + $scope.user.username;
         $scope.getUserLeagues();
+        $scope.updateUser();
     }, function (response) {
         console.log('Failing getting league info!');
     });
@@ -125,6 +120,24 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
                 console.log('Failing getting league info!');
             });
         }
+    };
+    $scope.updateUser = function () {
+        var reqUpdatePlayer = {
+            method: 'POST',
+            url: 'http://stock-fantasy-league.herokuapp.com/api/user/' +
+                $scope.uid + '/update',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data: $.param({
+                'update': JSON.stringify($scope.user)
+            })
+        };
+        $http(reqUpdatePlayer).then(function (response) {
+            return response.data;
+        }, function (response) {
+            return null;
+        });
     };
 }]);
 stk.controller('DashboardController', function ($scope, $http) {
@@ -261,6 +274,10 @@ stk.controller('NavbarController', ['$scope', function ($scope) {
             name: 'Leagues',
             command: 'ViewLeagues',
             href: '#!/league'
+        }, {
+            name: 'Tutorial',
+            command: 'ViewTutorial',
+            href: '#!/tutorial'
         }]
     };
 
@@ -381,6 +398,43 @@ function signOut() {
     });
 }
 
+var updateUser = function (uid, user) {
+    var reqUpdatePlayer = {
+        method: 'POST',
+        url: 'http://stock-fantasy-league.herokuapp.com/api/user/' +
+            uid + '/update',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: $.param({
+            'update': JSON.stringify(uid)
+        })
+    };
+    $http(reqUpdatePlayer).then(function (response) {
+        return response.data;
+    }, function (response) {
+        return null;
+    });
+};
+
+var updatePlayer = function (pid, player) {
+    var reqUpdatePlayer = {
+        method: 'POST',
+        url: 'http://stock-fantasy-league.herokuapp.com/api/player/' +
+            pid + '/update',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: $.param({
+            'update': JSON.stringify(player)
+        })
+    };
+    $http(reqUpdatePlayer).then(function (response) {
+        return response.data;
+    }, function (response) {
+        return null;
+    });
+};
 /*function getPrice(symArr) {
     var reqPrice = {
         type: 'GET',
