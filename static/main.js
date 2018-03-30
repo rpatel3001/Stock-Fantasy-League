@@ -48,13 +48,13 @@ stk.controller('LeagueController', ['$scope', '$http', '$routeParams', function 
     };
     var reqPlayers = {
         method: 'GET',
-        url: '/api/league/' + $scope.lid + '/getplayers'
+        url: '/api/league/' + $scope.lid + '/everything'
     };
     $scope.data = null;
     $http(req).then(function (response) {
         $scope.league = JSON.parse(response.data).Leagues[0]; //wrapped json
         $http(reqPlayers).then(function (response) {
-            console.log(response);
+            $scope.players = response.data;
         }, function (repsonse) {
             console.log(response);
         })
@@ -62,7 +62,7 @@ stk.controller('LeagueController', ['$scope', '$http', '$routeParams', function 
         console.log('Failing getting league info!');
     });
 }]);
-stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams', function ($scope, $http, $rootScope, $routeParams) {
+stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams', '$route', function ($scope, $http, $rootScope, $routeParams, $route) {
     $scope.paramuid = $routeParams.uid;
     $scope.startBal = null;
     $scope.duration = null;
@@ -75,7 +75,8 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
         url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.paramuid
     };
     $http(req).then(function (response) {
-        $scope.user = response.data; //unwrapped json
+        $scope.user = response.data;
+        //unwrappedjson
         $scope.user.description = "test description";
         $scope.navbarHeader = "Leagues with " + $scope.user.username;
         $scope.getUserLeagues();
@@ -105,6 +106,7 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
                 $scope.description = null;
                 $scope.user.lid.push(response.data[response.data.length - 1].lid);
                 $scope.getUserLeagues();
+                $route.reload();
             }, function (response) {
                 console.log('Failing getting league info!');
             });
@@ -254,12 +256,21 @@ stk.controller('PlayerController', function ($scope, $http, $routeParams) {
             return element.symbol == stock.symbol;
         });
         if (index >= 0 && !transactionType.localeCompare('Buy')) {
+            if ($scope.player.availbalance < price * numShares) {
+                numShares = Math.floor($scope.player.availbalance / price)
+            }
             $scope.player.holdings[index].numberShares += numShares;
             $scope.player.availbalance -= price * numShares;
         } else if (index >= 0 && !transactionType.localeCompare('Sell')) {
+            if ($scope.player.holdings[index].numberShares < numShares) {
+                numShares = $scope.player.holdings[index].numberShares;
+            }
             $scope.player.holdings[index].numberShares -= numShares;
             $scope.player.availbalance += price * numShares;
         } else if (index == -1 && !transactionType.localeCompare('Buy')) {
+            if ($scope.player.availbalance < price * numShares) {
+                numShares = Math.floor($scope.player.availbalance / price)
+            }
             $scope.player.holdings.push({
                 'symbol': stock.symbol,
                 'name': stock.name,
@@ -352,12 +363,12 @@ stk.controller('LeagueListController', function ($scope, $http, $rootScope, $loc
     };
     $scope.data = null;
     $http(reqLeagues).then(function loginSuccess(response) {
-        $scope.leagues = JSON.parse(response.data);
+        $scope.leagues = JSON.parse(response.data).Leagues;
     }, function loginFailure(response) {
         console.log('Failing getting leagues info!');
     });
     $scope.joinLeague = function (selected_lid) {
-        if (uid > 0) {
+        if ($scope.uid > 0) {
             var reqJoinLeague = {
                 method: 'POST',
                 url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + uid + '/joinLeague',
@@ -371,7 +382,7 @@ stk.controller('LeagueListController', function ($scope, $http, $rootScope, $loc
             $http(reqJoinLeague).then(function (response) {
                 //need to update this to change button and reload leagues
                 $http(reqLeagues).then(function loginSuccess(response) {
-                    $scope.leagues = JSON.parse(response.data);
+                    $scope.leagues = JSON.parse(response.data).Leagues;
                 }, function loginFailure(response) {
                     console.log('Failing getting leagues info!');
                 });
