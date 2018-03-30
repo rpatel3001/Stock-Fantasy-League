@@ -1,4 +1,5 @@
 var uid = -1;
+$http = angular.injector(["ng"]).get("$http");
 var stk = angular.module('Stock Fantasy League', ["ngRoute"]);
 stk.config(function ($routeProvider, $locationProvider) {
     $routeProvider.when("/", {
