@@ -19,6 +19,10 @@ class updateUserInfo(Resource):
 				query += temp + ","
 				continue
 			if column == 'lid' or column == 'pid':					#handler for arrays
+				if newInfo[column] == None:
+					temp = str(column) + '=' + "'{}'"
+					query += temp + ","
+					continue
 				idList = [str(a) for a in newInfo[column]]
 				idList = ", " . join(idList)
 				temp = str(column) + "='{" + idList + "}'"
