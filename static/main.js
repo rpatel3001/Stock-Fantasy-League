@@ -169,17 +169,13 @@ stk.controller('PlayerController', function ($scope, $http, $routeParams) {
         $http(reqPlayer).then(function (response) {
             $scope.player = response.data[0];
             if ($scope.player.holdings == null) {
-                $scope.player.holdings = {
-                    'holdings': []
-                }
+                $scope.player.holdings = []
             }
             if ($scope.player.availbalance == null) {
                 $scope.player.availbalance = $scope.league.startbal;
             }
             if ($scope.player.translog == null) {
-                $scope.player.translog = {
-                    'translog': []
-                };
+                $scope.player.translog = []
             }
             //update sholding with server
             //$scope.updatePlayer();
@@ -213,6 +209,7 @@ stk.controller('PlayerController', function ($scope, $http, $routeParams) {
         });
     };
     $scope.openChangeHoldings = function (stock) {
+        $scope.selectedStock = stock;
         $scope.selectedTicker = stock.symbol;
         $scope.selectedName = stock.name;
         var reqPrice = {
@@ -230,20 +227,23 @@ stk.controller('PlayerController', function ($scope, $http, $routeParams) {
             $scope.showBuy = true;
         }, function (response) {});
     }
-    $scope.modifyHoldings = function (stock, transactionType, numShares) {
+    $scope.modifyHoldings = function (stock, transactionType, numShares, price) {
         var index = $scope.player.holdings.findIndex(function (element) {
             return element.symbol == stock.symbol;
         });
         if (index >= 0 && !transactionType.localeCompare('Buy')) {
             $scope.player.holdings[index].numberShares += numShares;
+            $scope.player.availbalance -= price * numShares;
         } else if (index >= 0 && !transactionType.localeCompare('Sell')) {
             $scope.player.holdings[index].numberShares -= numShares;
+            $scope.player.availbalance += price * numShares;
         } else if (index == -1 && !transactionType.localeCompare('Buy')) {
-            $scope.players.holdings.append(JSON.parse({
+            $scope.player.holdings.push({
                 'symbol': stock.symbol,
                 'name': stock.name,
                 'numberShares': numShares
-            }));
+            });
+            $scope.player.availbalance -= price * numShares;
         }
         $scope.updatePlayer();
     };
