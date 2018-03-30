@@ -53,9 +53,11 @@ stk.controller('LeagueController', ['$scope', '$http', '$routeParams', function 
     $scope.data = null;
     $http(req).then(function (response) {
         $scope.league = JSON.parse(response.data).Leagues[0]; //wrapped json
-        //$http(reqPlayers).then(function (response) {
-        //NEED TO FINISH AFTER LOUIS DOES OUTER JOIN
-        //})
+        $http(reqPlayers).then(function (response) {
+            console.log(response);
+        }, function (repsonse) {
+            console.log(response);
+        })
     }, function (response) {
         console.log('Failing getting league info!');
     });
