@@ -105,7 +105,7 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
                 $scope.duration = null;
                 $scope.leaguename = null;
                 $scope.description = null;
-                $scope.user.lid.push(response.data[response.data.length - 1]);
+                $scope.user.lid.push(response.data[response.data.length - 1].lid);
                 $scope.getUserLeagues();
             }, function (response) {
                 console.log('Failing getting league info!');
