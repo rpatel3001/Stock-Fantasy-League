@@ -35,8 +35,8 @@
             <td>{{stock.name}}</td>
             <td>{{stock.numberShares}}</td>
             <td>{{(stock.numberShares * stock.getprice(stock.symbol)) | currency}}</td>
-            <td><button class="btn btn-success" ng-click="openChangeHoldings(stock,'Buy')" data-target="#holdingsModal">Buy {{stock.symbol}}</button></td>
-            <td><button class="btn btn-danger" ng-click="openChangeHoldings(stock,'Sell')" data-toggle="modal" data-target="#holdingsModal">Sell {{stock.symbol}}</button></td>
+            <td><button class="btn btn-success" ng-click="openChangeHoldings(stock,'Buy')">Buy {{stock.symbol}}</button></td>
+            <td><button class="btn btn-danger" ng-click="openChangeHoldings(stock,'Sell')">Sell {{stock.symbol}}</button></td>
         </tr>
     </table>
     <h1>Top Stocks Available</h1>
@@ -52,7 +52,7 @@
             <td>{{stock.symbol}}</td>
             <td>{{stock.name}}</td>
             <td>{{stock.price | currency}}</td>
-            <td><button class="btn btn-success" ng-click="openChangeHoldings(stock,'Buy');" data-target="#holdingsModal">Buy {{stock.symbol}}</button></td>
+            <td><button class="btn btn-success" ng-click="openChangeHoldings(stock,'Buy');">Buy {{stock.symbol}}</button></td>
         </tr>
     </table>
 </div>

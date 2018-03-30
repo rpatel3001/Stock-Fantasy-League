@@ -232,6 +232,7 @@ stk.controller('PlayerController', function ($scope, $http, $routeParams) {
         });
     };
     $scope.openChangeHoldings = function (stock, tType) {
+        $('#holdingsModal').modal();
         $scope.transactionType = tType;
         $scope.selectedStock = stock;
         $scope.selectedTicker = stock.symbol;
