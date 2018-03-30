@@ -1,23 +1,25 @@
 <div ng-controller="UserController">
     <!-- This is info about a user-->
-    <ul>
+    <div class="card col-sm-4">
+        <img class="card-img-top rounded-circle" style="width:60%;margin:auto" ng-src="{{user.imageurl}}" alt="Card image cap">
+        <div class="card-body">
+            <a ng-href="#!/user/{{user.uid}}">
+                <h5 class="card-title">{{user.username}}</h5>
+            </a>
+            <p class="card-text">{{user.description}}</p>
+        </div>
+    </div>
+    <!--<ul>
         <li>{{ user.username }}</li>
         <li> <img ng-src="{{user.imageurl}}">
         </li>
         <li ng-hide="user.description == null">{{user.description}}</li>
         <li ng-hide="user.joinDate == null">{{ user.joinDate}}</li>
-    </ul>
+    </ul>-->
     <ul>
         User Stats
         <li>
             Number of Leagues: {{ user.lid.length | number }}
-        </li>
-        <li>
-            <!--Turn into table-->
-            Achievements: {{ user.achievements }}
-        </li>
-        <li>
-
         </li>
     </ul>
     <!--ng-if="signedinuid == uid"-->
