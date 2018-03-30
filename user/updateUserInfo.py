@@ -29,6 +29,10 @@ class updateUserInfo(Resource):
 				query += temp + ","
 				continue
 			if column == 'username' or column == 'description' or column == 'imageurl' or column == 'email':	#handler for strings with spaces/symbols
+				if newInfo[column] == None:
+					temp = str(column) + '=' + "''"
+					query += temp + ","
+					continue
 				temp = str(column) + '=' + "'" + newInfo[column] + "'"
 				query += temp + ","
 				continue
