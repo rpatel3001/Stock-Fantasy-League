@@ -249,6 +249,7 @@ stk.controller('PlayerController', function ($scope, $http, $routeParams) {
             $scope.selectedName = stock.name;
             $scope.selectedStockPrice = response.data.stockdata[0].price;
             $scope.showBuy = true;
+            $('#holdingsModal').modal();
         }, function (response) {});
     }
     $scope.modifyHoldings = function (stock, transactionType, numShares, price) {
