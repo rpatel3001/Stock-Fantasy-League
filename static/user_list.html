@@ -41,7 +41,7 @@
     <div ng-repeat="row in organizedData | filter: UserSelect">
         <div class="card-deck row">
             <div class="card col-sm-4" ng-repeat="user in row | filter: UserSelect">
-                <img class="card-img-top rounded-circle" style="width:60%;margin:auto" ng-src="{{user.imageurl}}" alt="Card image cap" src="assets_aboutus/img/Alex.jpg">
+                <img class="card-img-top rounded-circle" style="width:60%;margin:auto" ng-src="{{user.imageurl}}" alt="Card image cap">
                 <div class="card-body">
                     <a ng-href="#!/user/{{user.uid}}">
                         <h5 class="card-title">{{user.username}}</h5>

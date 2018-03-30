@@ -3,21 +3,30 @@
         <li>{{ league.leaguename }}</li>
         <li>{{ league.description }}</li>
         <!-- <li>{{league.username}}</li>-->
-
-    </ul>
-    <ul>
         League Stats
         <li>
-            Number of Memebers: {{ league.uid.length }}
+            Number of Members: {{ league.uid.length }}
         </li>
         <!--<li>
             Total Market Cap: {{ league.marketCap }}
         </li><li>
 
         </li>-->
+        <h3>League Members</h3>
+        <!--<card ng-repeat="card in players">
+            <li>{{card.username}}</li>
+            <img ng-src='{{card.imageurl}}' />
+        </card>-->
+
+        <div class="card col-sm-4" ng-repeat="card in players">
+            <img class="card-img-top rounded-circle" style="width:60%;margin:auto" ng-src="{{user.imageurl}}" alt="Card image cap">
+            <div class="card-body">
+                <a ng-href="#!/user/{{user.uid}}">
+                    <h5 class="card-title">{{user.username}}</h5>
+                </a>
+                <p class="card-text">{{user.description}}</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+        </div>
     </ul>
-    <h3>League Members</h3>
-    <card ng-repeat="card in players">
-        <li>{{card.username}}</li>
-    </card>
 </div>
