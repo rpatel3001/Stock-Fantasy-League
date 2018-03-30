@@ -194,7 +194,7 @@ stk.controller('PlayerController', function ($scope, $http, $routeParams) {
         console.log('Failing getting league info!');
     });
 
-    /*$scope.updatePlayer = function () {
+    $scope.updatePlayer = function () {
         var reqUpdatePlayer = {
             method: 'POST',
             url: 'http://stock-fantasy-league.herokuapp.com/api/player/' +
@@ -212,27 +212,41 @@ stk.controller('PlayerController', function ($scope, $http, $routeParams) {
 
         });
     };
-    /*$scope.modifyHoldings() {
-
-    }*/
-    /*  $scope.openChangeHoldings = function (stock) {
-          $scope.selectedTicker = stock.symbol;
-          $scope.selectedName = stock.name;
-          var reqPrice = {
-              type: 'GET',
-              url: 'http://stock-fantasy-league.herokuapp.com/api/stock_data',
-              params: {
-                  'cmd': 'getStockData',
-                  'sym': $scope.selectedTicker
-              }
-          };
-          $http(reqPrice).then(function (response) {
-              $scope.selectedTicker = stock.symbol;
-              $scope.selectedName = stock.name;
-              $scope.selectedStockPrice = response.data.stockdata[0].price;
-              $scope.showBuy = true;
-          }, function (response) {});
-      }*/
+    $scope.openChangeHoldings = function (stock) {
+        $scope.selectedTicker = stock.symbol;
+        $scope.selectedName = stock.name;
+        var reqPrice = {
+            type: 'GET',
+            url: 'http://stock-fantasy-league.herokuapp.com/api/stock_data',
+            params: {
+                'cmd': 'getStockData',
+                'sym': $scope.selectedTicker
+            }
+        };
+        $http(reqPrice).then(function (response) {
+            $scope.selectedTicker = stock.symbol;
+            $scope.selectedName = stock.name;
+            $scope.selectedStockPrice = response.data.stockdata[0].price;
+            $scope.showBuy = true;
+        }, function (response) {});
+    }
+    $scope.modifyHoldings = function (stock, transactionType, numShares) {
+        var index = $scope.player.holdings.findIndex(function (element) {
+            return element.symbol == stock.symbol;
+        });
+        if (index >= 0 && !transactionType.localeCompare('Buy')) {
+            $scope.player.holdings[index].numberShares += numShares;
+        } else if (index >= 0 && !transactionType.localeCompare('Sell')) {
+            $scope.player.holdings[index].numberShares -= numShares;
+        } else if (index == -1 && !transactionType.localeCompare('Buy')) {
+            $scope.players.holdings.append(JSON.parse({
+                'symbol': stock.symbol,
+                'name': stock.name,
+                'numberShares': numShares
+            }));
+        }
+        $scope.updatePlayer();
+    };
 });
 stk.controller('NavbarController', ['$scope', function ($scope) {
     $scope.signedIn = false;
