@@ -248,7 +248,7 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
             $scope.selectedTicker = stock.symbol;
             $scope.selectedName = stock.name;
             $scope.selectedStockPrice = response.data.stockdata[0].price;
-            $('#holdingsModal').modal();
+            $('#holdingsModal').modal('show');
         }, function (response) {});
     }
     $scope.modifyHoldings = function (stock, transactionType, numShares, price) {
@@ -279,6 +279,7 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
             $scope.player.availbalance -= price * numShares;
         }
         $scope.updatePlayer();
+        $('#myModal').modal('hide');
         $route.reload();
     };
 }]);
