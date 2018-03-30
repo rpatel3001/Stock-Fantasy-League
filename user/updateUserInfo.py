@@ -14,15 +14,32 @@ class updateUserInfo(Resource):
 		query = ''
 		temp = ''
 		for column in userColumns:
-			if column == 'messages' or column == 'notifications':
+			if column == 'messages' or column == 'notifications':	#handler for json strings
 				temp = str(column) + '=' + "'" +  json.dumps((newInfo[column])) + "'"
 				query += temp + ","
+				continue
+			if column == 'lid' or column == 'pid':					#handler for arrays
+				idList = [str(a) for a in newInfo[column]]
+				idList = ", " . join(idList)
+				temp = str(column) + "='{" + idList + "}'"
+				query += temp + ","
+				continue
+			if column == 'username' or column == 'description' or column == 'imageurl' or column == 'email':	#handler for strings with spaces/symbols
+				temp = str(column) + '=' + "'" + newInfo[column] + "'"
+				query += temp + ","
+				continue
+			if column == 'friends':
+				if newInfo[column] == None:
+					temp = str(column) + '=' + "'{}'"
+					query += temp + ","
 				continue
 			
 			temp = str(column) + '=' + str(newInfo[column])
 			query += temp + ","
 			pass
 		query = query[:-1]
+		print(query)
 		cur.execute("UPDATE userprefs SET %s WHERE uid = %s;"% (query, UID))
 
 		return "Success"
+
