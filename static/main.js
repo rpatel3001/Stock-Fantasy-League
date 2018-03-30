@@ -361,7 +361,7 @@ stk.controller('LeagueListController', function ($scope, $http, $rootScope, $loc
     };
     $scope.data = null;
     $http(reqLeagues).then(function loginSuccess(response) {
-        $scope.leagues = JSON.parse(response.data);
+        $scope.leagues = JSON.parse(response.data).Leagues;
     }, function loginFailure(response) {
         console.log('Failing getting leagues info!');
     });
