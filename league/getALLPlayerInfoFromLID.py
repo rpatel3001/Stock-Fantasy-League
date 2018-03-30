@@ -13,4 +13,3 @@ class getALLPlayerInfoFromLID(Resource):
 		cur.execute("SELECT * FROM players WHERE pid IN %s;", (tuple(test),))
 		return cur.fetchall()
 		pass
-		
