@@ -110,8 +110,8 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
             });
         };
     };
-    $scope.getUserLeagues = function (lids = $scope.user.lid) {
-        if (lids != null) {
+    $scope.getUserLeagues = function () {
+        if ($scope.user.lid != null) {
             var req = {
                 method: 'GET',
                 url: 'http://stock-fantasy-league.herokuapp.com/api/league/multiple',
@@ -119,7 +119,7 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 params: {
-                    lidarray: lids.join(',')
+                    lidarray: $scope.user.lid.join(',')
                 }
             };
             $http(req).then(function (response) {
