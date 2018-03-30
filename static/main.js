@@ -236,6 +236,7 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
         $scope.selectedStock = stock;
         $scope.selectedTicker = stock.symbol;
         $scope.selectedName = stock.name;
+        $scope.numSharesSelected = 0;
         var reqPrice = {
             type: 'GET',
             url: 'http://stock-fantasy-league.herokuapp.com/api/stock_data',
