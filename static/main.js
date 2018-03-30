@@ -169,7 +169,7 @@ stk.controller('DashboardController', function ($scope, $http) {
     }; // change pids and lids to leagues and users
 });
 
-stk.controller('PlayerController', function ($scope, $http, $routeParams) {
+stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route', function ($scope, $http, $routeParams, $route) {
     $scope.lid = $routeParams.lid;
     $scope.pid = $routeParams.pid;
     $scope.player = null;
@@ -280,8 +280,9 @@ stk.controller('PlayerController', function ($scope, $http, $routeParams) {
             $scope.player.availbalance -= price * numShares;
         }
         $scope.updatePlayer();
+        $route.reload();
     };
-});
+}]);
 stk.controller('NavbarController', ['$scope', function ($scope) {
     $scope.signedIn = false;
     $scope.username = '';
