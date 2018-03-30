@@ -232,7 +232,6 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
         });
     };
     $scope.openChangeHoldings = function (stock, tType) {
-        $('#holdingsModal').modal();
         $scope.transactionType = tType;
         $scope.selectedStock = stock;
         $scope.selectedTicker = stock.symbol;
@@ -249,7 +248,7 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
             $scope.selectedTicker = stock.symbol;
             $scope.selectedName = stock.name;
             $scope.selectedStockPrice = response.data.stockdata[0].price;
-            $scope.showBuy = true;
+            $('#holdingsModal').modal();
         }, function (response) {});
     }
     $scope.modifyHoldings = function (stock, transactionType, numShares, price) {
