@@ -8,9 +8,6 @@
         </button>
             </div>
             <div class="modal-body">
-
-
-
                 <div ng-if="transactionType == 'Buy'">
                     <form id="modifyHoldings" ng-controller="PlayerController">
                         <h3>{{transactionType}}: {{selectedTicker}} - {{selectedName}}</h3>
@@ -19,7 +16,7 @@
                             <input type="radio" ng-model="transactionType" value="Sell"> Sell
                         </div>
                         <div class="form-group">
-                            <p> You're available balance is {{player.availbalance | currency}}.</p>
+                            <p> Your available balance is {{player.availbalance | currency}}.</p>
                             <label for="StockTicker">Stock Ticker</label>
                             <input type="text" readonly class="form-control-plaintext form-control-lg" id="StockTicker" ng-model="selectedTicker">
                         </div>
@@ -33,9 +30,9 @@
                         <div class="form-group">
                             <label for="Number">Number of Shares to Buy</label>
                             <input type="number" class="form-control" id="StartBalanceInput" ng-model="numSharesSelected">
-                            <p> You're available balance is {{player.availbalance | currency}} .</p>
-                            <p> You're transaction cost is {{numSharesSelected * selectedStockPrice | currency}}.</p>
-                            <p> You're remaining balance will be {{(player.availbalance - numSharesSelected*selectedStockPrice) | currency}}.</p>
+                            <p> Your available balance is {{player.availbalance | currency}} .</p>
+                            <p> Your transaction cost is {{numSharesSelected * selectedStockPrice | currency}}.</p>
+                            <p> Your remaining balance will be {{(player.availbalance - numSharesSelected*selectedStockPrice) | currency}}.</p>
                         </div>
                         <!--<div class="form-group" ng-if="transactionType == 'Sell'">
         <label for="Number">Number of Shares to Sell</label>
@@ -76,9 +73,9 @@
                         <div class="form-group">
                             <label ffor="Number">Number of Shares to Sell</label>
                             <input type="number" class="form-control" id="StartBalanceInput" ng-model="numShares" ng-min="0">
-                            <p> You're available balance is {{player.availbalance | currency}}.</p>
-                            <p> You're sale income is {{numShares*selectedStockPrice | currency}}.</p>
-                            <p> You're total balance will be {{player.availbalance +numShares*selectedStockPrice | currency}}.</p>
+                            <p> Your available balance is {{player.availbalance | currency}}.</p>
+                            <p> Your sale income is {{numShares*selectedStockPrice | currency}}.</p>
+                            <p> Your total balance will be {{player.availbalance +numShares*selectedStockPrice | currency}}.</p>
                         </div>
                         <button class="btn btn-primary" type="submit" ng-click="modifyHoldings(selectedStock,transactionType,numSharesSelected,selectedStockPrice);">{{transactionType}} {{selectedTicker}}</button>
                     </form>
