@@ -181,6 +181,8 @@ stk.controller('PlayerController', function ($scope, $http, $routeParams) {
                 };
             }
             //update sholding with server
+            //$scope.updatePlayer();
+
             $http(reqStocks).then(function (response) {
                 $scope.topStocks = response.data.stocks;
             })
@@ -191,7 +193,45 @@ stk.controller('PlayerController', function ($scope, $http, $routeParams) {
         console.log('Failing getting league info!');
     });
 
+    /*$scope.updatePlayer = function () {
+        var reqUpdatePlayer = {
+            method: 'POST',
+            url: 'http://stock-fantasy-league.herokuapp.com/api/player/' +
+                $scope.pid + '/update',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data: $.param({
+                'update': JSON.stringify($scope.player)
+            })
+        };
+        $http(reqUpdatePlayer).then(function (response) {
 
+        }, function (response) {
+
+        });
+    };
+    /*$scope.modifyHoldings() {
+
+    }*/
+    /*  $scope.openChangeHoldings = function (stock) {
+          $scope.selectedTicker = stock.symbol;
+          $scope.selectedName = stock.name;
+          var reqPrice = {
+              type: 'GET',
+              url: 'http://stock-fantasy-league.herokuapp.com/api/stock_data',
+              params: {
+                  'cmd': 'getStockData',
+                  'sym': $scope.selectedTicker
+              }
+          };
+          $http(reqPrice).then(function (response) {
+              $scope.selectedTicker = stock.symbol;
+              $scope.selectedName = stock.name;
+              $scope.selectedStockPrice = response.data.stockdata[0].price;
+              $scope.showBuy = true;
+          }, function (response) {});
+      }*/
 });
 stk.controller('NavbarController', ['$scope', function ($scope) {
     $scope.signedIn = false;
@@ -325,3 +365,19 @@ function signOut() {
         console.log('User signed out.');
     });
 }
+
+/*function getPrice(symArr) {
+    var reqPrice = {
+        type: 'GET',
+        url: 'http://stock-fantasy-league.herokuapp.com/api/stock_data/',
+        params: {
+            'cmd': 'getStockData',
+            'sym': symArr
+        }
+    }
+    $http(reqPrice).then(function (response) {
+        return data.stockdata;
+    }, function () {
+        return null;
+    });
+}*/
