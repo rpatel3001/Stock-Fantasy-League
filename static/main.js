@@ -76,8 +76,7 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
     };
     $http(req).then(function (response) {
         $scope.user = response.data;
-        /c/unwrapped
-        json
+        //unwrappedjson
         $scope.user.description = "test description";
         $scope.navbarHeader = "Leagues with " + $scope.user.username;
         $scope.getUserLeagues();
