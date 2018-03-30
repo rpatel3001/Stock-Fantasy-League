@@ -184,7 +184,7 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
     };
     var reqStocks = {
         method: 'GET',
-        url: 'http://stock-fantasy-league.herokuapp.com/api/stock_data/top/1000'
+        url: 'http://stock-fantasy-league.herokuapp.com/api/stock_data/top/7000'
     };
     $http(reqLeague).then(function (response) {
         $scope.league = JSON.parse(response.data).Leagues[0];
