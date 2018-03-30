@@ -80,6 +80,8 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
         $scope.user.description = "test description";
         $scope.navbarHeader = "Leagues with " + $scope.user.username;
         $scope.getUserLeagues();
+        $scope.user.description = "test yay";
+        $scope.updateUser();
     }, function (response) {
         console.log('Failing getting league info!');
     });
@@ -106,7 +108,6 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
                 $scope.description = null;
                 $scope.user.lid.push(response.data[response.data.length - 1].lid);
                 $scope.getUserLeagues();
-                $route.reload();
             }, function (response) {
                 console.log('Failing getting league info!');
             });
@@ -126,6 +127,7 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
             };
             $http(req).then(function (response) {
                 $scope.leagues = response.data;
+                $route.reload();
                 //$scope.user.leagues = response.data; //unwrapped json
             }, function (response) {
                 console.log('Failing getting league info!');
