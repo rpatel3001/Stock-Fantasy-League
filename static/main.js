@@ -64,7 +64,6 @@ stk.controller('LeagueController', ['$scope', '$http', '$routeParams', function 
 }]);
 stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams', function ($scope, $http, $rootScope, $routeParams) {
     $scope.paramuid = $routeParams.uid;
-    $scope.uid = uid;
     $scope.startBal = null;
     $scope.duration = null;
     $scope.leaguename = null;
