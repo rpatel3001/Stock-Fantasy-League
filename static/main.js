@@ -123,8 +123,8 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
                 }
             };
             $http(req).then(function (response) {
-                $scope.data.Leagues = response.data;
-                $scope.user.leagues = response.data; //unwrapped json
+                $scope.leagues = response.data;
+                //$scope.user.leagues = response.data; //unwrapped json
             }, function (response) {
                 console.log('Failing getting league info!');
             });
@@ -352,7 +352,7 @@ stk.controller('LeagueListController', function ($scope, $http, $rootScope, $loc
     };
     $scope.data = null;
     $http(reqLeagues).then(function loginSuccess(response) {
-        $scope.data = JSON.parse(response.data);
+        $scope.leagues = JSON.parse(response.data);
     }, function loginFailure(response) {
         console.log('Failing getting leagues info!');
     });
@@ -371,7 +371,7 @@ stk.controller('LeagueListController', function ($scope, $http, $rootScope, $loc
             $http(reqJoinLeague).then(function (response) {
                 //need to update this to change button and reload leagues
                 $http(reqLeagues).then(function loginSuccess(response) {
-                    $scope.data = JSON.parse(response.data);
+                    $scope.leagues = JSON.parse(response.data);
                 }, function loginFailure(response) {
                     console.log('Failing getting leagues info!');
                 });
