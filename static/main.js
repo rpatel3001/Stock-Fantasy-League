@@ -81,12 +81,12 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
         $scope.user.description = "test description";
         $scope.navbarHeader = "Leagues with " + $scope.user.username;
         $scope.getUserLeagues();
-        $scope.updateUser();
+        //$scope.updateUser();
     }, function (response) {
         console.log('Failing getting league info!');
     });
     $scope.createLeague = function () {
-        if ($scope.signedinuid == $scope.uid) {
+        if ($scope.paramuid == $scope.uid) { // could use user.uid as well
             var req = {
                 method: 'POST',
                 url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.uid,
@@ -132,7 +132,7 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
             });
         }
     };
-    /*$scope.updateUser = function () {
+    $scope.updateUser = function () {
         var reqUpdatePlayer = {
             method: 'POST',
             url: 'http://stock-fantasy-league.herokuapp.com/api/user/' +
@@ -149,7 +149,7 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
         }, function (response) {
             return null;
         });
-    };*/
+    };
 }]);
 stk.controller('DashboardController', function ($scope, $http) {
     /*$http.get('http://stock-fantasy-league.herokuapp.com/api/user').then(function (response) {
