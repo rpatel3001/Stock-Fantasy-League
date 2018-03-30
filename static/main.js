@@ -125,7 +125,7 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
         var reqUpdatePlayer = {
             method: 'POST',
             url: 'http://stock-fantasy-league.herokuapp.com/api/user/' +
-                $scope.uid + '/update',
+                $scope.user.uid + '/update',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
