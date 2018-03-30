@@ -7,8 +7,10 @@ for stocks, ETFs, and cryptocurrencies.
 from requests import get as send_get
 from flask import request
 from flask_restful import abort, Resource
+from datetime import date, timedelta
 
 _AV_URL = "https://www.alphavantage.co/query"
+_API_KEY = "DEDSQFY460FDRASD"
 
 
 class StockData(Resource):
@@ -30,6 +32,10 @@ class StockData(Resource):
         """
         cmd = request.args.get('cmd')
         tickers = [x.upper() for x in request.args.getlist('sym')]
+        indicator = request.args.get('indicator', default='SMA').upper()
+        resolution = request.args.get('resolution', default='daily')
+        window = request.args.get('window', default=2)
+        price_type = request.args.get('price_type', default='close')
         if len(tickers) == 0:
             abort(404, message="No tickers provided.")
 
@@ -40,7 +46,7 @@ class StockData(Resource):
         elif cmd == "getPriceHistory":
             return get_price_history(tickers[0])
         elif cmd == "getTechnicalIndicator":
-            return get_technical_indicator(tickers)
+            return get_technical_indicator(tickers[0], indicator, resolution, window, price_type)
         else:
             abort(404, message="Command " + cmd + " not supported.")
 
@@ -60,7 +66,7 @@ def get_stock_data(cur, tickers):
     """
     args = {"function": "BATCH_STOCK_QUOTES",
             "symbols": ','.join(tickers),
-            "apikey": "DEDSQFY460FDRASD"}
+            "apikey": _API_KEY}
     data_json = send_get(_AV_URL, params=args).json()
     if list(data_json.keys())[0] == 'Error Message':
         abort(404, message=data_json['Error Message'])
@@ -124,4 +130,13 @@ def get_technical_indicator(sym, indicator, resolution, window, price_type):
         dict : A dictionary of date strings to a dictionary mapping `indicator`
             to the indicator's value at the time indicated by the date string.
     """
-    return "Endpoint not implemented."
+    args = {"function": indicator,
+            "symbol": sym,
+            "interval": resolution,
+            "time_period": window,
+            "series_type": price_type,
+            "apikey": _API_KEY}
+    data_json = send_get(_AV_URL, params=args).json()
+    if list(data_json.keys())[0] == 'Error Message':
+        abort(404, message=data_json['Error Message'])
+    return {indicator: data_json['Technical Analysis: ' + indicator][(date.today() - timedelta(1)).strftime("%Y-%m-%d")][indicator]}
