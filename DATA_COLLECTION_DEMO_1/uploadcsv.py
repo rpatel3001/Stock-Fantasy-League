@@ -3,8 +3,9 @@
 from urllib.parse import urlparse
 import psycopg2
 import csv
+import os
 
-url = urlparse("postgres://xqeuyuquhktxoq:c7869c5a14cb7f47eea6a586dbc23ffe5ee8522abfb2c3c4b2b0785db64b5916@ec2-54-243-239-66.compute-1.amazonaws.com:5432/den0hekga678pn")
+url = urlparse(os.environ["DATABASE_URL"])
 db_conn = psycopg2.connect(
     database=url.path[1:],
     user=url.username,
