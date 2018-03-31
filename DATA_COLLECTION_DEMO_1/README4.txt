@@ -9,9 +9,8 @@ https://www.nasdaq.com/screening/companies-by-industry.aspx?&render=download
 
 After you have done this, run ‘python uploadcsv.py’.
 
-The process of fetching and storing data will take several minutes, after which 
-the database table containing stock information will be filled with stock 
-symbols and associated company names. 
+The process of fetching and storing data will fill the database table 
+with stock symbols and associated company names. 
 
 The above process only needs to be done once to initialize the data table. Once 
 the table has been initialized, it will be updated every 10 minutes with the 

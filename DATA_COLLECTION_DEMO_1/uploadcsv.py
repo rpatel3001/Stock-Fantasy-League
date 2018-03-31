@@ -13,13 +13,14 @@ db_conn = psycopg2.connect(
     port=url.port
 )
 
-cur = db_conn.cursor()
-
-csvreader = csv.DictReader(open('companylist.csv'))
-for row in csvreader:
-    if(row['LastSale'] == "n/a"):
-        continue
-    print(row)
-    print()
-    cur.execute("INSERT INTO stockdata (symbol, name, price) VALUES(%s,%s,%s)", (row['Symbol'], row['Name'], row['LastSale']))
-db_conn.commit()
+with db_conn:
+    with db_conn.cursor() as cur:
+        syms = []
+        data = []
+        csvreader = csv.DictReader(open('companylist.csv'))
+        for row in csvreader:
+            if row['LastSale'] == "n/a" or row['Symbol'] in syms:
+                continue
+            syms.append(row['Symbol'])
+            data.append(str((row['Symbol'], row['Name'], float(row['LastSale']))))
+        cur.execute("INSERT INTO stockdata (symbol, name, price) VALUES %s" % ','.join(data))
