@@ -74,9 +74,16 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
     else
         $scope.paramuid = $routeParams.uid;
     $scope.startBal = null;
+    $scope.intStartBal = 10000;
     $scope.duration = null;
+    $scope.intDuration = new Date("01/01/2030");
     $scope.leaguename = null;
+    $scope.intGenerateRandomLeagueName = function () {
+        return 'Test League - ' + Math.floor(1e12 * Math.random());
+    }
+    $scope.intLeaguename = $scope.intGenerateRandomLeagueName();
     $scope.description = null;
+    $scope.intDescription = "Description for Integration Test League: " + $scope.intLeaguename + ".";
     $scope.leaguesView = false;
     $scope.navbarHeader = "Leagues";
     var req = {
@@ -113,6 +120,34 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
                 $scope.duration = null;
                 $scope.leaguename = null;
                 $scope.description = null;
+                $scope.user.lid.push(response.data[response.data.length - 1].lid);
+                $route.reload();
+            }, function (response) {
+                console.log('Failing getting league info!');
+            });
+        };
+    };
+    $scope.intTestCreateLeague = function () {
+        if ($scope.paramuid == $scope.uid) { // could use user.uid as well
+            var req = {
+                method: 'POST',
+                url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.uid,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data: $.param({
+                    startBal: $scope.intStartBal,
+                    duration: $scope.intDuration.getTime(),
+                    leagueName: $scope.intLeaguename,
+                    description: $scope.intDescription
+                })
+            };
+            $http(req).then(function (response) {
+                console.log(response.data); //unwrapped json
+                $scope.intStartBal = null;
+                $scope.intDuration = null;
+                $scope.intLeaguename = $scope.intGenerateRandomLeagueName();
+                $scope.intDescription = null;
                 $scope.user.lid.push(response.data[response.data.length - 1].lid);
                 $route.reload();
             }, function (response) {
@@ -355,7 +390,7 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
         }, 10000);*/
     }
 }]);
-stk.controller('NavbarController', ['$scope', function ($scope) {
+stk.controller('NavbarController', ['$scope', function ($scope, $rootScope) {
     $scope.signedIn = false;
     $scope.username = '';
     $scope.imageurl = '';

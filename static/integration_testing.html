@@ -34,117 +34,203 @@
 </head>
 
 <body>
-    <h1>Integration Testing</h1>
-    <h3> This webpage shows live integration testing. All of the outputs below are retrieved from the server when the page is loaded in real-time. Some of the tests are interactive such as logging in and buying/selling stocks. These tests require the tester to either log in or press a buton to perform the test.</h3>
-    <h2>Logging In</h2>
-    The button below will log you in. If you are logged in to the website it will display logged in. Using Controller: Navbar Controller
-    <br>
-    <div ng-controller="NavbarController">
-        <div class="g-signin2 ml-2" data-onsuccess="onSignIn" ng-show="signedIn == false"></div>
-        <p ng-show="signedIn">You are signed in with User ID {{uid}}</p>
-    </div>
-    <br>
-    <h2>Viewing User Card</h2>
-    The view below will get the user card for the user with UID 1. As of 4/1, this user is Alexander Chan.
-    <br>
-    <div ng-controller="UserController">
-        <div class="card col-sm-4">
-            <img class="card-img-top rounded-circle" style="width:60%;margin:auto" ng-src="{{user.imageurl}}" alt="Card image cap">
-            <div class="card-body">
-                <a ng-href="#!/user/{{user.uid}}">
-                    <h5 class="card-title">{{user.username}}</h5>
-                </a>
-                <p class="card-text">{{user.description}}</p>
+    <div class="container-fluid">
+
+        <div class="jumbotron">
+            <div class="container">
+                <h1 class="display-4">Integration Testing</h1>
+                <p class="lead"> This webpage shows live integration testing. All of the outputs below are retrieved from the server when the page is loaded in real-time. Some of the tests are interactive such as logging in and buying/selling stocks. These tests require the tester to either log in or press a buton to perform the test.</p>
             </div>
         </div>
-    </div>
-    <h2>Viewing User Leagues</h2>
-    The view below will get the leagues that a user is in. The leagues below have a player that belongs to Alexander Chan.
-    <br>
-    <div ng-controller="UserController">
-        <div ng-include="'league_list.html'"></div>
-    </div>
-    <h2>Viewing League</h2>
-    The view below will get the league information for the league with LID 1. As of 4/1, this league is Louis's First League.
-    <br>
-    <div ng-controller="LeagueController">
-        <ul style="list-style-type: none">
-            <li>League Name:{{ league.leaguename }}</li>
-            <li>League Description:{{ league.description }}</li>
-            League Stats
-            <li>
-                Number of Members: {{ league.uid.length }}
-            </li>
-        </ul>
-    </div>
-    <h2>Viewing Player</h2>
-    The view below will get the player information for the player with PID 16. As of 4/1, this player is in Louis's First League and belongs to OZ BEJERANO. The player currently owns 2 shares of GOOG and 10 shares of ABEV.
-    <br>
-    <div ng-controller="PlayerController">
-        <ul>
-            <li>League Name: {{ league.leaguename }}</li>
-            <li>League Description: {{ league.description }}</li>
-            <li>League Starting Balance: {{ league.startbal }}</li>
-        </ul>
-        <!--Search-->
-        <ul>
-            Player Stats
-            <!--<li>
+        <!--<h1>Integration Testing</h1>
+        <h4> This webpage shows live integration testing. All of the outputs below are retrieved from the server when the page is loaded in real-time. Some of the tests are interactive such as logging in and buying/selling stocks. These tests require the tester to either log in or press a buton to perform the test.</h4>-->
+        <br>
+        <div class="card">
+            <h2 class="card-header">Logging In</h2>
+            <div class="card-body">
+                <!--<h2>Logging In</h2>-->
+                The button below will log you in. If you are logged in to the website it will display logged in. Using Controller: Navbar Controller
+                <br>
+                <div ng-controller="NavbarController">
+                    <p class="alert alert-success" ng-show="uid>-1">You are signed in with User ID {{uid}}.</p>
+                    <p class="alert alert-danger" ng-show="uid==-1||uid==undefined">You are not signed in.</p>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="card">
+            <h2 class="card-header">Viewing User Card</h2>
+            <div class="card-body">
+                The view below will get the user card for the user with UID 1. As of 4/1, this user is Alexander Chan.
+                <br>
+                <div ng-controller="UserController">
+                    <div class="card col-sm-4">
+                        <img class="card-img-top rounded-circle" style="width:60%;margin:auto" ng-src="{{user.imageurl}}" alt="Card image cap">
+                        <div class="card-body">
+                            <a ng-href="#!/user/{{user.uid}}">
+                                <h5 class="card-title">{{user.username}}</h5>
+                            </a>
+                            <p class="card-text">{{user.description}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="card">
+            <h2 class="card-header">Creating A League</h2>
+            <div class="card-body">
+                For the tester to be able to create a new League, the tester must be logged in. The view below will create a League with the name Test concatenated with a random number. The tester can test with the the default values or change them.
+                <br>
+                <div ng-controller="UserController">
+                    <div class="alert alert-danger" ng-show="$scope.paramuid != $scope.uid || ">
+                        Please log in to test creating a League!
+                    </div>
+                    <form id="createLeague" ng-show="paramuid == uid">
+                        <div class="form-group">
+                            <label for="LeagueNameInput">League Name</label>
+                            <input type="text" class="form-control form-control-lg" id="LeagueNameInput" ng-model="intLeaguename" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="StartBalanceInput">StartBalance</label>
+                            <input type="number" class="form-control" id="StartBalanceInput" ng-model="intStartBal" min="1" max="10000000">
+                        </div>
+                        <div class="form-group">
+                            <label for="DurationInput">End Date</label>
+                            <input type="date" class="form-control" id="DurationInput" ng-model="intDuration">
+                        </div>
+                        <div class="form-group">
+                            <label for="DescriptionTextArea">Description</label>
+                            <textarea class="form-control" id="DescriptionTextArea" rows="2" ng-model="intDescription"></textarea>
+                        </div>
+                        <button class="btn btn-primary" type="submit" ng-click="intTestcreateLeague();">Create League</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="card">
+            <h2 class="card-header">Viewing User Leagues</h2>
+            <div class="card-body">
+                The view below will get the leagues that a user is in. The leagues below have a player that belongs to Alexander Chan.
+                <br>
+                <div ng-controller="UserController">
+                    <div ng-include="'league_list.html'"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="card-header">Viewing All Leagues</h2>
+            The view below will get all the leagues created on Stock Fantasy League.
+            <div class="card mx-2">
+                <h5 class="card-header">
+                    Testing Joining Leagues
+                </h5>
+                <div class="card-body">
+                    To test joining a league, the tester must be logged in. If the tester is logged in the All Leagues Table will have a "Join" button in the rightmost column for each league. If the tester is already in the league then the button will state "View Player" and link to the tester's holdings in that League.
+                </div>
+            </div>
+            <div ng-controller="LeagueListController">
+                <div ng-include="'league_list.html'"></div>
+            </div>
+        </div>
+        <br>
+        <div class="card">
+            <h2 class="card-header">Viewing League Information</h2>
+            <div class="card-body">
+                The view below will get the league information for the league with LID 1. As of 4/1, this league is Louis's First League.
+                <br>
+                <div ng-controller="LeagueController">
+                    <ul style="list-style-type: none">
+                        <li>League Name:{{ league.leaguename }}</li>
+                        <li>League Description:{{ league.description }}</li>
+                        League Stats
+                        <li>
+                            Number of Members: {{ league.uid.length }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="card">
+            <h2 class="card-header">Viewing Player</h2>
+            <div class="card-body">
+                The view below will get the player information for the player with PID 16. As of 4/1, this player is in Louis's First League and belongs to OZ BEJERANO. The player currently owns 2 shares of GOOG and 10 shares of ABEV.
+                <br>
+                <div ng-controller="PlayerController">
+                    <ul>
+                        <li>League Name: {{ league.leaguename }}</li>
+                        <li>League Description: {{ league.description }}</li>
+                        <li>League Starting Balance: {{ league.startbal }}</li>
+                    </ul>
+                    <!--Search-->
+                    <ul>
+                        Player Stats
+                        <!--<li>
             Ranking: {{ player.holdings.length }}
         </li>-->
-            <!-- need to update this-->
-            <li>
-                Available Balance: {{ player.availbalance | currency}}
-            </li>
-        </ul>
+                        <!-- need to update this-->
+                        <li>
+                            Available Balance: {{ player.availbalance | currency}}
+                        </li>
+                    </ul>
+                    <br>
+                    <div ng-include="'modify_holding.html'"></div>
+                    <h1>Current Player Holdings</h1>
+                    <input placeholder="Stock Ticker" type="text" ng-model="stockSelect.symbol">
+                    <input placeholder="Stock Name" type="text" ng-model="stockSelect.name">
+                    <table class="table">
+                        <tr>
+                            <td>Stock Ticker</td>
+                            <td>Stock Name</td>
+                            <td>Number of Shares</td>
+                            <!--<td>Stock Value</td>-->
+
+                        </tr>
+
+                        <tr scope="row" ng-repeat="stock in player.holdings| filter : stockSelect">
+                            <td>{{stock.symbol}}</td>
+                            <td>{{stock.name}}</td>
+                            <td>{{stock.numberShares}}</td>
+                            <!--<td>{{(stock.numberShares * stock.getprice(stock.symbol)) | currency}}</td>-->
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
         <br>
-        <div ng-include="'modify_holding.html'"></div>
-        <h1>Current Player Holdings</h1>
-        <input placeholder="Stock Ticker" type="text" ng-model="stockSelect.symbol">
-        <input placeholder="Stock Name" type="text" ng-model="stockSelect.name">
-        <table class="table">
-            <tr>
-                <td>Stock Ticker</td>
-                <td>Stock Name</td>
-                <td>Number of Shares</td>
-                <!--<td>Stock Value</td>-->
+        <div class="card">
+            <h2 class="card-header">Buying and Selling Stock</h2>
+            <div class="card-body">
+                The view below will get the player information for the player with PID 16. As of 4/1, this player is in Louis's First League and belongs to OZ BEJERANO. The button TEST BUY, will buy 4 shares of GOOG as Oz Bejerano. The button TEST SELL, will buy 4 shares of GOOG as Oz Bejerano. The view should change to show that the stocks were bought or sold, and if the page is reloaded the values will be persistent (this means that this Player's holdings has been updated on the database.
+                <br>
+                <div ng-controller="PlayerController">
+                    <button class=" btn btn-warning" ng-click="integrationTesting('Buy');">TEST BUY</button>
+                    <button class=" btn btn-warning" ng-click="integrationTesting('Sell');">TEST SELL</button>
+                    <h1>Current Player Holdings</h1>
+                    <input placeholder="Stock Ticker" type="text" ng-model="stockSelect.symbol">
+                    <input placeholder="Stock Name" type="text" ng-model="stockSelect.name">
+                    <table class="table">
+                        <tr>
+                            <td>Stock Ticker</td>
+                            <td>Stock Name</td>
+                            <td>Number of Shares</td>
+                            <!--<td>Stock Value</td>-->
 
-            </tr>
+                        </tr>
 
-            <tr scope="row" ng-repeat="stock in player.holdings| filter : stockSelect">
-                <td>{{stock.symbol}}</td>
-                <td>{{stock.name}}</td>
-                <td>{{stock.numberShares}}</td>
-                <!--<td>{{(stock.numberShares * stock.getprice(stock.symbol)) | currency}}</td>-->
-            </tr>
-        </table>
-    </div>
-    <h2>Buying and Selling Stock</h2>
-    The view below will get the player information for the player with PID 16. As of 4/1, this player is in Louis's First League and belongs to OZ BEJERANO. The button TEST BUY, will buy 4 shares of GOOG as Oz Bejerano. The button TEST SELL, will buy 4 shares of GOOG as Oz Bejerano. The view should change to show that the stocks were bought or sold, and if the page is reloaded the values will be persistent (this means that this Player's holdings has been updated on the database.
-    <br>
-    <div ng-controller="PlayerController">
-        <button class=" btn btn-warning" ng-click="integrationTesting('Buy');">TEST BUY</button>
-        <button class=" btn btn-warning" ng-click="integrationTesting('Sell');">TEST SELL</button>
-        <h1>Current Player Holdings</h1>
-        <input placeholder="Stock Ticker" type="text" ng-model="stockSelect.symbol">
-        <input placeholder="Stock Name" type="text" ng-model="stockSelect.name">
-        <table class="table">
-            <tr>
-                <td>Stock Ticker</td>
-                <td>Stock Name</td>
-                <td>Number of Shares</td>
-                <!--<td>Stock Value</td>-->
-
-            </tr>
-
-            <tr scope="row" ng-repeat="stock in player.holdings| filter : stockSelect">
-                <td>{{stock.symbol}}</td>
-                <td>{{stock.name}}</td>
-                <td>{{stock.numberShares}}</td>
-                <!--<td>{{(stock.numberShares * stock.getprice(stock.symbol)) | currency}}</td>-->
-            </tr>
-        </table>
-    </div>
+                        <tr scope="row" ng-repeat="stock in player.holdings| filter : stockSelect">
+                            <td>{{stock.symbol}}</td>
+                            <td>{{stock.name}}</td>
+                            <td>{{stock.numberShares}}</td>
+                            <!--<td>{{(stock.numberShares * stock.getprice(stock.symbol)) | currency}}</td>-->
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 
