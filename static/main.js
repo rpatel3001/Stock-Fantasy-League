@@ -69,7 +69,7 @@ stk.controller('LeagueController', ['$scope', '$http', '$routeParams', function 
     });
 }]);
 stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams', '$route', function ($scope, $http, $rootScope, $routeParams, $route) {
-    if (scope.paramuid == undefined) {
+    if ($scope.paramuid == undefined) {
         $scope.paramuid = 1;
     } else {
         $scope.paramuid = $routeParams.uid;
