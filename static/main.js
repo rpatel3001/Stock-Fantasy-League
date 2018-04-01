@@ -125,7 +125,7 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
         };
     };
     $scope.intTestCreateLeague = function () {
-        if ($scope.user.uid == $scope.uid) { // could use user.uid as well
+        if ($scope.uid > 0) { // test check not as accurate 
             var req = {
                 method: 'POST',
                 url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.uid,
