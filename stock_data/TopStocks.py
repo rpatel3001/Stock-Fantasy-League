@@ -11,5 +11,5 @@ class TopStocks(Resource):
         cur.execute("SELECT * FROM stockdata limit %s;", (num,))
         ss = cur.fetchall()
         for s in ss:
-            s['price'] = s['price'][1:]
+            s['price'] = s['price']
         return {"stocks": ss}
