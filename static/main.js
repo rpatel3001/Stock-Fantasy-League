@@ -223,6 +223,8 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
     }
     $scope.player = null;
     $scope.league = null;
+    $scope.intNumStocks = 1000;
+    $scope.intGetPriceTicker = 'AAPL';
     var reqLeague = {
         method: 'GET',
         url: 'http://stock-fantasy-league.herokuapp.com/api/league/' + $scope.lid
@@ -254,14 +256,25 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
 
             $http(reqStocks).then(function (response) {
                 $scope.topStocks = response.data.stocks;
-            })
+            });
+            $scope.intGetStocks($scope.intNumStocks);
+            $scope.intGetPrice($scope.intGetPriceTicker);
         }, function (response) {
             console.log('Failing getting league info!');
         });
     }, function (response) {
         console.log('Failing getting league info!');
     });
-
+    $scope.intGetStocks = function (intNumStocks) {
+        $scope.intDisplayStocks = [];
+        var reqStocks = {
+            method: 'GET',
+            url: 'http://stock-fantasy-league.herokuapp.com/api/stock_data/top/' + intNumStocks
+        };
+        $http(reqStocks).then(function (response) {
+            $scope.intDisplayStocks = response.data.stocks;
+        });
+    }
     $scope.updatePlayer = function () {
         var reqUpdatePlayer = {
             method: 'POST',
@@ -388,7 +401,20 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
         /*setTimeout(function () {
             $scope.modifyHoldings(intStock, 'Sell', 4, intTestPrice, false);
         }, 10000);*/
-    }
+    };
+    $scope.intGetPrice = function (symArr) {
+        var reqPrice = {
+            type: 'GET',
+            url: 'http://stock-fantasy-league.herokuapp.com/api/stock_data',
+            params: {
+                'cmd': 'getStockData',
+                'sym': symArr
+            }
+        }
+        $http(reqPrice).then(function (response) {
+            $scope.intStockPrice = response.data.stockdata;
+        }, function () {});
+    };
 }]);
 stk.controller('NavbarController', ['$scope', function ($scope, $rootScope) {
     $scope.signedIn = false;
@@ -574,7 +600,7 @@ var updatePlayer = function (pid, player) {
         }
     }
     $http(reqPrice).then(function (response) {
-        return data.stockdata;
+        return response.data.stockdata;
     }, function () {
         return null;
     });
