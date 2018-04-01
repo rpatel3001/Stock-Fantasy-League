@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html ng-app="Stock Fantasy League" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="icon" type="image/png" href="https://stock-fantasy-league.herokuapp.com/img/homepage_icon.png">
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="667783900886-6p5fn2lrhu0q265ibuuufmk3t95ack93.apps.googleusercontent.com">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-resource.min.js"></script>
+    <script src="angular-mocks.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="stock-fantasy-league.herokuapp.com/cookie_manager.js"></script>
+    <script src="stock-fantasy-league.herokuapp.com/main.js"></script>
+    <script src="cookie_manager.js"></script>
+    <script src="main.js"></script>
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="assets_aboutus/css/styles.css">
+    <link rel="stylesheet" href="assets_aboutus/css/Team-Boxed.css">
+    <meta charset="utf-8">
+    <title>Integration Testing</title>
+    <!--Home page-->
+
+</head>
+
+<body>
+    <h1>Integration Testing</h1>
+    <h3> This webpage shows live integration testing. All of the outputs below are retrieved from the server when the page is loaded in real-time. Some of the tests are interactive such as logging in and buying/selling stocks. These tests require the tester to either log in or press a buton to perform the test.</h3>
+    <h2>Logging In</h2>
+    The button below will log you in. If you are logged in to the website it will display logged in. Using Controller: Navbar Controller
+    <br>
+    <div ng-controller="NavbarController">
+        <div class="g-signin2 ml-2" data-onsuccess="onSignIn" ng-show="signedIn == false"></div>
+        <p ng-show="signedIn">You are signed in with User ID {{uid}}</p>
+    </div>
+    <br>
+    <h2>Viewing User Card</h2>
+    The view below will get the user card for the user with UID 1. As of 4/1, this user is Alexander Chan.
+    <br>
+    <div ng-controller="UserController">
+        <div class="card col-sm-4">
+            <img class="card-img-top rounded-circle" style="width:60%;margin:auto" ng-src="{{user.imageurl}}" alt="Card image cap">
+            <div class="card-body">
+                <a ng-href="#!/user/{{user.uid}}">
+                    <h5 class="card-title">{{user.username}}</h5>
+                </a>
+                <p class="card-text">{{user.description}}</p>
+            </div>
+        </div>
+    </div>
+    <h2>Viewing User Leagues</h2>
+    The view below will get the leagues that a user is in. The leagues below have a player that belongs to Alexander Chan.
+    <br>
+    <div ng-controller="UserController">
+        <div ng-include="'league_list.html'"></div>
+    </div>
+    <h2>Viewing League</h2>
+    The view below will get the league information for the league with LID 1. As of 4/1, this league is Louis's First League.
+    <br>
+    <div ng-controller="LeagueController">
+        <ul style="list-style-type: none">
+            <li>League Name:{{ league.leaguename }}</li>
+            <li>League Description:{{ league.description }}</li>
+            League Stats
+            <li>
+                Number of Members: {{ league.uid.length }}
+            </li>
+        </ul>
+    </div>
+    <h2>Viewing Player</h2>
+    The view below will get the player information for the player with PID 16. As of 4/1, this player is in Louis's First League and belongs to OZ BEJERANO. The player currently owns 2 shares of GOOG and 10 shares of ABEV.
+    <br>
+    <div ng-controller="PlayerController">
+        <ul>
+            <li>League Name: {{ league.leaguename }}</li>
+            <li>League Description: {{ league.description }}</li>
+            <li>League Starting Balance: {{ league.startbal }}</li>
+        </ul>
+        <!--Search-->
+        <ul>
+            Player Stats
+            <!--<li>
+            Ranking: {{ player.holdings.length }}
+        </li>-->
+            <!-- need to update this-->
+            <li>
+                Available Balance: {{ player.availbalance | currency}}
+            </li>
+        </ul>
+        <br>
+        <div ng-include="'modify_holding.html'"></div>
+        <h1>Current Player Holdings</h1>
+        <input placeholder="Stock Ticker" type="text" ng-model="stockSelect.symbol">
+        <input placeholder="Stock Name" type="text" ng-model="stockSelect.name">
+        <table class="table">
+            <tr>
+                <td>Stock Ticker</td>
+                <td>Stock Name</td>
+                <td>Number of Shares</td>
+                <!--<td>Stock Value</td>-->
+
+            </tr>
+
+            <tr scope="row" ng-repeat="stock in player.holdings| filter : stockSelect">
+                <td>{{stock.symbol}}</td>
+                <td>{{stock.name}}</td>
+                <td>{{stock.numberShares}}</td>
+                <!--<td>{{(stock.numberShares * stock.getprice(stock.symbol)) | currency}}</td>-->
+            </tr>
+        </table>
+    </div>
+    <h2>Buying and Selling Stock</h2>
+    The view below will get the player information for the player with PID 16. As of 4/1, this player is in Louis's First League and belongs to OZ BEJERANO. The button TEST BUY, will buy 4 shares of GOOG as Oz Bejerano. The button TEST SELL, will buy 4 shares of GOOG as Oz Bejerano. The view should change to show that the stocks were bought or sold, and if the page is reloaded the values will be persistent (this means that this Player's holdings has been updated on the database.
+    <br>
+    <div ng-controller="PlayerController">
+        <button class=" btn btn-warning" ng-click="integrationTesting('Buy');">TEST BUY</button>
+        <button class=" btn btn-warning" ng-click="integrationTesting('Sell');">TEST SELL</button>
+        <h1>Current Player Holdings</h1>
+        <input placeholder="Stock Ticker" type="text" ng-model="stockSelect.symbol">
+        <input placeholder="Stock Name" type="text" ng-model="stockSelect.name">
+        <table class="table">
+            <tr>
+                <td>Stock Ticker</td>
+                <td>Stock Name</td>
+                <td>Number of Shares</td>
+                <!--<td>Stock Value</td>-->
+
+            </tr>
+
+            <tr scope="row" ng-repeat="stock in player.holdings| filter : stockSelect">
+                <td>{{stock.symbol}}</td>
+                <td>{{stock.name}}</td>
+                <td>{{stock.numberShares}}</td>
+                <!--<td>{{(stock.numberShares * stock.getprice(stock.symbol)) | currency}}</td>-->
+            </tr>
+        </table>
+    </div>
+    </div>
+</body>
+
+</html>

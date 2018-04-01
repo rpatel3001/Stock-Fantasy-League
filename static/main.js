@@ -35,13 +35,19 @@ stk.config(function ($routeProvider, $locationProvider) {
         templateUrl: 'privacy.html'
     }).when("/terms", {
         templateUrl: 'terms.html'
+    }).when("/integration_testing", {
+        templateUrl: 'integration_testing.html'
     });
 });
 /*stk.service('SharedData', function () {
 
 })*/
 stk.controller('LeagueController', ['$scope', '$http', '$routeParams', function ($scope, $http, $routeParams) {
-    $scope.lid = $routeParams.lid;
+    if ($routeParams.lid != undefined) {
+        $scope.lid = $routeParams.lid;
+    } else {
+        $scope.lid = 1;
+    }
     var req = {
         method: 'GET',
         url: 'http://stock-fantasy-league.herokuapp.com/api/league/' + $scope.lid
@@ -63,7 +69,10 @@ stk.controller('LeagueController', ['$scope', '$http', '$routeParams', function 
     });
 }]);
 stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams', '$route', function ($scope, $http, $rootScope, $routeParams, $route) {
-    $scope.paramuid = $routeParams.uid;
+    if ($routeParams.uid == undefined)
+        $scope.paramuid = 1;
+    else
+        $scope.paramuid = $routeParams.uid;
     $scope.startBal = null;
     $scope.duration = null;
     $scope.leaguename = null;
@@ -170,8 +179,13 @@ stk.controller('DashboardController', function ($scope, $http) {
 });
 
 stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route', function ($scope, $http, $routeParams, $route) {
-    $scope.lid = $routeParams.lid;
-    $scope.pid = $routeParams.pid;
+    if ($routeParams.lid == undefined && $routeParams.uid == undefined) {
+        $scope.lid = 1;
+        $scope.pid = 16;
+    } else {
+        $scope.lid = $routeParams.lid;
+        $scope.pid = $routeParams.pid;
+    }
     $scope.player = null;
     $scope.league = null;
     var reqLeague = {
@@ -266,7 +280,7 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
             $('#holdingsModal').modal('show');
         }, function (response) {});
     }
-    $scope.modifyHoldings = function (stock, transactionType, numShares, price) {
+    $scope.modifyHoldings = function (stock, transactionType, numShares, price, testingStatus) {
         var index = $scope.player.holdings.findIndex(function (element) {
             return element.symbol == stock.symbol;
         });
@@ -280,7 +294,11 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
             if ($scope.player.holdings[index].numberShares < numShares) {
                 numShares = $scope.player.holdings[index].numberShares;
             }
-            $scope.player.holdings[index].numberShares -= numShares;
+            if ($scope.player.holdings[index].numberShares == numShares) {
+                $scope.player.holdings.splice(index, 1);
+            } else {
+                $scope.player.holdings[index].numberShares -= numShares;
+            }
             $scope.player.availbalance += price * numShares;
         } else if (index == -1 && !transactionType.localeCompare('Buy')) {
             if ($scope.player.availbalance < price * numShares) {
@@ -297,8 +315,45 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
         $('#myModal').modal('hide');
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
-        $route.reload();
+        if (!testingStatus)
+            $route.reload();
     };
+    $scope.integrationTesting = function (intTranType) {
+        /* $scope.player.holdings = [{
+             "symbol": "ABEV",
+             "name": "Ambev S.A.",
+             "numberShares": 10
+             }, {
+             "symbol": "GOOG",
+             "name": "Alphabet Inc.",
+             "numberShares": 2
+             }];
+         $scope.updatePlayer();
+         */
+        var intStock = {
+            "symbol": "GOOG",
+            "name": "Alphabet Inc.",
+            "price": 1100
+        };
+        var intTestPrice = null;
+        var reqPrice = {
+            type: 'GET',
+            url: 'http://stock-fantasy-league.herokuapp.com/api/stock_data',
+            params: {
+                'cmd': 'getStockData',
+                'sym': 'AAPL'
+            }
+        };
+        $http(reqPrice).then(function (response) {
+
+            intTestPrice = response.data.stockdata[0].price;
+
+        }, function (response) {});
+        $scope.modifyHoldings(intStock, intTranType, 4, intTestPrice, false);
+        /*setTimeout(function () {
+            $scope.modifyHoldings(intStock, 'Sell', 4, intTestPrice, false);
+        }, 10000);*/
+    }
 }]);
 stk.controller('NavbarController', ['$scope', function ($scope) {
     $scope.signedIn = false;

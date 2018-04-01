@@ -34,7 +34,7 @@
                             <p> Your transaction cost is {{numSharesSelected * selectedStockPrice | currency}}.</p>
                             <p> Your remaining balance will be {{(player.availbalance - numSharesSelected*selectedStockPrice) | currency}}.</p>
                         </div>
-                        <button class="btn btn-primary" type="submit" ng-click="modifyHoldings(selectedStock,transactionType,numSharesSelected,selectedStockPrice);" data-dismiss="modal" data-backdrop="false">{{transactionType}} {{selectedTicker}}</button>
+                        <button class="btn btn-primary" type="submit" ng-click="modifyHoldings(selectedStock,transactionType,numSharesSelected,selectedStockPrice,false);" data-dismiss="modal" data-backdrop="false">{{transactionType}} {{selectedTicker}}</button>
                     </form>
                 </div>
                 <div ng-if="transactionType == 'Sell'">
@@ -63,16 +63,16 @@
                             <p> Your sale income is {{numSharesSelected*selectedStockPrice | currency}}.</p>
                             <p> Your total balance will be {{player.availbalance +numSharesSelected*selectedStockPrice | currency}}.</p>
                         </div>
-                        <button class="btn btn-primary" type="submit" ng-click="modifyHoldings(selectedStock,transactionType,numSharesSelected,selectedStockPrice);" data-dismiss="modal" data-backdrop="false">{{transactionType}} {{selectedTicker}}</button>
+                        <button class="btn btn-primary" type="submit" ng-click="modifyHoldings(selectedStock,transactionType,numSharesSelected,selectedStockPrice,false);" data-dismiss="modal" data-backdrop="false">{{transactionType}} {{selectedTicker}}</button>
                     </form>
                 </div>
-<!-- TradingView Widget BEGIN -->
-<div class="tradingview-widget-container">
-    <div id="tradingview_cd18d"></div>
-    <div class="tradingview-widget-copyright"><a ng-href="https://www.tradingview.com/symbols/{{selectedTicker}}/" rel="noopener" target="_blank"><span class="blue-text">{{selectedStock}}</span> <span class="blue-text">chart</span> by TradingView</a></div>
+                <!-- TradingView Widget BEGIN -->
+                <div class="tradingview-widget-container">
+                    <div id="tradingview_cd18d"></div>
+                    <div class="tradingview-widget-copyright"><a ng-href="https://www.tradingview.com/symbols/{{selectedTicker}}/" rel="noopener" target="_blank"><span class="blue-text">{{selectedStock}}</span> <span class="blue-text">chart</span> by TradingView</a></div>
 
-</div>
-<!-- TradingView Widget END -->
+                </div>
+                <!-- TradingView Widget END -->
             </div>
         </div>
     </div>
