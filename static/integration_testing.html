@@ -49,10 +49,10 @@
             <h2 class="card-header">Logging In</h2>
             <div class="card-body">
                 <!--<h2>Logging In</h2>-->
-                The button below will log you in. If you are logged in to the website, your username and User ID will be shown. Using Controller: Navbar Controller
+                The button below will log you in. If you are logged in to the website, your User ID will be shown.
                 <br>
                 <div ng-controller="NavbarController">
-                    <p class="alert alert-success" ng-show="uid>-1">You are signed in as {{username}} with User ID {{uid}}.</p>
+                    <p class="alert alert-success" ng-show="uid>-1">You are signed in with User ID {{uid}}.</p>
                     <p class="alert alert-danger" ng-show="uid==-1||uid==undefined">You are not signed in.</p>
                 </div>
             </div>
