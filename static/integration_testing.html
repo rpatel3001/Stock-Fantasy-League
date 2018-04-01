@@ -83,10 +83,10 @@
                 For the tester to be able to create a new League, the tester must be logged in. The view below will create a League with the name Test concatenated with a random number. The tester can test with the the default values or change them.
                 <br>
                 <div ng-controller="UserController">
-                    <div class="alert alert-danger" ng-show="$scope.paramuid != $scope.uid || ">
+                    <div class="alert alert-danger" ng-show="$scope.paramuid != $scope.uid">
                         Please log in to test creating a League!
                     </div>
-                    <form id="createLeague" ng-show="paramuid == uid">
+                    <form id="createLeague" ng-show="$scope.paramuid == $scope.uid">
                         <div class="form-group">
                             <label for="LeagueNameInput">League Name</label>
                             <input type="text" class="form-control form-control-lg" id="LeagueNameInput" ng-model="intLeaguename" readonly>
