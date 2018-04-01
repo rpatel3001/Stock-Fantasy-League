@@ -1,0 +1,12 @@
+nbp-169-215:UNIT - TESTING Stock-Fantasy-League louis$ sh unittest.sh 
+
+{"uid": 1}
+{"uid": 2}
+[{"lid": 1}]
+[{"pid": 2}]
+{"uid": 1, "lid": [1], "pid": [1], "friends": null, "email": "sample1@sample1.com", "messages": null, "notifications": null, "username": "sampleUsername1", "imageurl": "https://orig00.deviantart.net/68a0/f/2013/309/6/a/profile_picture_by_fruit_juice_dog-d6t7bul.png", "vip": false, "token": "123", "description": null, "joinday": 1522421829}
+About to update user! Updating in 2 seconds.
+"Success"
+"Success"
+"{\"Users\": [{\"uid\": 2, \"lid\": [1], \"pid\": [2], \"friends\": null, \"email\": \"sample2@sample2.com\", \"messages\": null, \"notifications\": null, \"username\": \"sampleUsername2\", \"imageurl\": \"https://orig00.deviantart.net/68a0/f/2013/309/6/a/profile_picture_by_fruit_juice_dog-d6t7bul.png\", \"vip\": false, \"token\": \"321\", \"description\": null, \"joinday\": 1522421829}, {\"uid\": 1, \"lid\": [1], \"pid\": [1], \"friends\": [], \"email\": \"sample1@sample1.com\", \"messages\": null, \"notifications\": null, \"username\": \"sampleUsername1\", \"imageurl\": \"https://orig00.deviantart.net/68a0/f/2013/309/6/a/profile_picture_by_fruit_juice_dog-d6t7bul.png\", \"vip\": true, \"token\": \"123\", \"description\": \"None\", \"joinday\": 1522421487}]}"
+{"stockdata": [{"sym": "GOOG", "price": "1031.9550", "name": "Alphabet Inc."}]}

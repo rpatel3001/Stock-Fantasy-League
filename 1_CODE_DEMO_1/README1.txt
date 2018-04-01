@@ -1,5 +1,3 @@
-# Stock-Fantasy-League
-
 To run the code, you will have to be running on either a Linux distribution or Mac OS X Snow Leopard(v10.6)+
 
 You will have to have the following application installed:
