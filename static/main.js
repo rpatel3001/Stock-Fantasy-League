@@ -69,10 +69,7 @@ stk.controller('LeagueController', ['$scope', '$http', '$routeParams', function 
     });
 }]);
 stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams', '$route', function ($scope, $http, $rootScope, $routeParams, $route) {
-    if ($routeParams.uid == undefined)
-        $scope.paramuid = 1;
-    else
-        $scope.paramuid = $routeParams.uid;
+    $scope.paramuid = $routeParams.uid;
     $scope.startBal = null;
     $scope.intStartBal = 10000;
     $scope.duration = null;
@@ -128,7 +125,7 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
         };
     };
     $scope.intTestCreateLeague = function () {
-        if ($scope.paramuid == $scope.uid) { // could use user.uid as well
+        if ($scope.user.uid == $scope.uid) { // could use user.uid as well
             var req = {
                 method: 'POST',
                 url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.uid,
