@@ -202,7 +202,7 @@
         <div class="card">
             <h2 class="card-header">Buying and Selling Stock</h2>
             <div class="card-body">
-                The view below will get the player information for the player with PID 16. As of 4/1, this player is in Louis's First League and belongs to OZ BEJERANO. The button TEST BUY, will buy 4 shares of GOOG as Oz Bejerano. The button TEST SELL, will buy 4 shares of GOOG as Oz Bejerano. The view should change to show that the stocks were bought or sold, and if the page is reloaded the values will be persistent (this means that this Player's holdings has been updated on the database.
+                The view below will get the player information for the player with PID 16. As of 4/1, this player is in Louis's First League and belongs to OZ BEJERANO. The button TEST BUY, will buy 4 shares of GOOG as Oz Bejerano. The button TEST SELL, will sell 4 shares of GOOG as Oz Bejerano (or will sell all remaining shares if 4 or less). The view should change to show that the stocks were bought or sold, and if the page is reloaded the values will be persistent (this means that this Player's holdings has been updated on the database.
                 <br>
                 <div ng-controller="PlayerController">
                     <button class=" btn btn-warning" ng-click="integrationTesting('Buy');">TEST BUY</button>
