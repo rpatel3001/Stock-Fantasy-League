@@ -11,9 +11,8 @@ from flask import Flask
 from flask_restful import Api
 import psycopg2
 import psycopg2.extras
-from google.oauth2 import id_token
-from google.auth.transport import requests
 
+from misc import Assistant
 from user import Users, User, joinLeague, updateUserInfo
 from player import Players, getPlayerInfoPID, updatePlayerInfo
 from league import Leagues, League, getPlayerInfoByUID, getLeagueInfoFromArray, getALLPlayerInfoFromLID, getEverythingLeague
@@ -81,6 +80,8 @@ api.add_resource(class_with_db(getEverythingLeague.getEverythingLeague), '/api/l
 api.add_resource(class_with_db(StockData.StockData), '/api/stock_data')
 api.add_resource(class_with_db(TopStocks.TopStocks), '/api/stock_data/top/<int:num>')
 api.add_resource(class_with_db(StockSearch.StockSearch), '/api/stock_data/search/<string:begin>')
+
+api.add_resource(class_with_db(Assistant.Assistant), '/api/assistant')
 
 app.secret_key='abc123'
 #need to change to something more secure
