@@ -13,6 +13,7 @@ gunicorn = "*"
 "psycopg2-binary" = "*"
 Flask-RESTful = "*"
 google-auth = "*"
+watson-developer-cloud = "*"
 
 
 [dev-packages]
