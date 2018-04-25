@@ -13,7 +13,7 @@ import psycopg2
 import psycopg2.extras
 
 from misc import Assistant
-from user import Users, User, joinLeague, updateUserInfo
+from user import Users, User, joinLeague, updateUserInfo, leaveLeague
 from player import Players, getPlayerInfoPID, updatePlayerInfo
 from league import Leagues, League, getPlayerInfoByUID, getLeagueInfoFromArray, getALLPlayerInfoFromLID, getEverythingLeague
 from stock_data import StockData, TopStocks, StockSearch
