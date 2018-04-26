@@ -15,7 +15,7 @@ import psycopg2.extras
 from misc import Assistant
 from user import Users, User, joinLeague, updateUserInfo, leaveLeague
 from player import Players, getPlayerInfoPID, updatePlayerInfo
-from league import Leagues, League, getPlayerInfoByUID, getLeagueInfoFromArray, getALLPlayerInfoFromLID, getEverythingLeague, deleteLeague
+from league import Leagues, League, getPlayerInfoByUID, getLeagueInfoFromArray, getALLPlayerInfoFromLID, getEverythingLeague, deleteLeague, restartPremadeLeagues
 from stock_data import StockData, TopStocks, StockSearch
 from questions import question
 
@@ -78,7 +78,8 @@ api.add_resource(class_with_db(getLeagueInfoFromArray.getLeagueInfoFromArray), '
 api.add_resource(class_with_db(getPlayerInfoByUID.getPlayerInfoByUID), '/api/league/<int:LID>/user/<int:UID>')  #GET: get player info given UID and LID
 api.add_resource(class_with_db(getALLPlayerInfoFromLID.getALLPlayerInfoFromLID), '/api/league/<int:LID>/getplayers')
 api.add_resource(class_with_db(getEverythingLeague.getEverythingLeague), '/api/league/<int:LID>/everything')
-api.add_resource(class_with_db(deleteLeague.deleteLeague), '/api/league/<int:LID>/delete')
+api.add_resource(class_with_db(deleteLeague.deleteLeague), '/api/league/<int:LID>/delete') #deletes a league from league table (updates all tables accordingly)
+api.add_resource(class_with_db(restartPremadeLeagues.restartPremadeLeagues), '/api/premade/restart') #restarts all premade leagues - trunacates and insertsld
 
 
 api.add_resource(class_with_db(StockData.StockData), '/api/stock_data')
