@@ -59,6 +59,8 @@ def serve_index():
     return app.send_static_file('index.html')
 
 # add API endpoints
+api.add_resource(class_with_db(questions.question), '/api/league/<int:LID>/startquiz/<int:PID>')
+
 api.add_resource(class_with_db(Users.Users), '/api/user')   #GET: show all users || POST: create account
 api.add_resource(class_with_db(User.User), '/api/user/<int:UID>')   #GET: user info given UID || POST: create a league
 api.add_resource(class_with_db(updateUserInfo.updateUserInfo), '/api/user/<int:UID>/update')    #UPDATE: update user information
