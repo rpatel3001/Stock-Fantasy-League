@@ -17,6 +17,7 @@ from user import Users, User, joinLeague, updateUserInfo, leaveLeague
 from player import Players, getPlayerInfoPID, updatePlayerInfo
 from league import Leagues, League, getPlayerInfoByUID, getLeagueInfoFromArray, getALLPlayerInfoFromLID, getEverythingLeague
 from stock_data import StockData, TopStocks, StockSearch
+from questions import question
 
 
 app = Flask(__name__, static_url_path='')
@@ -59,7 +60,7 @@ def serve_index():
     return app.send_static_file('index.html')
 
 # add API endpoints
-api.add_resource(class_with_db(questions.Users), '/api/league/<int:LID>/startquiz/<int:PID>')
+api.add_resource(class_with_db(question.Users), '/api/league/<int:LID>/startquiz/<int:PID>')
 
 api.add_resource(class_with_db(Users.Users), '/api/user')   #GET: show all users || POST: create account
 api.add_resource(class_with_db(User.User), '/api/user/<int:UID>')   #GET: user info given UID || POST: create a league
