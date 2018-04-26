@@ -4,7 +4,7 @@ import json
 import datetime
 
 
-class Users(Resource):
+class question(Resource):
 
     @staticmethod  # shows all users in database
     def get(cur):
