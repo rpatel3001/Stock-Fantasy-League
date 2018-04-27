@@ -1,18 +1,27 @@
 from flask_restful import reqparse, abort, Resource
-from flask import Flask, session, make_response, request
 import json
-import datetime
 
 
 class question(Resource):
 
     @staticmethod  # shows all users in database
-    def get(cur):
+    def get(cur,LID, PID):
 
         finalString = ""
-
         #cur.execute("SELECT * FROM questions_test;")
+        ans1 = []
+        for counter in range(1, 4):
+            print(counter)
+            cur.execute("SELECT * FROM questions WHERE qid = %s;", (counter,))
 
+            ans =cur.fetchall()
+            for row in ans:
+                ans1.append(dict(row))
+            # finalString = finalString + cur.fetchone()
+            print(ans1)
+
+
+        """
         for counter in range(1, 10):
             cur.execute("SELECT question FROM questions_test WHERE id LIKE %s;", (counter))
             aQuestion = cur.fetchall()
@@ -33,6 +42,5 @@ class question(Resource):
             finalString = finalString + "{" + "question:" + aQuestion + "," + "answer:" + answerArray + "," + "additionalInfo:" + additionalInfoArray + "," + "correctIndex:" + correctIndex + "," + "explanation:" + explanation + "}"
 
         time = datetime.datetime.now()
-
-        finalString = "serverTime:" + time + "," + finalString
-        return json.dumps({finalString})
+        """
+        return ans1
