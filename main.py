@@ -17,7 +17,7 @@ from user import Users, User, joinLeague, updateUserInfo, leaveLeague
 from player import Players, getPlayerInfoPID, updatePlayerInfo
 from league import Leagues, League, getPlayerInfoByUID, getLeagueInfoFromArray, getALLPlayerInfoFromLID, getEverythingLeague, deleteLeague, restartPremadeLeagues, removePlayer
 from stock_data import StockData, TopStocks, StockSearch
-from questions import question
+from questions import question, sendQuestion
 
 
 app = Flask(__name__, static_url_path='')
@@ -61,6 +61,7 @@ def serve_index():
 
 # add API endpoints
 api.add_resource(class_with_db(question.question), '/api/league/<int:LID>/startquiz/<int:PID>')
+api.add_resource(class_with_db(sendQuestion.sendQuestion), '/api/question/<int:QID>')
 
 api.add_resource(class_with_db(Users.Users), '/api/user')   #GET: show all users || POST: create account
 api.add_resource(class_with_db(User.User), '/api/user/<int:UID>')   #GET: user info given UID || POST: create a league
@@ -81,7 +82,6 @@ api.add_resource(class_with_db(getEverythingLeague.getEverythingLeague), '/api/l
 api.add_resource(class_with_db(deleteLeague.deleteLeague), '/api/league/<int:LID>/delete') #deletes a league from league table (updates all tables accordingly)
 api.add_resource(class_with_db(restartPremadeLeagues.restartPremadeLeagues), '/api/premade/restart') #restarts all premade leagues - trunacates and insertsld
 api.add_resource(class_with_db(removePlayer.removePlayer), '/api/user/<int:UID>/league/<int:LID>/player/<int:PID>/remove')
-
 
 api.add_resource(class_with_db(StockData.StockData), '/api/stock_data')
 api.add_resource(class_with_db(TopStocks.TopStocks), '/api/stock_data/top/<int:num>')
