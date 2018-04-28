@@ -8,8 +8,6 @@ class TopStocks(Resource):
 
     def get(cur, num):
         """Return the top num stocks."""
-        cur.execute("SELECT * FROM stockdata limit %s;", (num,))
+        cur.execute("SELECT * FROM stockdata WHERE price is not NULL AND price != 0 LIMIT %s;", (num,))
         ss = cur.fetchall()
-        for s in ss:
-            s['price'] = s['price']
         return {"stocks": ss}

@@ -79,7 +79,8 @@ def get_stock_data(cur, tickers):
             if temp:
                 response.append({'sym': sym,
                                  'price': s["2. price"],
-                                 'name': temp["name"]})
+                                 'name': temp["name"],
+                                 'volume': s["3. volume"]})
     return {"stockdata": response}
 
 
