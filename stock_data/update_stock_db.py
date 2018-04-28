@@ -16,6 +16,7 @@ def chunk(n, iterable):
 
 # init postgresql connection
 url = urlparse(os.environ["DATABASE_URL"])
+#url = urlparse("postgres://xqeuyuquhktxoq:c7869c5a14cb7f47eea6a586dbc23ffe5ee8522abfb2c3c4b2b0785db64b5916@ec2-54-243-239-66.compute-1.amazonaws.com:5432/den0hekga678pn")
 db_conn = psycopg2.connect(
     database=url.path[1:],
     user=url.username,
@@ -35,15 +36,10 @@ with db_conn:
         for symchunk in chunk(100, fullsyms):
             data = get_stock_data(cur, symchunk)['stockdata']
             syms += [x['sym'] for x in data]
-            strs += [(x['sym'], x['name'], x['price']) for x in data]
-            sleep(1)
-
-        for s in syms:
-            fullsyms.remove(s)
-        strs = ','.join(["('%s','%s',%s)" % x for x in strs])
-        cur.execute("INSERT INTO stockdata (symbol, name, price) "
-                    "VALUES %s "
-                    "ON CONFLICT(symbol) DO UPDATE "
-                    "SET name = excluded.name, "
-                    "price = excluded.price;" % strs)
-        cur.execute("DELETE FROM stockdata WHERE symbol in %s" % str(tuple(fullsyms)))
+            strs += [(x['sym'], x['price']) for x in data]
+            strlist = ','.join(["('%s', %s)" % x for x in strs])
+            cur.execute("INSERT INTO stockdata (symbol, price) "
+                        "VALUES %s "
+                        "ON CONFLICT(symbol) DO UPDATE "
+                        "SET price = excluded.price;" % strlist)
+            sleep(.5)
