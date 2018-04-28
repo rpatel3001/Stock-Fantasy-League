@@ -13,7 +13,7 @@ import psycopg2
 import psycopg2.extras
 
 from misc import Assistant
-from user import Users, User, joinLeague, updateUserInfo, leaveLeague
+from user import Users, User, joinLeague, updateUserInfo, leaveLeague, buyVIP
 from player import Players, getPlayerInfoPID, updatePlayerInfo
 from league import Leagues, League, getPlayerInfoByUID, getLeagueInfoFromArray, getALLPlayerInfoFromLID, getEverythingLeague, deleteLeague, restartPremadeLeagues, removePlayer
 from stock_data import StockData, TopStocks, StockSearch
@@ -64,6 +64,7 @@ def serve_index():
 api.add_resource(class_with_db(question.question), '/api/league/<int:LID>/startquiz/<int:PID>')
 api.add_resource(class_with_db(sendQuestion.sendQuestion), '/api/question/<int:QID>')
 
+api.add_resource(class_with_db(buyVIP.buyVIP), '/api/user/<int:UID>/buyvip')
 api.add_resource(class_with_db(Users.Users), '/api/user')   #GET: show all users || POST: create account
 api.add_resource(class_with_db(User.User), '/api/user/<int:UID>')   #GET: user info given UID || POST: create a league
 api.add_resource(class_with_db(updateUserInfo.updateUserInfo), '/api/user/<int:UID>/update')    #UPDATE: update user information
