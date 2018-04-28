@@ -38,11 +38,10 @@ with db_conn:
         for symchunk in chunk(100, fullsyms):
             data = get_stock_data(cur, symchunk)['stockdata']
             syms += [x['sym'] for x in data]
-            strs += [(x['sym'], x['price'], x['volume']) for x in data]
-            strlist = ','.join(["('%s', %s, %s)" % x for x in strs])
-            cur.execute("INSERT INTO stockdata (symbol, price, volume) "
+            strs += [(x['sym'], x['price']) for x in data]
+            strlist = ','.join(["('%s', %s)" % x for x in strs])
+            cur.execute("INSERT INTO stockdata (symbol, price) "
                         "VALUES %s "
                         "ON CONFLICT(symbol) DO UPDATE "
-                        "SET price = excluded.price, "
-                        "volume = excluded.volume;" % strlist)
+                        "SET price = excluded.price;" % strlist)
             sleep(.5)
