@@ -4,8 +4,17 @@ from urllib.parse import urlparse
 import os
 import psycopg2
 import psycopg2.extras
-from StockData import get_stock_data
+from requests import get
+from datetime import date, timedelta
 from time import sleep
+
+
+def weekday():
+    """String representation of the previous weekday."""
+    adate = date.today() - timedelta(days=1)
+    while adate.weekday() > 4:
+        adate -= timedelta(days=1)
+    return adate.strftime('%Y-%m-%d')
 
 
 def chunk(n, iterable):
@@ -28,20 +37,37 @@ db_conn = psycopg2.connect(
     cursor_factory=psycopg2.extras.RealDictCursor
 )
 
-syms = []
-strs = []
-with db_conn:
-    with db_conn.cursor() as cur:
-        cur.execute("SELECT symbol FROM stockdata;")
-        fullsyms = [x['symbol'] for x in cur.fetchall()]
+u = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&apikey=DEDSQFY460FDRASD&symbol="
 
-        for symchunk in chunk(100, fullsyms):
-            data = get_stock_data(cur, symchunk)['stockdata']
-            syms += [x['sym'] for x in data]
-            strs += [(x['sym'], x['price']) for x in data]
-            strlist = ','.join(["('%s', %s)" % x for x in strs])
-            cur.execute("INSERT INTO stockdata (symbol, price) "
+i = 0
+with db_conn.cursor() as cur:
+    cur.execute("SELECT symbol FROM stockdata;")
+    fullsyms = [x['symbol'] for x in cur.fetchall()]
+
+for sym in fullsyms:
+    print(i, end='\r')
+    i += 1
+    sleep(.5)
+    data = {'Information': 0}
+    while True:
+        data = get(u + sym).json()
+        if 'Information' not in data.keys():
+            break
+        print(i)
+        sleep(30)
+    try:
+        data = data['Time Series (Daily)']
+        data = data[list(data.keys())[0]]
+    except KeyError:
+        print(sym)
+        print(data)
+        print()
+        continue
+    strs = "('%s', %s, %s)" % (sym, data['4. close'], data['5. volume'])
+    with db_conn:
+        with db_conn.cursor() as cur:
+            cur.execute("INSERT INTO stockdata (symbol, price, volume) "
                         "VALUES %s "
                         "ON CONFLICT(symbol) DO UPDATE "
-                        "SET price = excluded.price;" % strlist)
-            sleep(.5)
+                        "SET price = EXCLUDED.price,"
+                        "volume = EXCLUDED.volume;" % strs)
