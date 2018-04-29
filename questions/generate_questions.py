@@ -183,6 +183,29 @@ print(a63)
 print()
 
 
+q7 = "Which sector is doing best?"
+e7 = "Stocks in a sector are affected by world events in a similar manner. Their prices therefore move similarly."
+u = "https://www.alphavantage.co/query?function=SECTOR&apikey=DEDSQFY460FDRASD&outputsize=full"
+res = get(u).json()['Rank B: 1 Day Performance']
+sectors = random.sample(("Utilities", "Health Care", "Financials", "Industrials", "Materials"), 3)
+data = []
+for s in sectors:
+    data.append((s, float(res[s][:-1])))
+data = sorted(data, key=lambda k: k[1])
+
+a71 = data[0][0]
+e71 = "The performance of %s is %f%%" % data[0]
+a72 = data[1][0]
+e72 = "The performance of %s is %f%%" % data[1]
+a73 = data[2][0]
+e73 = "The performance of %s is %f%%" % data[2]
+print(q7)
+print(a71)
+print(a72)
+print(a73)
+print()
+
+
 cur.execute('TRUNCATE TABLE questions RESTART IDENTITY;')
 cur.execute("INSERT INTO questions (question, answer1, answer2, answer3, answerdescription1, answerdescription2, answerdescription3, overalldescription) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (q1, a11, a12, a13, e11, e12, e13, e1))
 cur.execute("INSERT INTO questions (question, answer1, answer2, answer3, answerdescription1, answerdescription2, answerdescription3, overalldescription) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (q2, a21, a22, a23, e21, e22, e23, e2))
@@ -190,4 +213,5 @@ cur.execute("INSERT INTO questions (question, answer1, answer2, answer3, answerd
 cur.execute("INSERT INTO questions (question, answer1, answer2, answer3, answerdescription1, answerdescription2, answerdescription3, overalldescription) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (q4, a41, a42, a43, e41, e42, e43, e4))
 cur.execute("INSERT INTO questions (question, answer1, answer2, answer3, answerdescription1, answerdescription2, answerdescription3, overalldescription) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (q5, a51, a52, a53, e51, e52, e53, e5))
 cur.execute("INSERT INTO questions (question, answer1, answer2, answer3, answerdescription1, answerdescription2, answerdescription3, overalldescription) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (q6, a61, a62, a63, e61, e62, e63, e6))
+cur.execute("INSERT INTO questions (question, answer1, answer2, answer3, answerdescription1, answerdescription2, answerdescription3, overalldescription) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (q7, a71, a72, a73, e71, e72, e73, e7))
 db_conn.commit()
