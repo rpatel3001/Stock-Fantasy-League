@@ -17,7 +17,7 @@ from user import Users, User, joinLeague, updateUserInfo, leaveLeague, buyVIP
 from player import Players, getPlayerInfoPID, updatePlayerInfo
 from league import Leagues, League, getPlayerInfoByUID, getLeagueInfoFromArray, getALLPlayerInfoFromLID, getEverythingLeague, deleteLeague, restartPremadeLeagues, removePlayer
 from stock_data import StockData, TopStocks, StockSearch
-from questions import question, sendQuestion
+from questions import question, sendQuestion, servertime
 from lesson_plans import getLesson
 
 
@@ -63,6 +63,7 @@ def serve_index():
 # add API endpoints
 api.add_resource(class_with_db(question.question), '/api/league/<int:LID>/startquiz/<int:PID>')
 api.add_resource(class_with_db(sendQuestion.sendQuestion), '/api/question/<int:QID>')
+api.add_resource(class_with_db(servertime.servertime), '/api/servertime')
 
 api.add_resource(class_with_db(buyVIP.buyVIP), '/api/user/<int:UID>/buyvip')
 api.add_resource(class_with_db(Users.Users), '/api/user')   #GET: show all users || POST: create account
