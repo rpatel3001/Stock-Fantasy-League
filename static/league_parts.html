@@ -6,7 +6,7 @@
                     <div class="col-md-6">
                         <h1 class="display-4" style="color: #ffffff">{{league.leaguename}}{{league.industry}}</h1>
                     </div>
-                    <div class="col-md-6" ng-if="league.lid>7">
+                    <div class="col-md-6" ng-if="league.lid>6">
                         <a ng-href="#!/user/{{owner.uid}}"><span class="float-right"><h1 class="display-4" style="color: #ffffff">
     <img class="card-img-top rounded-circle" style="width:20%;margin:auto" ng-src="{{owner.imageurl}}" alt="Card image cap">
     {{owner.username}}</h1>
@@ -18,7 +18,7 @@
                     <div class="col-md-6">
                         <p class="lead" style="color: #ffffff">{{league.description}}</p>
                     </div>
-                    <div class="col-md-6" ng-if="league.lid>7">
+                    <div class="col-md-6" ng-if="league.lid>6">
                         <h5 class="text-right" style="color: #ffffff">Ends on {{league.duration | date}}</h5>
                     </div>
                 </div>
