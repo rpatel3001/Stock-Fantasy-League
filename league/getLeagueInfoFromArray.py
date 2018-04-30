@@ -1,6 +1,7 @@
 from flask_restful import reqparse, abort, Resource
 
 class getLeagueInfoFromArray(Resource):
+	'''get all league information from league array'''
 	@staticmethod
 	def get(cur):
 		parser = reqparse.RequestParser()

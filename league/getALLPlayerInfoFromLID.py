@@ -2,6 +2,7 @@ from flask_restful import reqparse, abort, Resource
 import json
 
 class getALLPlayerInfoFromLID(Resource):
+	'''gets all PIDs from the league and gets all player info from that'''
 	@staticmethod
 	def get(cur, LID):
 

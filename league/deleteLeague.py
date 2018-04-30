@@ -1,6 +1,7 @@
 from flask_restful import reqparse, abort, Resource
 
 class deleteLeague(Resource):
+	'''Deletes a usermade league'''
 	@staticmethod
 	def delete(cur, LID):
 		cur.execute("SELECT uid FROM leagues WHERE lid = %s;", [LID])
@@ -18,6 +19,6 @@ class deleteLeague(Resource):
 		cur.execute("DELETE FROM players WHERE lid = %s;", [LID])
 		cur.execute("DELETE FROM leagues WHERE lid = %s;", [LID])
 
-		return "DELETED"
+		return "Deleted"
 
 		pass
