@@ -17,7 +17,6 @@ from user import Users, User, joinLeague, updateUserInfo, leaveLeague, buyVIP
 from player import Players, getPlayerInfoPID, updatePlayerInfo
 from league import Leagues, League, getPlayerInfoByUID, getLeagueInfoFromArray, getALLPlayerInfoFromLID, getEverythingLeague, deleteLeague, restartPremadeLeagues, removePlayer
 from stock_data import StockData, TopStocks, StockSearch
-
 from questions import question, sendQuestion, generate_questions_api, servertime
 from lessons import getlesson
 
