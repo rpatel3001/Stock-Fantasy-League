@@ -65,7 +65,7 @@ stk.controller('LeagueController', ['$scope', '$http', '$routeParams', function 
         $scope.league = response.data[0];
         $http(reqPlayers).then(function (response) {
             $scope.players = response.data;
-            if ($scope.league.lid > 6) {
+            if ($scope.lid > 6) {
                 var reqOwner = {
                     method: 'GET',
                     url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.league.owneruid
@@ -140,6 +140,7 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
     } else {
         $scope.paramuid = $routeParams.uid;
     }
+    $scope.inLeagueList = false;
     $scope.startBal = null;
     $scope.intStartBal = 10000;
     $scope.duration = null;
@@ -568,6 +569,7 @@ stk.controller('UserListController', function ($scope, $http) {
 });
 stk.controller('LeagueListController', ['$scope', '$http', '$rootScope', '$location', '$route', function ($scope, $http, $rootScope, $location, $route) {
     $scope.leaguesView = true; //need to make an official watch in another controller
+    $scope.inLeagueList = true;
     $scope.navbarHeader = "Leagues";
     var reqLeagues = {
         method: 'GET',
