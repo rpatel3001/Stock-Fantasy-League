@@ -2,7 +2,7 @@ from flask_restful import reqparse, abort, Resource
 
 class leaveLeague(Resource):
 	@staticmethod
-	def patch(cur, PID):
+	def patch(cur, UID, PID):
 		#when leaving, you have PID, which gives corresponding LID and UID,
 			#save PID first, then LID, then UID
 		cur.execute("SELECT lid, uid FROM players WHERE pid = %s;", [PID])
