@@ -17,7 +17,7 @@
             <th>Number Of Players</th>
             <th>Start Balance</th>
             <th ng-if="uid>0">Join/View</th>
-            <th ng-if="uid>0">Delete</th>
+            <th ng-if="uid>0">Leave/Delete</th>
         </tr>
     </thead>
     <tr ng-repeat="league in leagues| filter: LeagueSelect">
@@ -29,7 +29,7 @@
             <td ng-if="uid>0 && league.uid.indexOf(uid) == -1"><button class="btn btn-primary" ng-click="joinLeague(league.lid);">Join</button></td>
             <td ng-if="uid>0 && league.uid.indexOf(uid)>=0"><a class="btn btn-success" ng-href="#!/league/{{league.lid}}/player/{{league.pid[league.uid.indexOf(uid)]}}">View Player</a></td>
             <td ng-if="uid>0 && league.owneruid == uid"><a class="btn btn-danger" ng-click="deleteLeague(league.lid)">Delete League</a></td>
-            <td ng-if="uid>0 && league.owneruid != uid"><a class="btn btn-danger" ng-click="deleteLeague(league.lid)">Delete League</a></td>
+            <td ng-if="uid>0 && league.owneruid != uid"><a class="btn btn-warning" ng-click="leaveLeague(league.lid)">Leave League</a></td>
             <!--also check if user is logged in -->
         </a>
     </tr>
