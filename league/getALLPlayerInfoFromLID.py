@@ -5,7 +5,7 @@ class getALLPlayerInfoFromLID(Resource):
 	@staticmethod
 	def get(cur, LID):
 
-		if LID < 8:
+		if LID < 7:
 			cur.execute("SELECT pid FROM premade_leagues WHERE lid = %s;", [LID,])
 		else:
 			cur.execute("SELECT pid FROM leagues WHERE lid = %s;", [LID,])
