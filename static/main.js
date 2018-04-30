@@ -67,7 +67,7 @@ stk.controller('LeagueController', ['$scope', '$http', '$routeParams', function 
             $scope.players = response.data;
         }, function (repsonse) {
             console.log(response);
-        })
+        });
     }, function (response) {
         console.log('Failing getting league info!');
     });
@@ -152,6 +152,7 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
         $scope.navbarHeader = "Leagues with " + $scope.user.username;
         $scope.getUserLeagues();
         $scope.updateUser();
+
     }, function (response) {
         console.log('Failing getting league info!');
     });
@@ -181,7 +182,11 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
                 $scope.leaguename = null;
                 $scope.description = null;
                 $scope.user.lid.push(response.data[response.data.length - 1].lid);
-                $route.reload();
+                $('#holdngsModal').modal('hide');
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+                if (!testingStatus)
+                    $route.reload();
             }, function (response) {
                 console.log('Failing getting league info!');
             });
@@ -420,7 +425,7 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
             $scope.player.availbalance -= price * numShares;
         }
         $scope.updatePlayer();
-        $('#myModal').modal('hide');
+        $('#holdngsModal').modal('hide');
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
         if (!testingStatus)
