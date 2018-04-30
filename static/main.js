@@ -54,7 +54,7 @@ stk.controller('LeagueController', ['$scope', '$http', '$routeParams', function 
     }
     var req = {
         method: 'GET',
-        url: 'http://stock-fantasy-league.herokuapp.com/api/league/' + $scope.lid
+        url: 'http://stock-fantasy-league.herokuapp.com/api / league/' + $scope.lid
     };
     var reqPlayers = {
         method: 'GET',
@@ -62,7 +62,7 @@ stk.controller('LeagueController', ['$scope', '$http', '$routeParams', function 
     };
     $scope.data = null;
     $http(req).then(function (response) {
-        $scope.league = response.data;
+        $scope.league = response.data[0];
         $http(reqPlayers).then(function (response) {
             $scope.players = response.data;
             if ($scope.league.lid > 6) {
@@ -316,7 +316,7 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
         url: 'http://stock-fantasy-league.herokuapp.com/api/stock_data/top/7000'
     };
     $http(reqLeague).then(function (response) {
-        $scope.league = response.data;
+        $scope.league = response.data[0];
         //wrapped json
         $http(reqPlayer).then(function (response) {
             $scope.player = response.data[0];
