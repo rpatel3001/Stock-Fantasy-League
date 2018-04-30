@@ -566,7 +566,7 @@ stk.controller('UserListController', function ($scope, $http) {
         console.log('Failing getting users info!');
     });
 });
-stk.controller('LeagueListController', function ($scope, $http, $rootScope, $location) {
+stk.controller('LeagueListController', ['$scope', '$http', '$rootScope', '$location', '$route', function ($scope, $http, $rootScope, $location, $route) {
     $scope.leaguesView = true; //need to make an official watch in another controller
     $scope.navbarHeader = "Leagues";
     var reqLeagues = {
@@ -662,7 +662,7 @@ stk.controller('LeagueListController', function ($scope, $http, $rootScope, $loc
             });
         };
     };
-});
+}]);
 
 var createGroupings = function (original, numCols) {
     var rows = [];
