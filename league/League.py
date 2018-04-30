@@ -8,7 +8,7 @@ class League(Resource):
 			cur.execute("SELECT * FROM premade_leagues WHERE lid = %s;", [LID])
 			return cur.fetchall()
 		else:
-			cur.execute("SELECT uid, pid, startbal, leaguename, description, owneruid, ownerpid, type FROM leagues WHERE lid = %s;", [LID])
+			cur.execute("SELECT * FROM leagues WHERE lid = %s;", [LID])
 			return cur.fetchall()
 	pass
  
