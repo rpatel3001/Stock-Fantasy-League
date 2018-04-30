@@ -482,18 +482,6 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
             $scope.intStockPrice = response.data.stockdata;
         }, function () {});
     };
-    $scope.deleteLeague = function (lid) {
-        var reqDeleteLeague = {
-            method: 'DELETE',
-            url: 'http://stock-fantasy-league.herokuapp.com/api/league/' +
-                lid + '/delete'
-        };
-        $http(reqDeleteLeague).then(function (response) {
-            $route.reload();
-        }, function (response) {
-            console.log("Error deleting League");
-        });
-    };
 }]);
 stk.controller('NavbarController', ['$scope', function ($scope, $rootScope) {
     $scope.signedIn = false;
@@ -606,6 +594,29 @@ stk.controller('LeagueListController', function ($scope, $http, $rootScope, $loc
                 console.log('Failing to join league!');
             });
         }
+    };
+    $scope.deleteLeague = function (lid) {
+        var reqDeleteLeague = {
+            method: 'DELETE',
+            url: 'http://stock-fantasy-league.herokuapp.com/api/league/' +
+                lid + '/delete'
+        };
+        $http(reqDeleteLeague).then(function (response) {
+            $route.reload();
+        }, function (response) {
+            console.log("Error deleting League");
+        });
+    };
+    $scope.leaveLeague = function (uid, pid) {
+        var reqLeaveLeague = {
+            method: 'PATCH',
+            url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + uid + '/player/' + pid + '/leave'
+        };
+        $http(reqLeaveLeague).then(function (response) {
+            $route.reload();
+        }, function (response) {
+            console.log("Error leaving League");
+        });
     };
 });
 
