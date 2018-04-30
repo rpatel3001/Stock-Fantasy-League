@@ -17,7 +17,9 @@ from user import Users, User, joinLeague, updateUserInfo, leaveLeague, buyVIP
 from player import Players, getPlayerInfoPID, updatePlayerInfo
 from league import Leagues, League, getPlayerInfoByUID, getLeagueInfoFromArray, getALLPlayerInfoFromLID, getEverythingLeague, deleteLeague, restartPremadeLeagues, removePlayer
 from stock_data import StockData, TopStocks, StockSearch
-from questions import question, sendQuestion
+
+from questions import question, sendQuestion, generate_questions_api, servertime
+
 from lesson_plans import getLesson
 
 
@@ -63,12 +65,16 @@ def serve_index():
 # add API endpoints
 api.add_resource(class_with_db(question.question), '/api/league/<int:LID>/startquiz/<int:PID>')
 api.add_resource(class_with_db(sendQuestion.sendQuestion), '/api/question/<int:QID>')
+api.add_resource(class_with_db(generate_questions_api.GenerateQuestions), '/api/question/generate')
+api.add_resource(class_with_db(servertime.servertime), '/api/servertime')
+
 
 api.add_resource(class_with_db(buyVIP.buyVIP), '/api/user/<int:UID>/buyvip')
 api.add_resource(class_with_db(Users.Users), '/api/user')   #GET: show all users || POST: create account
 api.add_resource(class_with_db(User.User), '/api/user/<int:UID>')   #GET: user info given UID || POST: create a league
 api.add_resource(class_with_db(updateUserInfo.updateUserInfo), '/api/user/<int:UID>/update')    #UPDATE: update user information
 api.add_resource(class_with_db(joinLeague.joinLeague), '/api/user/<int:UID>/joinLeague')    #POST: join a league
+api.add_resource(class_with_db(leaveLeague.leaveLeague), '/api/user/<int:UID>/player/<int:PID>/leave')
 
 api.add_resource(class_with_db(Players.Players), '/api/user/<int:UID>/player')  #GET: get list of PIDs given UID
 api.add_resource(class_with_db(Players.Player), '/api/user/<int:UID>/player/<int:PID>') #UPDATE: when player leaves/is removed from league (looks unfinished?)

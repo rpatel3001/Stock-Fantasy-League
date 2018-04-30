@@ -3,5 +3,5 @@ import json
 
 class getLesson(Resource):
 	@staticmethod
-	def GET(cur, lessonID):
+	def get(cur, lessonID):
 		pass
