@@ -29,10 +29,8 @@
                 </div>
             </div>
             <hr class="my-4" style="color: #ffffff">
-            <p class="lead" ng-Controller="LeagueListController">
-                <span ng-if="uid>0 && league.uid.indexOf(uid) == -1"><button class="btn btn-primary" ng-click="joinLeague(league.lid);">Join</button></span>
-                <span ng-if="uid>0 && league.owneruid == uid"><a class="btn btn-danger" ng-click="deleteLeague(league.lid)">Delete League</a></span>
-                <span ng-if="uid>0 && league.owneruid != uid && league.uid.indexOf(uid)>=0"><a class="btn btn-warning" ng-click="leaveLeague(uid,league.pid[league.uid.indexOf(uid)])">Leave League</a></span>
+            <p class="lead">
+                <button ng-show="paramuid == uid" class="btn btn-primary" ng-click="openCreateLeagueModal()">Create League</button>
             </p>
             <p ng-if="uid>0 && league.uid.indexOf(uid)>=0" class="lead">
                 <a class="btn btn-primary btn-lg btn-block" ng-href="#!/league/{{lid}}/gameshow/1">Start Gameshow</a>
@@ -55,7 +53,7 @@
     <!--ng-if="signedinuid == uid"-->
     <br>
     <div ng-include="'create_league.html'"></div>
-    <button ng-show="paramuid == uid" class="btn btn-primary" ng-click="openCreateLeagueModal()">Create League</button>
+    <!--<button ng-show="paramuid == uid" class="btn btn-primary" ng-click="openCreateLeagueModal()">Create League</button>-->
 
     <!--<h2>{{'Leagues '+ user.username +' is in:'}}</h2>-->
     <div ng-include="'league_list.html'"></div>
