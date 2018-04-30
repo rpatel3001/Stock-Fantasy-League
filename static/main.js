@@ -182,7 +182,7 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
                 $scope.leaguename = null;
                 $scope.description = null;
                 $scope.user.lid.push(response.data[response.data.length - 1].lid);
-                $('#holdngsModal').modal('hide');
+                $('#createLeagueModal').modal('hide');
                 $('body').removeClass('modal-open');
                 $('.modal-backdrop').remove();
                 if (!testingStatus)
