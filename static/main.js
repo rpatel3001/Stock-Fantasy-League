@@ -62,7 +62,7 @@ stk.controller('LeagueController', ['$scope', '$http', '$routeParams', function 
     };
     $scope.data = null;
     $http(req).then(function (response) {
-        $scope.league = JSON.parse(response.data).Leagues[0]; //wrapped json
+        $scope.league = response.data;
         $http(reqPlayers).then(function (response) {
             $scope.players = response.data;
             if (league.lid > 7) {
@@ -317,7 +317,7 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
         url: 'http://stock-fantasy-league.herokuapp.com/api/stock_data/top/7000'
     };
     $http(reqLeague).then(function (response) {
-        $scope.league = JSON.parse(response.data).Leagues[0];
+        $scope.league = response.data;
         //wrapped json
         $http(reqPlayer).then(function (response) {
             $scope.player = response.data[0];
@@ -576,7 +576,7 @@ stk.controller('LeagueListController', function ($scope, $http, $rootScope, $loc
     };
     $scope.data = null;
     $http(reqLeagues).then(function loginSuccess(response) {
-        $scope.leagues = JSON.parse(response.data).Leagues;
+        $scope.leagues = response.data;
     }, function loginFailure(response) {
         console.log('Failing getting leagues info!');
     });
