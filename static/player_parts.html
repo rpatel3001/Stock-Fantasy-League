@@ -1,12 +1,13 @@
 <div ng-controller="PlayerController" class="container-fluid">
     <nav class="navbar navbar-light bg-light justify-content-between">
-        <a class="navbar-brand">{{league.leaguename}} : Player</a>
+        <a class="navbar-brand">{{league.leaguename}}{{league.industry}} : Player</a>
         <!--<form class="form-inline">
             <input class="form-control mr-sm-2" type="search" placeholder="Search Leagues" aria-label="Search" ng-model="LeagueSelect.leaguename">
         </form>-->
     </nav>
     <ul>
-        <li>League Name: {{ league.leaguename }}</li>
+        <li ng-if="league.leaguename">League Name: {{ league.leaguename }}</li>
+        <li ng-if="league.industry">Industry: {{ league.industry }}</li>
         <li>League Description: {{ league.description }}</li>
         <li>League Starting Balance: {{ league.startbal }}</li>
     </ul>
