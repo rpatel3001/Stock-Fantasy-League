@@ -10,8 +10,9 @@ class Leagues(Resource):
         cur.execute("SELECT * from premade_leagues;")
         premade = cur.fetchall()
         #leagues = cur.fetchall()
-        return json.dumps({"Usermade Leagues": usermade} + {"Preamade Leagues": premade})
-        #return "{'leagues':" + str(leagues) + "}"
+
+        return usermade + premade
+        # return json.dumps({"Usermade Leagues": usermade} + {"Preamade Leagues": premade})
 
 
         # returning all json strings as one large json string
