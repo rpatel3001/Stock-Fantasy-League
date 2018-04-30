@@ -186,21 +186,21 @@ def generate(cur):
     print(a73)
     print()
 
-    cur.execute('TRUNCATE TABLE questions RESTART IDENTITY;')
-    cur.execute("INSERT INTO questions (question, answer1, answer2, answer3, answerdescription1, answerdescription2, answerdescription3, overalldescription) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (q1, a11, a12, a13, e11, e12, e13, e1))
-    cur.execute("INSERT INTO questions (question, answer1, answer2, answer3, answerdescription1, answerdescription2, answerdescription3, overalldescription) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (q2, a21, a22, a23, e21, e22, e23, e2))
-    cur.execute("INSERT INTO questions (question, answer1, answer2, answer3, answerdescription1, answerdescription2, answerdescription3, overalldescription) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (q3, a31, a32, a33, e31, e32, e33, e3))
-    cur.execute("INSERT INTO questions (question, answer1, answer2, answer3, answerdescription1, answerdescription2, answerdescription3, overalldescription) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (q4, a41, a42, a43, e41, e42, e43, e4))
-    cur.execute("INSERT INTO questions (question, answer1, answer2, answer3, answerdescription1, answerdescription2, answerdescription3, overalldescription) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (q5, a51, a52, a53, e51, e52, e53, e5))
-    cur.execute("INSERT INTO questions (question, answer1, answer2, answer3, answerdescription1, answerdescription2, answerdescription3, overalldescription) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (q6, a61, a62, a63, e61, e62, e63, e6))
-    cur.execute("INSERT INTO questions (question, answer1, answer2, answer3, answerdescription1, answerdescription2, answerdescription3, overalldescription) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (q7, a71, a72, a73, e71, e72, e73, e7))
-    return {"q1": {"text": q1, "a1": a11, "a2": a12, "a3": a13, "e1": e11, "e2": e12, "e3": e13, "e": e1},
-            "q2": {"text": q2, "a2": a21, "a2": a22, "a3": a23, "e1": e21, "e2": e22, "e3": e23, "e": e2},
-            "q3": {"text": q3, "a2": a31, "a2": a32, "a3": a33, "e1": e31, "e2": e32, "e3": e33, "e": e3},
-            "q4": {"text": q4, "a2": a41, "a2": a42, "a3": a43, "e1": e41, "e2": e42, "e3": e43, "e": e4},
-            "q5": {"text": q5, "a2": a51, "a2": a52, "a3": a53, "e1": e51, "e2": e52, "e3": e53, "e": e5},
-            "q6": {"text": q6, "a2": a61, "a2": a62, "a3": a63, "e1": e61, "e2": e62, "e3": e63, "e": e6},
-            "q7": {"text": q7, "a2": a71, "a2": a72, "a3": a73, "e1": e71, "e2": e72, "e3": e73, "e": e7}}
+    cur.execute('TRUNCATE TABLE question RESTART IDENTITY;')
+    cur.execute("INSERT INTO question (question, answers, answer_index, answer_descriptions, overall_description) VALUES (%s, %s, %s, %s, %s)", (q1, [a11, a12, a13], 2, [e11, e12, e13], e1))
+    cur.execute("INSERT INTO question (question, answers, answer_index, answer_descriptions, overall_description) VALUES (%s, %s, %s, %s, %s)", (q2, [a21, a22, a23], 2, [e21, e22, e23], e2))
+    cur.execute("INSERT INTO question (question, answers, answer_index, answer_descriptions, overall_description) VALUES (%s, %s, %s, %s, %s)", (q3, [a31, a32, a33], 2, [e31, e32, e33], e3))
+    cur.execute("INSERT INTO question (question, answers, answer_index, answer_descriptions, overall_description) VALUES (%s, %s, %s, %s, %s)", (q4, [a41, a42, a43], 2, [e41, e42, e43], e4))
+    cur.execute("INSERT INTO question (question, answers, answer_index, answer_descriptions, overall_description) VALUES (%s, %s, %s, %s, %s)", (q5, [a51, a52, a53], 2, [e51, e52, e53], e5))
+    cur.execute("INSERT INTO question (question, answers, answer_index, answer_descriptions, overall_description) VALUES (%s, %s, %s, %s, %s)", (q6, [a61, a62, a63], 2, [e61, e62, e63], e6))
+    cur.execute("INSERT INTO question (question, answers, answer_index, answer_descriptions, overall_description) VALUES (%s, %s, %s, %s, %s)", (q7, [a71, a72, a73], 2, [e71, e72, e73], e7))
+    return {"q1": {"text": q1, "answers": [a11, a12, a13], "explanations": [e11, e12, e13], "explanation": e1},
+            "q2": {"text": q2, "answers": [a21, a22, a23], "explanations": [e21, e22, e23], "explanation": e2},
+            "q3": {"text": q3, "answers": [a31, a32, a33], "explanations": [e31, e32, e33], "explanation": e3},
+            "q4": {"text": q4, "answers": [a41, a42, a43], "explanations": [e41, e42, e43], "explanation": e4},
+            "q5": {"text": q5, "answers": [a51, a52, a53], "explanations": [e51, e52, e53], "explanation": e5},
+            "q6": {"text": q6, "answers": [a61, a62, a63], "explanations": [e61, e62, e63], "explanation": e6},
+            "q7": {"text": q7, "answers": [a71, a72, a73], "explanations": [e71, e72, e73], "explanation": e7}}
 
 if __name__ == "__main__":
     try:
