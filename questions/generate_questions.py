@@ -99,14 +99,14 @@ def generate(cur):
             pmax = max(pmax, float(d['2. high']))
             pmin = min(pmin, float(d['3. low']))
         rp = (price - pmin) / pmin
-        ans.append((s, rp, pmin, pmax))
+        ans.append((s, rp, pmin, pmax, price))
     ans = sorted(ans, key=lambda k: k[1])
     a41 = ans[0][0]
-    e41 = "This stock's 52 week low is " + str(ans[0][2]) + " and its 52 week high is " + str(ans[0][3])
+    e41 = "This stock's 52 week low is " + str(ans[0][2]) + " and its 52 week high is " + str(ans[0][3]) + ". It's current price is " + str(ans[0][4])
     a42 = ans[1][0]
-    e42 = "This stock's 52 week low is " + str(ans[1][2]) + " and its 52 week high is " + str(ans[1][3])
+    e42 = "This stock's 52 week low is " + str(ans[1][2]) + " and its 52 week high is " + str(ans[1][3]) + ". It's current price is " + str(ans[1][4])
     a43 = ans[2][0]
-    e43 = "This stock's 52 week low is " + str(ans[2][2]) + " and its 52 week high is " + str(ans[2][3])
+    e43 = "This stock's 52 week low is " + str(ans[2][2]) + " and its 52 week high is " + str(ans[2][3]) + ". It's current price is " + str(ans[2][4])
     print(q4)
     print(a41)
     print(a42)
@@ -155,9 +155,9 @@ def generate(cur):
     a61 = ans[0][0]
     e61 = "This stock's 52 week low is " + str(ans[0][2]) + " and its 52 week high is " + str(ans[0][3])
     a62 = ans[1][0]
-    e62 = "This stock's 52 week low is " + str(ans[0][2]) + " and its 52 week high is " + str(ans[0][3])
+    e62 = "This stock's 52 week low is " + str(ans[1][2]) + " and its 52 week high is " + str(ans[1][3])
     a63 = ans[2][0]
-    e63 = "This stock's 52 week low is " + str(ans[0][2]) + " and its 52 week high is " + str(ans[0][3])
+    e63 = "This stock's 52 week low is " + str(ans[2][2]) + " and its 52 week high is " + str(ans[2][3])
     print(q6)
     print(a61)
     print(a62)
