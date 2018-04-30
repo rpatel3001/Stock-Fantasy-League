@@ -11,3 +11,4 @@ class League(Resource):
 			cur.execute("SELECT uid, pid, startbal, leaguename, description, owneruid, ownerpid, type FROM leagues WHERE lid = %s;", [LID])
 			return cur.fetchall()
 	pass
+ 
