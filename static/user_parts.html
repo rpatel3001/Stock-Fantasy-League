@@ -54,8 +54,8 @@
     </ul>-->
     <!--ng-if="signedinuid == uid"-->
     <br>
-    <button ng-show="paramuid == uid" class="btn btn-primary" ng-click="openCreateLeagueModal()">Create League</button>
     <div ng-include="'create_league.html'"></div>
+    <button ng-show="paramuid == uid" class="btn btn-primary" ng-click="openCreateLeagueModal()">Create League</button>
 
     <!--<h2>{{'Leagues '+ user.username +' is in:'}}</h2>-->
     <div ng-include="'league_list.html'"></div>
