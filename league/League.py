@@ -6,8 +6,8 @@ class League(Resource):
 	def get(cur, LID):
 		if LID < 7:
 			cur.execute("SELECT * FROM premade_leagues WHERE lid = %s;", [LID])
-			return json.dumps({"Leagues": cur.fetchall()})
+			return cur.fetchall()
 		else:
 			cur.execute("SELECT uid, pid, startbal, leaguename, description, owneruid, ownerpid, type FROM leagues WHERE lid = %s;", [LID])
-			return json.dumps({"Leagues": cur.fetchall()})
+			return cur.fetchall()
 	pass
