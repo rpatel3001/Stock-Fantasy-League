@@ -1,0 +1,15 @@
+<div ng-controller="GameShowController">
+    <nav class="navbar navbar-light bg-light justify-content-between">
+        <a class="navbar-brand">Users</a> HELLO QUIZ {{title}}
+    </nav>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                {{questions[qindex].title}}
+            </div>
+        </div>
+        <button ng-class="{'disabled':disbutton}" class="btn" ng-repeat="an in questions[qindex].answers" ng-click="selectAnswer($index)">{{an}}
+        </button>
+
+    </div>
+</div>

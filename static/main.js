@@ -19,6 +19,10 @@ stk.config(function ($routeProvider, $locationProvider) {
         templateUrl: 'league_parts.html'
         /*,
                 controller: 'LeagueController'*/
+    }).when("/league/:lid/gameshow/:pid", {
+        templateUrl: 'gameshow.html'
+        /*,
+                controller: 'LeagueController'*/
     }).when("/league/:lid/player/:pid", {
         templateUrl: 'player_parts.html'
         /*,
@@ -68,6 +72,57 @@ stk.controller('LeagueController', ['$scope', '$http', '$routeParams', function 
         console.log('Failing getting league info!');
     });
 }]);
+stk.controller('GameShowController', ['$scope', '$timeout', '$interval', '$http', '$routeParams', function ($scope, $timeout, $interval, $http, $routeParams) {
+    if ($routeParams.lid != undefined && $routeParams.pid != undefined) {
+        $scope.lid = $routeParams.lid;
+        $scope.pid = $routeParams.pid;
+    } else {
+        //$scope.lid = 1;
+    }
+    var req = {
+        method: 'GET',
+        url: 'http://stock-fantasy-league.herokuapp.com/api/league/' + $scope.lid + '/startquiz/' + $scope.pid
+    };
+    var reqServerTime = {
+        method: 'GET',
+        url: 'http://stock-fantasy-league.herokuapp.com/api/league/' + $scope.lid + '/startquiz/' + $scope.pid
+    };
+    $scope.data = null;
+    $scope.qindex = 0;
+    $scope.numcorrect = 0;
+    $scope.disbutton = false;
+    // $scope.starttime = Math.round(new Date().getTime() + 10);
+    $http(req).then(function (response) {
+        $scope.questions = response.data; //check
+        $http(reqServerTime).then(function (response) {
+            //$scope.servertime = response.data;
+            $scope.starttime = Math.round(new Date().getTime() + 10000);
+            $scope.servertime = Math.round(new Date().getTime());
+            if (($scope.initdelay = $scope.starttime - $scope.servertime) > 0) {
+                $timeout($scope.startGameshow, $scope.initdelay);
+            }
+        }, function (repsonse) {
+            console.log(response);
+        })
+    }, function (response) {
+        console.log('Failing getting league info!');
+    });
+    $scope.startGameshow = function () {
+        $timeout($scope.showAnswer, 20000);
+    }
+    $scope.nextQuestion = function () {
+        ++$scope.qindex;
+        $timeout($scope.showAnswer, 20000);
+    }
+    $scope.showAnswer = function () {
+        description = "qindex is" + $scope.qindex;
+        $timeout($scope.nextQuestion, 20000);
+    }
+    $scope.selectAnswer = function (index) {
+        $scope.disbutton = true;
+        var correctindex = $scope.questions[$scope.qindex].correctAnswer; //check
+    }
+}]);
 stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams', '$route', function ($scope, $http, $rootScope, $routeParams, $route) {
     if ($routeParams.uid == undefined) {
         $scope.paramuid = 1;
@@ -100,6 +155,10 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
     }, function (response) {
         console.log('Failing getting league info!');
     });
+    $scope.openCreateLeagueModal = function () {
+        $('#createLeagueModal').modal('show');
+    }
+
     $scope.createLeague = function () {
         if ($scope.paramuid == $scope.uid) { // could use user.uid as well
             var req = {
