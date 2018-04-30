@@ -65,7 +65,7 @@ stk.controller('LeagueController', ['$scope', '$http', '$routeParams', function 
         $scope.league = response.data;
         $http(reqPlayers).then(function (response) {
             $scope.players = response.data;
-            if (league.lid > 7) {
+            if ($scope.league.lid > 7) {
                 var reqOwner = {
                     method: 'GET',
                     url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.league.owneruid
