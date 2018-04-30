@@ -256,10 +256,10 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
             method: 'PATCH',
             url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + uid + '/player/' + pid + '/leave'
         };
-        $http(reqDeleteLeague).then(function (response) {
+        $http(reqLeaveLeague).then(function (response) {
             $route.reload();
         }, function (response) {
-            console.log("Error deleting League");
+            console.log("Error leaving League");
         });
     };
     $scope.updateUser = function () {
@@ -281,25 +281,6 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
         });
     };
 }]);
-stk.controller('DashboardController', function ($scope, $http) {
-    /*$http.get('http://stock-fantasy-league.herokuapp.com/api/user').then(function (response) {
-        $scope.user = response.data;
-    });*/
-    $scope.user = {
-        "uid": 1,
-        "lids": [1, 2314, 234],
-        "pid": null,
-        "friends": null,
-        "email": "x@x.com",
-        "messages": null,
-        "notifications": null,
-        "username": "brian",
-        "password": "pass",
-        "description": 'test',
-        joinDate: '12/27/16'
-    }; // change pids and lids to leagues and users
-});
-
 stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route', function ($scope, $http, $routeParams, $route) {
     if ($routeParams.lid == undefined && $routeParams.uid == undefined) {
         $scope.lid = 1;
@@ -503,7 +484,7 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
     };
     $scope.deleteLeague = function (lid) {
         var reqDeleteLeague = {
-            method: 'POST',
+            method: 'DELETE',
             url: 'http://stock-fantasy-league.herokuapp.com/api/league/' +
                 lid + '/delete'
         };
