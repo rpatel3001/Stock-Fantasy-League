@@ -8,6 +8,15 @@ class getLeagueInfoFromArray(Resource):
 		args = parser.parse_args()
 		listofarrays = args["lidarray"]
 		test = [int(s) for s in listofarrays.split(',')]
+		
+		cur.execute("SELECT * FROM premade_leagues WHERE lid IN %s;", (tuple(test),))
+		premade = cur.fetchall()
+
 		cur.execute("SELECT * FROM leagues WHERE lid IN %s;", (tuple(test),))
-		return cur.fetchall()
+		usermade = cur.fetchall()
+
+		return premade + usermade
 		pass
+
+		
+

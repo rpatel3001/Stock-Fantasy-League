@@ -5,11 +5,14 @@ class getALLPlayerInfoFromLID(Resource):
 	@staticmethod
 	def get(cur, LID):
 		parser = reqparse.RequestParser()
-		cur.execute("SELECT pid FROM leagues WHERE lid = %s;", [LID])
+		if LID < 8:
+			cur.execute("SELECT pid FROM premade_leagues WHERE lid = %s;", [LID])
+		else:
+			cur.execute("SELECT pid FROM leagues WHERE lid = %s;", [LID])
+
 		pidArray = cur.fetchone()
 		listofarrays = pidArray['pid']
 		string = ", ".join( repr(e) for e in listofarrays)
 		test = [int(s) for s in string.split(',')]
 		cur.execute("SELECT * FROM players WHERE pid IN %s;", (tuple(test),))
 		return cur.fetchall()
-		pass
