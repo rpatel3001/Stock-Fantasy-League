@@ -58,7 +58,7 @@ stk.controller('LeagueController', ['$scope', '$http', '$routeParams', function 
     };
     var reqPlayers = {
         method: 'GET',
-        url: '/api/league/' + $scope.lid + '/everything'
+        url: 'http://stock-fantasy-league.herokuapp.com/api/league/' + $scope.lid + '/everything'
     };
     $scope.data = null;
     $http(req).then(function (response) {
