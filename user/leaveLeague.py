@@ -16,4 +16,4 @@ class leaveLeague(Resource):
 		cur.execute("UPDATE leagues SET pid = array_remove(pid, %s), uid = array_remove(uid, %s) WHERE lid = %s;", (PID, user, league))
 		cur.execute("UPDATE userprefs SET lid = array_remove(lid, %s), pid = array_remove(pid, %s) WHERE uid = %s;", (league, player, user))
 		
-		return "Left League"
+		return "Left League."
