@@ -170,7 +170,6 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
     $scope.openCreateLeagueModal = function () {
         $('#createLeagueModal').modal('show');
     }
-
     $scope.createLeague = function () {
         if ($scope.paramuid == $scope.uid) { // could use user.uid as well
             var req = {
@@ -567,7 +566,7 @@ stk.controller('UserListController', function ($scope, $http) {
         console.log('Failing getting users info!');
     });
 });
-stk.controller('LeagueListController', function ($scope, $http, $rootScope, $location) {
+stk.controller('LeagueListController', ['$scope', '$http', '$rootScope', '$location', '$route', function ($scope, $http, $rootScope, $location, $route) {
     $scope.leaguesView = true; //need to make an official watch in another controller
     $scope.navbarHeader = "Leagues";
     var reqLeagues = {
@@ -629,7 +628,41 @@ stk.controller('LeagueListController', function ($scope, $http, $rootScope, $loc
             console.log("Error leaving League");
         });
     };
-});
+    $scope.openCreateLeagueModal = function () {
+        $('#createLeagueModal').modal('show');
+    }
+    $scope.createLeague = function () {
+        if ($scope.uid > 0) { // could use user.uid as well
+            var req = {
+                method: 'POST',
+                url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.uid,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data: $.param({
+                    startBal: $scope.startBal,
+                    duration: new Date($scope.duration).getTime(),
+                    leagueName: $scope.leaguename,
+                    description: $scope.description
+                })
+            };
+            $http(req).then(function (response) {
+                console.log(response.data); //unwrapped json
+                $scope.startBal = null;
+                $scope.duration = null;
+                $scope.leaguename = null;
+                $scope.description = null;
+                $scope.user.lid.push(response.data[response.data.length - 1].lid);
+                $('#createLeagueModal').modal('hide');
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+                $route.reload();
+            }, function (response) {
+                console.log('Failing getting league info!');
+            });
+        };
+    };
+}]);
 
 var createGroupings = function (original, numCols) {
     var rows = [];
