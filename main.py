@@ -74,7 +74,7 @@ api.add_resource(class_with_db(Users.Users), '/api/user')   #GET: show all users
 api.add_resource(class_with_db(User.User), '/api/user/<int:UID>')   #GET: user info given UID || POST: create a league
 api.add_resource(class_with_db(updateUserInfo.updateUserInfo), '/api/user/<int:UID>/update')    #UPDATE: update user information
 api.add_resource(class_with_db(joinLeague.joinLeague), '/api/user/<int:UID>/joinLeague')    #POST: join a league
-api.add_resource(class_with_db(leaveLeague.leaveLeague), 'api/user/<int:UID>/player/<int:PID>/leave')
+api.add_resource(class_with_db(leaveLeague.leaveLeague), '/api/user/<int:UID>/player/<int:PID>/leave')
 
 api.add_resource(class_with_db(Players.Players), '/api/user/<int:UID>/player')  #GET: get list of PIDs given UID
 api.add_resource(class_with_db(Players.Player), '/api/user/<int:UID>/player/<int:PID>') #UPDATE: when player leaves/is removed from league (looks unfinished?)
