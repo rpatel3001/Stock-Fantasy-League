@@ -19,6 +19,10 @@ stk.config(function ($routeProvider, $locationProvider) {
         templateUrl: 'league_parts.html'
         /*,
                 controller: 'LeagueController'*/
+    }).when("/league/:lid/gameshow/:pid", {
+        templateUrl: 'gameshow.html'
+        /*,
+                controller: 'LeagueController'*/
     }).when("/league/:lid/player/:pid", {
         templateUrl: 'player_parts.html'
         /*,
@@ -63,10 +67,61 @@ stk.controller('LeagueController', ['$scope', '$http', '$routeParams', function 
             $scope.players = response.data;
         }, function (repsonse) {
             console.log(response);
+        });
+    }, function (response) {
+        console.log('Failing getting league info!');
+    });
+}]);
+stk.controller('GameShowController', ['$scope', '$timeout', '$interval', '$http', '$routeParams', function ($scope, $timeout, $interval, $http, $routeParams) {
+    if ($routeParams.lid != undefined && $routeParams.pid != undefined) {
+        $scope.lid = $routeParams.lid;
+        $scope.pid = $routeParams.pid;
+    } else {
+        //$scope.lid = 1;
+    }
+    var req = {
+        method: 'GET',
+        url: 'http://stock-fantasy-league.herokuapp.com/api/league/' + $scope.lid + '/startquiz/' + $scope.pid
+    };
+    var reqServerTime = {
+        method: 'GET',
+        url: 'http://stock-fantasy-league.herokuapp.com/api/league/' + $scope.lid + '/startquiz/' + $scope.pid
+    };
+    $scope.data = null;
+    $scope.qindex = 0;
+    $scope.numcorrect = 0;
+    $scope.disbutton = false;
+    // $scope.starttime = Math.round(new Date().getTime() + 10);
+    $http(req).then(function (response) {
+        $scope.questions = response.data; //check
+        $http(reqServerTime).then(function (response) {
+            //$scope.servertime = response.data;
+            $scope.starttime = Math.round(new Date().getTime() + 10000);
+            $scope.servertime = Math.round(new Date().getTime());
+            if (($scope.initdelay = $scope.starttime - $scope.servertime) > 0) {
+                $timeout($scope.startGameshow, $scope.initdelay);
+            }
+        }, function (repsonse) {
+            console.log(response);
         })
     }, function (response) {
         console.log('Failing getting league info!');
     });
+    $scope.startGameshow = function () {
+        $timeout($scope.showAnswer, 20000);
+    }
+    $scope.nextQuestion = function () {
+        ++$scope.qindex;
+        $timeout($scope.showAnswer, 20000);
+    }
+    $scope.showAnswer = function () {
+        description = "qindex is" + $scope.qindex;
+        $timeout($scope.nextQuestion, 20000);
+    }
+    $scope.selectAnswer = function (index) {
+        $scope.disbutton = true;
+        var correctindex = $scope.questions[$scope.qindex].correctAnswer; //check
+    }
 }]);
 stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams', '$route', function ($scope, $http, $rootScope, $routeParams, $route) {
     if ($routeParams.uid == undefined) {
@@ -97,9 +152,14 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
         $scope.navbarHeader = "Leagues with " + $scope.user.username;
         $scope.getUserLeagues();
         $scope.updateUser();
+
     }, function (response) {
         console.log('Failing getting league info!');
     });
+    $scope.openCreateLeagueModal = function () {
+        $('#createLeagueModal').modal('show');
+    }
+
     $scope.createLeague = function () {
         if ($scope.paramuid == $scope.uid) { // could use user.uid as well
             var req = {
@@ -122,6 +182,9 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
                 $scope.leaguename = null;
                 $scope.description = null;
                 $scope.user.lid.push(response.data[response.data.length - 1].lid);
+                $('#createLeagueModal').modal('hide');
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
                 $route.reload();
             }, function (response) {
                 console.log('Failing getting league info!');
@@ -176,6 +239,29 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
             });
         }
     };
+    $scope.deleteLeague = function (lid) {
+        var reqDeleteLeague = {
+            method: 'DELETE',
+            url: 'http://stock-fantasy-league.herokuapp.com/api/league/' +
+                lid + '/delete'
+        };
+        $http(reqDeleteLeague).then(function (response) {
+            $route.reload();
+        }, function (response) {
+            console.log("Error deleting League");
+        });
+    };
+    $scope.leaveLeague = function (uid, pid) {
+        var reqLeaveLeague = {
+            method: 'PATCH',
+            url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + uid + '/player/' + pid + '/leave'
+        };
+        $http(reqLeaveLeague).then(function (response) {
+            $route.reload();
+        }, function (response) {
+            console.log("Error leaving League");
+        });
+    };
     $scope.updateUser = function () {
         var reqUpdatePlayer = {
             method: 'POST',
@@ -195,25 +281,6 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
         });
     };
 }]);
-stk.controller('DashboardController', function ($scope, $http) {
-    /*$http.get('http://stock-fantasy-league.herokuapp.com/api/user').then(function (response) {
-        $scope.user = response.data;
-    });*/
-    $scope.user = {
-        "uid": 1,
-        "lids": [1, 2314, 234],
-        "pid": null,
-        "friends": null,
-        "email": "x@x.com",
-        "messages": null,
-        "notifications": null,
-        "username": "brian",
-        "password": "pass",
-        "description": 'test',
-        joinDate: '12/27/16'
-    }; // change pids and lids to leagues and users
-});
-
 stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route', function ($scope, $http, $routeParams, $route) {
     if ($routeParams.lid == undefined && $routeParams.uid == undefined) {
         $scope.lid = 1;
@@ -361,11 +428,10 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
             $scope.player.availbalance -= price * numShares;
         }
         $scope.updatePlayer();
-        $('#myModal').modal('hide');
+        $('#holdingsModal').modal('hide');
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
-        if (!testingStatus)
-            $route.reload();
+        $route.reload();
     };
     $scope.integrationTesting = function (intTranType) {
         /* $scope.player.holdings = [{
@@ -528,6 +594,29 @@ stk.controller('LeagueListController', function ($scope, $http, $rootScope, $loc
                 console.log('Failing to join league!');
             });
         }
+    };
+    $scope.deleteLeague = function (lid) {
+        var reqDeleteLeague = {
+            method: 'DELETE',
+            url: 'http://stock-fantasy-league.herokuapp.com/api/league/' +
+                lid + '/delete'
+        };
+        $http(reqDeleteLeague).then(function (response) {
+            $route.reload();
+        }, function (response) {
+            console.log("Error deleting League");
+        });
+    };
+    $scope.leaveLeague = function (uid, pid) {
+        var reqLeaveLeague = {
+            method: 'PATCH',
+            url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + uid + '/player/' + pid + '/leave'
+        };
+        $http(reqLeaveLeague).then(function (response) {
+            $route.reload();
+        }, function (response) {
+            console.log("Error leaving League");
+        });
     };
 });
 

@@ -7,6 +7,7 @@
         <li>
             Number of Members: {{ league.uid.length }}
         </li>
+        <a ng-href="#!/league/{{lid}}/gameshow/1">Start Gameshow</a>
         <!--<li>
             Total Market Cap: {{ league.marketCap }}
         </li><li>
@@ -28,4 +29,147 @@
             </div>
         </div>-->
     </ul>
+    <div class="header-blue">
+        <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search">
+            <div class="container"><a class="navbar-brand" href="#">League Name</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navcol-1">
+                    <ul class="nav navbar-nav"></ul><span class="navbar-text"> <a href="#" class="login">Duration/End Date</a></span></div>
+            </div>
+
+
+
+        </nav>
+    </div>
+    <!--<div>
+        <div class="header-blue">
+            <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search">
+                <div class="container"><a class="navbar-brand">{{league.leaguename}}</a>
+                    <ul class="nav navbar-nav"></ul><span class="navbar-text"> <a href="#" class="login">Duration/End Date</a></span></div>
+
+
+
+            </nav>
+        </div>-->
+
+
+
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <b><p style="color: black">{{league.description}}</p></b>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <b><p style="color: black">Number of Members: {{league.uid.length}}</p></b>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="font-size: 500%">
+                    <center><b><p style = "color:skyblue">Leaderboard</p></b></center>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col">
+                    <div class="row" style="font-size: 200%">
+                        <center>
+                            <p style="color:skyblue"><b>1st</b></p>
+                        </center>
+                    </div>
+                    <div class="row" style="font-size: 200%">
+                        <center>
+                            <p style="color:skyblue"><b>Name</b></p>
+                        </center>
+                    </div>
+
+                </div>
+
+                <div class="col">
+                    <div class="row" style="font-size: 200%">
+                        <center>
+                            <p style="color:skyblue"><b>2nd</b></p>
+                        </center>
+                    </div>
+                    <div class="row" style="font-size: 200%">
+                        <center>
+                            <p style="color:skyblue"><b>Name</b></p>
+                        </center>
+                    </div>
+
+                </div>
+
+                <div class="col">
+                    <div class="row" style="font-size: 200%">
+                        <center>
+                            <p style="color:skyblue"><b>3rd</b></p>
+                        </center>
+                    </div>
+                    <div class="row" style="font-size: 200%">
+                        <center>
+                            <p style="color:skyblue"><b>Name</b></p>
+                        </center>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-1"><input type="text" value="#" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
+            <div class="col-md-8"><input type="text" value="Name" readonly class="form-control-plaintext" style="  font-size:24px;" /></div>
+            <div class="col-md-3"><input type="text" value="Achivement points" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
+        </div>
+
+        <div class="row">
+            <div class="col-1"><input type="text" value="3" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
+            <div class="col-md-8"><input type="text" value="<Name>" readonly class="form-control-plaintext" style="  font-size:24px;" /></div>
+            <div class="col-md-3"><input type="text" value="0" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
+        </div>
+        <div class="row">
+            <div class="col-1"><input type="text" value="4" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
+            <div class="col-md-8"><input type="text" value="<Name>" readonly class="form-control-plaintext" style="  font-size:24px;" /></div>
+            <div class="col-md-3"><input type="text" value="0" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
+        </div>
+        <div class="row">
+            <div class="col-1"><input type="text" value="5" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
+            <div class="col-md-8"><input type="text" value="<Name>" readonly class="form-control-plaintext" style="  font-size:24px;" /></div>
+            <div class="col-md-3"><input type="text" value="0" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
+        </div>
+        <div class="row">
+            <div class="col-1"><input type="text" value="6" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
+            <div class="col-md-8"><input type="text" value="<Name>" readonly class="form-control-plaintext" style="  font-size:24px;" /></div>
+            <div class="col-md-3"><input type="text" value="0" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
+        </div>
+        <div class="row">
+            <div class="col-1"><input type="text" value="7" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
+            <div class="col-md-8"><input type="text" value="<Name>" readonly class="form-control-plaintext" style="  font-size:24px;" /></div>
+            <div class="col-md-3"><input type="text" value="0" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
+        </div>
+        <div class="row">
+            <div class="col-1"><input type="text" value="8" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
+            <div class="col-md-8"><input type="text" value="<Name>" readonly class="form-control-plaintext" style="  font-size:24px;" /></div>
+            <div class="col-md-3"><input type="text" value="0" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
+        </div>
+        <div class="row">
+            <div class="col-1"><input type="text" value="9" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
+            <div class="col-md-8"><input type="text" value="<Name>" readonly class="form-control-plaintext" style="  font-size:24px;" /></div>
+            <div class="col-md-3"><input type="text" value="0" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
+        </div>
+        <div class="row">
+            <div class="col-1"><input type="text" value="10" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
+            <div class="col-md-8"><input type="text" value="<Name>" readonly class="form-control-plaintext" style="  font-size:24px;" /></div>
+            <div class="col-md-3"><input type="text" value="0" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
+        </div>
+
+    </div>
 </div>
