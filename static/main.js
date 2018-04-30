@@ -185,8 +185,7 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
                 $('#createLeagueModal').modal('hide');
                 $('body').removeClass('modal-open');
                 $('.modal-backdrop').remove();
-                if (!testingStatus)
-                    $route.reload();
+                $route.reload();
             }, function (response) {
                 console.log('Failing getting league info!');
             });
@@ -425,11 +424,10 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
             $scope.player.availbalance -= price * numShares;
         }
         $scope.updatePlayer();
-        $('#holdngsModal').modal('hide');
+        $('#holdingsModal').modal('hide');
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
-        if (!testingStatus)
-            $route.reload();
+        $route.reload();
     };
     $scope.integrationTesting = function (intTranType) {
         /* $scope.player.holdings = [{
