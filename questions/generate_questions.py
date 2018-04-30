@@ -99,7 +99,7 @@ def generate(cur):
             pmax = max(pmax, float(d['2. high']))
             pmin = min(pmin, float(d['3. low']))
         rp = (price - pmin) / pmin
-        ans.append((s, rp, pmin, pmax))
+        ans.append((s, rp, pmin, pmax, price))
     ans = sorted(ans, key=lambda k: k[1])
     a41 = ans[0][0]
     e41 = "This stock's 52 week low is " + str(ans[0][2]) + " and its 52 week high is " + str(ans[0][3]) + ". It's current price is " + str(ans[0][4])
