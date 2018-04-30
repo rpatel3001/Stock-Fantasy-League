@@ -21,7 +21,6 @@ from stock_data import StockData, TopStocks, StockSearch
 from questions import question, sendQuestion, generate_questions_api, servertime
 from lessons import getlesson
 
-
 app = Flask(__name__, static_url_path='')
 api = Api(app)
 
