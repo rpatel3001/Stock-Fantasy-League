@@ -150,7 +150,7 @@ def generate(cur):
             pmax = max(pmax, float(d['2. high']))
             pmin = min(pmin, float(d['3. low']))
         prange = (pmax - pmin) / ((pmax + pmin) / 2)
-        ans.append((s, prange, pmax, pmin))
+        ans.append((s, prange, pmin, pmax))
     ans = sorted(ans, key=lambda k: k[1])
     a61 = ans[0][0]
     e61 = "This stock's 52 week low is " + str(ans[0][2]) + " and its 52 week high is " + str(ans[0][3])
