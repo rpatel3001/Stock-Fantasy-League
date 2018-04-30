@@ -117,16 +117,16 @@ def generate(cur):
     e5 = "Stock's can be separated into sectors. All stocks in a sector are related in some way, thus their share prices are related."
     sector = random.choice(("Utilities", "Health Care", "Financials", "Industrials", "Materials"))
     q5 += sector + "?"
-    cur.execute("SELECT symbol, sector FROM stockdata WHERE sector LIKE '%s' ORDER BY RANDOM() LIMIT 2" % sector)
+    cur.execute("SELECT symbol, name FROM stockdata WHERE sector LIKE '%s' ORDER BY RANDOM() LIMIT 2" % sector)
     x = cur.fetchone()
-    a51 = x['symbol'] + ": " + x['sector']
+    a51 = x['symbol'] + ": " + x['name']
     e51 = "This stock is in the sector: " + sector
     x = cur.fetchone()
-    a52 = x['symbol'] + ": " + x['sector']
+    a52 = x['symbol'] + ": " + x['name']
     e52 = "This stock is in the sector: " + sector
     cur.execute("SELECT symbol, sector FROM stockdata WHERE sector NOT LIKE '%s' ORDER BY RANDOM() LIMIT 1" % sector)
     x = cur.fetchone()
-    a53 = x['symbol'] + ": " + x['sector']
+    a53 = x['symbol'] + ": " + x['name']
     e53 = "This stock is in the sector: " + x['sector']
     print(q5)
     print(a51)
