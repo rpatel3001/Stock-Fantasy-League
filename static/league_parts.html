@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <hr class="my-4" style="color: #ffffff">
-                <p class="lead">
+                <p class="lead" ng-Controller="LeagueListController">
                     <span ng-if="uid>0 && league.uid.indexOf(uid) == -1"><button class="btn btn-primary" ng-click="joinLeague(league.lid);">Join</button></span>
                     <span ng-if="uid>0 && league.owneruid == uid"><a class="btn btn-danger" ng-click="deleteLeague(league.lid)">Delete League</a></span>
                     <span ng-if="uid>0 && league.owneruid != uid && league.uid.indexOf(uid)>=0"><a class="btn btn-warning" ng-click="leaveLeague(uid,league.pid[league.uid.indexOf(uid)])">Leave League</a></span>
