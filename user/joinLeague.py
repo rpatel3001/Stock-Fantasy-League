@@ -9,7 +9,7 @@ class joinLeague(Resource):
         parser.add_argument('lid') #important just so database knows which lid to put uid in (remember this is joinLeague not createLeague)
         args = parser.parse_args()
 
-        if int(args['lid']) < 8:
+        if int(args['lid']) < 7:
             cur.execute("INSERT INTO players (uid) VALUES (%s);", [UID])
             cur.execute("SELECT pid FROM players WHERE uid=%s;", [UID])
             createdPID = cur.fetchall()

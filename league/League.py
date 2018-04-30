@@ -4,7 +4,7 @@ class League(Resource):
 	@staticmethod  # getLeagueInfo
 	#Getting league info from specified league
 	def get(cur, LID):
-		if LID < 8:
+		if LID < 7:
 			cur.execute("SELECT * FROM premade_leagues WHERE lid = %s;", [LID])
 			return json.dumps({"Leagues": cur.fetchall()})
 		else:
