@@ -29,7 +29,8 @@
             <td ng-if="uid>0 && league.uid.indexOf(uid) == -1"><button class="btn btn-primary" ng-click="joinLeague(league.lid);">Join</button></td>
             <td ng-if="uid>0 && league.uid.indexOf(uid)>=0"><a class="btn btn-success" ng-href="#!/league/{{league.lid}}/player/{{league.pid[league.uid.indexOf(uid)]}}">View Player</a></td>
             <td ng-if="uid>0 && league.owneruid == uid"><a class="btn btn-danger" ng-click="deleteLeague(league.lid)">Delete League</a></td>
-            <td ng-if="uid>0 && league.owneruid != uid"><a class="btn btn-warning" ng-click="leaveLeague(league.lid)">Leave League</a></td>
+            <td ng-if="uid>0 && league.owneruid != uid && league.uid.indexOf(uid)>=0"><a class="btn btn-warning" ng-click="leaveLeague(league.uid,league.pid)">Leave League</a></td>
+            <td ng-if="uid>0 && league.uid.indexOf(uid) == -1"></td>
             <!--also check if user is logged in -->
         </a>
     </tr>
