@@ -65,15 +65,17 @@ stk.controller('LeagueController', ['$scope', '$http', '$routeParams', function 
         $scope.league = JSON.parse(response.data).Leagues[0]; //wrapped json
         $http(reqPlayers).then(function (response) {
             $scope.players = response.data;
-            var reqOwner = {
-                method: 'GET',
-                url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.league.owneruid
-            };
-            $http(reqOwner).then(function (response) {
-                $scope.owner = response.data;
-            }, function (response) {
-                console.log('Failing getting Owner info!');
-            });
+            if (league.lid > 7) {
+                var reqOwner = {
+                    method: 'GET',
+                    url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.league.owneruid
+                };
+                $http(reqOwner).then(function (response) {
+                    $scope.owner = response.data;
+                }, function (response) {
+                    console.log('Failing getting Owner info!');
+                });
+            }
         }, function (repsonse) {
             console.log(response);
         });

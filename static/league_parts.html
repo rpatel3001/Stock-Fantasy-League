@@ -4,9 +4,9 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <h1 class="display-4" style="color: #ffffff">{{league.leaguename}}</h1>
+                        <h1 class="display-4" style="color: #ffffff">{{league.leaguename}}{{league.industry}}</h1>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6" ng-if="league.lid>7">
                         <a ng-href="#!/user/{{owner.uid}}"><span class="float-right"><h1 class="display-4" style="color: #ffffff">
     <img class="card-img-top rounded-circle" style="width:20%;margin:auto" ng-src="{{owner.imageurl}}" alt="Card image cap">
     {{owner.username}}</h1>
@@ -17,7 +17,7 @@
                     <div class="col-md-6">
                         <p class="lead" style="color: #ffffff">{{league.description}}</p>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6" ng-if="league.lid>7">
                         <h5 class="text-right" style="color: #ffffff">Ends on {{league.duration | date}}</h5>
                     </div>
                 </div>
@@ -32,8 +32,8 @@
                 <hr class="my-4" style="color: #ffffff">
                 <p class="lead" ng-Controller="LeagueListController">
                     <span ng-if="uid>0 && league.uid.indexOf(uid) == -1"><button class="btn btn-primary" ng-click="joinLeague(league.lid);">Join</button></span>
-                    <span ng-if="uid>0 && league.owneruid == uid"><a class="btn btn-danger" ng-click="deleteLeague(league.lid)">Delete League</a></span>
-                        <span ng-if="uid>0 && league.owneruid != uid && league.uid.indexOf(uid)>=0"><a class="btn btn-warning" ng-click="leaveLeague(uid,league.pid[league.uid.indexOf(uid)])">Leave League</a></span>
+                    <span ng-if="uid>0 && league.owneruid === uid"><button class="btn btn-danger" ng-click="deleteLeague(league.lid)">Delete League</button></span>
+                        <span ng-if="uid>0 && league.owneruid != uid && league.uid.indexOf(uid)>=0"><button class="btn btn-warning" ng-click="leaveLeague(uid,league.pid[league.uid.indexOf(uid)])">Leave League</button></span>
                         </p>
                         <p ng-if="uid>0 && league.uid.indexOf(uid)>=0" class="lead">
                             <a class="btn btn-primary btn-lg btn-block" ng-href="#!/league/{{lid}}/gameshow/1">Start Gameshow</a>
