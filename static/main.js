@@ -239,6 +239,18 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
             });
         }
     };
+    $scope.deleteLeagues = function (lid) {
+        var reqDeleteLeague = {
+            method: 'POST',
+            url: 'http://stock-fantasy-league.herokuapp.com/api/league/' +
+                lid + '/delete'
+        };
+        $http(reqDeleteLeague).then(function (response) {
+            $route.reload();
+        }, function (response) {
+            console.log("Error deleting League");
+        });
+    };
     $scope.updateUser = function () {
         var reqUpdatePlayer = {
             method: 'POST',
@@ -477,6 +489,18 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
         $http(reqPrice).then(function (response) {
             $scope.intStockPrice = response.data.stockdata;
         }, function () {});
+    };
+    $scope.deleteLeagues = function (lid) {
+        var reqDeleteLeague = {
+            method: 'POST',
+            url: 'http://stock-fantasy-league.herokuapp.com/api/league/' +
+                lid + '/delete'
+        };
+        $http(reqDeleteLeague).then(function (response) {
+            $route.reload();
+        }, function (response) {
+            console.log("Error deleting League");
+        });
     };
 }]);
 stk.controller('NavbarController', ['$scope', function ($scope, $rootScope) {
