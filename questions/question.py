@@ -10,9 +10,9 @@ class question(Resource):
         finalString = ""
         #cur.execute("SELECT * FROM questions_test;")
         ans1 = []
-        for counter in range(1, 4):
+        for counter in range(1, 7):
             print(counter)
-            cur.execute("SELECT * FROM questions WHERE qid = %s;", (counter,))
+            cur.execute("SELECT * FROM question WHERE qid = %s;", (counter,))
 
             ans =cur.fetchall()
             for row in ans:

@@ -19,8 +19,7 @@ from league import Leagues, League, getPlayerInfoByUID, getLeagueInfoFromArray, 
 from stock_data import StockData, TopStocks, StockSearch
 
 from questions import question, sendQuestion, generate_questions_api, servertime
-
-from lesson_plans import getLesson
+from lessons import getlesson
 
 
 app = Flask(__name__, static_url_path='')
@@ -67,7 +66,7 @@ api.add_resource(class_with_db(question.question), '/api/league/<int:LID>/startq
 api.add_resource(class_with_db(sendQuestion.sendQuestion), '/api/question/<int:QID>')
 api.add_resource(class_with_db(generate_questions_api.GenerateQuestions), '/api/question/generate')
 api.add_resource(class_with_db(servertime.servertime), '/api/servertime')
-
+api.add_resource(class_with_db(getlesson.getlesson), '/api/lesson/<int:lessonID>')
 
 api.add_resource(class_with_db(buyVIP.buyVIP), '/api/user/<int:UID>/buyvip')
 api.add_resource(class_with_db(Users.Users), '/api/user')   #GET: show all users || POST: create account
