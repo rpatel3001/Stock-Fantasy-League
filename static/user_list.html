@@ -38,17 +38,20 @@
         </div>
     </div>
 </div>-->
+    <br>
     <div ng-repeat="row in organizedData | filter: UserSelect">
         <div class="card-deck row">
             <div class="card col-sm-4" ng-repeat="user in row | filter: UserSelect">
-                <img class="card-img-top rounded-circle" style="width:60%;margin:auto" ng-src="{{user.imageurl}}" alt="Card image cap">
+                <img class="card-img-top rounded-circle" style="width:60%;margin:auto; margin-top:1.5em;" ng-src="{{user.imageurl}}" alt="Card image cap">
                 <div class="card-body">
                     <a ng-href="#!/user/{{user.uid}}">
                         <h5 class="card-title">{{user.username}}</h5>
                     </a>
-                    <p class="card-text">{{user.description}}</p>
+                    <p class="card-text" ng-if="user.description != '{}'">{{user.description}}</p>
+                    <p class="card-text" style="color: slategray;font-style: italic;" ng-if="user.description == '{}'">{{user.username}} has no description.</p>
                 </div>
             </div>
         </div>
+        <br>
     </div>
 </div>

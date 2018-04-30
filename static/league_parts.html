@@ -1,175 +1,147 @@
 <div ng-controller="LeagueController">
-    <ul style="list-style-type: none">
-        <li>League Name:{{ league.leaguename }}</li>
-        <li>League Description:{{ league.description }}</li>
-        <!-- <li>{{league.username}}</li>-->
-        League Stats
-        <li>
-            Number of Members: {{ league.uid.length }}
-        </li>
-        <a ng-href="#!/league/{{lid}}/gameshow/1">Start Gameshow</a>
-        <!--<li>
-            Total Market Cap: {{ league.marketCap }}
-        </li><li>
-
-        </li>-->
-        <!--<h3>League Members</h3>
-        <!--<card ng-repeat="card in players">
-            <li>{{card.username}}</li>
-            <img ng-src='{{card.imageurl}}' />
-        </card>-->
-
-        <!-- <div class="card col-sm-4" ng-repeat="user in players">
-            <img class="card-img-top rounded-circle" style="width:60%;margin:auto" ng-src="{{user.imageurl}}" alt="Card image cap">
-            <div class="card-body">
-                <a ng-href="#!/user/{{user.uid}}">
-                    <h5 class="card-title">{{user.username}}</h5>
-                </a>
-                <p class="card-text">{{user.description}}</p>
+    <div>
+        <div class="jumbotron jumbotron-fluid header-blue">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h1 class="display-4" style="color: #ffffff">{{league.leaguename}}{{league.industry}}</h1>
+                    </div>
+                    <div class="col-md-6" ng-if="lid>6">
+                        <a ng-href="#!/user/{{owner.uid}}"><span class="float-right"><h1 class="display-4" style="color: #ffffff">
+    <img class="card-img-top rounded-circle" style="width:20%;margin:auto" ng-src="{{owner.imageurl}}" alt="Card image cap">
+    {{owner.username}}</h1>
+                        </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="lead" style="color: #ffffff">{{league.description}}</p>
+                    </div>
+                    <div class="col-md-6" ng-if="lid>6">
+                        <h5 class="text-right" style="color: #ffffff">Ends on {{league.duration | date}}</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 style="color: #ffffff">{{league.uid.length}} Members</h5>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="text-right" style="color: #ffffff">Start with {{league.startbal | currency}}</h5>
+                    </div>
+                </div>
+                <hr class="my-4" style="color: #ffffff">
+                <p class="lead" ng-Controller="LeagueListController">
+                    <span ng-if="uid>0 && league.uid.indexOf(uid) == -1"><button class="btn btn-primary" ng-click="joinLeague(lid);">Join</button></span>
+                    <span ng-if="uid>0 && league.owneruid === uid"><button class="btn btn-danger" ng-click="deleteLeague(lid)">Delete League</button></span>
+                    <span ng-if="uid>0 && league.owneruid != uid && league.uid.indexOf(uid)>=0"><button class="btn btn-warning" ng-click="leaveLeague(uid,league.pid[league.uid.indexOf(uid)])">Leave League</button></span>
+                </p>
+                <p ng-if="uid>0 && league.uid.indexOf(uid)>=0" class="lead">
+                    <a class="btn btn-primary btn-lg btn-block" ng-href="#!/league/{{lid}}/gameshow/1">Start Gameshow</a>
+                </p>
             </div>
-        </div>-->
-    </ul>
-    <div class="header-blue">
-        <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search">
-            <div class="container"><a class="navbar-brand" href="#">League Name</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navcol-1">
-                    <ul class="nav navbar-nav"></ul><span class="navbar-text"> <a href="#" class="login">Duration/End Date</a></span></div>
-            </div>
-
-
-
-        </nav>
-    </div>
-    <!--<div>
-        <div class="header-blue">
+        </div>
+        <!--<div class="container-fluid header-blue">
             <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search">
                 <div class="container"><a class="navbar-brand">{{league.leaguename}}</a>
-                    <ul class="nav navbar-nav"></ul><span class="navbar-text"> <a href="#" class="login">Duration/End Date</a></span></div>
-
-
-
+                    <ul class="nav navbar-nav">
+                    </ul><span class="navbar-text"> <a href="#" class="login">{{league.duration | date}}</a></span></div>
             </nav>
-        </div>-->
-
-
-
-    <div>
-        <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <b><p style="color: black">{{league.description}}</p></b>
+                    <b><p style="color: #ffffff">{{league.description}}</p></b>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <b><p style="color: black">Number of Members: {{league.uid.length}}</p></b>
+                    <b><p style="color: #ffffff">{{league.uid.length}} Members</p></b>
                 </div>
             </div>
         </div>
-    </div>
+        <br>
+        <a class="btn btn-primary btn-lg btn-block" ng-href="#!/league/{{lid}}/gameshow/1">Start Gameshow</a>-->
 
-    <div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12" style="font-size: 500%">
-                    <center><b><p style = "color:skyblue">Leaderboard</p></b></center>
+        <div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12" style="font-size: 500%">
+                        <center><b><p style = "color:skyblue">Leaderboard</p></b></center>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="row" style="font-size: 200%">
+                            <span class="text-center" style="width:100%;">
+                                <p style="color:gold"><b>1st</b></p>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="row" style="font-size: 200%">
+                            <span class="text-center" style="width:100%;">
+                                <p style="color:silver"><b>2nd</b></p>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="row" style="font-size: 200%">
+                            <span class="text-center" style="width:100%;">
+                                <p style="color:#CD7F32"><b>3rd</b></p>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="card col-sm-4" ng-repeat="user in players | limitTo:3">
+                        <img class="card-img-top rounded-circle" style="width:60%;margin:auto; margin-top:1.5em;" ng-src="{{user.imageurl}}" alt="Card image cap">
+                        <div class="card-body">
+                            <a ng-href="#!/user/{{user.uid}}">
+                                <h5 class="card-title">{{user.username}}</h5>
+                            </a>
+                            <p class="card-text" ng-if="user.description != '{}'">{{user.description}}</p>
+                            <p class="card-text" style="color: slategray;font-style: italic;" ng-if="user.description == '{}'">{{user.username}} has no description.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-
-            <div class="row">
-                <div class="col">
-                    <div class="row" style="font-size: 200%">
-                        <center>
-                            <p style="color:skyblue"><b>1st</b></p>
-                        </center>
+            <br>
+            <!--<div ng-repeat="row in organizedData | filter: UserSelect">
+            <div class="card-deck row">-->
+            <nav class="navbar navbar-light bg-light justify-content-between">
+                <a class="navbar-brand">Users in {{league.leaguename}}{{league.industry}}</a>
+                <form class="form-inline">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search Players in League" aria-label="Search" ng-model="UserSelect.username">
+                </form>
+            </nav>
+            <div class="d-sm-none">
+                <div class="card col-sm-4" ng-repeat="user in players | filter: UserSelect">
+                    <img class="card-img-top rounded-circle" style="width:60%;margin:auto" ng-src="{{user.imageurl}}" alt="Card image cap">
+                    <div class="card-body">
+                        <a ng-href="#!/user/{{user.uid}}">
+                            <h5 class="card-title">{{user.username}}</h5>
+                        </a>
+                        <p class="card-text">{{user.description}}</p>
                     </div>
-                    <div class="row" style="font-size: 200%">
-                        <center>
-                            <p style="color:skyblue"><b>Name</b></p>
-                        </center>
-                    </div>
-
-                </div>
-
-                <div class="col">
-                    <div class="row" style="font-size: 200%">
-                        <center>
-                            <p style="color:skyblue"><b>2nd</b></p>
-                        </center>
-                    </div>
-                    <div class="row" style="font-size: 200%">
-                        <center>
-                            <p style="color:skyblue"><b>Name</b></p>
-                        </center>
-                    </div>
-
-                </div>
-
-                <div class="col">
-                    <div class="row" style="font-size: 200%">
-                        <center>
-                            <p style="color:skyblue"><b>3rd</b></p>
-                        </center>
-                    </div>
-                    <div class="row" style="font-size: 200%">
-                        <center>
-                            <p style="color:skyblue"><b>Name</b></p>
-                        </center>
-                    </div>
-
                 </div>
             </div>
+            <table class="table table-striped table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>User Picture</th>
+                        <th>User Name</th>
+                        <th>Ranking</th>
+                    </tr>
+                </thead>
+                <tr ng-repeat="player in players| filter: LeagueSelect">
+                    <td><a ng-href="#!/user/{{player.uid}}"><img class="card-img-top rounded-circle" style="width:20%;margin:auto" ng-src="{{player.imageurl}}" alt="Card image cap"></a></td>
+                    <td><a ng-href="#!/user/{{player.uid}}">{{player.username}}</a></td>
+                    <td><a ng-href="#!/user/{{player.uid}}">{{$index+1}}</a></td>
+                    <!--player.ranking-->
+                </tr>
+            </table>
+
         </div>
     </div>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-1"><input type="text" value="#" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
-            <div class="col-md-8"><input type="text" value="Name" readonly class="form-control-plaintext" style="  font-size:24px;" /></div>
-            <div class="col-md-3"><input type="text" value="Achivement points" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
-        </div>
-
-        <div class="row">
-            <div class="col-1"><input type="text" value="3" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
-            <div class="col-md-8"><input type="text" value="<Name>" readonly class="form-control-plaintext" style="  font-size:24px;" /></div>
-            <div class="col-md-3"><input type="text" value="0" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
-        </div>
-        <div class="row">
-            <div class="col-1"><input type="text" value="4" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
-            <div class="col-md-8"><input type="text" value="<Name>" readonly class="form-control-plaintext" style="  font-size:24px;" /></div>
-            <div class="col-md-3"><input type="text" value="0" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
-        </div>
-        <div class="row">
-            <div class="col-1"><input type="text" value="5" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
-            <div class="col-md-8"><input type="text" value="<Name>" readonly class="form-control-plaintext" style="  font-size:24px;" /></div>
-            <div class="col-md-3"><input type="text" value="0" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
-        </div>
-        <div class="row">
-            <div class="col-1"><input type="text" value="6" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
-            <div class="col-md-8"><input type="text" value="<Name>" readonly class="form-control-plaintext" style="  font-size:24px;" /></div>
-            <div class="col-md-3"><input type="text" value="0" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
-        </div>
-        <div class="row">
-            <div class="col-1"><input type="text" value="7" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
-            <div class="col-md-8"><input type="text" value="<Name>" readonly class="form-control-plaintext" style="  font-size:24px;" /></div>
-            <div class="col-md-3"><input type="text" value="0" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
-        </div>
-        <div class="row">
-            <div class="col-1"><input type="text" value="8" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
-            <div class="col-md-8"><input type="text" value="<Name>" readonly class="form-control-plaintext" style="  font-size:24px;" /></div>
-            <div class="col-md-3"><input type="text" value="0" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
-        </div>
-        <div class="row">
-            <div class="col-1"><input type="text" value="9" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
-            <div class="col-md-8"><input type="text" value="<Name>" readonly class="form-control-plaintext" style="  font-size:24px;" /></div>
-            <div class="col-md-3"><input type="text" value="0" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
-        </div>
-        <div class="row">
-            <div class="col-1"><input type="text" value="10" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
-            <div class="col-md-8"><input type="text" value="<Name>" readonly class="form-control-plaintext" style="  font-size:24px;" /></div>
-            <div class="col-md-3"><input type="text" value="0" readonly class="form-control-plaintext" style="font-size:24px;" /></div>
-        </div>
-
-    </div>
-</div>

@@ -2,14 +2,22 @@ from flask_restful import reqparse, abort, Resource
 import json
 
 class getALLPlayerInfoFromLID(Resource):
+	'''gets all PIDs from the league and gets all player info from that'''
 	@staticmethod
 	def get(cur, LID):
-		parser = reqparse.RequestParser()
-		cur.execute("SELECT pid FROM leagues WHERE lid = %s;", [LID])
+
+		if LID < 7:
+			cur.execute("SELECT pid FROM premade_leagues WHERE lid = %s;", [LID,])
+		else:
+			cur.execute("SELECT pid FROM leagues WHERE lid = %s;", [LID,])
+
 		pidArray = cur.fetchone()
-		listofarrays = pidArray['pid']
-		string = ", ".join( repr(e) for e in listofarrays)
-		test = [int(s) for s in string.split(',')]
-		cur.execute("SELECT * FROM players WHERE pid IN %s;", (tuple(test),))
-		return cur.fetchall()
-		pass
+
+		if pidArray['pid'] == []:
+			return "No players"
+		else:			
+			listofarrays = pidArray['pid']
+			string = ", ".join( repr(e) for e in listofarrays)
+			test = [int(s) for s in string.split(',')]
+			cur.execute("SELECT * FROM players WHERE pid IN %s;", (tuple(test),))
+			return cur.fetchall()

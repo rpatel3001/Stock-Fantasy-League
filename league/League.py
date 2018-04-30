@@ -1,10 +1,14 @@
 from flask_restful import reqparse, abort, Resource
 import json
 class League(Resource):
-    @staticmethod  # getLeagueInfo
-    #Getting league info from specified league
-    def get(cur, LID):
-
-        cur.execute("SELECT * FROM leagues WHERE lid = %s;", [LID])
-        return json.dumps({"Leagues": cur.fetchall()})
-        pass
+	@staticmethod  # getLeagueInfo
+	#Getting league info from specified league
+	def get(cur, LID):
+		if LID < 7:
+			cur.execute("SELECT * FROM premade_leagues WHERE lid = %s;", [LID])
+			return cur.fetchall()
+		else:
+			cur.execute("SELECT * FROM leagues WHERE lid = %s;", [LID])
+			return cur.fetchall()
+	pass
+ 
