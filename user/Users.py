@@ -42,7 +42,7 @@ class Users(Resource):
         #when account exists in DB
         cur.execute("SELECT uid from userprefs WHERE token LIKE %s;", (logintoken,))
         newUserUID = cur.fetchone()
-        cur.execute("UPDATE userprefs SET dailylogin = 1 WHERE uid = %s;", (newUserUID[uid],))
+        cur.execute("UPDATE userprefs SET dailylogin = 1 WHERE uid = %s;", (newUserUID['uid'],))
 
         if session.get('loginstatus') == None or session['loginstatus'] != logintoken:
             session["loginstatus"] = logintoken
