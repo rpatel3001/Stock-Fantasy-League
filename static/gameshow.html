@@ -1,7 +1,11 @@
 <div ng-controller="GameShowController">
-    <!--<nav class="navbar navbar-light bg-light justify-content-between">
-        <a class="navbar-brand">Users</a> HELLO QUIZ {{title}}
+    <nav class="navbar navbar-light bg-light justify-content-between">
+        <a class="navbar-brand">{{league.industry}} Game Show starts at {{starttime*1000 | date:'MMMM d, yyyy h:m:ss a'}}</a>
+        <form class="form-inline">
+            <h3 class="navbar-brand">{{numcorrect}} questions answered correctly</h3>
+        </form>
     </nav>
+    <!--
     <div class="container-fluid">
         <div class="card">
             <div class="card-body">
@@ -10,7 +14,6 @@
                 </div>
             </div>
         </div>-->
-    {{numcorrect}}
     <div class="card">
         <div class="card-body">
             <h2 ng-class="timer" class="text-center">{{seconds_left}} seconds left</h2>

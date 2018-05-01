@@ -90,6 +90,10 @@ stk.controller('GameShowController', ['$scope', '$timeout', '$interval', '$http'
     } else {
         //$scope.lid = 1;
     }
+    var reqLeague = {
+        method: 'GET',
+        url: 'http://stock-fantasy-league.herokuapp.com/api/league/' + $scope.lid
+    };
     var req = {
         method: 'GET',
         url: 'http://stock-fantasy-league.herokuapp.com/api/league/' + $scope.lid + '/startquiz/' + $scope.pid
@@ -109,26 +113,34 @@ stk.controller('GameShowController', ['$scope', '$timeout', '$interval', '$http'
     $scope.counter_promise = null;
     $scope.showing_answer = false;
     $scope.selected_index = -1;
-    // $scope.starttime = Math.round(new Date().getTime() + 10);
-    $http(req).then(function (response) {
-        $scope.questions = response.data; //check
-        $scope.numquestions = $scope.questions.length;
-        $scope.question = $scope.questions[$scope.qindex];
-        $http(reqServerTime).then(function (response) {
-            $scope.servertime = response.data;
-            $scope.starttime = Math.floor((new Date()).getTime() / 1000) + 3;
-            if (($scope.initdelay = $scope.starttime - $scope.servertime) > 0) {
-                $scope.seconds_left = $scope.initdelay;
-                $scope.start_seconds = $scope.initdelay;
-                $interval($scope.countdown, 1000, $scope.initdelay, true);
-                $timeout($scope.nextQuestion, $scope.initdelay * 1000);
-            }
-        }, function (repsonse) {
-            console.log(response);
-        })
-    }, function (response) {
-        console.log('Failing getting league info!');
+    var testingSetTime = {
+        method: 'POST',
+        url: 'http://stock-fantasy-league.herokuapp.com/api/setquiztime'
+    };
+    $http(reqLeague).then(function (response) {
+        $scope.league = response.data[0];
+        $scope.starttime = $scope.league.quiztime;
+        $http(req).then(function (response) {
+            $scope.questions = response.data; //check
+            $scope.numquestions = $scope.questions.length;
+            $scope.question = $scope.questions[$scope.qindex];
+            $http(reqServerTime).then(function (response) {
+                $scope.servertime = response.data;
+                //$scope.starttime = Math.floor((new Date()).getTime() / 1000) + 3;
+                if (($scope.initdelay = $scope.starttime - $scope.servertime) > 0) {
+                    $scope.seconds_left = $scope.initdelay;
+                    $scope.start_seconds = $scope.initdelay;
+                    $interval($scope.countdown, 1000, $scope.initdelay, true);
+                    $timeout($scope.nextQuestion, $scope.initdelay * 1000);
+                }
+            }, function (repsonse) {
+                console.log(response);
+            })
+        }, function (response) {
+            console.log('Failing getting league info!');
+        });
     });
+    // $scope.starttime = Math.round(new Date().getTime() + 10);
     $scope.startGameshow = function () {
         $interval($scope.countdown, 1000, avail_time, true);
         $timeout($scope.showAnswer, avail_time * 1000);
@@ -198,7 +210,7 @@ stk.controller('GameShowController', ['$scope', '$timeout', '$interval', '$http'
     /* $scope.endGameshow = function(){
          //send to endpoint and display to user
      }*/
-}]);
+                }]);
 stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams', '$route', function ($scope, $http, $rootScope, $routeParams, $route) {
     if ($routeParams.uid == undefined) {
         $scope.paramuid = 1;
