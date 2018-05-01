@@ -188,21 +188,91 @@ def generate(cur):
     print(a73)
     print()
 
+    l1 = [(1, a11, e11), (2, a12, e12), (3, a13, e13)]
+    random.shuffle(l1)
+    a11 = l1[0][1]
+    a12 = l1[1][1]
+    a13 = l1[2][1]
+    e11 = l1[0][2]
+    e12 = l1[1][2]
+    e13 = l1[2][2]
+    i1 = next(i for i, x in enumerate(l1) if x[0] == 3)
+
+    l2 = [(1, a21, e21), (2, a22, e22), (3, a23, e23)]
+    random.shuffle(l2)
+    a21 = l2[0][1]
+    a22 = l2[1][1]
+    a23 = l2[2][1]
+    e21 = l2[0][2]
+    e22 = l2[1][2]
+    e23 = l2[2][2]
+    i2 = next(i for i, x in enumerate(l2) if x[0] == 3)
+
+    l3 = [(1, a31, e31), (2, a32, e32), (3, a33, e33)]
+    random.shuffle(l3)
+    a31 = l3[0][1]
+    a32 = l3[1][1]
+    a33 = l3[2][1]
+    e31 = l3[0][2]
+    e32 = l3[1][2]
+    e33 = l3[2][2]
+    i3 = next(i for i, x in enumerate(l3) if x[0] == 3)
+
+    l4 = [(1, a41, e41), (2, a42, e42), (3, a43, e43)]
+    random.shuffle(l4)
+    a41 = l4[0][1]
+    a42 = l4[1][1]
+    a43 = l4[2][1]
+    e41 = l4[0][2]
+    e42 = l4[1][2]
+    e43 = l4[2][2]
+    i4 = next(i for i, x in enumerate(l4) if x[0] == 3)
+
+    l5 = [(1, a51, e51), (2, a52, e52), (3, a53, e53)]
+    random.shuffle(l5)
+    a51 = l5[0][1]
+    a52 = l5[1][1]
+    a53 = l5[2][1]
+    e51 = l5[0][2]
+    e52 = l5[1][2]
+    e53 = l5[2][2]
+    i5 = next(i for i, x in enumerate(l5) if x[0] == 3)
+
+    l6 = [(1, a61, e61), (2, a62, e62), (3, a63, e63)]
+    random.shuffle(l6)
+    a61 = l6[0][1]
+    a62 = l6[1][1]
+    a63 = l6[2][1]
+    e61 = l6[0][2]
+    e62 = l6[1][2]
+    e63 = l6[2][2]
+    i6 = next(i for i, x in enumerate(l6) if x[0] == 3)
+
+    l7 = [(1, a71, e71), (2, a72, e72), (3, a73, e73)]
+    random.shuffle(l7)
+    a71 = l7[0][1]
+    a72 = l7[1][1]
+    a73 = l7[2][1]
+    e71 = l7[0][2]
+    e72 = l7[1][2]
+    e73 = l7[2][2]
+    i7 = next(i for i, x in enumerate(l7) if x[0] == 3)
+
     cur.execute('TRUNCATE TABLE question RESTART IDENTITY;')
-    cur.execute("INSERT INTO question (question, answers, answer_index, answer_descriptions, overall_description) VALUES (%s, %s, %s, %s, %s)", (q1, [a11, a12, a13], 2, [e11, e12, e13], e1))
-    cur.execute("INSERT INTO question (question, answers, answer_index, answer_descriptions, overall_description) VALUES (%s, %s, %s, %s, %s)", (q2, [a21, a22, a23], 2, [e21, e22, e23], e2))
-    cur.execute("INSERT INTO question (question, answers, answer_index, answer_descriptions, overall_description) VALUES (%s, %s, %s, %s, %s)", (q3, [a31, a32, a33], 2, [e31, e32, e33], e3))
-    cur.execute("INSERT INTO question (question, answers, answer_index, answer_descriptions, overall_description) VALUES (%s, %s, %s, %s, %s)", (q4, [a41, a42, a43], 2, [e41, e42, e43], e4))
-    cur.execute("INSERT INTO question (question, answers, answer_index, answer_descriptions, overall_description) VALUES (%s, %s, %s, %s, %s)", (q5, [a51, a52, a53], 2, [e51, e52, e53], e5))
-    cur.execute("INSERT INTO question (question, answers, answer_index, answer_descriptions, overall_description) VALUES (%s, %s, %s, %s, %s)", (q6, [a61, a62, a63], 2, [e61, e62, e63], e6))
-    cur.execute("INSERT INTO question (question, answers, answer_index, answer_descriptions, overall_description) VALUES (%s, %s, %s, %s, %s)", (q7, [a71, a72, a73], 2, [e71, e72, e73], e7))
-    return {"q1": {"text": q1, "answers": [a11, a12, a13], "explanations": [e11, e12, e13], "explanation": e1},
-            "q2": {"text": q2, "answers": [a21, a22, a23], "explanations": [e21, e22, e23], "explanation": e2},
-            "q3": {"text": q3, "answers": [a31, a32, a33], "explanations": [e31, e32, e33], "explanation": e3},
-            "q4": {"text": q4, "answers": [a41, a42, a43], "explanations": [e41, e42, e43], "explanation": e4},
-            "q5": {"text": q5, "answers": [a51, a52, a53], "explanations": [e51, e52, e53], "explanation": e5},
-            "q6": {"text": q6, "answers": [a61, a62, a63], "explanations": [e61, e62, e63], "explanation": e6},
-            "q7": {"text": q7, "answers": [a71, a72, a73], "explanations": [e71, e72, e73], "explanation": e7}}
+    cur.execute("INSERT INTO question (question, answers, answer_index, answer_descriptions, overall_description) VALUES (%s, %s, %s, %s, %s)", (q1, [a11, a12, a13], i1, [e11, e12, e13], e1))
+    cur.execute("INSERT INTO question (question, answers, answer_index, answer_descriptions, overall_description) VALUES (%s, %s, %s, %s, %s)", (q2, [a21, a22, a23], i2, [e21, e22, e23], e2))
+    cur.execute("INSERT INTO question (question, answers, answer_index, answer_descriptions, overall_description) VALUES (%s, %s, %s, %s, %s)", (q3, [a31, a32, a33], i3, [e31, e32, e33], e3))
+    cur.execute("INSERT INTO question (question, answers, answer_index, answer_descriptions, overall_description) VALUES (%s, %s, %s, %s, %s)", (q4, [a41, a42, a43], i4, [e41, e42, e43], e4))
+    cur.execute("INSERT INTO question (question, answers, answer_index, answer_descriptions, overall_description) VALUES (%s, %s, %s, %s, %s)", (q5, [a51, a52, a53], i5, [e51, e52, e53], e5))
+    cur.execute("INSERT INTO question (question, answers, answer_index, answer_descriptions, overall_description) VALUES (%s, %s, %s, %s, %s)", (q6, [a61, a62, a63], i6, [e61, e62, e63], e6))
+    cur.execute("INSERT INTO question (question, answers, answer_index, answer_descriptions, overall_description) VALUES (%s, %s, %s, %s, %s)", (q7, [a71, a72, a73], i7, [e71, e72, e73], e7))
+    return {"q1": {"text": q1, "answers": [a11, a12, a13], "explanations": [e11, e12, e13], "explanation": e1, 'answer_index': i1},
+            "q2": {"text": q2, "answers": [a21, a22, a23], "explanations": [e21, e22, e23], "explanation": e2, 'answer_index': i2},
+            "q3": {"text": q3, "answers": [a31, a32, a33], "explanations": [e31, e32, e33], "explanation": e3, 'answer_index': i3},
+            "q4": {"text": q4, "answers": [a41, a42, a43], "explanations": [e41, e42, e43], "explanation": e4, 'answer_index': i4},
+            "q5": {"text": q5, "answers": [a51, a52, a53], "explanations": [e51, e52, e53], "explanation": e5, 'answer_index': i5},
+            "q6": {"text": q6, "answers": [a61, a62, a63], "explanations": [e61, e62, e63], "explanation": e6, 'answer_index': i6},
+            "q7": {"text": q7, "answers": [a71, a72, a73], "explanations": [e71, e72, e73], "explanation": e7, 'answer_index': i7}}
 
 if __name__ == "__main__":
     try:

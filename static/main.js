@@ -151,7 +151,8 @@ stk.controller('GameShowController', ['$scope', '$timeout', '$interval', '$http'
             $http(req).then(function (response) {
                 $scope.questions = response.data; //check
                 $scope.numquestions = $scope.questions.length;
-                //$scope.numquestions = [0]; //TO REVERT
+                console.log("G+" + $scope.numquestions);
+                //$scope.numquestions; //TO REVERT
                 $scope.question = $scope.questions[$scope.qindex];
                 $http(reqServerTime).then(function (response) {
                     $scope.servertime = response.data;
@@ -183,7 +184,7 @@ stk.controller('GameShowController', ['$scope', '$timeout', '$interval', '$http'
             $scope.disbutton = false;
             $scope.selected_index = -1;
             ++$scope.qindex;
-            if ($scope.qindex > ($scope.numquestions.length - 1)) {
+            if ($scope.qindex > ($scope.numquestions - 1)) {
                 //NEED TO FINISH
                 console.log("completed");
                 $scope.endGameshow();
@@ -246,13 +247,13 @@ stk.controller('GameShowController', ['$scope', '$timeout', '$interval', '$http'
         $scope.endGameshow = function () {
             $scope.quizLive = false;
             $scope.showing_answer = false;
-            var ratio = $scope.numcorrect / $scope.numquestions.length;
+            var ratio = $scope.numcorrect / $scope.numquestions;
             if (ratio > .75) {
-                $scope.nonLiveText = "🌟 Good job! You got " + $scope.numcorrect + " questions correct out of " + $scope.numquestions.length + ". Thank you for participating in the quiz! 🌟";
+                $scope.nonLiveText = "🌟 Good job! You got " + $scope.numcorrect + " questions correct out of " + $scope.numquestions + ". Thank you for participating in the quiz! 🌟";
             } else if (ratio > .5) {
-                $scope.nonLiveText = "⭐ You got " + $scope.numcorrect + " questions correct out of " + $scope.numquestions.length + ". Thank you for participating in the quiz! ⭐";
+                $scope.nonLiveText = "⭐ You got " + $scope.numcorrect + " questions correct out of " + $scope.numquestions + ". Thank you for participating in the quiz! ⭐";
             } else {
-                $scope.nonLiveText = "Better luck next time! You got " + $scope.numcorrect + " questions correct out of " + $scope.numquestions.length + ". Thank you for participating in the quiz!"
+                $scope.nonLiveText = "Better luck next time! You got " + $scope.numcorrect + " questions correct out of " + $scope.numquestions + ". Thank you for participating in the quiz!"
             }
 
             var sendScore = {
@@ -668,7 +669,7 @@ stk.controller('NavbarController', ['$scope', function ($scope, $rootScope) {
         }, {
                 name: 'Lesson',
                 command: 'ViewLesson',
-                href: '/lesson.html'
+                href: '/lessons.html'
         }
                ]
     };
