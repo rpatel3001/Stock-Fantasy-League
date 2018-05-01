@@ -1,15 +1,101 @@
 <div ng-controller="GameShowController">
-    <nav class="navbar navbar-light bg-light justify-content-between">
+    <!--<nav class="navbar navbar-light bg-light justify-content-between">
         <a class="navbar-brand">Users</a> HELLO QUIZ {{title}}
     </nav>
     <div class="container-fluid">
         <div class="card">
             <div class="card-body">
-                {{description}}
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
             </div>
+        </div>-->
+    {{numcorrect}}
+    <div class="card">
+        <div class="card-body">
+            <h2 ng-class="timer" class="text-center">{{seconds_left}} seconds left</h2>
+            <div class="progress">
+                <div ng-style="progressbar" ng-class="progressbarclass" class="progress-bar progress-bar-striped" role="progressbar" style="width: 0%" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <br>
+            <h2 class="card-title mb-2 text-muted">Question #{{qindex+1}}</h2>
+            <h1 class="card-subtitle mb-2">{{questions[qindex].question}}</h1>
+            <button ng-class="buttonclass($index)" ng-repeat="answer in questions[qindex].answers" class="btn btn-outline-primary btn-block btn-large" ng-click="selectAnswer($index);"><h2>{{answer}}</h2><span ng-show="showing_answer">{{questions[qindex].answer_descriptions[$index]}}</span></button>
+            <h4 class="card-text" ng-show="showing_answer">
+                {{questions[qindex].overall_description}}
+            </h4>
         </div>
-        <button ng-class="{'disabled':disbutton}" class="btn" ng-repeat="an in questions[qindex].answers" ng-click="selectAnswer($index)">{{an}}
-        </button>
-
     </div>
+    <!--<br>
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <h2 class="text-center text-danger">3 seconds left</h2>
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <br>
+            <h2 class="card-title mb-2 text-muted">Question #1</h2>
+            <h1 class="card-subtitle mb-2">Which of these stocks is the least volatile?</h1>
+            <button class="btn btn-outline-primary btn-block btn-large"><h2>GE</h2></button>
+            <button class="btn btn-outline-primary btn-block btn-large"><h2>APPL</h2></button>
+            <button class="btn btn-outline-primary btn-block btn-large"><h2>X</h2></button>
+            <button class="btn btn-outline-primary btn-block btn-large"><h2>TSLA</h2></button>
+        </div>
+    </div>
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <h2 class="text-center">12 seconds to next question</h2>
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <br>
+            <h2 class="card-title mb-2 text-muted">Question #1</h2>
+            <h1 class="card-subtitle mb-2">Which of these stocks is the least volatile?</h1>
+            <button class="btn btn-success btn-block btn-large"><h2>GE - 0.95</h2></button>
+            <button class="btn btn-secondary btn-block btn-large"><h2>APPL - 0.98</h2></button>
+            <button class="btn btn-danger btn-block btn-large"><h2>X - 1.90</h2></button>
+            <button class="btn btn-secondary btn-block btn-large"><h2>TSLA - 1.32</h2></button>
+
+            <h4 class="card-text">
+                GE (General Electric) stock has the lowest Beta value at 0.95. The average market volatility is a Beta of 1. The lower a stock's Beta, the less volatile it is.
+            </h4>
+        </div>
+    </div>
+</div>
+<br>
+<div class="card">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <div class="card-body">
+                <h2 class="text-center">12 seconds to next question</h2>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+        </li>
+        <li class="list-group-item">
+            <div class="card-body">
+                <br>
+                <h2 class="card-title mb-2 text-muted">Question #1</h2>
+                <h1 class="card-subtitle mb-2">Which of these stocks is the least volatile?</h1>
+                <button class="btn btn-success btn-block btn-large"><h2>GE - 0.95</h2></button>
+                <button class="btn btn-secondary btn-block btn-large"><h2>APPL - 0.98</h2></button>
+                <button class="btn btn-danger btn-block btn-large"><h2>X - 1.90</h2></button>
+                <button class="btn btn-secondary btn-block btn-large"><h2>TSLA - 1.32</h2></button>
+            </div>
+        </li>
+        <li class="list-group-item">
+            <div class="card-body">
+                <h4 class="card-text">
+                    GE (General Electric) stock has the lowest Beta value at 0.95. The average market volatility is a Beta of 1. The lower a stock's Beta, the less volatile it is.
+                </h4>
+            </div>
+        </li>
+    </ul>
+</div>
+</div>
+
+</div>-->
 </div>

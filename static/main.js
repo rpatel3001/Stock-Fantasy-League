@@ -96,21 +96,32 @@ stk.controller('GameShowController', ['$scope', '$timeout', '$interval', '$http'
     };
     var reqServerTime = {
         method: 'GET',
-        url: 'http://stock-fantasy-league.herokuapp.com/api/league/' + $scope.lid + '/startquiz/' + $scope.pid
+        url: 'http://stock-fantasy-league.herokuapp.com/api/servertime'
     };
+    var avail_time = 20,
+        resp_time = 25;
     $scope.data = null;
-    $scope.qindex = 0;
+    $scope.qindex = -1;
     $scope.numcorrect = 0;
-    $scope.disbutton = false;
+    $scope.disbutton = "";
+    $scope.seconds_left = avail_time;
+    $scope.start_seconds = avail_time;
+    $scope.counter_promise = null;
+    $scope.showing_answer = false;
+    $scope.selected_index = -1;
     // $scope.starttime = Math.round(new Date().getTime() + 10);
     $http(req).then(function (response) {
         $scope.questions = response.data; //check
+        $scope.numquestions = $scope.questions.length;
+        $scope.question = $scope.questions[$scope.qindex];
         $http(reqServerTime).then(function (response) {
-            //$scope.servertime = response.data;
-            $scope.starttime = Math.round(new Date().getTime() + 10000);
-            $scope.servertime = Math.round(new Date().getTime());
+            $scope.servertime = response.data;
+            $scope.starttime = Math.floor((new Date()).getTime() / 1000) + 3;
             if (($scope.initdelay = $scope.starttime - $scope.servertime) > 0) {
-                $timeout($scope.startGameshow, $scope.initdelay);
+                $scope.seconds_left = $scope.initdelay;
+                $scope.start_seconds = $scope.initdelay;
+                $interval($scope.countdown, 1000, $scope.initdelay, true);
+                $timeout($scope.nextQuestion, $scope.initdelay * 1000);
             }
         }, function (repsonse) {
             console.log(response);
@@ -119,20 +130,73 @@ stk.controller('GameShowController', ['$scope', '$timeout', '$interval', '$http'
         console.log('Failing getting league info!');
     });
     $scope.startGameshow = function () {
-        $timeout($scope.showAnswer, 20000);
+        $interval($scope.countdown, 1000, avail_time, true);
+        $timeout($scope.showAnswer, avail_time * 1000);
     }
     $scope.nextQuestion = function () {
+        $scope.disbutton = false;
+        $scope.selected_index = -1;
         ++$scope.qindex;
-        $timeout($scope.showAnswer, 20000);
+        if ($scope.qindex >= $scope.num.length) {
+            //NEED TO FINISH
+        }
+        $scope.showing_answer = false;
+        $scope.seconds_left = avail_time;
+        $scope.start_seconds = avail_time;
+        $interval($scope.countdown, 1000, avail_time, true);
+        $timeout($scope.showAnswer, avail_time * 1000);
     }
     $scope.showAnswer = function () {
-        description = "qindex is" + $scope.qindex;
-        $timeout($scope.nextQuestion, 20000);
+        if ($scope.selected_index == $scope.questions[$scope.qindex].answer_index) {
+            //console.log("correctAnswer");
+            $scope.numcorrect += 1;
+        }
+        $scope.showing_answer = true;
+        $scope.seconds_left = resp_time;
+        $scope.start_seconds = resp_time;
+        $interval($scope.countdown, 1000, resp_time, true);
+        $timeout($scope.nextQuestion, resp_time * 1000);
     }
     $scope.selectAnswer = function (index) {
         $scope.disbutton = true;
-        var correctindex = $scope.questions[$scope.qindex].correctAnswer; //check
+        $scope.selected_index = index;
+    };
+    $scope.countdown = function () {
+        $scope.seconds_left -= 1;
+        var ratio = ($scope.start_seconds - $scope.seconds_left) / $scope.start_seconds;
+        $scope.progressbar = {
+            'width': (($scope.start_seconds - $scope.seconds_left) / $scope.start_seconds) * 100 + "%"
+        }
+        if (ratio > .75) {
+            $scope.progressbarclass = "bg-danger";
+            $scope.timer = "text-danger";
+        } else if (ratio > .5) {
+            $scope.progressbarclass = "bg-warning";
+            $scope.timer = "text-warning";
+        } else {
+            $scope.progressbarclass = "bg-success";
+            $scope.timer = "";
+        }
     }
+
+    $scope.buttonclass = function (index) {
+        if ($scope.showing_answer && index == $scope.questions[$scope.qindex].answer_index) {
+            return "btn-success  disabled";
+        } else if ($scope.showing_answer && index == $scope.selected_index) {
+            return "btn-danger  disabled";
+        } else if ($scope.showing_answer) {
+            return "btn-secondary  disabled";
+        } else if ($scope.disbutton && index == $scope.selected_index) {
+            return "btn-primary disabled";
+        } else if ($scope.disbutton) {
+            return "btn-outline-primary disabled";
+        } else {
+            return "btn-outline-primary";
+        }
+    };
+    /* $scope.endGameshow = function(){
+         //send to endpoint and display to user
+     }*/
 }]);
 stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams', '$route', function ($scope, $http, $rootScope, $routeParams, $route) {
     if ($routeParams.uid == undefined) {
