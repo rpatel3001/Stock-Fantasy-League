@@ -11,4 +11,4 @@ class GenerateQuestions(Resource):
     @staticmethod
     def get(cur):
         """Manually trigger question generation."""
-        return jsonify({"questions": generate(cur)}, indent=4)
+        return jsonify({"questions": generate(cur)})
