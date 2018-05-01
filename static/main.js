@@ -605,7 +605,7 @@ stk.controller('LeagueListController', ['$scope', '$http', '$rootScope', '$locat
                 }, function loginFailure(response) {
                     console.log('Failing getting leagues info!');
                 });
-                $location.path("/league/" + selected_lid + "/player/" + response.data[response.data.length - 1].pid)
+                $location.path("/league/" + selected_lid + "/player/" + response.data[response.data.length - 1].pid);
                 //console.log(response.pid); //unwrapped json
             }, function (response) {
                 console.log('Failing to join league!');
@@ -663,7 +663,7 @@ stk.controller('LeagueListController', ['$scope', '$http', '$rootScope', '$locat
                 $('#createLeagueModal').modal('hide');
                 $('body').removeClass('modal-open');
                 $('.modal-backdrop').remove();
-                $route.reload();
+                $location.path("/league/" + response.data.lid);
             }, function (response) {
                 console.log('Failing getting league info!');
             });
