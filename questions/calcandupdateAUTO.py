@@ -60,7 +60,7 @@ class updatepoints(Resource):
 
 
 
-			score = math.pow(1.5, count)
+			score = math.pow(1.0685, count)
 			score = score * ((balance+totalShareValue)/1000)
 			score += (0.5 * quizpoints)
 			score += diverse
