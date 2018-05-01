@@ -466,7 +466,7 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
                     }
                     //update sholding with server
                     //$scope.updatePlayer();
-                    if (uid > 0) {
+                    if ($scope.uid > 0) {
                         var reqUser = {
                             method: 'GET',
                             url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.uid
