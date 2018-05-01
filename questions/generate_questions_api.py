@@ -2,7 +2,7 @@
 
 from flask_restful import Resource
 from .generate_questions import generate
-import json
+from flask import jsonify
 
 
 class GenerateQuestions(Resource):
@@ -11,4 +11,4 @@ class GenerateQuestions(Resource):
     @staticmethod
     def get(cur):
         """Manually trigger question generation."""
-        return json.dumps({"questions": generate(cur)}, indent=4)
+        return jsonify({"questions": generate(cur)})
