@@ -40,7 +40,7 @@
                     <span ng-if="uid>0 && league.owneruid != uid && league.uid.indexOf(uid)>=0"><button class="btn btn-warning" ng-click="leaveLeague(uid,league.pid[league.uid.indexOf(uid)])">Leave League</button></span>
                 </p>-->
             <p ng-if="uid>0 && lid<7 && league.uid.indexOf(uid)>=0" class="lead">
-                <a class="btn btn-primary btn-lg btn-block" ng-href="#!/league/{{lid}}/gameshow/1">Start Gameshow</a>
+                <a class="btn btn-primary btn-lg btn-block" ng-href="#!/league/{{lid}}/gameshow/{{pid}}">Start Gameshow</a>
             </p>
         </div>
     </div>
