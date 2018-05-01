@@ -137,8 +137,9 @@ stk.controller('GameShowController', ['$scope', '$timeout', '$interval', '$http'
         $scope.disbutton = false;
         $scope.selected_index = -1;
         ++$scope.qindex;
-        if ($scope.qindex >= $scope.num.length) {
+        if ($scope.qindex >= $scope.numquestions.length) {
             //NEED TO FINISH
+            console.log("completed");
         }
         $scope.showing_answer = false;
         $scope.seconds_left = avail_time;
@@ -562,6 +563,18 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
         }, function () {});
     };
             }]);
+stk.filter('stockSearch', function () {
+    return function (input, searchstatus) {
+        console.log(searchstatus);
+        if (searchname === undefined || (searchname.name == "" && searchname.symbol == "")) {
+            console.log(index + index < 100 ? true : false);
+            return index < 100 ? input : false;
+        } else {
+            return input;
+        }
+    }
+
+});
 stk.controller('NavbarController', ['$scope', function ($scope, $rootScope) {
     $scope.signedIn = false;
     $scope.username = '';

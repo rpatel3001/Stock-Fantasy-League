@@ -1,32 +1,79 @@
 <div ng-controller="PlayerController" class="container-fluid">
     <nav class="navbar navbar-light bg-light justify-content-between">
         <a class="navbar-brand">{{league.leaguename}}{{league.industry}} : Player</a>
-        <!--<form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search Leagues" aria-label="Search" ng-model="LeagueSelect.leaguename">
-        </form>-->
     </nav>
-    <ul>
+
+    <div class="jumbotron jumbotron-fluid header-blue">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1 class="display-4" style="color: #ffffff">
+                        <img class="card-img-top rounded-circle" style="width:20%;margin:auto;" ng-src="{{user.imageurl}}" alt="Card image cap"> {{user.username}} in {{league.leaguename}}{{league.industry}}</h1>
+                </div>
+                <div class="col-md-6" ng-if="lid>6">
+                    <a ng-href="#!/user/{{owner.uid}}"><span class="float-right"><h1 class="display-4" style="color: #ffffff">
+                        {{player.availbalance | currency}} available</h1>
+                        </span>
+                        </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="lead" style="color: #ffffff">{{player.reppoints}} RepPoints</p>
+                </div>
+                <div class="col-md-6" ng-if="lid>6">
+                    <h5 class="text-right" style="color: #ffffff">Ends on {{league.duration | date}}</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-right" style="color: #ffffff">Start with {{league.startbal | currency}}</h5>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-right" style="color: #ffffff">{{player.holdings.length}} unique stocks owned</h5>
+                </div>
+            </div>
+            <hr class="my-4" style="color: #ffffff">
+            <!--<p class="lead" ng-Controller="LeagueListController">
+                    <span ng-if="uid>0 && league.uid.indexOf(uid) == -1"><button class="btn btn-primary" ng-click="joinLeague(lid);">Join</button></span>
+                    <span ng-if="uid>0 && league.owneruid === uid"><button class="btn btn-danger" ng-click="deleteLeague(lid)">Delete League</button></span>
+                    <span ng-if="uid>0 && league.owneruid != uid && league.uid.indexOf(uid)>=0"><button class="btn btn-warning" ng-click="leaveLeague(uid,league.pid[league.uid.indexOf(uid)])">Leave League</button></span>
+                </p>-->
+            <p ng-if="uid>0 && lid<7 && league.uid.indexOf(uid)>=0" class="lead">
+                <a class="btn btn-primary btn-lg btn-block" ng-href="#!/league/{{lid}}/gameshow/{{pid}}">Start Gameshow</a>
+            </p>
+        </div>
+    </div>
+    <!--<ul>
         <li ng-if="league.leaguename">League Name: {{ league.leaguename }}</li>
         <li ng-if="league.industry">Industry: {{ league.industry }}</li>
         <li>League Description: {{ league.description }}</li>
         <li>League Starting Balance: {{ league.startbal }}</li>
-    </ul>
+    </ul>-->
     <!--Search-->
-    <ul>
+    <!--<ul>
         Player Stats
         <!--<li>
             Ranking: {{ player.holdings.length }}
         </li>-->
-        <!-- need to update this-->
-        <li>
+    <!-- need to update this-->
+    <!--<li>
             Available Balance: {{ player.availbalance | currency}}
         </li>
-    </ul>
+    </ul>-->
     <br>
     <div ng-include="'modify_holding.html'"></div>
-    <h1>Current Player Holdings</h1>
-    <input placeholder="Stock Ticker" type="text" ng-model="stockSelect.symbol">
-    <input placeholder="Stock Name" type="text" ng-model="stockSelect.name">
+    <nav class="navbar navbar-light bg-light justify-content-between">
+        <a class="navbar-brand">
+            <h1>Current Holdings</h1>
+        </a>
+        <form class="form-inline">
+            <input class="form-control mr-sm-2" placeholder="Stock Ticker" type="text" ng-model="stockSelect.symbol">
+            <input class="form-control mr-sm-2" placeholder="Stock Name" type="text" ng-model="stockSelect.name">
+        </form>
+    </nav>
+    <!--<input placeholder="Stock Ticker" type="text" ng-model="stockSelect.symbol">
+    <input placeholder="Stock Name" type="text" ng-model="stockSelect.name">-->
     <table class="table">
         <tr>
             <td>Stock Ticker</td>
@@ -37,7 +84,7 @@
             <td>Sell</td>
         </tr>
 
-        <tr scope="row" ng-repeat="stock in player.holdings">
+        <tr scope="row" ng-repeat="stock in player.holdings | filter: stockSelect">
             <td>{{stock.symbol}}</td>
             <td>{{stock.name}}</td>
             <td>{{stock.numberShares}}</td>
@@ -46,7 +93,16 @@
             <td><button class="btn btn-danger" ng-click="openChangeHoldings(stock,'Sell')">Sell {{stock.symbol}}</button></td>
         </tr>
     </table>
-    <h1>Top Stocks Available</h1>
+    <!--<h1>Top Stocks Available</h1>-->
+    <nav class="navbar navbar-light bg-light justify-content-between">
+        <a class="navbar-brand">
+            <h1>Top 100 Stocks</h1>
+        </a>
+        <form class="form-inline">
+            <input class="form-control mr-sm-2" placeholder="Stock Ticker" type="text" ng-model="stockSelect.symbol">
+            <input class="form-control mr-sm-2" placeholder="Stock Name" type="text" ng-model="stockSelect.name">
+        </form>
+    </nav>
     <table class="table">
         <tr>
             <td>Stock Ticker</td>
@@ -55,7 +111,13 @@
             <td>Buy</td>
         </tr>
 
-        <tr scope="row" ng-repeat="stock in topStocks| filter : stockSelect">
+        <tr ng-hide="stockSelect.name || stockSelect.symbol" scope="row" ng-repeat="stock in topStocks| limitTo:100 ">
+            <td>{{stock.symbol}}</td>
+            <td>{{stock.name}}</td>
+            <td>{{stock.price | currency}}</td>
+            <td><button class="btn btn-success" ng-click="openChangeHoldings(stock,'Buy');">Buy {{stock.symbol}}</button></td>
+        </tr>
+        <tr ng-show="stockSelect.name || stockSelect.symbol" scope="row" ng-repeat="stock in topStocks| filter: stockSelect ">
             <td>{{stock.symbol}}</td>
             <td>{{stock.name}}</td>
             <td>{{stock.price | currency}}</td>
