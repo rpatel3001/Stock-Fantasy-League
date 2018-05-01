@@ -20,7 +20,7 @@ class User(Resource):
         print(args['description'])
         print(UID)
         print(createdPID[-1]['pid'])
-        cur.execute("INSERT INTO leagues (startBal, duration, leagueName, description, ownerUID, ownerPID) VALUES (%s, %s, %s, %s, %s, %s);", (int(args['startBal']), float(args['duration']), args['leagueName'], args['description'], UID, createdPID[-1]['pid']))   #creates the league with the user inputs
+        cur.execute("INSERT INTO leagues (startBal, duration, leagueName, description, ownerUID, ownerPID) VALUES (%s, %s, %s, %s, %s, %s);", (float(args['startBal']), int(args['duration']), args['leagueName'], args['description'], UID, createdPID[-1]['pid']))   #creates the league with the user inputs
         cur.execute("SELECT lid from leagues WHERE ownerUID=%s", [UID]) #gets the leagueID from league table for the created table
         createdLID = cur.fetchall() #sets equal to dictionary of LIDs       
         cur.execute("UPDATE players SET lid = %s WHERE pid = %s;", (createdLID[-1]['lid'], createdPID[-1]['pid']))    #updates players table(add themselves into league)
