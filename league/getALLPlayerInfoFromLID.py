@@ -19,5 +19,5 @@ class getALLPlayerInfoFromLID(Resource):
 			listofarrays = pidArray['pid']
 			string = ", ".join( repr(e) for e in listofarrays)
 			test = [int(s) for s in string.split(',')]
-			cur.execute("SELECT * FROM players WHERE pid IN %s;", (tuple(test),))
+			cur.execute("SELECT * FROM players WHERE pid IN %s ORDER BY reppoints DESC;", (tuple(test),))
 			return cur.fetchall()
