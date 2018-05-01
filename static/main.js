@@ -562,6 +562,18 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
         }, function () {});
     };
             }]);
+stk.filter('stockSearch', function () {
+    return function (input, searchstatus) {
+        console.log(searchstatus);
+        if (searchname === undefined || (searchname.name == "" && searchname.symbol == "")) {
+            console.log(index + index < 100 ? true : false);
+            return index < 100 ? input : false;
+        } else {
+            return input;
+        }
+    }
+
+});
 stk.controller('NavbarController', ['$scope', function ($scope, $rootScope) {
     $scope.signedIn = false;
     $scope.username = '';
