@@ -659,10 +659,10 @@ stk.controller('LeagueListController', ['$scope', '$http', '$rootScope', '$locat
                 $scope.duration = null;
                 $scope.leaguename = null;
                 $scope.description = null;
-                $scope.user.lid.push(response.data[response.data.length - 1].lid);
-                $('#createLeagueModal').modal('hide');
-                $('body').removeClass('modal-open');
-                $('.modal-backdrop').remove();
+                /* $scope.user.lid.push(response.data[response.data.length - 1].lid);
+                 $('#createLeagueModal').modal('hide');
+                 $('body').removeClass('modal-open');
+                 $('.modal-backdrop').remove();*/
                 $location.path("/league/" + response.data.lid);
             }, function (response) {
                 console.log('Failing getting league info!');
