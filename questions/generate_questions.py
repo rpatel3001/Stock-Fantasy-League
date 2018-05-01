@@ -117,14 +117,16 @@ def generate(cur):
     e5 = "Stock's can be separated into sectors. All stocks in a sector are related in some way, thus their share prices are related."
     sector = random.choice(("Utilities", "Health Care", "Financials", "Industrials", "Materials"))
     q5 += sector + "?"
-    cur.execute("SELECT symbol FROM stockdata WHERE sector LIKE '%s' ORDER BY RANDOM() LIMIT 2" % sector)
-    a51 = cur.fetchone()['symbol']
-    e51 = "This stock is in the sector: " + sector
-    a52 = cur.fetchone()['symbol']
-    e52 = "This stock is in the sector: " + sector
-    cur.execute("SELECT symbol, sector FROM stockdata WHERE sector NOT LIKE '%s' ORDER BY RANDOM() LIMIT 1" % sector)
+    cur.execute("SELECT symbol, name FROM stockdata WHERE sector LIKE '%s' ORDER BY RANDOM() LIMIT 2" % sector)
     x = cur.fetchone()
-    a53 = x['symbol']
+    a51 = x['symbol'] + ": " + x['name']
+    e51 = "This stock is in the sector: " + sector
+    x = cur.fetchone()
+    a52 = x['symbol'] + ": " + x['name']
+    e52 = "This stock is in the sector: " + sector
+    cur.execute("SELECT symbol, sector, name FROM stockdata WHERE sector NOT LIKE '%s' ORDER BY RANDOM() LIMIT 1" % sector)
+    x = cur.fetchone()
+    a53 = x['symbol'] + ": " + x['name']
     e53 = "This stock is in the sector: " + x['sector']
     print(q5)
     print(a51)
@@ -150,7 +152,7 @@ def generate(cur):
             pmax = max(pmax, float(d['2. high']))
             pmin = min(pmin, float(d['3. low']))
         prange = (pmax - pmin) / ((pmax + pmin) / 2)
-        ans.append((s, prange, pmax, pmin))
+        ans.append((s, prange, pmin, pmax))
     ans = sorted(ans, key=lambda k: k[1])
     a61 = ans[0][0]
     e61 = "This stock's 52 week low is " + str(ans[0][2]) + " and its 52 week high is " + str(ans[0][3])
