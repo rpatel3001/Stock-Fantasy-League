@@ -393,7 +393,7 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
                     if ($scope.player.availbalance == null) {
                         $scope.player.availbalance = $scope.league.startbal;
                     }
-                    if ($scope.player.translog == {}) {
+                    if (!($scope.player.translog instanceof Array)) {
                         $scope.player.translog = [];
                     }
                     //update sholding with server
