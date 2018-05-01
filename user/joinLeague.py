@@ -22,7 +22,7 @@ class joinLeague(Resource):
             cur.execute("SELECT startbal FROM premade_leagues WHERE lid = %s;", (int(args['lid']),))
             balance = cur.fetchone()
             balance = balance['startbal']
-            cur.execute("UPDATE players SET availbalance = %s;", (balance, ))
+            cur.execute("UPDATE players SET availbalance = %s WHERE pid = %s;", (balance, createdPID[-1]['pid']))
 
             pass
 
