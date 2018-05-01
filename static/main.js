@@ -106,7 +106,7 @@ stk.controller('GameShowController', ['$scope', '$timeout', '$interval', '$http'
             resp_time = 15;
         $scope.data = null;
         $scope.quizLive = false;
-        $scope.nonLiveText = "🌟 Get ready for the quiz! 🌟";
+        $scope.nonLiveText = "🌟 Get ready for the Gameshow! 🌟";
         $scope.qindex = -1;
         $scope.numcorrect = 0;
         $scope.disbutton = "";
@@ -124,8 +124,8 @@ stk.controller('GameShowController', ['$scope', '$timeout', '$interval', '$http'
             $scope.starttime = $scope.league.quiztime;
             $http(req).then(function (response) {
                 $scope.questions = response.data; //check
-                //$scope.numquestions = $scope.questions.length;
-                $scope.numquestions = [0];
+                $scope.numquestions = $scope.questions.length;
+                //$scope.numquestions = [0]; //TO REVERT
                 $scope.question = $scope.questions[$scope.qindex];
                 $http(reqServerTime).then(function (response) {
                     $scope.servertime = response.data;
@@ -137,7 +137,7 @@ stk.controller('GameShowController', ['$scope', '$timeout', '$interval', '$http'
                         $timeout($scope.nextQuestion, $scope.initdelay * 1000);
                     } else {
                         $scope.quizLive = false;
-                        $scope.nonLiveText = "Either the you joined the quiz too late or there is no quiz at the current time!";
+                        $scope.nonLiveText = "Either the you joined the Gameshow too late or there is no quiz at the current time!";
                         return;
                     }
                 }, function (repsonse) {
@@ -161,13 +161,13 @@ stk.controller('GameShowController', ['$scope', '$timeout', '$interval', '$http'
                 //NEED TO FINISH
                 console.log("completed");
                 $scope.endGameshow();
-                return;
+            } else {
+                $scope.showing_answer = false;
+                $scope.seconds_left = avail_time;
+                $scope.start_seconds = avail_time;
+                $interval($scope.countdown, 1000, avail_time, true);
+                $timeout($scope.showAnswer, avail_time * 1000);
             }
-            $scope.showing_answer = false;
-            $scope.seconds_left = avail_time;
-            $scope.start_seconds = avail_time;
-            $interval($scope.countdown, 1000, avail_time, true);
-            $timeout($scope.showAnswer, avail_time * 1000);
         }
         $scope.showAnswer = function () {
             if ($scope.selected_index == $scope.questions[$scope.qindex].answer_index) {
@@ -226,7 +226,7 @@ stk.controller('GameShowController', ['$scope', '$timeout', '$interval', '$http'
             } else if (ratio > .5) {
                 $scope.nonLiveText = "⭐ You got " + $scope.numcorrect + " questions correct out of " + $scope.numquestions.length + ". Thank you for participating in the quiz! ⭐";
             } else {
-                "Better luck next time! You got " + $scope.numcorrect + " questions correct out of " + $scope.numquestions.length + ". Thank you for participating in the quiz!"
+                $scope.nonLiveText = "Better luck next time! You got " + $scope.numcorrect + " questions correct out of " + $scope.numquestions.length + ". Thank you for participating in the quiz!"
             }
 
             var sendScore = {

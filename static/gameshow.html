@@ -1,6 +1,6 @@
 <div ng-controller="GameShowController">
     <nav class="navbar navbar-light bg-light justify-content-between">
-        <a class="navbar-brand">{{league.industry}} Game Show starts at {{starttime*1000 | date:'MMMM d, yyyy h:m:ss a'}}</a>
+        <a class="navbar-brand">{{league.industry}} Game Show starts at {{starttime*1000 | date:'MMMM d, yyyy h:mm:ss a'}}</a>
         <form class="form-inline">
             <h3 class="navbar-brand">{{numcorrect}} questions answered correctly</h3>
         </form>
@@ -23,8 +23,8 @@
             <br>
             <h2 ng-show="quizLive" class="card-title mb-2 text-muted">Question #{{qindex+1}}</h2>
             <h1 class="card-title text-center" ng-hide="quizLive">{{nonLiveText}}</h1>
-            <h1 class="card-subtitle mb-2">{{questions[qindex].question}}</h1>
-            <button ng-class="buttonclass($index)" ng-repeat="answer in questions[qindex].answers" class="btn btn-outline-primary btn-block btn-large" ng-click="selectAnswer($index);"><h2>{{answer}}</h2><span ng-show="showing_answer">{{questions[qindex].answer_descriptions[$index]}}</span></button>
+            <h1 ng-show="quizLive" class="card-subtitle mb-2">{{questions[qindex].question}}</h1>
+            <button ng-show="quizLive" ng-class="buttonclass($index)" ng-repeat="answer in questions[qindex].answers" class="btn btn-outline-primary btn-block btn-large" ng-click="selectAnswer($index);"><h2>{{answer}}</h2><span ng-show="showing_answer">{{questions[qindex].answer_descriptions[$index]}}</span></button>
             <h4 class="card-text" ng-show="showing_answer">
                 {{questions[qindex].overall_description}}
             </h4>
