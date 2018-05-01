@@ -17,7 +17,7 @@ class joinLeague(Resource):
             cur.execute("UPDATE userprefs SET pid = pid || %s WHERE uid = %s;", (createdPID[-1]['pid'], UID))
             cur.execute("UPDATE premade_leagues SET uid = uid || %s WHERE lid = %s;", ([UID], args['lid'])) 
             cur.execute("UPDATE userprefs SET lid = lid || %s WHERE uid = %s;", ([int(args['lid'])], UID))
-            cur.execute("UPDATE players SET lid = %s WHERE uid = %s;", ((args['lid']), UID))
+            cur.execute("UPDATE players SET lid = %s WHERE pid = %s;", ((args['lid']), createdPID[-1]['pid']))
 
             cur.execute("SELECT startbal FROM premade_leagues WHERE lid = %s;", (int(args['lid']),))
             balance = cur.fetchone()
@@ -34,7 +34,7 @@ class joinLeague(Resource):
             cur.execute("UPDATE userprefs SET pid = pid || %s WHERE uid = %s;", (createdPID[-1]['pid'], UID))
             cur.execute("UPDATE leagues SET uid = uid || %s WHERE lid = %s;", ([UID], args['lid'])) 
             cur.execute("UPDATE userprefs SET lid = lid || %s WHERE uid = %s;", ([int(args['lid'])], UID))
-            cur.execute("UPDATE players SET lid = %s WHERE uid = %s;", ((args['lid']), UID))
+            cur.execute("UPDATE players SET lid = %s WHERE pid = %s;", ((args['lid']), createdPID[-1]['pid']))
 
             cur.execute("SELECT startbal FROM leagues WHERE lid = %s;", (int(args['lid']),))
             balance = cur.fetchone()
