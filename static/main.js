@@ -466,15 +466,13 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
                     }
                     //update sholding with server
                     //$scope.updatePlayer();
-                    if ($scope.uid > 0) {
-                        var reqUser = {
-                            method: 'GET',
-                            url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.uid
-                        };
-                        $http(reqUser).then(function (response) {
-                            $scope.user = response.data;
-                        });
-                    }
+                    var reqUser = {
+                        method: 'GET',
+                        url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.player.uid
+                    };
+                    $http(reqUser).then(function (response) {
+                        $scope.user = response.data;
+                    });
                     $http(reqStocks).then(function (response) {
                         $scope.topStocks = response.data.stocks;
                     });
