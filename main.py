@@ -17,7 +17,7 @@ from user import Users, User, joinLeague, updateUserInfo, leaveLeague, buyVIP
 from player import Players, getPlayerInfoPID, updatePlayerInfo
 from league import Leagues, League, getPlayerInfoByUID, getLeagueInfoFromArray, getALLPlayerInfoFromLID, getEverythingLeague, deleteLeague, restartPremadeLeagues, removePlayer
 from stock_data import StockData, TopStocks, StockSearch
-from questions import question, sendQuestion, generate_questions_api, servertime, addquizpoints, calculateAndUpdate
+from questions import question, sendQuestion, generate_questions_api, servertime, addquizpoints, calculateAndUpdate, setquiztime, setquiztimemanual
 from lessons import getlesson
 
 app = Flask(__name__, static_url_path='')
@@ -62,6 +62,10 @@ def serve_index():
 # add API endpoints
 api.add_resource(class_with_db(addquizpoints.addquizpoints), '/api/player/<int:PID>/correct/<int:score>/add')
 api.add_resource(class_with_db(calculateAndUpdate.updatepoints), '/api/point/update')
+api.add_resource(class_with_db(setquiztime.setquiztime), '/api/setquiztime/league/<int:LID>')
+api.add_resource(class_with_db(setquiztimemanual.setquiztimemanual), '/api/setquiztime')
+
+
 
 api.add_resource(class_with_db(question.question), '/api/league/<int:LID>/startquiz/<int:PID>')
 api.add_resource(class_with_db(sendQuestion.sendQuestion), '/api/question/<int:QID>')
