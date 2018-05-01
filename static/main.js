@@ -41,6 +41,8 @@ stk.config(function ($routeProvider, $locationProvider) {
         templateUrl: 'terms.html'
     }).when("/integration_testing", {
         templateUrl: 'integration_testing.html'
+    }).when("/trading", {
+        templateUrl: 'trading_view.html'
     });
 });
 /*stk.service('SharedData', function () {
@@ -549,7 +551,8 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
             $scope.selectedStockPrice = response.data.stockdata[0].price;
             $('#holdingsModal').modal('show');
         }, function (response) {});
-    }
+    };
+
     $scope.modifyHoldings = function (stock, transactionType, numShares, price, testingStatus) {
         var index = $scope.player.holdings.findIndex(function (element) {
             return element.symbol == stock.symbol;
@@ -670,6 +673,10 @@ stk.controller('NavbarController', ['$scope', function ($scope, $rootScope) {
                 name: 'Lesson',
                 command: 'ViewLesson',
                 href: '/lessons.html'
+        }, {
+                name: 'Trading',
+                command: 'ViewTrading',
+                href: '#!/trading'
         }
                ]
     };

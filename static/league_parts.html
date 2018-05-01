@@ -113,7 +113,7 @@
             <nav class="navbar navbar-light bg-light justify-content-between">
                 <a class="navbar-brand">Users in {{league.leaguename}}{{league.industry}}</a>
                 <form class="form-inline">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search Players in League" aria-label="Search" ng-model="UserSelect.username">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search Players in League" aria-label="Search" ng-model="LeagueSelect">
                 </form>
             </nav>
             <div class="d-sm-none">
@@ -130,15 +130,17 @@
             <table class="table table-striped table-hover">
                 <thead class="thead-dark">
                     <tr>
+                        <th>Ranking</th>
                         <th>User Picture</th>
                         <th>User Name</th>
-                        <th>Ranking</th>
+                        <th>RepPoints</th>
                     </tr>
                 </thead>
                 <tr ng-repeat="player in players| filter: LeagueSelect">
+                    <td><a ng-href="#!/user/{{player.uid}}">{{$index+1}}</a></td>
                     <td><a ng-href="#!/user/{{player.uid}}"><img class="card-img-top rounded-circle" style="width:20%;margin:auto" ng-src="{{player.imageurl}}" alt="Card image cap"></a></td>
                     <td><a ng-href="#!/user/{{player.uid}}">{{player.username}}</a></td>
-                    <td><a ng-href="#!/user/{{player.uid}}">{{$index+1}}</a></td>
+                    <td><a ng-href="#!/user/{{player.uid}}">{{player.reppoints}}</a></td>
                     <!--player.ranking-->
                 </tr>
             </table>
