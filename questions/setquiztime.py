@@ -4,7 +4,7 @@ import datetime
 
 class setquiztime(Resource):
 	@staticmethod
-	def post(cur, LID):
+	def post(cur):
 
 		start_str = time.strftime( "%m/%d/%Y" ) + " 00:00:00"
 		end_str = time.strftime( "%m/%d/%Y ") + " 23:59:59"
@@ -17,7 +17,7 @@ class setquiztime(Resource):
 		# print(start_ts)
 		#	debug
 
-		cur.execute("UPDATE premade_leagues SET quiztime = %s WHERE lid = %s;", (start_ts,LID))
+		cur.execute("UPDATE premade_leagues SET quiztime = %s WHERE startbal = 10000;", (start_ts,))
 
 		return "SET"
 		
