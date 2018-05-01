@@ -188,7 +188,8 @@ def generate(cur):
     print(a73)
     print()
 
-    l1 = random.shuffle([(1, a11, e11), (2, a12, e12), (3, a13, e13)])
+    l1 = [(1, a11, e11), (2, a12, e12), (3, a13, e13)]
+    random.shuffle(l1)
     a11 = l1[0][1]
     a12 = l1[1][1]
     a13 = l1[2][1]
@@ -197,7 +198,8 @@ def generate(cur):
     e13 = l1[2][2]
     i1 = next(x for x in l1 if x[0] == 3)
 
-    l2 = random.shuffle([(1, a21, e21), (2, a22, e22), (3, a23, e23)])
+    l2 = [(1, a21, e21), (2, a22, e22), (3, a23, e23)]
+    random.shuffle(l2)
     a21 = l2[0][1]
     a22 = l2[1][1]
     a23 = l2[2][1]
@@ -206,7 +208,8 @@ def generate(cur):
     e23 = l2[2][2]
     i2 = next(x for x in l2 if x[0] == 3)
 
-    l3 = random.shuffle([(1, a31, e31), (2, a32, e32), (3, a33, e33)])
+    l3 = [(1, a31, e31), (2, a32, e32), (3, a33, e33)]
+    random.shuffle(l3)
     a31 = l3[0][1]
     a32 = l3[1][1]
     a33 = l3[2][1]
@@ -215,7 +218,8 @@ def generate(cur):
     e33 = l3[2][2]
     i3 = next(x for x in l3 if x[0] == 3)
 
-    l4 = random.shuffle([(1, a41, e41), (2, a42, e42), (3, a43, e43)])
+    l4 = [(1, a41, e41), (2, a42, e42), (3, a43, e43)]
+    random.shuffle(l4)
     a41 = l4[0][1]
     a42 = l4[1][1]
     a43 = l4[2][1]
@@ -224,7 +228,8 @@ def generate(cur):
     e43 = l4[2][2]
     i4 = next(x for x in l4 if x[0] == 3)
 
-    l5 = random.shuffle([(1, a51, e51), (2, a52, e52), (3, a53, e53)])
+    l5 = [(1, a51, e51), (2, a52, e52), (3, a53, e53)]
+    random.shuffle(l5)
     a51 = l5[0][1]
     a52 = l5[1][1]
     a53 = l5[2][1]
@@ -233,7 +238,8 @@ def generate(cur):
     e53 = l5[2][2]
     i5 = next(x for x in l5 if x[0] == 3)
 
-    l6 = random.shuffle([(1, a1, e1), (2, a62, e62), (3, a63, e63)])
+    l6 = [(1, a61, e61), (2, a62, e62), (3, a63, e63)]
+    random.shuffle(l6)
     a61 = l6[0][1]
     a62 = l6[1][1]
     a63 = l6[2][1]
@@ -242,7 +248,8 @@ def generate(cur):
     e63 = l6[2][2]
     i6 = next(x for x in l6 if x[0] == 3)
 
-    l7 = random.shuffle([(1, a71, e71), (2, a72, e72), (3, a73, e73)])
+    l7 = [(1, a71, e71), (2, a72, e72), (3, a73, e73)]
+    random.shuffle(l7)
     a71 = l7[0][1]
     a72 = l7[1][1]
     a73 = l7[2][1]
