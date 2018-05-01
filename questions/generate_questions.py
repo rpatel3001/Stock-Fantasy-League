@@ -124,7 +124,7 @@ def generate(cur):
     x = cur.fetchone()
     a52 = x['symbol'] + ": " + x['name']
     e52 = "This stock is in the sector: " + sector
-    cur.execute("SELECT symbol, sector FROM stockdata WHERE sector NOT LIKE '%s' ORDER BY RANDOM() LIMIT 1" % sector)
+    cur.execute("SELECT symbol, name FROM stockdata WHERE sector NOT LIKE '%s' ORDER BY RANDOM() LIMIT 1" % sector)
     x = cur.fetchone()
     a53 = x['symbol'] + ": " + x['name']
     e53 = "This stock is in the sector: " + x['sector']
