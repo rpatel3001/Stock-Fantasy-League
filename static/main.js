@@ -84,133 +84,158 @@ stk.controller('LeagueController', ['$scope', '$http', '$routeParams', function 
     });
 }]);
 stk.controller('GameShowController', ['$scope', '$timeout', '$interval', '$http', '$routeParams', function ($scope, $timeout, $interval, $http, $routeParams) {
-    if ($routeParams.lid != undefined && $routeParams.pid != undefined) {
-        $scope.lid = $routeParams.lid;
-        $scope.pid = $routeParams.pid;
-    } else {
-        //$scope.lid = 1;
-    }
-    var reqLeague = {
-        method: 'GET',
-        url: 'http://stock-fantasy-league.herokuapp.com/api/league/' + $scope.lid
-    };
-    var req = {
-        method: 'GET',
-        url: 'http://stock-fantasy-league.herokuapp.com/api/league/' + $scope.lid + '/startquiz/' + $scope.pid
-    };
-    var reqServerTime = {
-        method: 'GET',
-        url: 'http://stock-fantasy-league.herokuapp.com/api/servertime'
-    };
-    var avail_time = 20,
-        resp_time = 25;
-    $scope.data = null;
-    $scope.qindex = -1;
-    $scope.numcorrect = 0;
-    $scope.disbutton = "";
-    $scope.seconds_left = avail_time;
-    $scope.start_seconds = avail_time;
-    $scope.counter_promise = null;
-    $scope.showing_answer = false;
-    $scope.selected_index = -1;
-    var testingSetTime = {
-        method: 'POST',
-        url: 'http://stock-fantasy-league.herokuapp.com/api/setquiztime'
-    };
-    $http(reqLeague).then(function (response) {
-        $scope.league = response.data[0];
-        $scope.starttime = $scope.league.quiztime;
-        $http(req).then(function (response) {
-            $scope.questions = response.data; //check
-            $scope.numquestions = $scope.questions.length;
-            $scope.question = $scope.questions[$scope.qindex];
-            $http(reqServerTime).then(function (response) {
-                $scope.servertime = response.data;
-                //$scope.starttime = Math.floor((new Date()).getTime() / 1000) + 3;
-                if (($scope.initdelay = $scope.starttime - $scope.servertime) > 0) {
-                    $scope.seconds_left = $scope.initdelay;
-                    $scope.start_seconds = $scope.initdelay;
-                    $interval($scope.countdown, 1000, $scope.initdelay, true);
-                    $timeout($scope.nextQuestion, $scope.initdelay * 1000);
-                }
-            }, function (repsonse) {
-                console.log(response);
-            })
-        }, function (response) {
-            console.log('Failing getting league info!');
-        });
-    });
-    // $scope.starttime = Math.round(new Date().getTime() + 10);
-    $scope.startGameshow = function () {
-        $interval($scope.countdown, 1000, avail_time, true);
-        $timeout($scope.showAnswer, avail_time * 1000);
-    }
-    $scope.nextQuestion = function () {
-        $scope.disbutton = false;
-        $scope.selected_index = -1;
-        ++$scope.qindex;
-        if ($scope.qindex >= $scope.numquestions.length) {
-            //NEED TO FINISH
-            console.log("completed");
+        if ($routeParams.lid != undefined && $routeParams.pid != undefined) {
+            $scope.lid = $routeParams.lid;
+            $scope.pid = $routeParams.pid;
+        } else {
+            //$scope.lid = 1;
         }
-        $scope.showing_answer = false;
+        var reqLeague = {
+            method: 'GET',
+            url: 'http://stock-fantasy-league.herokuapp.com/api/league/' + $scope.lid
+        };
+        var req = {
+            method: 'GET',
+            url: 'http://stock-fantasy-league.herokuapp.com/api/league/' + $scope.lid + '/startquiz/' + $scope.pid
+        };
+        var reqServerTime = {
+            method: 'GET',
+            url: 'http://stock-fantasy-league.herokuapp.com/api/servertime'
+        };
+        var avail_time = 20,
+            resp_time = 15;
+        $scope.data = null;
+        $scope.quizLive = false;
+        $scope.nonLiveText = "🌟 Get ready for the quiz! 🌟";
+        $scope.qindex = -1;
+        $scope.numcorrect = 0;
+        $scope.disbutton = "";
         $scope.seconds_left = avail_time;
         $scope.start_seconds = avail_time;
-        $interval($scope.countdown, 1000, avail_time, true);
-        $timeout($scope.showAnswer, avail_time * 1000);
-    }
-    $scope.showAnswer = function () {
-        if ($scope.selected_index == $scope.questions[$scope.qindex].answer_index) {
-            //console.log("correctAnswer");
-            $scope.numcorrect += 1;
+        $scope.counter_promise = null;
+        $scope.showing_answer = false;
+        $scope.selected_index = -1;
+        var testingSetTime = {
+            method: 'POST',
+            url: 'http://stock-fantasy-league.herokuapp.com/api/setquiztime'
+        };
+        $http(reqLeague).then(function (response) {
+            $scope.league = response.data[0];
+            $scope.starttime = $scope.league.quiztime;
+            $http(req).then(function (response) {
+                $scope.questions = response.data; //check
+                //$scope.numquestions = $scope.questions.length;
+                $scope.numquestions = [0];
+                $scope.question = $scope.questions[$scope.qindex];
+                $http(reqServerTime).then(function (response) {
+                    $scope.servertime = response.data;
+                    //$scope.starttime = Math.floor((new Date()).getTime() / 1000) + 3;
+                    if (($scope.initdelay = $scope.starttime - $scope.servertime) > 0) {
+                        $scope.seconds_left = $scope.initdelay;
+                        $scope.start_seconds = $scope.initdelay;
+                        $interval($scope.countdown, 1000, $scope.initdelay, true);
+                        $timeout($scope.nextQuestion, $scope.initdelay * 1000);
+                    }
+                }, function (repsonse) {
+                    console.log(response);
+                })
+            }, function (response) {
+                console.log('Failing getting league info!');
+            });
+        });
+        // $scope.starttime = Math.round(new Date().getTime() + 10);
+        /*$scope.startGameshow = function () {
+            $interval($scope.countdown, 1000, avail_time, true);
+            $timeout($scope.showAnswer, avail_time * 1000);
+        }*/
+        $scope.nextQuestion = function () {
+            $scope.quizLive = true;
+            $scope.disbutton = false;
+            $scope.selected_index = -1;
+            ++$scope.qindex;
+            if ($scope.qindex > ($scope.numquestions.length - 1)) {
+                //NEED TO FINISH
+                console.log("completed");
+                $scope.endGameshow();
+                return;
+            }
+            $scope.showing_answer = false;
+            $scope.seconds_left = avail_time;
+            $scope.start_seconds = avail_time;
+            $interval($scope.countdown, 1000, avail_time, true);
+            $timeout($scope.showAnswer, avail_time * 1000);
         }
-        $scope.showing_answer = true;
-        $scope.seconds_left = resp_time;
-        $scope.start_seconds = resp_time;
-        $interval($scope.countdown, 1000, resp_time, true);
-        $timeout($scope.nextQuestion, resp_time * 1000);
-    }
-    $scope.selectAnswer = function (index) {
-        $scope.disbutton = true;
-        $scope.selected_index = index;
-    };
-    $scope.countdown = function () {
-        $scope.seconds_left -= 1;
-        var ratio = ($scope.start_seconds - $scope.seconds_left) / $scope.start_seconds;
-        $scope.progressbar = {
-            'width': (($scope.start_seconds - $scope.seconds_left) / $scope.start_seconds) * 100 + "%"
+        $scope.showAnswer = function () {
+            if ($scope.selected_index == $scope.questions[$scope.qindex].answer_index) {
+                //console.log("correctAnswer");
+                $scope.numcorrect += 1;
+            }
+            $scope.showing_answer = true;
+            $scope.seconds_left = resp_time;
+            $scope.start_seconds = resp_time;
+            $interval($scope.countdown, 1000, resp_time, true);
+            $timeout($scope.nextQuestion, resp_time * 1000);
         }
-        if (ratio > .75) {
-            $scope.progressbarclass = "bg-danger";
-            $scope.timer = "text-danger";
-        } else if (ratio > .5) {
-            $scope.progressbarclass = "bg-warning";
-            $scope.timer = "text-warning";
-        } else {
-            $scope.progressbarclass = "bg-success";
-            $scope.timer = "";
+        $scope.selectAnswer = function (index) {
+            $scope.disbutton = true;
+            $scope.selected_index = index;
+        };
+        $scope.countdown = function () {
+            $scope.seconds_left -= 1;
+            var ratio = ($scope.start_seconds - $scope.seconds_left) / $scope.start_seconds;
+            $scope.progressbar = {
+                'width': (($scope.start_seconds - $scope.seconds_left) / $scope.start_seconds) * 100 + "%"
+            }
+            if (ratio > .75) {
+                $scope.progressbarclass = "bg-danger";
+                $scope.timer = "text-danger";
+            } else if (ratio > .5) {
+                $scope.progressbarclass = "bg-warning";
+                $scope.timer = "text-warning";
+            } else {
+                $scope.progressbarclass = "bg-success";
+                $scope.timer = "";
+            }
         }
-    }
 
-    $scope.buttonclass = function (index) {
-        if ($scope.showing_answer && index == $scope.questions[$scope.qindex].answer_index) {
-            return "btn-success  disabled";
-        } else if ($scope.showing_answer && index == $scope.selected_index) {
-            return "btn-danger  disabled";
-        } else if ($scope.showing_answer) {
-            return "btn-secondary  disabled";
-        } else if ($scope.disbutton && index == $scope.selected_index) {
-            return "btn-primary disabled";
-        } else if ($scope.disbutton) {
-            return "btn-outline-primary disabled";
-        } else {
-            return "btn-outline-primary";
+        $scope.buttonclass = function (index) {
+            if ($scope.showing_answer && index == $scope.questions[$scope.qindex].answer_index) {
+                return "btn-success  disabled";
+            } else if ($scope.showing_answer && index == $scope.selected_index) {
+                return "btn-danger  disabled";
+            } else if ($scope.showing_answer) {
+                return "btn-secondary  disabled";
+            } else if ($scope.disbutton && index == $scope.selected_index) {
+                return "btn-primary disabled";
+            } else if ($scope.disbutton) {
+                return "btn-outline-primary disabled";
+            } else {
+                return "btn-outline-primary";
+            }
+        };
+        $scope.endGameshow = function () {
+            $scope.quizLive = false;
+            $scope.showing_answer = false;
+            var ratio = $scope.numcorrect / $scope.numquestions.length;
+            if (ratio > .75) {
+                $scope.nonLiveText = "🌟 Good job! You got " + $scope.numcorrect + " questions correct out of " + $scope.numquestions.length + ". Thank you for participating in the quiz! 🌟";
+            } else if (ratio > .5) {
+                $scope.nonLiveText = "⭐ You got " + $scope.numcorrect + " questions correct out of " + $scope.numquestions.length + ". Thank you for participating in the quiz! ⭐";
+            } else {
+                "Better luck next time! You got " + $scope.numcorrect + " questions correct out of " + $scope.numquestions.length + ". Thank you for participating in the quiz!"
+            }
+
+            var sendScore = {
+                method: 'PATCH',
+                url: 'http://stock-fantasy-league.herokuapp.com/api/player/' + $scope.pid + '/correct/' + $scope.numcorrect + '/add'
+            };
+            $http(sendScore).then(function (response) {
+                console.log("Ranking is recalculated at the end of the day.");
+            });
+
         }
-    };
-    /* $scope.endGameshow = function(){
-         //send to endpoint and display to user
-     }*/
-                }]);
+    }
+]);
 stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams', '$route', function ($scope, $http, $rootScope, $routeParams, $route) {
     if ($routeParams.uid == undefined) {
         $scope.paramuid = 1;
