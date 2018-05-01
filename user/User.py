@@ -23,7 +23,7 @@ class User(Resource):
         cur.execute("UPDATE leagues SET uid = uid || %s WHERE lid = %s;", (UID, (createdLID[-1]['lid'])))
         cur.execute("UPDATE leagues SET pid = pid || %s WHERE lid = %s;", (createdPID[-1]['pid'], createdLID[-1]['lid']))
         
-        cur.execute("UPDATE players SET availbalance = %s WHERE pid = %s;", (float(args['startBal']),createdLID[-1]['lid']))
+        cur.execute("UPDATE players SET availbalance = %s WHERE pid = %s;", (float(args['startBal']), createdPID[-1]['pid']))
 
         return createdLID
         pass
