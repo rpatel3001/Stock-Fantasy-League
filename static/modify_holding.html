@@ -33,6 +33,7 @@
                             <p> Your available balance is {{player.availbalance | currency}} .</p>
                             <p> Your transaction cost is {{numSharesSelected * selectedStockPrice | currency}}.</p>
                             <p> Your remaining balance will be {{(player.availbalance - numSharesSelected*selectedStockPrice) | currency}}.</p>
+                            <p>If more stocks are purchased than available funds, the maximum shares that a player can afford are bought.</p>
                         </div>
                         <button class="btn btn-primary" type="submit" ng-click="modifyHoldings(selectedStock,transactionType,numSharesSelected,selectedStockPrice,false);" data-dismiss="modal" data-backdrop="false">{{transactionType}} {{selectedTicker}}</button>
                     </form>
@@ -62,6 +63,7 @@
                             <p> Your available balance is {{player.availbalance | currency}}.</p>
                             <p> Your sale income is {{numSharesSelected*selectedStockPrice | currency}}.</p>
                             <p> Your total balance will be {{player.availbalance +numSharesSelected*selectedStockPrice | currency}}.</p>
+                            <p>If more stocks are sold than available funds, all of the shares the player owns are sold.</p>
                         </div>
                         <button class="btn btn-primary" type="submit" ng-click="modifyHoldings(selectedStock,transactionType,numSharesSelected,selectedStockPrice,false);" data-dismiss="modal" data-backdrop="false">{{transactionType}} {{selectedTicker}}</button>
                     </form>

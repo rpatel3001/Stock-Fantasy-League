@@ -559,17 +559,13 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
         });
         if (index >= 0 && !transactionType.localeCompare('Buy')) {
             if ($scope.player.availbalance < price * numShares) {
-                $scope.error = "You do not have sufficent funds to buy " + numShares + " shares of " + stock.symbol + ".";
-                return;
-                //umShares = Math.floor($scope.player.availbalance / price)
+                numShares = Math.floor($scope.player.availbalance / price);
             }
             $scope.player.holdings[index].numberShares += numShares;
             $scope.player.availbalance -= price * numShares;
         } else if (index >= 0 && !transactionType.localeCompare('Sell')) {
             if ($scope.player.holdings[index].numberShares < numShares) {
-                $scope.error = "Not enough shares. There are " + $scope.player.holdings[index].numberShares + "shares of " + stock.symbol + " available";
-                return;
-                //numShares = $scope.player.holdings[index].numberShares;
+                numShares = $scope.player.holdings[index].numberShares;
             }
             if ($scope.player.holdings[index].numberShares == numShares) {
                 $scope.player.holdings.splice(index, 1);
@@ -579,9 +575,7 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
             $scope.player.availbalance += price * numShares;
         } else if (index == -1 && !transactionType.localeCompare('Buy')) {
             if ($scope.player.availbalance < price * numShares) {
-                $scope.error = "You do not have sufficent funds to buy " + numShares + " shares of " + stock.symbol + ".";
-                return;
-                //numShares = Math.floor($scope.player.availbalance / price)
+                numShares = Math.floor($scope.player.availbalance / price);
             }
             $scope.player.holdings.push({
                 'symbol': stock.symbol,
