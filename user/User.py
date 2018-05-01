@@ -14,7 +14,13 @@ class User(Resource):
         cur.execute("INSERT INTO players (uid) VALUES (%s);", [UID])   #creates a player in the database with the creaters UID
         cur.execute("SELECT pid from players where uid=%s;", [UID])  #used to return PID to add into the leagues database
         createdPID = cur.fetchall() #sets equal to dictionary of PIDs
-        cur.execute("INSERT INTO leagues (startBal, duration, leagueName, description, ownerUID, ownerPID) VALUES (%s, %s, %s, %s, %s, %s);", (args['startBal'], args['duration'], args['leagueName'], args['description'], UID, createdPID[-1]['pid']))   #creates the league with the user inputs
+        print("bal: " + str(args['startBal']))
+        print("dur: " + str(args['duration']))
+        print("name: " + args['leagueName'])
+        print("desc: " + args['description'])
+        print("uid: " + UID)
+        print("pid: " + createdPID[-1]['pid'])
+        cur.execute("INSERT INTO leagues (startBal, duration, leagueName, description, ownerUID, ownerPID) VALUES (%s, %s, %s, %s, %s, %s);", (float(args['startBal']), int(args['duration']), args['leagueName'], args['description'], UID, createdPID[-1]['pid']))   #creates the league with the user inputs
         cur.execute("SELECT lid from leagues WHERE ownerUID=%s", [UID]) #gets the leagueID from league table for the created table
         createdLID = cur.fetchall() #sets equal to dictionary of LIDs       
         cur.execute("UPDATE players SET lid = %s WHERE pid = %s;", (createdLID[-1]['lid'], createdPID[-1]['pid']))    #updates players table(add themselves into league)
@@ -24,7 +30,7 @@ class User(Resource):
         cur.execute("UPDATE leagues SET pid = pid || %s WHERE lid = %s;", (createdPID[-1]['pid'], createdLID[-1]['lid']))
         return createdLID
         pass
-    
+
     @staticmethod   #method to get info for user (changed for AJAX messages)
     def get(cur, UID):
         cur.execute("SELECT * FROM userprefs WHERE uid = %s;", [UID])
