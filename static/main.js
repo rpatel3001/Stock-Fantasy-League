@@ -137,8 +137,9 @@ stk.controller('GameShowController', ['$scope', '$timeout', '$interval', '$http'
         $scope.disbutton = false;
         $scope.selected_index = -1;
         ++$scope.qindex;
-        if ($scope.qindex >= $scope.num.length) {
+        if ($scope.qindex >= $scope.numquestions.length) {
             //NEED TO FINISH
+            console.log("completed");
         }
         $scope.showing_answer = false;
         $scope.seconds_left = avail_time;
