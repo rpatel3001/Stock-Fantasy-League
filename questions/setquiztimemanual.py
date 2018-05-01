@@ -4,7 +4,7 @@ import datetime
 
 class setquiztimemanual(Resource):
 	@staticmethod
-	def post(cur):
+	def get(cur):
 
 		timestamp = time.time()
 

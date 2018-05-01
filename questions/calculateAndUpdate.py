@@ -4,7 +4,7 @@ import math
 class updatepoints(Resource):
 	"""used to update points every night at 12:00 AM"""
 	@staticmethod
-	def patch(cur):
+	def get(cur):
 		allPlayers = cur.execute("SELECT pid from players ORDER BY pid;")
 		allPlayersList = cur.fetchall()
 		playerList = [value['pid'] for value in allPlayersList]
