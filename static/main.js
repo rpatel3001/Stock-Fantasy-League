@@ -46,6 +46,32 @@ stk.config(function ($routeProvider, $locationProvider) {
 /*stk.service('SharedData', function () {
 
 })*/
+stk.controller('LessonController', ['$scope', '$route', '$location', '$http', function ($scope, $route, $location, $http) {
+    $scope.curquestion = 0;
+    $scope.lesson = null;
+    $scope.include_file = 'index.html';
+    var reqLesson = {
+        method: 'GET',
+        url: 'http://stock-fantasy-league.herokuapp.com/api/lesson/1'
+    };
+    $http(reqLesson).then(function (response) {
+        $scope.lesson = response.data;
+        $scope.numEvent = $scope.lesson.length;
+        console.log($scope.lesson[$scope.curquestion].topic);
+    }, function (response) {
+        console.log("error");
+    });
+    $scope.nextQuestion = function () {
+        if ($scope.curquestion < ($scope.numEvent - 1)) {
+            $scope.curquestion++;
+        }
+    }
+    $scope.prevQuestion = function () {
+        if ($scope.curquestion > 0) {
+            $scope.curquestion--;
+        }
+    }
+}]);
 stk.controller('LeagueController', ['$scope', '$http', '$routeParams', function ($scope, $http, $routeParams) {
     if ($routeParams.lid != undefined) {
         $scope.lid = $routeParams.lid;
@@ -440,7 +466,15 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
                     }
                     //update sholding with server
                     //$scope.updatePlayer();
-
+                    if (uid > 0) {
+                        var reqUser = {
+                            method: 'GET',
+                            url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.uid
+                        };
+                        $http(reqUser).then(function (response) {
+                            $scope.user = response.data;
+                        });
+                    }
                     $http(reqStocks).then(function (response) {
                         $scope.topStocks = response.data.stocks;
                     });
@@ -622,18 +656,23 @@ stk.controller('NavbarController', ['$scope', function ($scope, $rootScope) {
     $scope.imageurl = '';
     $scope.navItems = {
         links: [{
-            name: 'Users',
-            command: 'ViewUsers',
-            href: '#!/user'
+                name: 'Users',
+                command: 'ViewUsers',
+                href: '#!/user'
         }, {
-            name: 'Leagues',
-            command: 'ViewLeagues',
-            href: '#!/league'
+                name: 'Leagues',
+                command: 'ViewLeagues',
+                href: '#!/league'
         }, {
-            name: 'Tutorial',
-            command: 'ViewTutorial',
-            href: '#!/tutorial'
-        }]
+                name: 'Tutorial',
+                command: 'ViewTutorial',
+                href: '#!/tutorial'
+        }, {
+                name: 'Lesson',
+                command: 'ViewLesson',
+                href: '/lesson.html'
+        }
+               ]
     };
 
     function onSignIn(googleUser) {
