@@ -37,7 +37,7 @@
             <td>Sell</td>
         </tr>
 
-        <tr scope="row" ng-repeat="stock in player.holdings| filter : stockSelect">
+        <tr scope="row" ng-repeat="stock in player.holdings">
             <td>{{stock.symbol}}</td>
             <td>{{stock.name}}</td>
             <td>{{stock.numberShares}}</td>

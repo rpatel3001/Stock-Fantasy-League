@@ -256,6 +256,8 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
                 $scope.duration = null;
                 $scope.leaguename = null;
                 $scope.description = null;
+                if ($scope.user.lid == null)
+                    $scope.user.lid = [];
                 $scope.user.lid.push(response.data[response.data.length - 1].lid);
                 $('#createLeagueModal').modal('hide');
                 $('body').removeClass('modal-open');
@@ -381,33 +383,35 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
         url: 'http://stock-fantasy-league.herokuapp.com/api/stock_data/top/7000'
     };
     $http(reqLeague).then(function (response) {
-        $scope.league = response.data[0];
-        //wrapped json
-        $http(reqPlayer).then(function (response) {
-            $scope.player = response.data[0];
-            if ($scope.player.holdings == null) {
-                $scope.player.holdings = []
-            }
-            if ($scope.player.availbalance == null) {
-                $scope.player.availbalance = $scope.league.startbal;
-            }
-            if ($scope.player.translog == null) {
-                $scope.player.translog = []
-            }
-            //update sholding with server
-            //$scope.updatePlayer();
+            $scope.league = response.data[0];
+            //wrapped json
+            $http(reqPlayer).then(function (response) {
+                    $scope.player = response.data[0];
+                    if (!($scope.player.holdings instanceof Array)) {
+                        $scope.player.holdings = []
+                    }
+                    if ($scope.player.availbalance == null) {
+                        $scope.player.availbalance = $scope.league.startbal;
+                    }
+                    if ($scope.player.translog == {}) {
+                        $scope.player.translog = [];
+                    }
+                    //update sholding with server
+                    //$scope.updatePlayer();
 
-            $http(reqStocks).then(function (response) {
-                $scope.topStocks = response.data.stocks;
-            });
-            $scope.intGetStocks($scope.intNumStocks);
-            $scope.intGetPrice($scope.intGetPriceTicker);
-        }, function (response) {
+                    $http(reqStocks).then(function (response) {
+                        $scope.topStocks = response.data.stocks;
+                    });
+                    $scope.intGetStocks($scope.intNumStocks);
+                    $scope.intGetPrice($scope.intGetPriceTicker);
+                },
+                function (response) {
+                    console.log('Failing getting league info!');
+                });
+        },
+        function (response) {
             console.log('Failing getting league info!');
         });
-    }, function (response) {
-        console.log('Failing getting league info!');
-    });
     $scope.intGetStocks = function (intNumStocks) {
         $scope.intDisplayStocks = [];
         var reqStocks = {
@@ -557,7 +561,7 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
             $scope.intStockPrice = response.data.stockdata;
         }, function () {});
     };
-}]);
+            }]);
 stk.controller('NavbarController', ['$scope', function ($scope, $rootScope) {
     $scope.signedIn = false;
     $scope.username = '';
