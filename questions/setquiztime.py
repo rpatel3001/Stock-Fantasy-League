@@ -10,7 +10,7 @@ class setquiztime(Resource):
 		end_str = time.strftime( "%m/%d/%Y ") + " 23:59:59"
 		start_ts = int( time.mktime( time.strptime( start_str, "%m/%d/%Y %H:%M:%S" ) ) )
 		
-		start_ts = start_ts + 53100
+		start_ts = start_ts + 53100	#2:45PM every day
 
 		# value = datetime.datetime.fromtimestamp(start_ts)
 		# print(value.strftime('%Y-%m-%d %H:%M:%S'))

@@ -60,9 +60,9 @@ def serve_index():
     return app.send_static_file('index.html')
 
 # add API endpoints
-api.add_resource(class_with_db(addquizpoints.addquizpoints), '/api/player/<int:PID>/correct/<int:score>/add')
-api.add_resource(class_with_db(calculateAndUpdate.updatepoints), '/api/point/update')
-api.add_resource(class_with_db(setquiztimemanual.setquiztimemanual), '/api/setquiztime')
+api.add_resource(class_with_db(addquizpoints.addquizpoints), '/api/player/<int:PID>/correct/<int:score>/add')   #use at end of gameshow
+api.add_resource(class_with_db(calculateAndUpdate.updatepoints), '/api/point/update')   #run the update code for everyones points
+api.add_resource(class_with_db(setquiztimemanual.setquiztimemanual), '/api/setquiztime')    #sets all quiz times to 90s later
 
 
 

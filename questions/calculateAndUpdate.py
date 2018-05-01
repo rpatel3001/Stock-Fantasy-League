@@ -36,14 +36,14 @@ class updatepoints(Resource):
 			score = score * (balance/1000)
 			score += (0.5 * quizpoints)
 
-			# if dailyLog == 1:
-			# 	count += 1
-			# else:
-			# 	count = 0;
-			# cur.execute("UPDATE userprefs SET logcount = %s;", (count,)) #increment log count for consecutive days
+			if dailyLog == 1:
+				count += 1
+			else:
+				count = 0;
+			cur.execute("UPDATE userprefs SET logcount = %s;", (count,)) #increment log count for consecutive days
 			count = 0	#reset for next iteration
 
-			# cur.execute("UPDATE players SET reppoints = %s WHERE pid = %s;", (score, player))	#set points
+			cur.execute("UPDATE players SET reppoints = %s WHERE pid = %s;", (score, player))	#set points
 		
 		return "Updated"
 
