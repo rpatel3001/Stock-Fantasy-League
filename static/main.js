@@ -130,8 +130,8 @@ stk.controller('GameShowController', ['$scope', '$timeout', '$interval', '$http'
             method: 'GET',
             url: 'http://stock-fantasy-league.herokuapp.com/api/servertime'
         };
-        var avail_time = 5,
-            resp_time = 3;
+        var avail_time = 15,
+            resp_time = 15;
         $scope.data = null;
         $scope.quizLive = false;
         $scope.nonLiveText = "🌟 Get ready for the Gameshow! 🌟";
