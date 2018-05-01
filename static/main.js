@@ -135,6 +135,10 @@ stk.controller('GameShowController', ['$scope', '$timeout', '$interval', '$http'
                         $scope.start_seconds = $scope.initdelay;
                         $interval($scope.countdown, 1000, $scope.initdelay, true);
                         $timeout($scope.nextQuestion, $scope.initdelay * 1000);
+                    } else {
+                        $scope.quizLive = false;
+                        $scope.nonLiveText = "Either the you joined the quiz too late or there is no quiz at the current time!";
+                        return;
                     }
                 }, function (repsonse) {
                     console.log(response);
