@@ -4,10 +4,10 @@ STOCK MARKET FANTASY
 
 To be be able to run the unit test file : unittest.sh
 -heroku command line interface must be installed
--must make the bash file executable
-	- run chmod -x unittest.sh
+-must make the bash file is executable
+	- run: chmod -x unittest.sh
 -run script in bash
-	- in bash : sh /path/of/file
+	- run: sh /path/of/file
 
 -------Execution order:-------
 

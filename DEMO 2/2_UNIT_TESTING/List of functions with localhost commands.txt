@@ -1,6 +1,8 @@
+~~~ LIST OF ALL USEFUL COMMANDS ~~~
+
+############################################################################################################
 # Select all users from userprefs table #
 
-# WORKING #
 curl -X GET localhost:5000/api/user
 
 ############################################################################################################
@@ -9,14 +11,12 @@ curl -X GET localhost:5000/api/user
 # sent through is already in the table, this checks if this user has created an account already.  #
 # If the account is present it will create the account and add it to our database userprefs table #
 
-# WORKING #
 curl -X POST -d "email=sampleEmail@gmail.comcom&username=sampleUsername&imageurl=https://www.google.com/imgres?imgurl=https%3A%2F%2Fi.ytimg.com%2Fvi%2FSfLV8hD7zX4%2Fmaxresdefault.jpg&imgrefurl=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DSfLV8hD7zX4&docid=JkkgT0Wh9FO29M&tbnid=_vUAT67U1HGFHM%3A&vet=10ahUKEwin9teTvpLaAhVJmeAKHW6cCkYQMwjRASgAMAA..i&w=1280&h=720&bih=680&biw=1280&q=dog&ved=0ahUKEwin9teTvpLaAhVJmeAKHW6cCkYQMwjRASgAMAA&iact=mrc&uact=8&token=1&description=sampleDescription" localhost:5000/api/user
 
 ############################################################################################################
 
 # Method to get info for user (changed for AJAX messages) #
 
-# WORKING #
 curl -X GET localhost:5000/api/user/1
 
 ############################################################################################################
@@ -24,7 +24,6 @@ curl -X GET localhost:5000/api/user/1
 # Method to pull stock data for a specified stock relative to input for 'sym' #
 # In this case we input goog for 'sym' to read the stock data for Google      #
 
-# WORKING #
 curl -X GET "localhost:5000/api/stock_data?cmd=getStockData&sym=goog"
 
 ############################################################################################################
@@ -32,7 +31,6 @@ curl -X GET "localhost:5000/api/stock_data?cmd=getStockData&sym=goog"
 # Updating a user through given JSON input for 'update' #
 # We need to parse in update still #
 
-# WORKING #
 curl -X POST -d "update=%7B%22pid%22%3A1%2C%22uid%22%3A2%2C%22lid%22%3A1%2C%22holdings%22%3A%7B%22holdings%22%3A%5B%5D%7D%2C%22notifications%22%3Anull%2C%22availbalance%22%3A20000%2C%22pendingorders%22%3Anull%2C%22translog%22%3A%7B%22translog%22%3A%5B%5D%7D%7D" localhost:5000/api/player/14/update
 
 DECODED: {"pid":1,"uid":2,"lid":1,"holdings":{"holdings":[]},"notifications":null,"availbalance":20000,"pendingorders":null,"translog":{"translog":[]}}
@@ -45,7 +43,6 @@ use: https://meyerweb.com/eric/tools/dencoder/ -- for URL encoding/decoding
 # And the desired leaguename input by the user. This user's UID will be the owneruid #
 # The duration is until 01/01/2099                                                   #
 
-# WORKING #
 curl -X POST -d "startBal=10.000&duration=4070989760&leagueName=league1&description=unit test" localhost:5000/api/user/2
 
 ############################################################################################################
@@ -53,7 +50,54 @@ curl -X POST -d "startBal=10.000&duration=4070989760&leagueName=league1&descript
 # Method to join a league given an LID, this function will  #
 # return all the pid's for the passed in uid                #
 
-# WORKING #
 curl -X POST -d "lid=1" localhost:5000/api/user/1/joinLeague
 
 ############################################################################################################
+
+# Method to return a json string of lesson plan imported from a csv file #
+
+curl -X GET localhost:5000/api/lesson/1
+
+############################################################################################################
+
+# Method used to delete a league 1 #
+# Also deletes users from the league and their respective players #
+
+curl -X DELETE localhost:5000/api/league/1/delete
+
+############################################################################################################
+
+# Method called when a user decides to leave a league. This also updates all necessary tables in database #
+
+curl -X PATCH localhost:5000/api/player/1/leave
+
+############################################################################################################
+
+# Method used for the creator of the league to remove a player manually #
+# Has a built in check to see if the user trying to delete another player is actually the owner of that league #
+
+curl -PATCH localhost:5000/api/user/1/league/7/player/1/remove
+
+############################################################################################################
+
+# Method called by user to start the quiz. It takes server time and your time and factors in all variables to synchronize all times  across all users#
+
+curl -X GET localhost:5000/api/league/1/startquiz/1
+
+############################################################################################################
+
+# Method used to set quiz time manually (15 seconds after calling) for testing #
+# otherwise the code is run automatically every night at 12:00 AM to set quiz time to that day at 2:45 PM #
+
+curl -X post localhost:5000/api/setquiztime/
+
+############################################################################################################
+
+# Method to manually update points for demonstration and testing purposes #
+# Normally runs every night at 12:00 AM to update everyones score #
+
+Curl -X post localhost:5000/api/point/update
+
+############################################################################################################
+
+
