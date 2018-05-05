@@ -5,6 +5,13 @@ class Leagues(Resource):
 
     @staticmethod  # getAllLeaguesInfo
     def get(cur):
+        """ 
+        Args:
+            none
+
+        Returns:
+            All information from ALL leagues
+        """
         cur.execute("SELECT * FROM leagues ORDER BY lid;")
         usermade = cur.fetchall()
         cur.execute("SELECT * from premade_leagues ORDER BY lid;")

@@ -4,6 +4,15 @@ import json
 class removePlayer(Resource):	#on the league page, if the OWNERUID is the users UID, include feature to remove a player
 	@staticmethod
 	def patch(cur, UID, LID, PID):
+		"""
+        Args:
+            lid (int) : the ID of the league that the user is trying to remove a player from
+            uid (int) : the id of the user trying to remove a player
+            pid (int) : the id of the player the user is tring to remove
+
+        Returns:
+			"Player Removed"
+        """
 		cur.execute("SELECT * from leagues WHERE lid = %s;", [LID])
 		owningUser = cur.fetchone()
 		owningUser = owningUser['owneruid']	#gets the owning users ID number

@@ -4,6 +4,13 @@ class getLeagueInfoFromArray(Resource):
 	'''get all league information from league array'''
 	@staticmethod
 	def get(cur):
+		""" 
+        Args:
+            lidarray (int[]) : the IDs of all leagues
+
+        Returns:
+			"All league information from the league table (from both the premades and the usermade leagues"
+        """
 		parser = reqparse.RequestParser()
 		parser.add_argument("lidarray")
 		args = parser.parse_args()
