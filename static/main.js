@@ -1,6 +1,16 @@
-var uid = -1;
-$http = angular.injector(["ng"]).get("$http");
+/* main.js - Angular.js Code powering front-end
+Written By: Oz Bejerano
+Tested By: Oz Bejerano
+Debugged By: Oz Bejerano
+
+Note all functions staring with int represent functions that are used for intergration testing of AJAX and the UI
+*/
+
+
+var uid = -1; // uid is -1 when user is not logged in
+$http = angular.injector(["ng"]).get("$http"); // set up angular ajax
 var stk = angular.module('Stock Fantasy League', ["ngRoute"]);
+//configure url routes to certain pages
 stk.config(function ($routeProvider, $locationProvider) {
     $routeProvider.when("/", {
         templateUrl: "homepage_parts.html"
@@ -45,9 +55,7 @@ stk.config(function ($routeProvider, $locationProvider) {
         templateUrl: 'trading_view.html'
     });
 });
-/*stk.service('SharedData', function () {
-
-})*/
+//controller for Lesson View
 stk.controller('LessonController', ['$scope', '$route', '$location', '$http', function ($scope, $route, $location, $http) {
     $scope.curquestion = 0;
     $scope.lesson = null;
@@ -111,6 +119,10 @@ stk.controller('LeagueController', ['$scope', '$http', '$routeParams', function 
         console.log('Failing getting league info!');
     });
 }]);
+/* Controller for Gameshow
+Manages Synchronization during the Gameshow
+Requests quiz questions for target league and then starts the gameshow at the preselected time
+*/
 stk.controller('GameShowController', ['$scope', '$timeout', '$interval', '$http', '$routeParams', function ($scope, $timeout, $interval, $http, $routeParams) {
         if ($routeParams.lid != undefined && $routeParams.pid != undefined) {
             $scope.lid = $routeParams.lid;
@@ -147,6 +159,7 @@ stk.controller('GameShowController', ['$scope', '$timeout', '$interval', '$http'
             method: 'POST',
             url: 'http://stock-fantasy-league.herokuapp.com/api/setquiztime'
         };
+        //gets League, Player, and Questions from the server through 3 AJAX calls
         $http(reqLeague).then(function (response) {
             $scope.league = response.data[0];
             $scope.starttime = $scope.league.quiztime;
@@ -176,11 +189,7 @@ stk.controller('GameShowController', ['$scope', '$timeout', '$interval', '$http'
                 console.log('Failing getting league info!');
             });
         });
-        // $scope.starttime = Math.round(new Date().getTime() + 10);
-        /*$scope.startGameshow = function () {
-            $interval($scope.countdown, 1000, avail_time, true);
-            $timeout($scope.showAnswer, avail_time * 1000);
-        }*/
+        //timer based function that moves to the next Gameshow question after a preselected time (currently 15 seconds)
         $scope.nextQuestion = function () {
             $scope.quizLive = true;
             $scope.disbutton = false;
@@ -198,6 +207,7 @@ stk.controller('GameShowController', ['$scope', '$timeout', '$interval', '$http'
                 $timeout($scope.showAnswer, avail_time * 1000);
             }
         }
+        //timer based function that shows answer for the question after after a preselected time (currently 15 seconds)
         $scope.showAnswer = function () {
             if ($scope.selected_index == $scope.questions[$scope.qindex].answer_index) {
                 //console.log("correctAnswer");
@@ -209,10 +219,13 @@ stk.controller('GameShowController', ['$scope', '$timeout', '$interval', '$http'
             $interval($scope.countdown, 1000, resp_time, true);
             $timeout($scope.nextQuestion, resp_time * 1000);
         }
+        //disables buttons after answer is selected (use can change answer, but disabled styling is used to show that user has made a selection)
         $scope.selectAnswer = function (index) {
             $scope.disbutton = true;
             $scope.selected_index = index;
+            /*have selectedbutton change styling*/
         };
+        //javascript code that powers countdown timer and progress bar. Resets whenever an answer is shown or a new question is asked.
         $scope.countdown = function () {
             $scope.seconds_left -= 1;
             var ratio = ($scope.start_seconds - $scope.seconds_left) / $scope.start_seconds;
@@ -230,7 +243,7 @@ stk.controller('GameShowController', ['$scope', '$timeout', '$interval', '$http'
                 $scope.timer = "";
             }
         }
-
+        //javascript function to change styling of buttons when answer is shown to show correct answer and user selected answer if incorrect.
         $scope.buttonclass = function (index) {
             if ($scope.showing_answer && index == $scope.questions[$scope.qindex].answer_index) {
                 return "btn-success  disabled";
@@ -246,6 +259,7 @@ stk.controller('GameShowController', ['$scope', '$timeout', '$interval', '$http'
                 return "btn-outline-primary";
             }
         };
+        //function that runs at end of gameshow to notify user of their score and send the score back to the server so that their quiz score and participation can be tallied in their ranking for the next day
         $scope.endGameshow = function () {
             $scope.quizLive = false;
             $scope.showing_answer = false;
@@ -269,8 +283,9 @@ stk.controller('GameShowController', ['$scope', '$timeout', '$interval', '$http'
         }
     }
 ]);
+//Controller for page that shows user information
 stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams', '$route', function ($scope, $http, $rootScope, $routeParams, $route) {
-    if ($routeParams.uid == undefined) {
+    if ($routeParams.uid == undefined) { //checks to see if user is logged in and viewing their own user page
         $scope.paramuid = 1;
     } else {
         $scope.paramuid = $routeParams.uid;
@@ -289,11 +304,12 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
     $scope.intDescription = "Description for Integration Test League: " + $scope.intLeaguename + ".";
     $scope.leaguesView = false;
     $scope.navbarHeader = "Leagues";
-    var req = {
+    var reqUser = {
         method: 'GET',
         url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.paramuid
     };
-    $http(req).then(function (response) {
+    //get User Information
+    $http(reqUser).then(function (response) {
         $scope.user = response.data;
         //unwrappedjson
         $scope.navbarHeader = "Leagues with " + $scope.user.username;
@@ -306,9 +322,10 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
     $scope.openCreateLeagueModal = function () {
         $('#createLeagueModal').modal('show');
     }
+    //function to Create League (with user as the League Owner) and then update the user's view
     $scope.createLeague = function () {
-        if ($scope.paramuid == $scope.uid) { // could use user.uid as well
-            var req = {
+        if ($scope.paramuid == $scope.uid) {
+            var reqCreateLeague = {
                 method: 'POST',
                 url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.uid,
                 headers: {
@@ -321,7 +338,7 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
                     description: $scope.description
                 })
             };
-            $http(req).then(function (response) {
+            $http(reqCreateLeague).then(function (response) {
                 console.log(response.data); //unwrapped json
                 $scope.startBal = null;
                 $scope.duration = null;
@@ -339,9 +356,10 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
             });
         };
     };
+    //integration testing version of User Create League
     $scope.intTestCreateLeague = function () {
         if ($scope.uid > 0) { // test check not as accurate 
-            var req = {
+            var reqIntTestCreateLeague = {
                 method: 'POST',
                 url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.uid,
                 headers: {
@@ -354,7 +372,7 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
                     description: $scope.intDescription
                 })
             };
-            $http(req).then(function (response) {
+            $http(reqIntTestCreateLeague).then(function (response) {
                 console.log(response.data); //unwrapped json
                 $scope.intStartBal = null;
                 $scope.intDuration = null;
@@ -367,9 +385,10 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
             });
         };
     };
+    //function to get all of the Leagues a user is in from the server through AJAX calls
     $scope.getUserLeagues = function () {
         if ($scope.user.lid != null) {
-            var req = {
+            var reqGetUserLeagues = {
                 method: 'GET',
                 url: 'http://stock-fantasy-league.herokuapp.com/api/league/multiple',
                 headers: {
@@ -379,7 +398,7 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
                     lidarray: $scope.user.lid.join(',')
                 }
             };
-            $http(req).then(function (response) {
+            $http(reqGetUserLeagues).then(function (response) {
                 $scope.leagues = response.data;
                 //$scope.user.leagues = response.data; //unwrapped json
             }, function (response) {
@@ -387,6 +406,7 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
             });
         }
     };
+    // function for a User that is a league owner to delete one of their leagues
     $scope.deleteLeague = function (lid) {
         var reqDeleteLeague = {
             method: 'DELETE',
@@ -399,6 +419,7 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
             console.log("Error deleting League");
         });
     };
+    // function for a user that is not a League Owner of a target league, to leave the League 
     $scope.leaveLeague = function (uid, pid) {
         var reqLeaveLeague = {
             method: 'PATCH',
@@ -410,6 +431,7 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
             console.log("Error leaving League");
         });
     };
+    //update user information on the server, by sending the user's updated information as a JSON string
     $scope.updateUser = function () {
         var reqUpdatePlayer = {
             method: 'POST',
@@ -429,8 +451,9 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
         });
     };
 }]);
+//Controller for Player (Buying and Selling Stocks) Page
 stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route', function ($scope, $http, $routeParams, $route) {
-    if ($routeParams.lid == undefined && $routeParams.uid == undefined) {
+    if ($routeParams.lid == undefined && $routeParams.uid == undefined) { //check to see if the user is the correct player with the correct playerid
         $scope.lid = 1;
         $scope.pid = 16;
     } else {
@@ -453,9 +476,9 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
         method: 'GET',
         url: 'http://stock-fantasy-league.herokuapp.com/api/stock_data/top/7000'
     };
+    //request league, user, and holdings information for the player
     $http(reqLeague).then(function (response) {
             $scope.league = response.data[0];
-            //wrapped json
             $http(reqPlayer).then(function (response) {
                     $scope.player = response.data[0];
                     if (!($scope.player.holdings instanceof Array)) {
@@ -489,6 +512,7 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
         function (response) {
             console.log('Failing getting league info!');
         });
+    // Integration testing get stock information for a player
     $scope.intGetStocks = function (intNumStocks) {
         $scope.intDisplayStocks = [];
         var reqStocks = {
@@ -499,6 +523,7 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
             $scope.intDisplayStocks = response.data.stocks;
         });
     }
+    // Update player information (includes updating player holdings and balance)
     $scope.updatePlayer = function () {
         var reqUpdatePlayer = {
             method: 'POST',
@@ -517,6 +542,7 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
 
         });
     };
+    // opens modal (window) to allow user to buy or sell stock.
     $scope.openChangeHoldings = function (stock, tType) {
         $scope.transactionType = tType;
         $scope.selectedStock = stock;
@@ -552,7 +578,8 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
             $('#holdingsModal').modal('show');
         }, function (response) {});
     };
-
+    //update holdings specifically for the players. Sends an ajax request to the server.
+    //To prevent the player from buying more than they can afford or sell more than they can buy, the function buys the macimum amount possible or sells the maximum amount of shares possible when the user enters a value too high
     $scope.modifyHoldings = function (stock, transactionType, numShares, price, testingStatus) {
         var index = $scope.player.holdings.findIndex(function (element) {
             return element.symbol == stock.symbol;
@@ -590,18 +617,8 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
         $('.modal-backdrop').remove();
         $route.reload();
     };
+    //Integration testing code
     $scope.integrationTesting = function (intTranType) {
-        /* $scope.player.holdings = [{
-             "symbol": "ABEV",
-             "name": "Ambev S.A.",
-             "numberShares": 10
-             }, {
-             "symbol": "GOOG",
-             "name": "Alphabet Inc.",
-             "numberShares": 2
-             }];
-         $scope.updatePlayer();
-         */
         var intStock = {
             "symbol": "GOOG",
             "name": "Alphabet Inc.",
@@ -626,6 +643,7 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
             $scope.modifyHoldings(intStock, 'Sell', 4, intTestPrice, false);
         }, 10000);*/
     };
+    //get Price of stocks for intgeration testing
     $scope.intGetPrice = function (symArr) {
         var reqPrice = {
             type: 'GET',
@@ -640,6 +658,8 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
         }, function () {});
     };
             }]);
+// function used to search stocks on player page
+// Replaces top 100 stocks with all matching stocks on search
 stk.filter('stockSearch', function () {
     return function (input, searchstatus) {
         console.log(searchstatus);
@@ -652,10 +672,12 @@ stk.filter('stockSearch', function () {
     }
 
 });
+//Controller for Navigation Bar at the top of each page
 stk.controller('NavbarController', ['$scope', function ($scope, $rootScope) {
     $scope.signedIn = false;
     $scope.username = '';
     $scope.imageurl = '';
+    //list of visisble links on the navigation bar and their paths (urls)
     $scope.navItems = {
         links: [{
                 name: 'Users',
@@ -680,7 +702,7 @@ stk.controller('NavbarController', ['$scope', function ($scope, $rootScope) {
         }
                ]
     };
-
+    //FUnction that ties Angular with googe sign in and updates the navbar on sign in
     function onSignIn(googleUser) {
         var profile = googleUser.getBasicProfile();
         var id_token = googleUser.getAuthResponse().id_token;
@@ -716,11 +738,13 @@ stk.controller('NavbarController', ['$scope', function ($scope, $rootScope) {
     }
     window.onSignIn = onSignIn;
 }]);
-
+// Small Controller to ensure that the title of the page is correct
 stk.controller('PageManagerController', ['$scope', '$rootScope', '$location', function ($scope, $rootScope, $location) {
     $scope.title = "Stock Fanatasy League";
 }]);
-
+//User List Controller
+//Controller on Page that shows the list of all of the users
+//Performs an AJAX reuqest to query the server for the User's List
 stk.controller('UserListController', function ($scope, $http) {
     var req = {
         method: 'GET',
@@ -734,6 +758,7 @@ stk.controller('UserListController', function ($scope, $http) {
         console.log('Failing getting users info!');
     });
 });
+// League List Controller: shows list of leagues on the main leagues page and is used on the User Pages to shows specific leagues per user
 stk.controller('LeagueListController', ['$scope', '$http', '$rootScope', '$location', '$route', function ($scope, $http, $rootScope, $location, $route) {
     $scope.leaguesView = true; //need to make an official watch in another controller
     $scope.inLeagueList = true;
@@ -753,6 +778,8 @@ stk.controller('LeagueListController', ['$scope', '$http', '$rootScope', '$locat
     }, function loginFailure(response) {
         console.log('Failing getting leagues info!');
     });
+    // function for user to join league
+    // adds user to target league and create a player for them (players are how users can buy and sell stocks in a league)
     $scope.joinLeague = function (selected_lid) {
         if ($scope.uid > 0) {
             var reqJoinLeague = {
@@ -779,6 +806,8 @@ stk.controller('LeagueListController', ['$scope', '$http', '$rootScope', '$locat
             });
         }
     };
+    // function for user to delete league
+    // User can delete a league that they are the owner of. This removes all other players from the league
     $scope.deleteLeague = function (lid) {
         var reqDeleteLeague = {
             method: 'DELETE',
@@ -791,6 +820,8 @@ stk.controller('LeagueListController', ['$scope', '$http', '$rootScope', '$locat
             console.log("Error deleting League");
         });
     };
+    // function for user to leave league
+    // removes the user's player from the league. The user can rejoin the league but their holdings will start over and they will have the start balance value in cash
     $scope.leaveLeague = function (uid, pid) {
         var reqLeaveLeague = {
             method: 'PATCH',
@@ -802,9 +833,12 @@ stk.controller('LeagueListController', ['$scope', '$http', '$rootScope', '$locat
             console.log("Error leaving League");
         });
     };
+    //opens window to create a league
     $scope.openCreateLeagueModal = function () {
         $('#createLeagueModal').modal('show');
     }
+    // function for user to create league
+    // creates a new league with the parameters selected by the user and makes the user the owner of the league. Other user's can join this league
     $scope.createLeague = function () {
         if ($scope.uid > 0) { // could use user.uid as well
             var req = {
@@ -837,7 +871,7 @@ stk.controller('LeagueListController', ['$scope', '$http', '$rootScope', '$locat
         };
     };
 }]);
-
+// organizes user cards into groups of 3 for display on the user page
 var createGroupings = function (original, numCols) {
     var rows = [];
     for (i = 0; i < original.length; i += numCols) {
@@ -845,7 +879,7 @@ var createGroupings = function (original, numCols) {
     }
     return rows;
 };
-
+//signs out users from the website
 function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
     var scope = angular.element($("#mainNavbar")).scope();
@@ -860,7 +894,7 @@ function signOut() {
         console.log('User signed out.');
     });
 }
-
+//updates user information on the server
 var updateUser = function (uid, user) {
     var reqUpdatePlayer = {
         method: 'POST',
@@ -879,7 +913,7 @@ var updateUser = function (uid, user) {
         return null;
     });
 };
-
+//updates player information on the server
 var updatePlayer = function (pid, player) {
     var reqUpdatePlayer = {
         method: 'POST',
@@ -898,18 +932,3 @@ var updatePlayer = function (pid, player) {
         return null;
     });
 };
-/*function getPrice(symArr) {
-    var reqPrice = {
-        type: 'GET',
-        url: 'http://stock-fantasy-league.herokuapp.com/api/stock_data/',
-        params: {
-            'cmd': 'getStockData',
-            'sym': symArr
-        }
-    }
-    $http(reqPrice).then(function (response) {
-        return response.data.stockdata;
-    }, function () {
-        return null;
-    });
-}*/
