@@ -6,11 +6,7 @@ class question(Resource):
 
     @staticmethod
     def get(cur,LID, PID):
-<<<<<<< HEAD
         """
-=======
-        """ 
->>>>>>> 49a4ce4ba4cf5ce5f79f692cd1b2b21e1afc5d1b
         Args:
             lid (int) : the ID of the league
             pid (int) : the ID of the player trying to participate in the trivia show
