@@ -10,5 +10,5 @@ class GenerateQuestions(Resource):
 
     @staticmethod
     def get(cur):
-        """Manually trigger question generation."""
+        """An API endpoint to manually trigger question generation."""
         return jsonify({"questions": generate(cur)})

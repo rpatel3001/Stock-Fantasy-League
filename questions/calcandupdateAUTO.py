@@ -3,6 +3,7 @@ from urllib.parse import urlparse
 import os
 import psycopg2
 
+# connect to the database
 try:
     url = urlparse(os.environ["DATABASE_URL"])
 except:
