@@ -9,6 +9,7 @@ from datetime import date, timedelta
 from time import sleep
 
 
+# calculate the last day that was a weekday
 def weekday():
     """String representation of the previous weekday."""
     adate = date.today() - timedelta(days=1)
@@ -17,6 +18,7 @@ def weekday():
     return adate.strftime('%Y-%m-%d')
 
 
+# split a list into sized chunks
 def chunk(n, iterable):
     """Util to iterate over a list in chunks."""
     args = [iter(iterable)] * n
@@ -39,22 +41,27 @@ db_conn = psycopg2.connect(
 
 u = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&apikey=DEDSQFY460FDRASD&symbol="
 
+# select all the stock symbols in the database
 i = 0
 with db_conn.cursor() as cur:
     cur.execute("SELECT symbol FROM stockdata;")
     fullsyms = [x['symbol'] for x in cur.fetchall()]
 
 for sym in fullsyms:
+    # print the current index to monitor progress
     print(i, end='\r')
     i += 1
+    # sleep to avoid hitting API rate limits
     sleep(.5)
     data = {'Information': 0}
     while True:
         data = get(u + sym).json()
+        # if we hit the rate limit anyway, sleep a long time then try again
         if 'Information' not in data.keys():
             break
         print(i)
         sleep(30)
+    # if the symbol doesn't exist then skip it
     try:
         data = data['Time Series (Daily)']
         data = data[list(data.keys())[0]]
@@ -66,6 +73,7 @@ for sym in fullsyms:
     strs = "('%s', %s, %s)" % (sym, data['4. close'], data['5. volume'])
     with db_conn:
         with db_conn.cursor() as cur:
+            # insert the new stock data into the database
             cur.execute("INSERT INTO stockdata (symbol, price, volume) "
                         "VALUES %s "
                         "ON CONFLICT(symbol) DO UPDATE "

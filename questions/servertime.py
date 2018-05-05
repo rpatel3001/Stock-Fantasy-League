@@ -4,6 +4,7 @@ import math
 
 class servertime(Resource):
 	def get(cur):
+        """ Return the current server time."""
 		ts = time.time()
 		return math.trunc(ts)
 		pass

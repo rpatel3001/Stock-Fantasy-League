@@ -3,6 +3,7 @@ from urllib.parse import urlparse
 import os
 import psycopg2
 
+# connect to the database
 try:
     url = urlparse(os.environ["DATABASE_URL"])
 except:
@@ -17,10 +18,10 @@ db_conn = psycopg2.connect(
 )
 cur = db_conn.cursor()
 
+# create a time string for 2:45 PM on this day
 start_str = time.strftime("%m/%d/%Y") + " 00:00:00"
 end_str = time.strftime("%m/%d/%Y ") + " 23:59:59"
 start_ts = int(time.mktime(time.strptime(start_str, "%m/%d/%Y %H:%M:%S")))
-
 start_ts = start_ts + 53100  # 2:45PM every day
 
 # value = datetime.datetime.fromtimestamp(start_ts)
@@ -28,5 +29,6 @@ start_ts = start_ts + 53100  # 2:45PM every day
 # print(start_ts)
 #   debug
 
+# insert the time string into the database
 cur.execute(
     "UPDATE premade_leagues SET quiztime = %s WHERE startbal = 10000;", (start_ts,))

@@ -14,6 +14,7 @@ def generate(cur):
     # Question 1
     q1 = "Which of these stock symbols is not real?"
     e1 = "One of these stock symbols is not listed on the three major stock exchanges. Stock symbols are unique identifiers for companies on an exchange. "
+    # select any two random stocks
     cur.execute('SELECT symbol, name FROM stockdata ORDER BY RANDOM() LIMIT 2')
     x = cur.fetchone()
     a11 = x['symbol']
@@ -22,6 +23,7 @@ def generate(cur):
     a12 = x['symbol']
     e12 = "This symbol is for " + x['name']
     while True:
+        # create random string of capital letters of length 1 to 4 until the string doesn't exist in the database
         a13 = ''.join(random.choices(string.ascii_uppercase, k=random.randint(1, 4)))
         cur.execute("SELECT COUNT(*) FROM stockdata WHERE symbol LIKE '%s'" % a13)
         if cur.fetchone()['count'] == 0:
@@ -35,9 +37,11 @@ def generate(cur):
 
     q2 = "Which of these stocks has the highest price?"
     e2 = "A stock's price represents its value to investors. Stocks with a higher price represent a higher value to investors. "
+    # select 3 random stocks
     cur.execute('SELECT symbol, price FROM stockdata ORDER BY RANDOM() LIMIT 3')
     u = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&apikey=DEDSQFY460FDRASD&symbol="
     ans = []
+    # get the stocks' prices
     for s in cur.fetchall():
         s = s['symbol']
         data = get(u + s).json()
@@ -59,9 +63,11 @@ def generate(cur):
 
     q3 = "Which of these stocks has the highest volume?"
     e3 = "Volume is the number of times a company's stocks are traded each day. More popular stocks generally have a higher volume."
+    # select 3 random stocks
     cur.execute('SELECT symbol FROM stockdata ORDER BY RANDOM() LIMIT 3')
     u = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&apikey=DEDSQFY460FDRASD&symbol="
     ans = []
+    # get the stocks' volumes
     for s in cur.fetchall():
         s = s['symbol']
         data = get(u + s).json()
@@ -83,9 +89,11 @@ def generate(cur):
 
     q4 = "Which of these stocks is doing historically well?"
     e4 = "Historical performance can be gauged by comparing a stock's price to its 52 week high and low. A stock near its 52 week high is performing well. "
+    # get 3 random stocks
     cur.execute('SELECT symbol FROM stockdata ORDER BY RANDOM() LIMIT 3')
     u = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&apikey=DEDSQFY460FDRASD&outputsize=full&symbol="
     ans = []
+    # calculate the 52 week high and low of each stock
     for s in cur.fetchall():
         s = s['symbol']
         data = get(u + s).json()
@@ -117,6 +125,7 @@ def generate(cur):
     e5 = "Stock's can be separated into sectors. All stocks in a sector are related in some way, thus their share prices are related."
     sector = random.choice(("Utilities", "Health Care", "Financials", "Industrials", "Materials"))
     q5 += sector + "?"
+    # select 2 stocks from a random sector
     cur.execute("SELECT symbol, name FROM stockdata WHERE sector LIKE '%s' ORDER BY RANDOM() LIMIT 2" % sector)
     x = cur.fetchone()
     a51 = x['symbol'] + ": " + x['name']
@@ -124,6 +133,7 @@ def generate(cur):
     x = cur.fetchone()
     a52 = x['symbol'] + ": " + x['name']
     e52 = "This stock is in the sector: " + sector
+    # select a random stock which is not in the specified sector
     cur.execute("SELECT symbol, sector, name FROM stockdata WHERE sector NOT LIKE '%s' ORDER BY RANDOM() LIMIT 1" % sector)
     x = cur.fetchone()
     a53 = x['symbol'] + ": " + x['name']
@@ -136,9 +146,11 @@ def generate(cur):
 
     q6 = "Which of these stocks is most volatile?"
     e6 = "One measure of a stock's volatility is its 52 week range. A larger range predicts higher volatility."
+    # select 3 random stocks
     cur.execute('SELECT symbol FROM stockdata ORDER BY RANDOM() LIMIT 3')
     u = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&apikey=DEDSQFY460FDRASD&outputsize=full&symbol="
     ans = []
+    # calculate the 52 week range of each stock
     for s in cur.fetchall():
         s = s['symbol']
         data = get(u + s).json()
@@ -170,6 +182,7 @@ def generate(cur):
     e7 = "Stocks in a sector are affected by world events in a similar manner. Their prices therefore move similarly."
     u = "https://www.alphavantage.co/query?function=SECTOR&apikey=DEDSQFY460FDRASD&outputsize=full"
     res = get(u).json()['Rank B: 1 Day Performance']
+    # select a random sector
     sectors = random.sample(("Utilities", "Health Care", "Financials", "Industrials", "Materials"), 3)
     data = []
     for s in sectors:
@@ -188,6 +201,7 @@ def generate(cur):
     print(a73)
     print()
 
+    # randomize the order of all question/answer pairs
     l1 = [(1, a11, e11), (2, a12, e12), (3, a13, e13)]
     random.shuffle(l1)
     a11 = l1[0][1]
@@ -258,6 +272,7 @@ def generate(cur):
     e73 = l7[2][2]
     i7 = next(i for i, x in enumerate(l7) if x[0] == 3)
 
+    # insert the new questions into the table
     cur.execute('TRUNCATE TABLE question RESTART IDENTITY;')
     cur.execute("INSERT INTO question (question, answers, answer_index, answer_descriptions, overall_description) VALUES (%s, %s, %s, %s, %s)", (q1, [a11, a12, a13], i1, [e11, e12, e13], e1))
     cur.execute("INSERT INTO question (question, answers, answer_index, answer_descriptions, overall_description) VALUES (%s, %s, %s, %s, %s)", (q2, [a21, a22, a23], i2, [e21, e22, e23], e2))
@@ -274,6 +289,7 @@ def generate(cur):
             "q6": {"text": q6, "answers": [a61, a62, a63], "explanations": [e61, e62, e63], "explanation": e6, 'answer_index': i6},
             "q7": {"text": q7, "answers": [a71, a72, a73], "explanations": [e71, e72, e73], "explanation": e7, 'answer_index': i7}}
 
+# connect to the database manually if run as main, else use the given connection
 if __name__ == "__main__":
     try:
         url = urlparse(os.environ["DATABASE_URL"])
