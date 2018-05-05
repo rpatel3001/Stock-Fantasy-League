@@ -5,6 +5,13 @@ class getALLPlayerInfoFromLID(Resource):
 	'''gets all PIDs from the league and gets all player info from that'''
 	@staticmethod
 	def get(cur, LID):
+		""" 
+        Args:
+            lid (int) : the ID of the league
+
+        Returns:
+			json string of all info from player table for each player in the league
+        """
 
 		if LID < 7:
 			cur.execute("SELECT pid FROM premade_leagues WHERE lid = %s;", [LID,])

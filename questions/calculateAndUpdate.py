@@ -5,6 +5,12 @@ class updatepoints(Resource):
 	"""used to update points every night at 12:00 AM"""
 	@staticmethod
 	def patch(cur):
+		""" 
+        Args:
+			NONE
+        Returns:
+			"Updated" - pulls data from all over every table the player is associated with and calculates point total for that day
+        """
 		allPlayers = cur.execute("SELECT pid from players ORDER BY pid;")
 		allPlayersList = cur.fetchall()
 		playerList = [value['pid'] for value in allPlayersList]

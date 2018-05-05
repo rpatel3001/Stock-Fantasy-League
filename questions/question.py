@@ -4,9 +4,16 @@ import json
 
 class question(Resource):
 
-    @staticmethod  # shows all users in database
+    @staticmethod
     def get(cur,LID, PID):
+""" 
+        Args:
+            lid (int) : the ID of the league
+            pid (int) : the ID of the player trying to participate in the trivia show
 
+        Returns:
+            All of the questions stored in the database
+        """
         finalString = ""
         #cur.execute("SELECT * FROM questions_test;")
         ans1 = []
@@ -14,7 +21,7 @@ class question(Resource):
             print(counter)
             cur.execute("SELECT * FROM question4 WHERE qid = %s;", (counter,))
 
-            ans =cur.fetchall()
+            ans = cur.fetchall()
             for row in ans:
                 ans1.append(dict(row))
             # finalString = finalString + cur.fetchone()

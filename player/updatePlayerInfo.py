@@ -4,6 +4,13 @@ import json
 class updatePlayerInfo(Resource):
 	@staticmethod
 	def post(cur, PID):
+		""" 
+        Args:
+            pid (int) : the ID of the player
+
+        Returns:
+			"Success" - assuming player information is updated successfully
+        """
 		parser = reqparse.RequestParser()
 		parser.add_argument('update')
 		args = parser.parse_args()

@@ -4,6 +4,14 @@ class deleteLeague(Resource):
 	'''Deletes a usermade league'''
 	@staticmethod
 	def delete(cur, LID):
+		""" 
+        Args:
+            lid (int) : the ID of the league
+
+        Returns:
+			"Deleted"
+        """
+
 		cur.execute("SELECT uid FROM leagues WHERE lid = %s;", [LID])
 		usersFromLeagues = cur.fetchone()
 		cur.execute("SELECT pid FROM leagues WHERE lid = %s;", [LID])
