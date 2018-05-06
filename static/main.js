@@ -657,6 +657,10 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
             $scope.intStockPrice = response.data.stockdata;
         }, function () {});
     };
+    $scope.maxPossible(total, pricePer) {
+        return Math.log10(Math.floor(total / priceper));
+    }
+
             }]);
 // function used to search stocks on player page
 // Replaces top 100 stocks with all matching stocks on search

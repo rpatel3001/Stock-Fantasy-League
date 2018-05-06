@@ -22,14 +22,14 @@
                         </div>
                         <div class="form-group">
                             <label for="Stock Ticker">Stock Name</label>
-                            <input type="text" readonly class="form-control-plaintext form-control-lg" id="LeagueNameInput" ng-model="selectedName">
+                            <input type="text" readonly class="form-control-plaintext form-control-lg" ng-model="selectedName">
                         </div>
                         <div class="form-group">
                             <label for="Stock Ticker">Current Stock Price</label> {{selectedStockPrice | currency}}
                         </div>
                         <div class="form-group">
                             <label for="Number">Number of Shares to Buy</label>
-                            <input type="number" class="form-control" id="StartBalanceInput" ng-model="numSharesSelected">
+                            <input type="number" class="form-control" id="StartBalanceInput" min="0" ng-maxLength="maxPossible(player.availbalance,selectedStockPrice)" ng-model="numSharesSelected">
                             <p> Your available balance is {{player.availbalance | currency}} .</p>
                             <p> Your transaction cost is {{numSharesSelected * selectedStockPrice | currency}}.</p>
                             <p> Your remaining balance will be {{(player.availbalance - numSharesSelected*selectedStockPrice) | currency}}.</p>
@@ -46,20 +46,21 @@
                             <input type="radio" ng-model="transactionType" value="Sell"> Sell
                         </div>-->
                         <div class="form-group">
-                            <p> You're available balance is {{player.availbalance | currency}}.</p>
+                            <p> Your available balance is {{player.availbalance | currency}}.</p>
+                            <p> You own {{player.numSharesOwned}} share of {{selectedTicker}}.</p>
                             <label for="StockTicker">Stock Ticker</label>
                             <input type="text" readonly class="form-control-plaintext form-control-lg" id="StockTicker" ng-model="selectedTicker">
                         </div>
                         <div class="form-group">
                             <label for="Stock Ticker">Stock Name</label>
-                            <input type="text" readonly class="form-control-plaintext form-control-lg" id="LeagueNameInput" ng-model="selectedName">
+                            <input type="text" readonly class="form-control-plaintext form-control-lg" ng-model="selectedName">
                         </div>
                         <div class="form-group">
                             <label for="Stock Ticker">Current Stock Price</label> {{selectedStockPrice | currency}}
                         </div>
                         <div class="form-group">
                             <label ffor="Number">Number of Shares to Sell</label>
-                            <input type="number" class="form-control" id="StartBalanceInput" ng-model="numSharesSelected" ng-min="0">
+                            <input type="number" class="form-control" id="StartBalanceInput" ng-model="numSharesSelected" min="0" min="0" ng-maxLength="maxPossible(player.availbalance,selectedStockPrice)">
                             <p> Your available balance is {{player.availbalance | currency}}.</p>
                             <p> Your sale income is {{numSharesSelected*selectedStockPrice | currency}}.</p>
                             <p> Your total balance will be {{player.availbalance +numSharesSelected*selectedStockPrice | currency}}.</p>
