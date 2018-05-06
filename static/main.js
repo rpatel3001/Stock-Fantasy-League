@@ -548,7 +548,11 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
         $scope.selectedStock = stock;
         $scope.selectedTicker = stock.symbol;
         $scope.selectedName = stock.name;
+        var index = $scope.player.holdings.findIndex(function (element) {
+            return element.symbol == $scope.selectedTicker;
+        });
         $scope.numSharesSelected = 0;
+        $scope.numSharesOwned = $scope.player.holdings[index].numberShares;
         var reqPrice = {
             type: 'GET',
             url: 'http://stock-fantasy-league.herokuapp.com/api/stock_data',
@@ -657,11 +661,11 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
             $scope.intStockPrice = response.data.stockdata;
         }, function () {});
     };
-    $scope.maxPossible(total, pricePer) {
-        return Math.log10(Math.floor(total / priceper));
+    $scope.maxPossible = function (total, pricePer) {
+        return Math.log10(Math.floor(total / pricePer));
     }
 
-            }]);
+}]);
 // function used to search stocks on player page
 // Replaces top 100 stocks with all matching stocks on search
 stk.filter('stockSearch', function () {
@@ -936,3 +940,13 @@ var updatePlayer = function (pid, player) {
         return null;
     });
 };
+
+/*stk.directive("preventMoreThanMax", function(){
+    return{
+        link: function(scope,element,attrs,controller){
+            element.on("keyup keydown", function(emit){
+                
+            })
+        }
+    }
+})*/
