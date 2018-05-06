@@ -1,132 +1,134 @@
 <!DOCTYPE html>
+<!-- VIP Information Page
+        Written By: Yao Shi, Alex Chan
+    -->
 <html>
 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>VIP</title>
-        <link rel="stylesheet" href="assets_vip/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="assets_vip/fonts/font-awesome.min.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/css/lightbox.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/css/swiper.min.css">
-        <link rel="stylesheet" href="assets_vip/css/styles.min.css">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIP</title>
+    <link rel="stylesheet" href="assets_vip/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets_vip/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/css/lightbox.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/css/swiper.min.css">
+    <link rel="stylesheet" href="assets_vip/css/styles.min.css">
 
-        <script type="application/javascript">
+    <script type="application/javascript">
+        function resizeIFrameToFitContent(iFrame) {
 
-            function resizeIFrameToFitContent( iFrame ) {
+            iFrame.width = iFrame.contentWindow.document.body.scrollWidth;
+            iFrame.height = iFrame.contentWindow.document.body.scrollHeight;
+        }
 
-                iFrame.width  = iFrame.contentWindow.document.body.scrollWidth;
-                iFrame.height = iFrame.contentWindow.document.body.scrollHeight;
-            }
+        window.addEventListener('DOMContentLoaded', function(e) {
 
-            window.addEventListener('DOMContentLoaded', function(e) {
+            var iFrame = document.getElementById('iFrame1');
+            resizeIFrameToFitContent(iFrame);
 
-                var iFrame = document.getElementById( 'iFrame1' );
-                resizeIFrameToFitContent( iFrame );
+        });
 
-            } );
+    </script>
 
-        </script>
+</head>
 
-    </head>
-
-    <body>
-        <div>
-            <div class="header-dark" style="background-image:url(&quot;assets_vip/img/star-sky.jpg&quot;);height:400;width: 100%"><nav class="navbar navbar-dark navbar-expand-md navigation-clean-search">
+<body>
+    <div>
+        <div class="header-dark" style="background-image:url(&quot;assets_vip/img/star-sky.jpg&quot;);height:400;width: 100%">
+            <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search">
                 <div class="container" Stock Fantasy League>
 
                 </div>
-                </nav>
-                <div class="container hero">
-                    <div class="row">
-                        <div class="col-md-8 offset-md-2">
-                            <h1 class="text-center">Better Your Gaming Experience.<br></h1>
-                            <div class="embed-responsive embed-responsive-16by9" style="background-image:url(&quot;);">
-                                <iframe class="embed-responsive-item" src="assets_vip/img/Top.jpg" id="iFrame1" frameborder="0" scrolling="no"></iframe></div>
-                        </div>
+            </nav>
+            <div class="container hero">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <h1 class="text-center">Better Your Gaming Experience.<br></h1>
+                        <div class="embed-responsive embed-responsive-16by9" style="background-image:url(&quot;);">
+                            <iframe class="embed-responsive-item" src="assets_vip/img/Top.jpg" id="iFrame1" frameborder="0" scrolling="no"></iframe></div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="highlight-clean" style="height:400;">
-            <div class="container">
-                <div class="intro">
-                    <h2 class="text-center">Stock Fantasy League VIP</h2>
-                    <h5 class="text-center" style="color:rgb(255,15,0);"><strong>Ads Free</strong></h5>
-                    <h5 class="text-center" style="color:rgb(255,15,0);"><strong>Unlimited Leagues</strong><br></h5>
-                    <h5 class="text-center" style="color:rgb(255,15,0);"><strong>Unlock Special Banners and VIP Icons</strong></h5>
-                    <h5 class="text-center" style="color:rgb(255,0,0);"><strong>Unlock&nbsp;Stock forecasting</strong><br></h5>
-                </div>
-                <div class="buttons"><a class="btn btn-primary" role="button" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XFLLM4AW398ZA">TRY IT FREE</a></div>
+    </div>
+    <div class="highlight-clean" style="height:400;">
+        <div class="container">
+            <div class="intro">
+                <h2 class="text-center">Stock Fantasy League VIP</h2>
+                <h5 class="text-center" style="color:rgb(255,15,0);"><strong>Ads Free</strong></h5>
+                <h5 class="text-center" style="color:rgb(255,15,0);"><strong>Unlimited Leagues</strong><br></h5>
+                <h5 class="text-center" style="color:rgb(255,15,0);"><strong>Unlock Special Banners and VIP Icons</strong></h5>
+                <h5 class="text-center" style="color:rgb(255,0,0);"><strong>Unlock&nbsp;Stock forecasting</strong><br></h5>
             </div>
-            <h6 class="text-center">1-month free trial . $3.99/month</h6>
+            <div class="buttons"><a class="btn btn-primary" role="button" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XFLLM4AW398ZA">TRY IT FREE</a></div>
         </div>
-        <div class="features-boxed">
-            <div class="container">
-                <div class="intro"></div>
-                <div class="row justify-content-center features">
-                    <div class="col-sm-6 col-md-5 col-lg-4 item">
-                        <div class="box"><i class="fa fa-map-marker icon"></i>
-                            <h3 class="name">Have fun everywhere</h3>
-                            <p class="description">We hope our service will provide you the best gaming experience.<br><br></p>
-                        </div>
+        <h6 class="text-center">1-month free trial . $3.99/month</h6>
+    </div>
+    <div class="features-boxed">
+        <div class="container">
+            <div class="intro"></div>
+            <div class="row justify-content-center features">
+                <div class="col-sm-6 col-md-5 col-lg-4 item">
+                    <div class="box"><i class="fa fa-map-marker icon"></i>
+                        <h3 class="name">Have fun everywhere</h3>
+                        <p class="description">We hope our service will provide you the best gaming experience.<br><br></p>
                     </div>
-                    <div class="col-sm-6 col-md-5 col-lg-4 item">
-                        <div class="box"><i class="fa fa-clock-o icon"></i>
-                            <h3 class="name">Learn some trading tips</h3>
-                            <p class="description">While having fun playing stock trading games, learn some stock trading tips for your future invetment.<br></p>
-                        </div>
+                </div>
+                <div class="col-sm-6 col-md-5 col-lg-4 item">
+                    <div class="box"><i class="fa fa-clock-o icon"></i>
+                        <h3 class="name">Learn some trading tips</h3>
+                        <p class="description">While having fun playing stock trading games, learn some stock trading tips for your future invetment.<br></p>
                     </div>
-                    <div class="col-sm-6 col-md-5 col-lg-4 item">
-                        <div class="box"><i class="fa fa-list-alt icon"></i>
-                            <h3 class="name">Connections</h3>
-                            <p class="description">Make some friends from stock trading and Connect with people who may share the same interests.</p>
-                        </div>
+                </div>
+                <div class="col-sm-6 col-md-5 col-lg-4 item">
+                    <div class="box"><i class="fa fa-list-alt icon"></i>
+                        <h3 class="name">Connections</h3>
+                        <p class="description">Make some friends from stock trading and Connect with people who may share the same interests.</p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="photo-gallery">
-            <div class="container">
-                <div class="intro">
-                    <h2 class="text-center">Gallery</h2>
-                </div>
+    </div>
+    <div class="photo-gallery">
+        <div class="container">
+            <div class="intro">
+                <h2 class="text-center">Gallery</h2>
+            </div>
 
-                <div class="row photos" style="justify-content: center">
-                    <div class="col-sm-4 col-md-4 col-lg-3 item"><img src="assets_vip/img/Icon5.jpg" class="img-fluid" /></div>
-                    <div class="col-sm-4 col-md-4 col-lg-3 item"><img src="assets_vip/img/Icon2.jpg" class="img-fluid" /></div>
-                    <div class="col-sm-4 col-md-4 col-lg-3 item"><img src="assets_vip/img/Icon1.jpg" class="img-fluid" /></div>               
-                </div>
-                <div class="row photos1" style="justify-content: center">
-                    <div class="col-sm-4 col-md-4 col-lg-3 item"><img src="assets_vip/img/Icon3.jpg" class="img-fluid" /></div>
-                    <div class="col-sm-4 col-md-4 col-lg-3 item"><img src="assets_vip/img/Icon4.jpg" class="img-fluid" /></div>
-                    <div class="col-sm-4 col-md-4 col-lg-3 item"><img src="assets_vip/img/Icon6.jpg" class="img-fluid" /></div>
-                </div>
+            <div class="row photos" style="justify-content: center">
+                <div class="col-sm-4 col-md-4 col-lg-3 item"><img src="assets_vip/img/Icon5.jpg" class="img-fluid" /></div>
+                <div class="col-sm-4 col-md-4 col-lg-3 item"><img src="assets_vip/img/Icon2.jpg" class="img-fluid" /></div>
+                <div class="col-sm-4 col-md-4 col-lg-3 item"><img src="assets_vip/img/Icon1.jpg" class="img-fluid" /></div>
             </div>
-            <div class="highlight-phone" style="height:400;">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="intro">
-                                <h2>Help to shape the future of Stock Fantasy League</h2>
-                                <p>We plan to set up a range of VIP benefits which can be paid for on a subscription basis, so that the site can be self-sustaining by covering its own hosting costs. We would&nbsp;appreciate any feedback from&nbsp;you.<br><br><br></p>
-                                <a
-                                   class="btn btn-primary" role="button" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XFLLM4AW398ZA">TRY IT FREE</a>
-                            </div>
+            <div class="row photos1" style="justify-content: center">
+                <div class="col-sm-4 col-md-4 col-lg-3 item"><img src="assets_vip/img/Icon3.jpg" class="img-fluid" /></div>
+                <div class="col-sm-4 col-md-4 col-lg-3 item"><img src="assets_vip/img/Icon4.jpg" class="img-fluid" /></div>
+                <div class="col-sm-4 col-md-4 col-lg-3 item"><img src="assets_vip/img/Icon6.jpg" class="img-fluid" /></div>
+            </div>
+        </div>
+        <div class="highlight-phone" style="height:400;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="intro">
+                            <h2>Help to shape the future of Stock Fantasy League</h2>
+                            <p>We plan to set up a range of VIP benefits which can be paid for on a subscription basis, so that the site can be self-sustaining by covering its own hosting costs. We would&nbsp;appreciate any feedback from&nbsp;you.<br><br><br></p>
+                            <a class="btn btn-primary" role="button" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XFLLM4AW398ZA">TRY IT FREE</a>
                         </div>
-                        <div class="col-sm-4">
-                            <div class="d-none d-md-block iphone-mockup"><img src="assets_vip/img/iphone.svg" class="device"></div>
-                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="d-none d-md-block iphone-mockup"><img src="assets_vip/img/iphone.svg" class="device"></div>
                     </div>
                 </div>
             </div>
-            <script src="assets_vip/js/jquery.min.js"></script>
-            <script src="assets_vip/bootstrap/js/bootstrap.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/js/lightbox.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js"></script>
-            <script src="assets_vip/js/script.min.js"></script>
         </div>
-            </body>
+        <script src="assets_vip/js/jquery.min.js"></script>
+        <script src="assets_vip/bootstrap/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/js/lightbox.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js"></script>
+        <script src="assets_vip/js/script.min.js"></script>
+    </div>
+</body>
 
 </html>
