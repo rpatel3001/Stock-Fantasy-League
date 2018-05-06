@@ -582,6 +582,7 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
             if (transactionType.localeCompare('Buy')) {
                 $scope.numSharesOwned = (index < 0 || $scope.player.holdings[index] == undefined || $scope.player.holdings[index] == null) ? 0 : $scope.player.holdings[index].numberShares;
                 $scope.maxLength = Math.ceil(Math.log10($scope.numSharesOwned));
+                $scope.maxValue = $scope.numSharesOwned;
             } else {
                 $scope.maxBuyShares = Math.floor($scope.player.availbalance / $scope.selectedStockPrice);
                 if ($scope.maxBuyShares == 0) {
@@ -589,6 +590,7 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
                 } else {
                     $scope.maxLength = Math.ceil(Math.log10($scope.maxBuyShares));
                 }
+                $scope.maxValue = $scope.maxBuyShares;
             }
             $('#holdingsModal').modal('show');
         }, function (response) {});
