@@ -1,0 +1,259 @@
+static
+├── about_us.html
+├── admin_page.html
+├── assets_aboutus
+│   ├── bootstrap
+│   │   ├── css
+│   │   │   └── bootstrap.min.css
+│   │   └── js
+│   │       └── bootstrap.min.js
+│   ├── css
+│   │   ├── styles.css
+│   │   └── Team-Boxed.css
+│   ├── img
+│   │   ├── Alex.jpg
+│   │   ├── angeline.jpg
+│   │   ├── Brian.jpg
+│   │   ├── David.jpg
+│   │   ├── Louis.jpg
+│   │   ├── Oz.jpg
+│   │   ├── Rajan.jpg
+│   │   ├── Temp.jpg
+│   │   ├── Wesley.jpg
+│   │   └── Yao.jpg
+│   └── js
+│       └── jquery.min.js
+├── assets_adminpage
+│   ├── bootstrap
+│   │   ├── css
+│   │   │   └── bootstrap.min.css
+│   │   └── js
+│   │       └── bootstrap.min.js
+│   ├── css
+│   │   └── styles.min.css
+│   ├── fonts
+│   │   ├── font-awesome.min.css
+│   │   ├── FontAwesome.otf
+│   │   ├── fontawesome-webfont.eot
+│   │   ├── fontawesome-webfont.svg
+│   │   ├── fontawesome-webfont.ttf
+│   │   ├── fontawesome-webfont.woff
+│   │   └── fontawesome-webfont.woff2
+│   └── js
+│       └── jquery.min.js
+├── assets_footer
+│   ├── bootstrap
+│   │   ├── css
+│   │   │   └── bootstrap.min.css
+│   │   └── js
+│   │       └── bootstrap.min.js
+│   ├── css
+│   │   ├── Footer-Basic.css
+│   │   ├── Footer-Clean.css
+│   │   └── styles.css
+│   ├── fonts
+│   │   ├── ionicons.eot
+│   │   ├── ionicons.min.css
+│   │   ├── ionicons.svg
+│   │   ├── ionicons.ttf
+│   │   └── ionicons.woff
+│   └── js
+│       └── jquery.min.js
+├── assets_home_part
+│   ├── bootstrap
+│   │   ├── css
+│   │   │   └── bootstrap.min.css
+│   │   └── js
+│   │       └── bootstrap.min.js
+│   ├── css
+│   │   └── styles.min.css
+│   ├── img
+│   │   ├── building.jpg
+│   │   ├── desk.jpg
+│   │   ├── homepage_top.jpg
+│   │   ├── loft.jpg
+│   │   ├── p1.jpg
+│   │   ├── p2.jpg
+│   │   └── p3.jpg
+│   └── js
+│       └── jquery.min.js
+├── assets_leader
+│   ├── bootstrap
+│   │   ├── css
+│   │   │   └── bootstrap.min.css
+│   │   └── js
+│   │       └── bootstrap.min.js
+│   ├── css
+│   │   └── styles.min.css
+│   ├── img
+│   │   ├── iphone.svg
+│   │   └── screen-content-iphone-6.jpg
+│   └── js
+│       └── jquery.min.js
+├── assets_personal_profile
+│   ├── bootstrap
+│   │   ├── css
+│   │   │   └── bootstrap.min.css
+│   │   └── js
+│   │       └── bootstrap.min.js
+│   ├── css
+│   │   └── styles.min.css
+│   ├── img
+│   │   ├── DS1.png
+│   │   ├── DS2.png
+│   │   ├── Icon1.jpg
+│   │   ├── Icon2.jpg
+│   │   └── Night-Lovely-Sleeping-Lamp-Baby-Room-Panda-Rabbit-Dog-Bear-Cartoon-Light-Kids-Bed-Lamp-for_5a2c1a14-89af-4d38-baac-7e2b57a9fe34_1024x1024.jpg
+│   └── js
+│       ├── jquery.min.js
+│       └── script.min.js
+├── assets_player
+│   ├── bootstrap
+│   │   ├── css
+│   │   │   └── bootstrap.min.css
+│   │   └── js
+│   │       └── bootstrap.min.js
+│   ├── css
+│   │   └── styles.min.css
+│   ├── img
+│   │   └── avatar-dhg.png
+│   └── js
+│       └── jquery.min.js
+├── assets_term
+│   ├── bootstrap
+│   │   └── css
+│   │       └── bootstrap.min.css
+│   └── css
+│       └── styles.min.css
+├── assets_trading
+│   ├── bootstrap
+│   │   ├── css
+│   │   │   └── bootstrap.min.css
+│   │   └── js
+│   │       └── bootstrap.min.js
+│   ├── css
+│   │   └── styles.min.css
+│   ├── img
+│   │   └── Desktop-Wallpaper-4.jpg
+│   └── js
+│       └── jquery.min.js
+├── assets_triviashow
+│   ├── bootstrap
+│   │   ├── css
+│   │   │   └── bootstrap.min.css
+│   │   └── js
+│   │       └── bootstrap.min.js
+│   ├── css
+│   │   └── styles.min.css
+│   ├── img
+│   │   ├── mountain_bg.jpg
+│   │   ├── TBack.png
+│   │   ├── TNight2.png
+│   │   ├── TriviaNight2.png
+│   │   ├── TriviaNight3.png
+│   │   ├── TriviaNight4.png
+│   │   ├── TriviaNight5.png
+│   │   └── Trivia.png
+│   └── js
+│       ├── jquery.min.js
+│       └── script.min.js
+├── assets_tutorial
+│   ├── bootstrap
+│   │   ├── css
+│   │   │   └── bootstrap.min.css
+│   │   └── js
+│   │       └── bootstrap.min.js
+│   ├── css
+│   │   └── styles.min.css
+│   ├── img
+│   │   ├── beach.jpg
+│   │   ├── Cubes-Background.jpg
+│   │   ├── desk.jpg
+│   │   ├── iphone.svg
+│   │   ├── League.png
+│   │   ├── Profile.png
+│   │   ├── ranking.png
+│   │   ├── rssfeed.png
+│   │   ├── rss.png
+│   │   ├── screen-content-iphone-6.jpg
+│   │   ├── Survey.png
+│   │   ├── Trading_Diagram.png
+│   │   └── Tutorial.jpg
+│   └── js
+│       └── jquery.min.js
+├── assets_vip
+│   ├── bootstrap
+│   │   ├── css
+│   │   │   └── bootstrap.min.css
+│   │   └── js
+│   │       └── bootstrap.min.js
+│   ├── css
+│   │   └── styles.min.css
+│   ├── fonts
+│   │   ├── font-awesome.min.css
+│   │   ├── FontAwesome.otf
+│   │   ├── fontawesome-webfont.eot
+│   │   ├── fontawesome-webfont.svg
+│   │   ├── fontawesome-webfont.ttf
+│   │   ├── fontawesome-webfont.woff
+│   │   └── fontawesome-webfont.woff2
+│   ├── img
+│   │   ├── Icon1.jpg
+│   │   ├── Icon2.jpg
+│   │   ├── Icon3.jpg
+│   │   ├── Icon4.jpg
+│   │   ├── Icon5.jpg
+│   │   ├── Icon6.jpg
+│   │   ├── iphone.svg
+│   │   ├── star-sky.jpg
+│   │   └── Top.jpg
+│   └── js
+│       ├── jquery.min.js
+│       └── script.min.js
+├── assistant.html
+├── css
+│   ├── bootstrap.min.css
+│   └── main.css
+├── dashboard_parts.html
+├── footer.html
+├── gameshow.html
+├── homepage_parts.html
+├── img
+│   ├── homepage_icon.png
+│   ├── homepage.png
+│   ├── homepage_top.jpg
+│   ├── hompage_p1.jpg
+│   ├── hompage_p2.jpg
+│   ├── hompage_p3.jpg
+│   └── placeholder
+├── index.html
+├── info_holding.html
+├── integration_testing.html
+├── Leaderboard.html
+├── league_create_league.html
+├── league_list.html
+├── league_parts.html
+├── lessons.html
+├── lesson_sidebar.html
+├── main.js
+├── modify_holding.html
+├── navbar.html
+├── player_parts.html
+├── Privacy.html
+├── terms.html
+├── Trading.html
+├── trading_view.html
+├── tutorial.html
+├── Unused files
+│   ├── leagues.html
+│   ├── personal_profile.html
+│   ├── Player_page.html
+│   ├── players.html
+│   ├── triviashow.html
+│   └── users.html
+├── user_create_league.html
+├── user_list.html
+├── user_parts.html
+└── vip.html
+
+85 directories, 171 files

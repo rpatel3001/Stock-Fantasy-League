@@ -1,0 +1,62 @@
+.
+├── .env
+├── .gitignore
+├── __init__.py
+├── league
+│   ├── deleteLeague.py
+│   ├── getALLPlayerInfoFromLID.py
+│   ├── getEverythingLeague.py
+│   ├── getLeagueInfoFromArray.py
+│   ├── getPlayerInfoByUID.py
+│   ├── __init__.py
+│   ├── League.py
+│   ├── Leagues.py
+│   ├── removePlayer.py
+│   └── restartPremadeLeagues.py
+├── lesson_plans
+├── lessons
+│   └── getlesson.py
+├── main.py
+├── misc
+│   └── Assistant.py
+├── Pipfile
+├── Pipfile.lock
+├── player
+│   ├── getPlayerInfoPID.py
+│   ├── __init__.py
+│   ├── Player.py
+│   ├── Players.py
+│   └── updatePlayerInfo.py
+├── Procfile
+├── questions
+│   ├── addquizpoints.py
+│   ├── calcandupdateAUTO.py
+│   ├── calculateAndUpdate.py
+│   ├── generate_questions_api.py
+│   ├── generate_questions.py
+│   ├── __init__.py
+│   ├── question.py
+│   ├── sendQuestion.py
+│   ├── servertime.py
+│   ├── setquiztimemanual.py
+│   └── setquiztime.py
+├── README.md
+├── serverTime.py
+├── serviceaccountdetails.json
+├── stock_data
+│   ├── __init__.py
+│   ├── StockData.py
+│   ├── StockSearch.py
+│   ├── TopStocks.py
+│   └── update_stock_db.py
+├── tree.txt
+└── user
+    ├── buyVIP.py
+    ├── __init__.py
+    ├── joinLeague.py
+    ├── leaveLeague.py
+    ├── updateUserInfo.py
+    ├── User.py
+    └── Users.py
+
+8 directories, 51 files
