@@ -3,60 +3,60 @@
 ├── .gitignore
 ├── __init__.py
 ├── league
-│   ├── deleteLeague.py
-│   ├── getALLPlayerInfoFromLID.py
-│   ├── getEverythingLeague.py
-│   ├── getLeagueInfoFromArray.py
-│   ├── getPlayerInfoByUID.py
+│   ├── deleteLeague.py - method to delete a league as a user
+│   ├── getALLPlayerInfoFromLID.py - method to get all player information given an ID of a league
+│   ├── getEverythingLeague.py - method to get all league information for one singular league
+│   ├── getLeagueInfoFromArray.py - method to get all information about all leagues in an array
+│   ├── getPlayerInfoByUID.py - method to get all player information given a UID and LID
 │   ├── __init__.py
-│   ├── League.py
+│   ├── League.py - method to get list of all leagues
 │   ├── Leagues.py
-│   ├── removePlayer.py
-│   └── restartPremadeLeagues.py
+│   ├── removePlayer.py - method to remove players from a league as the owner of the league
+│   └── restartPremadeLeagues.py - method to restart all premade leagues
 ├── lesson_plans
 ├── lessons
-│   └── getlesson.py
-├── main.py
+│   └── getlesson.py - method to send json string of lesson plan
+├── main.py - contains all API endpoints and establishes connection to database
 ├── misc
 │   └── Assistant.py
 ├── Pipfile
 ├── Pipfile.lock
 ├── player
-│   ├── getPlayerInfoPID.py
+│   ├── getPlayerInfoPID.py - method to git all player information given player ID
 │   ├── __init__.py
 │   ├── Player.py
-│   ├── Players.py
-│   └── updatePlayerInfo.py
+│   ├── Players.py - method to get all players that are connected to a UID
+│   └── updatePlayerInfo.py - method to update player table in database
 ├── Procfile
 ├── questions
-│   ├── addquizpoints.py
-│   ├── calcandupdateAUTO.py
-│   ├── calculateAndUpdate.py
-│   ├── generate_questions_api.py
-│   ├── generate_questions.py
+│   ├── addquizpoints.py - method to send points to database for each user after the conclusion of trivia show
+│   ├── calcandupdateAUTO.py - method to update reputation points automatically at 12:00 AM every day
+│   ├── calculateAndUpdate.py - method to update reputation points manually (cycles through a whole day)
+│   ├── generate_questions_api.py - method to generate questions from the information mined from API
+│   ├── generate_questions.py - method to generate questions manually using same method and returns a json string of all questions/				answers and any relevent information
 │   ├── __init__.py
-│   ├── question.py
-│   ├── sendQuestion.py
-│   ├── servertime.py
-│   ├── setquiztimemanual.py
-│   └── setquiztime.py
+│   ├── question.py - method to send questions to user
+│   ├── sendQuestion.py - alternate method to send questions to user
+│   ├── servertime.py - method to send server time to front end
+│   ├── setquiztimemanual.py - method to set quiz time for 15 seconds after function call
+│   └── setquiztime.py - method to set quiz time to 2:45 PM every day
 ├── README.md
 ├── serverTime.py
 ├── serviceaccountdetails.json
 ├── stock_data
 │   ├── __init__.py
-│   ├── StockData.py
-│   ├── StockSearch.py
-│   ├── TopStocks.py
-│   └── update_stock_db.py
+│   ├── StockData.py - method to get all stock data
+│   ├── StockSearch.py - method to search stock data
+│   ├── TopStocks.py - method to grab top stocks from database
+│   └── update_stock_db.py - method to update stock data for front end daily
 ├── tree.txt
 └── user
     ├── buyVIP.py
     ├── __init__.py
-    ├── joinLeague.py
-    ├── leaveLeague.py
-    ├── updateUserInfo.py
-    ├── User.py
-    └── Users.py
+    ├── joinLeague.py - method for user to join a league
+    ├── leaveLeague.py - method for user to leave a league
+    ├── updateUserInfo.py - method to update any user information
+    ├── User.py - method to create a league and get all user information
+    └── Users.py - method to log in and register to our service and to get all users in database
 
 8 directories, 51 files
