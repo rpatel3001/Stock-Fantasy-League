@@ -577,7 +577,7 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
         $http(reqPrice).then(function (response) {
 
             $scope.selectedTicker = stock.symbol;
-            $scope.selectedName = stock.name; == null
+            $scope.selectedName = stock.name;
             $scope.selectedStockPrice = response.data.stockdata[0].price;
             if ($scope.player.holdings[index] == undefined || $scope.player.holdings[index] == null)
                 $scope.numSharesOwned = $scope.player.holdings[index].numberShares;
