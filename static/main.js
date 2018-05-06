@@ -581,8 +581,8 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
             $scope.selectedStockPrice = response.data.stockdata[0].price;
             $scope.numSharesOwned = (index < 0 || $scope.player.holdings[index] == undefined || $scope.player.holdings[index] == null) ? 0 : $scope.player.holdings[index].numberShares;
             $scope.maxBuyShares = Math.floor($scope.player.availbalance / $scope.selectedStockPrice);
-            $scope.maxBuyLength = Math.floor(Math.log10($scope.maxBuyShares));
-            $scope.maxSellLength = Math.floor(Math.log10($scope.numSharesOwned));
+            $scope.maxBuyLength = Math.ceil(Math.log10($scope.maxBuyShares));
+            $scope.maxSellLength = Math.ceil(Math.log10($scope.numSharesOwned));
             $('#holdingsModal').modal('show');
         }, function (response) {});
     };
@@ -666,7 +666,7 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
         }, function () {});
     };
     $scope.maxPossible = function (total, pricePer) {
-        return Math.log10(Math.floor(total / pricePer));
+        return Math.ceil(Math.log10(Math.floor(total / pricePer)));
     }
 
 }]);
