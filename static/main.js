@@ -957,7 +957,8 @@ var updatePlayer = function (pid, player) {
 stk.directive("preventMoreThanMax", function () {
     return {
         link: function (scope, element, attrs, controller) {
-            element.on("keyup keydown", function (emit) {
+            element.on("keypress", function (emit) {
+                console.log(scope.maxValue);
                 if (Number(element.val()) > Number(scope.maxLength) && emit.keyCode != 8 && emit.keyCode != 46) {
                     emit.preventDefault();
                     element.val(scope.maxValue)
@@ -966,7 +967,17 @@ stk.directive("preventMoreThanMax", function () {
         }
     }
 });
-
+/*app.directive("limitTo", [function () {
+    return {
+        restrict: "A",
+        link: function (scope, elem, attrs) {
+            var limit = parseInt(attrs.limitTo);
+            angular.element(elem).on("keypress", function (e) {
+                if (this.value.length == limit) e.preventDefault();
+            });
+        }
+    }
+}]);*/
 /*app.directive("limitToMax", function () {
     return {
         link: function (scope, element, attributes) {

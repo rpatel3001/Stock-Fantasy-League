@@ -29,7 +29,8 @@
                         </div>
                         <div class="form-group">
                             <label for="Number">Number of Shares to Buy</label>
-                            <input type="number" class="form-control" id="StartBalanceInput" min="0" ng-maxLength="maxLength" ng-model="numSharesSelected">
+                            <input type="number" class="form-control" id="StartBalanceInput" min="0" ng-maxLength="maxLength" ng-model="numSharesSelected" prevent-more-than-max>
+                            <input type="number" class="form-control" id="StartBalanceInput" min="0" ng-maxLength="maxLength" ng-model="numSharesSelected" prevent-more-than-max>
                             <p> Your available balance is {{player.availbalance | currency}} .</p>
                             <p> Your transaction cost is {{numSharesSelected * selectedStockPrice | currency}}.</p>
                             <p> Your remaining balance will be {{(player.availbalance - numSharesSelected*selectedStockPrice) | currency}}.</p>
@@ -47,7 +48,7 @@
                         </div>-->
                         <div class="form-group">
                             <p> Your available balance is {{player.availbalance | currency}}.</p>
-                            <p> You own {{player.numSharesOwned}} share of {{selectedTicker}}.</p>
+                            <p> You own {{numSharesOwned}} share of {{selectedTicker}}.</p>
                             <label for="StockTicker">Stock Ticker</label>
                             <input type="text" readonly class="form-control-plaintext form-control-lg" id="StockTicker" ng-model="selectedTicker">
                         </div>
@@ -60,7 +61,7 @@
                         </div>
                         <div class="form-group">
                             <label ffor="Number">Number of Shares to Sell</label>
-                            <input type="number" class="form-control" id="StartBalanceInput" ng-model="numSharesSelected" min="0" min="0" ng-maxLength="numSharesOwned">
+                            <input type="number" class="form-control" id="StartBalanceInput" ng-model="numSharesSelected" min="0" min="0" ng-maxLength="maxLength" prevent-more-than-max>
                             <p> Your available balance is {{player.availbalance | currency}}.</p>
                             <p> Your sale income is {{numSharesSelected*selectedStockPrice | currency}}.</p>
                             <p> Your total balance will be {{player.availbalance +numSharesSelected*selectedStockPrice | currency}}.</p>
