@@ -29,8 +29,7 @@
                         </div>
                         <div class="form-group">
                             <label for="Number">Number of Shares to Buy</label>
-                            <input type="number" class="form-control" id="StartBalanceInput" min="0" ng-maxLength="maxLength" ng-model="numSharesSelected" prevent-more-than-max>
-                            <input type="number" class="form-control" id="StartBalanceInput" min="0" ng-maxLength="maxLength" ng-model="numSharesSelected" prevent-more-than-max>
+                            <input type="number" class="form-control" id="StartBalanceInput" min="0" ng-maxLength="maxLength" ng-model="numSharesSelected" ng-change="if(numSharesSelected >maxValue){numSharesSelected == maxValue}">
                             <p> Your available balance is {{player.availbalance | currency}} .</p>
                             <p> Your transaction cost is {{numSharesSelected * selectedStockPrice | currency}}.</p>
                             <p> Your remaining balance will be {{(player.availbalance - numSharesSelected*selectedStockPrice) | currency}}.</p>
