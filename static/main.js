@@ -431,6 +431,40 @@ stk.controller('UserController', ['$scope', '$http', '$rootScope', '$routeParams
             console.log("Error leaving League");
         });
     };
+    //update user information specifically description and VIP status on the server, by sending the user's updated information as a JSON string
+    $scope.openUpdateUserModal = function () {
+        $('#updateUserInfoModal').modal('show');
+    }
+    /*$scope.updateUserInfo = function () {
+        if ($scope.paramuid == $scope.uid) {
+            var reqUpdateUserInfo = {
+                method: 'POST',
+                url: 'http://stock-fantasy-league.herokuapp.com/api/user/' + $scope.uid + '/update',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data: data: $.param({
+                    'update': JSON.stringify($scope.user)
+                })
+            };
+            $http(reqUpdateUserInfo).then(function (response) {
+                console.log(response.data); //unwrapped json
+                $scope.startBal = null;
+                $scope.duration = null;
+                $scope.leaguename = null;
+                $scope.description = null;
+                if ($scope.user.lid == null)
+                    $scope.user.lid = [];
+                $scope.user.lid.push(response.data[response.data.length - 1].lid);
+                $('#createLeagueModal').modal('hide');
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+                $route.reload();
+            }, function (response) {
+                console.log('Failing getting league info!');
+            });
+        };
+    };*/
     //update user information on the server, by sending the user's updated information as a JSON string
     $scope.updateUser = function () {
         var reqUpdatePlayer = {

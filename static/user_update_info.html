@@ -1,18 +1,18 @@
-<div class="modal" id="createLeagueModal" tabindex="-1" role="dialog" aria-labelledby="holdingsModalLabel" aria-hidden="true">
+<div class="modal" id="userUpdateInfoModal" tabindex="-1" role="dialog" aria-labelledby="holdingsModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="holdingsModalLabel">Create League</h5>
+                <h5 class="modal-title" id="holdingsModalLabel">Update User Info</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-onclick=""><!--reset selection-->
           <span aria-hidden="true">&times;</span>
         </button>
             </div>
             <div class="modal-body">
 
-                <form id="createLeague" ng-controller="UserController">
+                <form id="updateUserInfo" ng-controller="UserController">
                     <div class="form-group">
-                        <label for="LeagueNameInput">League Name</label>
-                        <input type="text" class="form-control form-control-lg" id="LeagueNameInput" ng-model="leaguename" maxlength="100">
+                        <label for="User Description">User Description</label>
+                        <input type="text" class="form-control form-control-lg" id="UserDescription" ng-model="userdescription">
                     </div>
                     <div class="form-group">
                         <label for="StartBalanceInput">StartBalance</label>
@@ -24,7 +24,7 @@
                     </div>
                     <div class="form-group">
                         <label for="DescriptionTextArea">Description</label>
-                        <textarea class="form-control" id="DescriptionTextArea" rows="2" ng-model="description" maxlength="200"></textarea>
+                        <textarea class="form-control" id="DescriptionTextArea" rows="2" ng-model="description"></textarea>
                     </div>
                     <button class="btn btn-primary" type="submit" ng-click="createLeague();">Create League</button>
                 </form>
