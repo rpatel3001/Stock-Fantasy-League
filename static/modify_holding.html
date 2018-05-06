@@ -11,10 +11,9 @@
 
                 <div ng-if="transactionType == 'Buy'">
                     <form id="modifyHoldings" ng-controller="PlayerController">
-                        <!--<div class="form-group">
-                            <input type="radio" ng-model="transactionType" value="Buy" checked="checked"> Buy
-                            <input type="radio" ng-model="transactionType" value="Sell"> Sell
-                        </div>-->
+                        <div class="alert alert-danger" role="alert" ng-hide="numSharesSelected<=maxValue">
+                            <strong>Not enough funds available!</strong>You do have enough funds to complete this purchase.
+                        </div>
                         <div class="form-group">
                             <p> Your available balance is {{player.availbalance | currency}}.</p>
                             <label for="StockTicker">Stock Ticker</label>
@@ -35,11 +34,14 @@
                             <p> Your remaining balance will be {{(player.availbalance - numSharesSelected*selectedStockPrice) | currency}}.</p>
                             <p>If more stocks are purchased than available funds, the maximum shares that a player can afford are bought.</p>
                         </div>
-                        <button class="btn btn-primary" type="submit" ng-click="modifyHoldings(selectedStock,transactionType,numSharesSelected,selectedStockPrice,false);" data-dismiss="modal" data-backdrop="false">{{transactionType}} {{selectedTicker}}</button>
+                        <button class="btn btn-primary" type="submit" ng-click="modifyHoldings(selectedStock,transactionType,numSharesSelected,selectedStockPrice,false);" data-dismiss="modal" data-backdrop="false" ng-show="numSharesSelected<=maxValue">{{transactionType}} {{selectedTicker}}</button>
                     </form>
                 </div>
                 <div ng-if="transactionType == 'Sell'">
                     <form id="modifyHoldings" ng-controller="PlayerController">
+                        <div class="alert alert-danger" role="alert" ng-hide="numSharesSelected<=maxValue">
+                            <strong>Not enough shares owned!</strong>You do not own enough shares to complete this sale.
+                        </div>
                         <h3>{{transactionType}}: {{selectedTicker}} - {{selectedName}}</h3>
                         <!--<div class="form-group">
                             <input type="radio" ng-model="transactionType" value="Buy" checked="checked"> Buy
@@ -66,7 +68,7 @@
                             <p> Your total balance will be {{player.availbalance +numSharesSelected*selectedStockPrice | currency}}.</p>
                             <p>If more stocks are sold than available funds, all of the shares the player owns are sold.</p>
                         </div>
-                        <button class="btn btn-primary" type="submit" ng-click="modifyHoldings(selectedStock,transactionType,numSharesSelected,selectedStockPrice,false);" data-dismiss="modal" data-backdrop="false">{{transactionType}} {{selectedTicker}}</button>
+                        <button class="btn btn-primary" type="submit" ng-click="modifyHoldings(selectedStock,transactionType,numSharesSelected,selectedStockPrice,false);" data-dismiss="modal" data-backdrop="false" ng-show="numSharesSelected<=maxValue">{{transactionType}} {{selectedTicker}}</button>
                     </form>
                 </div>
                 <!-- TradingView Widget BEGIN -->
