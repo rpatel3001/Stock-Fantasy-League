@@ -9,7 +9,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <h1 class="display-4" style="color: #ffffff">{{(league.leaguename | limitTo: 20) + (league.leaguename.length > 20 ? '...': '')}}{{league.industry}}</h1>
+                        <h1 class="display-4" style="color: #ffffff">{{(league.leaguename | limitTo: 20) + ((league.leaguename != undefined || league.leaguename != null || league.leaguename.length > 20) ? '...': '')}}{{league.industry}}</h1>
                     </div>
                     <div class="col-md-6" ng-if="lid>6">
                         <a ng-href="#!/user/{{owner.uid}}"><span class="float-right"><h1 class="display-4" style="color: #ffffff">
