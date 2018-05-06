@@ -27,8 +27,8 @@
     </thead>
     <tr ng-repeat="league in leagues| filter: LeagueSelect">
         <a ng-href="#!/league/{{league.lid}}">
-            <td><a ng-href="#!/league/{{league.lid}}">{{(league.leaguename | limitTo: 20) + ((league.leaguename != undefined || league.leaguename != null || league.leaguename.length > 20) ? '...': '')}}{{league.industry}}</a></td>
-            <td><a ng-href="#!/league/{{league.lid}}">{{(league.description | limitTo: 20) + (league.description.length > 20 ? '...': '')}}</a></td>
+            <td><a ng-href="#!/league/{{league.lid}}">{{(league.leaguename | limitTo: 20) + ((league.leaguename == undefined || league.leaguename == null || league.leaguename.length > 20) ? '...': '')}}{{league.industry}}</a></td>
+            <td><a ng-href="#!/league/{{league.lid}}">{{(league.description | limitTo: 40) + (league.description.length > 40 ? '...': '')}}</a></td>
             <td><a ng-href="#!/league/{{league.lid}}">{{league.pid.length | number}}</a></td>
             <td><a ng-href="#!/league/{{league.lid}}">{{league.startbal | currency }}</a></td>
             <td ng-if="uid>0 && league.uid.indexOf(uid) == -1"><button class="btn btn-primary" ng-click="joinLeague(league.lid);">Join</button></td>
