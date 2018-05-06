@@ -579,7 +579,7 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
             $scope.selectedTicker = stock.symbol;
             $scope.selectedName = stock.name;
             $scope.selectedStockPrice = response.data.stockdata[0].price;
-            if (transactionType.localeCompare('Buy')) {
+            if ($scope.transactionType.localeCompare('Buy')) {
                 $scope.numSharesOwned = (index < 0 || $scope.player.holdings[index] == undefined || $scope.player.holdings[index] == null) ? 0 : $scope.player.holdings[index].numberShares;
                 $scope.maxLength = Math.ceil(Math.log10($scope.numSharesOwned));
                 $scope.maxValue = $scope.numSharesOwned;
