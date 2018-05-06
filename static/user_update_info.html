@@ -17,7 +17,7 @@
                 <form id="updateUserInfo" ng-controller="UserController">
                     <div class="form-group">
                         <label for="User Description">User Description</label>
-                        <input type="text" class="form-control form-control-lg" id="UserDescription" ng-model="userDescription">
+                        <input type="text" class="form-control form-control-lg" id="UserDescription" ng-model="userDescription" maxlength="40">
                     </div>
                     <button class="btn btn-primary" type="submit" ng-click="updateUserInfo();">Update User Info</button>
                 </form>

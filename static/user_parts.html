@@ -17,7 +17,7 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <p class="lead" style="color: #ffffff" ng-if="user.description != '{}'">{{(user.description | limitTo: 20) + (league.description.length > 20 ? '...': '')}}</p>
+                    <p class="lead" style="color: #ffffff" ng-if="user.description != '{}'">{{(user.description | limitTo: 41) + (league.description.length > 41 ? '...': '')}}</p>
                     <p class="lead" style="color: #ffffff;font-style: italic;" ng-if="user.description == '{}'">{{user.username}} has no description.</p>
                 </div>
                 <div class="col-md-6">
