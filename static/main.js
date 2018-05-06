@@ -552,7 +552,6 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
             return element.symbol == $scope.selectedTicker;
         });
         $scope.numSharesSelected = 0;
-        $scope.numSharesOwned = $scope.player.holdings[index].numberShares;
         var reqPrice = {
             type: 'GET',
             url: 'http://stock-fantasy-league.herokuapp.com/api/stock_data',
@@ -576,9 +575,14 @@ stk.controller('PlayerController', ['$scope', '$http', '$routeParams', '$route',
             "container_id": "tradingview_cd18d"
         });
         $http(reqPrice).then(function (response) {
+
             $scope.selectedTicker = stock.symbol;
             $scope.selectedName = stock.name;
             $scope.selectedStockPrice = response.data.stockdata[0].price;
+            $scope.numSharesOwned = $scope.player.holdings[index].numberShares;
+            $scope.maxBuyShares = Math.floor($scope.player.availbalance / $scope.selectedStockPrice);
+            $scope.maxBuyLength = Math.floor(Math.log10($scope.maxBuyShares));
+            $scope.maxSellLength = Math.floor(Math.log10($scope.numSharesOwned));
             $('#holdingsModal').modal('show');
         }, function (response) {});
     };
@@ -941,12 +945,32 @@ var updatePlayer = function (pid, player) {
     });
 };
 
-/*stk.directive("preventMoreThanMax", function(){
-    return{
-        link: function(scope,element,attrs,controller){
-            element.on("keyup keydown", function(emit){
-                
+stk.directive("preventMoreThanMax", function () {
+    return {
+        link: function (scope, element, attrs, controller) {
+            element.on("keyup keydown", function (emit) {
+                if (Number(element.val()) > Number(scope.maxLength) && emit.keyCode != 8 && emit.keyCode != 46) {
+                    emit.preventDefault();
+                    element.val(scope.maxValue)
+                }
             })
         }
     }
-})*/
+});
+
+/*app.directive("limitToMax", function () {
+    return {
+        link: function (scope, element, attributes) {
+            element.on("keydown keyup", function (e) {
+                if (Number(element.val()) > Number(attributes.) &&
+                    e.keyCode != 46 // delete
+                    &&
+                    e.keyCode != 8 // backspace
+                ) {
+                    e.preventDefault();
+                    element.val(attributes.max);
+                }
+            });
+        }
+    };
+});*/
