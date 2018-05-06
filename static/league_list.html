@@ -27,7 +27,7 @@
     </thead>
     <tr ng-repeat="league in leagues| filter: LeagueSelect">
         <a ng-href="#!/league/{{league.lid}}">
-            <td><a ng-href="#!/league/{{league.lid}}">{{(league.leaguename | limitTo: 20) + (league.description.length > 20 ? '...': '')}}{{league.industry}}</a></td>
+            <td><a ng-href="#!/league/{{league.lid}}">{{(league.leaguename | limitTo: 20) + ((league.description == undefined || league.description == null || league.description.length > 20) ? '...': '')}}{{league.industry}}</a></td>
             <td><a ng-href="#!/league/{{league.lid}}">{{(league.description | limitTo: 20) + (league.description.length > 20 ? '...': '')}}</a></td>
             <td><a ng-href="#!/league/{{league.lid}}">{{league.pid.length | number}}</a></td>
             <td><a ng-href="#!/league/{{league.lid}}">{{league.startbal | currency }}</a></td>
