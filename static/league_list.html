@@ -1,5 +1,8 @@
-<!-- List of all the users-->
-<!--<div ng-repeat="league in data.Leagues">-->
+<!-- HTML Template List of all the Leagues for all players or can be used for a specific user
+        Written By: Oz Bejerano
+        Tested By: Oz Bejerano
+        Debugged By: Oz Bejerano
+    -->
 <div ng-include="'league_create_league.html'"></div>
 <nav class="navbar navbar-light bg-light justify-content-between">
     <a class="navbar-brand">{{navbarHeader}}</a>
@@ -24,7 +27,7 @@
     </thead>
     <tr ng-repeat="league in leagues| filter: LeagueSelect">
         <a ng-href="#!/league/{{league.lid}}">
-            <td><a ng-href="#!/league/{{league.lid}}">{{league.leaguename}}{{league.industry}}</a></td>
+            <td><a ng-href="#!/league/{{league.lid}}">{{league.leaguename| limitTo: 20) + (league.description.length > 20 ? '...': '')}}{{league.industry}}</a></td>
             <td><a ng-href="#!/league/{{league.lid}}">{{(league.description | limitTo: 20) + (league.description.length > 20 ? '...': '')}}</a></td>
             <td><a ng-href="#!/league/{{league.lid}}">{{league.pid.length | number}}</a></td>
             <td><a ng-href="#!/league/{{league.lid}}">{{league.startbal | currency }}</a></td>

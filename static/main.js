@@ -761,7 +761,7 @@ stk.controller('NavbarController', ['$scope', function ($scope, $rootScope) {
 }]);
 // Small Controller to ensure that the title of the page is correct
 stk.controller('PageManagerController', ['$scope', '$rootScope', '$location', function ($scope, $rootScope, $location) {
-    $scope.title = "Stock Fanatasy League";
+    $scope.title = "Stock Fantasy League";
 }]);
 //User List Controller
 //Controller on Page that shows the list of all of the users

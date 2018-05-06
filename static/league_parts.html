@@ -1,10 +1,15 @@
+<!-- HTML Template for a Specific League's information including users and leaderboard
+        Written By: Oz Bejerano
+        Tested By: Oz Bejerano
+        Debugged By: Oz Bejerano
+    -->
 <div ng-controller="LeagueController">
     <div>
         <div class="jumbotron jumbotron-fluid header-blue">
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <h1 class="display-4" style="color: #ffffff">{{league.leaguename}}{{league.industry}}</h1>
+                        <h1 class="display-4" style="color: #ffffff">{{league.leaguename | limitTo: 20) + (league.description.length > 20 ? '...': '')}}{{league.industry}}</h1>
                     </div>
                     <div class="col-md-6" ng-if="lid>6">
                         <a ng-href="#!/user/{{owner.uid}}"><span class="float-right"><h1 class="display-4" style="color: #ffffff">
@@ -16,7 +21,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <p class="lead" style="color: #ffffff">{{league.description}}</p>
+                        <p class="lead" style="color: #ffffff">{{league.description | limitTo: 20) + (league.description.length > 20 ? '...': '')}}</p>
                     </div>
                     <div class="col-md-6" ng-if="lid>6">
                         <h5 class="text-right" style="color: #ffffff">Ends on {{league.duration | date}}</h5>

@@ -2,7 +2,7 @@
 <html ng-app="Stock Fantasy League" lang="en">
 
 <head>
-    <!-- Player Info page powered by Angular.js
+    <!-- Integration Testing Page - Contains Angular.js integration tests
         Written By: Oz Bejerano
         Tested By: Oz Bejerano
         Debugged By: Oz Bejerano
@@ -61,12 +61,12 @@
             </div>
         </div>
         <br>
-        <div class="card">
+        <div class="card" ng-controller="UserController">
             <h2 class="card-header">Viewing User Card</h2>
             <div class="card-body">
-                The view below will get the user card for the user with UID 1. As of 4/1, this user is Alexander Chan.
+                The view below will get the user card for the user with UID 1. As of 5/5, this user is {{user.username}}.
                 <br>
-                <div ng-controller="UserController">
+                <div>
                     <div class="card col-sm-4">
                         <img class="card-img-top rounded-circle" style="width:60%;margin:auto" ng-src="{{user.imageurl}}" alt="Card image cap">
                         <div class="card-body">
