@@ -11,7 +11,7 @@ curl -X POST -d "lid=1" localhost:5000/api/user/2/joinLeague
 #any user: get information of user1
 curl -X GET localhost:5000/api/user/1
 
-echo "About to update user! Updating in 2 seconds."
+echo "Updating user! Updating in 2 seconds."
 sleep 2s
 #system: update player 1:
 #example: changes balance to 50k
@@ -27,4 +27,13 @@ curl -X POST -d "update=%7B%22uid%22%3A%201%2C%20%22lid%22%3A%20%5B1%5D%2C%20%22
 curl -X GET localhost:5000/api/user
 #player: get data for stock given ticker
 curl -X GET "localhost:5000/api/stock_data?cmd=getStockData&sym=goog"
+
+#user is given a json string of all questions that will be asked and all information nessesary for trivia show
+curl -X GET localhost:5000/api/league/1/startquiz/1
+
+#simulating user getting a score of 3 on quiz in premade league 1
+curl -X PATCH localhost:5000/api/player/1/correct/3/add
+
+#simulate calculating points at 12:00 AM for ALL users
+curl -X PATCH localhost:5000/api/point/update
 
